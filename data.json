@@ -129,7 +129,7 @@
         "DATE": "2026-08-26T00:00:00.000",
         "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
         "ISSUE AND REQUEST": "长方形小PCB尺寸37*55mm无法识别底部二维码\nThe bottom 2D code cannot be recognized on the small rectangular PCB with dimensions of 37 × 55 mm.",
-        "STATUS": "PENDING",
+        "STATUS": "open",
         "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQBElPCVKyjVTJOO83hsxX7VAftbyvPE5DJ0Z-gNEhxQVO0?e=MYC51h",
         "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00001CcBHhYAN",
         "Release date": "08-26-2026"
@@ -156,7 +156,7 @@
         "DATE": "2026-08-24T00:00:00.000",
         "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
         "ISSUE AND REQUEST": "RH28物料贴装后带回现象\nRH28 component carry-back after placement",
-        "STATUS": "PENDING",
+        "STATUS": "open",
         "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQBwN-Nnf20LQIdwv84B-foAAdhIdogWaoJUc8t8k5YwYvE?e=qAmvqU",
         "CC LINK": "NOT AVAILABLE",
         "Release date": "08-24-2026"
@@ -300,7 +300,7 @@
         "DATE": "2026-08-18T00:00:00.000",
         "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
         "ISSUE AND REQUEST": "Nexim软件删除用户账号时报错\nNEXIM software displays an error when deleting a user account.",
-        "STATUS": "PENDING",
+        "STATUS": "open",
         "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQBzZNwJjediSopCddG7UNUfAX8FDQ33YCA9KqCcmHcLFes?e=V0Rh0X",
         "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00001BSejdYAD",
         "Release date": "08-18-2026"
@@ -372,7 +372,7 @@
         "DATE": "2026-08-10T00:00:00.000",
         "SITE": "MERRY & LUXSHARE (VIET NAM) CO.,LTD]",
         "ISSUE AND REQUEST": "从设备改流向后。4线第三模组（M6III)，2线第七模组(M6III)生产中按了停止后再开起来Mark 点检测偏位，每次需要手动调位置，已反馈FMV 厂商还没解决好\nAfter pressing the Cycle Stop button and then pressing the Start button, the panel stop position not correct, causing the camera to be unable to detect the fiducial marks.",
-        "STATUS": "PENDING",
+        "STATUS": "open",
         "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQAqknF4edX0RrXr-96MKGqsAVU9HYeSmRQcW1H4QUS5Vkk?e=C2P7p4",
         "CC LINK": "NOT AVAILABLE",
         "Release date": "08-10-2026"
@@ -444,7 +444,7 @@
         "DATE": "2026-08-03T00:00:00.000",
         "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
         "ISSUE AND REQUEST": "托盘下面的胶垫会经常脱落\nThe rubber pad underneath the tray frequently comes off.",
-        "STATUS": "PENDING",
+        "STATUS": "open",
         "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQAX17laQ7WqSbgmqwudQTqtAR76miq754Z51DR-YaC6NCk?e=n5KBOE",
         "CC LINK": "https://community.fuji.co.jp/ccrs/500TK000019QJfdYAG",
         "Release date": "08-03-2026"
