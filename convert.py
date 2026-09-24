@@ -8,7 +8,7 @@ df = pd.read_excel(r"C:\Users\quoct\OneDrive - Fuji Machine Asia Pte Ltd\ISSUE L
 df = df[["DATE", "SITE", "ISSUE AND REQUEST", "STATUS", "LOG", "CC LINK"]]
 
 # Format ngày
-df["Release date"] = df["DATE"].dt.strftime("%m-%d-%Y")
+df["DATE"] = df["DATE"].dt.strftime("%m-%d-%Y")
 
 # Convert JSON
 data = json.loads(
