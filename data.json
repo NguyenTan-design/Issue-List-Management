@@ -1,0 +1,677 @@
+[
+    {
+        "DATE": "2026-09-24T00:00:00.000",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "飞达板卡FH2510B0F版本异常很多，FH2510C0F没有问题，FH2510B0F版本的飞达板卡需要更改为FH2510C0F\nThere are many abnormalities with the FH2510B0F version of the feeder board. The FH2510C0F version has no issues.\nTherefore, the FH2510B0F feeder boards need to be replaced with the FH2510C0F version",
+        "STATUS": "MONITORING",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQAIMVEVaOwORI3co8-HP9HiAWGMFqlCOZxo4e2u9g-f_WM",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00000h7LjoYAE",
+        "Release date": "09-24-2026"
+    },
+    {
+        "DATE": "2026-09-15T00:00:00.000",
+        "SITE": "MERRY & LUXSHARE (VIET NAM) CO.,LTD]",
+        "ISSUE AND REQUEST": "NEXIM升级版本3.2.110后优化程式有问题，有的物料吸嘴优化不出来，安装5716补丁也不行\nPerform optimize fail: After upgrading to Nexim 3.2.110, some programs cannot be optimize",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQDm4FbV2rf5TIBwX6oxkpd7Ad2fxORg1UUBZDK7kq57DmM?e=DSPdfI",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00001FwNERYA3",
+        "Release date": "09-15-2026"
+    },
+    {
+        "DATE": "2026-09-15T00:00:00.000",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "双轨生产大板时，轨道宽度太大，轨道传感器信号异常，调整感应器灵敏度时死机\nWhen performing production with paired modules, if the Sensor Adjustment function is used on one module, a module is hang out\n",
+        "STATUS": "open",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQCGBpzYU-x7QJwm387h1DhwAR04kbZqcg9eOs6hr4P4eeM",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00001GPj1wYAD",
+        "Release date": "09-15-2026"
+    },
+    {
+        "DATE": "2026-09-15T00:00:00.000",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "W08T飞达侧盖2MHEFA358203 COVER, WIRING ，使用过程中变形很多，目前D区已经有30个损坏。\nThe W08T feeder side cover, 2MHEFA358203 COVER, WIRING, has experienced significant deformation during use. Currently, 30 units in Area D have already been damaged.",
+        "STATUS": "MONITORING",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQDocMNWPY1fQpYHV_Bcuaj_ATSkdBleMKB-o-axE86QTf0",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "09-15-2026"
+    },
+    {
+        "DATE": "2026-09-08T00:00:00.000",
+        "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
+        "ISSUE AND REQUEST": "客户在针对 RH20 工作头进行生产数据优化时，遇到了吸嘴和杆子（Holder）分配方面的问题。\nThe customer is experiencing issues with nozzle and holder allocation when optimizing production data for the RH20 head.\n",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQAMCYOCnIl7Qo5RufHU1FckATycRb8dXBcSoS6zdHT3m7s?e=AYitGM",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00001EsOuPYAV",
+        "Release date": "09-08-2026"
+    },
+    {
+        "DATE": "2026-09-08T00:00:00.000",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "NXTR新飞达外盖锁紧螺丝（不固定位置）脱落很多，紧固力矩不足、没有打螺丝胶。\nMany screws securing the feeder cover are loose or have come off, causing the covers on the feeder to become detached",
+        "STATUS": "MONITORING",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQC3nG9DIWNVT6wMtbTjbM7WAVxpAXxp0PAOqfU6TqmFGdk",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/s/case/500TK00001HAjCyYAL/detail",
+        "Release date": "09-08-2026"
+    },
+    {
+        "DATE": "2026-09-08T00:00:00.000",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "使用飞达条码搜索是无法跳转到清单 \nWhen using the Feeder ID Search function to search for feeder information, The customer would like to be able to click on the feeder ID in the search box and jump to this feeder ID on the main screen\n",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQDL1oP8YycMT7GgtVaumHaRAZ0YoMBQsoG7HWYi7gRQ1rM",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00001FIEbMYAX",
+        "Release date": "09-08-2026"
+    },
+    {
+        "DATE": "2026-09-08T00:00:00.000",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "双模组是不贴片也没有报警，这个问题只有在双模生产时发生\n2RV module does not place components onto the PCB and no alarm is displayed. The issue only occurs when using the pair module production program\n",
+        "STATUS": "MONITORING",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQAO3omBgG8SR52hanjOULE5AaHeqlK_Kk1JoZ5IDTtehI8",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00001FbGsjYAF",
+        "Release date": "09-08-2026"
+    },
+    {
+        "DATE": "2026-09-03T00:00:00.000",
+        "SITE": "Luxvisions Innovation Technology (Yian) Co., Ltd.]",
+        "ISSUE AND REQUEST": "立景服务器到位后需FMV现场配合安装软件系统\nAfter the Luxvision server is ready, FMV will need to provide on-site support for software system installation\nSet up Linux for server",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQB4E3FRNAvJQa7Tc-JprF9oAUbG2C9JL6tcXabVo_GRSLg?e=rLh5PP",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00001DNnsrYAD",
+        "Release date": "09-03-2026"
+    },
+    {
+        "DATE": "2026-09-03T00:00:00.000",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "优化后的程序，清空机台后使用LCU网页传送到机器报警：863C0000\nWhen optimizing the program from Nexim, clearing all panels in the machines, and then downloading the job to the machines through the LCU, the NXTR machines display the following error:\nError 863C0000: Insert order data mismatch\n",
+        "STATUS": "MONITORING",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQBPlJkEyMp7R4OfGgW1BIEMAZluAafgA6F5jdocfXRkKr0",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00001EUvI3YAL",
+        "Release date": "09-03-2026"
+    },
+    {
+        "DATE": "2026-08-28T00:00:00.000",
+        "SITE": "MERRY & LUXSHARE (VIET NAM) CO.,LTD]",
+        "ISSUE AND REQUEST": "2026年3月2线第一轨GPX二代报Z1轴TABLE报警，代码12056172；\nGPX CS2 error 12056172",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQDqO62dCm3wSI4qQ6B-4qIBAaUF0QaWNqvHrwl92OHei_Q?e=HmCC1J",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-28-2026"
+    },
+    {
+        "DATE": "2026-08-28T00:00:00.000",
+        "SITE": "MERRY & LUXSHARE (VIET NAM) CO.,LTD]",
+        "ISSUE AND REQUEST": "3 线印刷多次报挂到压力停止\nLine 3, GPX-CS lane 2: Cycle alarm Printing Pressure Response(12054041)",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQCbDJLEcqfbR5mLvx8mQiZcAfNO8diP7KWNTMg1Nv9_pbA?e=Xtyd1Z",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-28-2026"
+    },
+    {
+        "DATE": "2026-08-28T00:00:00.000",
+        "SITE": "MERRY & LUXSHARE (VIET NAM) CO.,LTD]",
+        "ISSUE AND REQUEST": "6 线GPX这周建立NEXIM 软件链接系统造成其它程序报错\nAfter connecting to Nexim, some programs cannot be open",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQC5Y6IVeKCiRq7_6r_TlCC0AVwdoZa5p9X0UT7ULph8KmE?e=xZCCsi",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-28-2026"
+    },
+    {
+        "DATE": "2026-08-28T00:00:00.000",
+        "SITE": "MERRY & LUXSHARE (VIET NAM) CO.,LTD]",
+        "ISSUE AND REQUEST": "\nNexim软件挂机·\nThe PC becomes slow or freezes when using the Nexim software.",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQC9UIfNAIoAR7A3q1kWlDSCAQCNdp6feGveB51A6ADLrCM?e=IrSbQh",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-28-2026"
+    },
+    {
+        "DATE": "2026-08-26T00:00:00.000",
+        "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
+        "ISSUE AND REQUEST": "长方形小PCB尺寸37*55mm无法识别底部二维码\nThe bottom 2D code cannot be recognized on the small rectangular PCB with dimensions of 37 × 55 mm.",
+        "STATUS": "PENDING",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQBElPCVKyjVTJOO83hsxX7VAftbyvPE5DJ0Z-gNEhxQVO0?e=MYC51h",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00001CcBHhYAN",
+        "Release date": "08-26-2026"
+    },
+    {
+        "DATE": "2026-08-26T00:00:00.000",
+        "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
+        "ISSUE AND REQUEST": "传程序使用LCU报警，需要使用nexim传\nAlarm occurs when transferring the program via LCU; the program needs to be transferred through NEXIM instead.",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQCw3zvUbqNCTrSOi4YtJP2uAd_YSJrEvppfHgBhqtySrBM?e=DJ1Hbd",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-26-2026"
+    },
+    {
+        "DATE": "2026-08-26T00:00:00.000",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "生产过程中与 LCU 失去连接，出现以下错误：\n“There is no connection with the destination, causing the termination of processing. (Error 61C2)\n与目标设备无法建立连接，导致当前处理终止。（错误代码：61C2)\"\nDuring production, the connection with the LCU was lost, and the following error occurred:\n“There is no connection with the destination, causing the termination of processing. (Error 61C2)”\nThe connection with the target device could not be established, causing the current process to be terminated. (Error Code: 61C2)\n",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQAx9hKCxp7cQbquSGSTIcWYAQw499Gw21qzkHTWsJUtI8M",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-26-2026"
+    },
+    {
+        "DATE": "2026-08-24T00:00:00.000",
+        "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
+        "ISSUE AND REQUEST": "RH28物料贴装后带回现象\nRH28 component carry-back after placement",
+        "STATUS": "PENDING",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQBwN-Nnf20LQIdwv84B-foAAdhIdogWaoJUc8t8k5YwYvE?e=qAmvqU",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-24-2026"
+    },
+    {
+        "DATE": "2026-08-24T00:00:00.000",
+        "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
+        "ISSUE AND REQUEST": "RH08 LED物料贴装后带回现象\nRH08 LED Component Carry-Back After Placement",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQClQkKzxCDFQIozz_NzeSMhAfDBhSpah8CbbqWsqxwV4J4?e=d3cAwv",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-24-2026"
+    },
+    {
+        "DATE": "2026-08-24T00:00:00.000",
+        "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
+        "ISSUE AND REQUEST": "机器调试页面不方便\nMachine Debugging Interface Is Inconvenient",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQBWzciWEwNvR5vVW54Y8VSOAS02o4KeN9zRgQ_BOU2eZNw?e=FcmhEh",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-24-2026"
+    },
+    {
+        "DATE": "2026-08-24T00:00:00.000",
+        "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
+        "ISSUE AND REQUEST": "NEXIM软件修改数据后无法保存，时不时会报错,需要关闭软件,再重新打开，且数据需要重新保存\nNEXIM Data Cannot Be Saved After Modification; Intermittent Errors Occur",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQAqdbqMnK5KQraMjE3fDgP4AbYTFij7C_d6OMbAiPdkWTM?e=YUnSLC",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-24-2026"
+    },
+    {
+        "DATE": "2026-08-24T00:00:00.000",
+        "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
+        "ISSUE AND REQUEST": "工作头必须配置满吸嘴才能进行优化,存在不合理性\nWork Head Must Be Fully Configured with Nozzles Before Optimization",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQDupLWMyiASTIVghq_QJZUTAU0NiOqK1ESitgLANSCWNIc?e=BBfW7b",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-24-2026"
+    },
+    {
+        "DATE": "2026-08-24T00:00:00.000",
+        "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
+        "ISSUE AND REQUEST": "V1-01线1模组飞达异常报警\nLine V1-01, Module 1: Feeder abnormal alarm.",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQBQqSo9gkAhQLo_gadcY14qARlw_VbFmLF0T4dC2RNEu-c?e=D7iUxd",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-24-2026"
+    },
+    {
+        "DATE": "2026-08-24T00:00:00.000",
+        "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
+        "ISSUE AND REQUEST": "V1-02线3模组异常死机\nV1-02 Line, Module 3 – Abnormal System Freeze",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQAAD4-m8SaLTaAEYdZKPndIAQuNMB3l0Qh3hkqEqxHE_SM?e=9C2cuB",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK000019uCnBYAU",
+        "Release date": "08-24-2026"
+    },
+    {
+        "DATE": "2026-08-24T00:00:00.000",
+        "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
+        "ISSUE AND REQUEST": "VS1-03新线体传程序时模组上显示站位与程序不相符，需重新关机重启模组\nVS1-03 New Line – Module station numbers displayed on the module did not match the program during program transfer, requiring the module to be shut down and restarted.",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQD3kVFlUxLBSZk8YG0l6MJpAe9y8RF0b57mjSwpGKu01bs?e=3cvidJ",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-24-2026"
+    },
+    {
+        "DATE": "2026-08-24T00:00:00.000",
+        "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
+        "ISSUE AND REQUEST": "RH28-RH20-RH08-RH02工作头频繁异常需维修\nRH28, RH20, RH08, and RH02 heads are experiencing frequent abnormalities and require maintenance.",
+        "STATUS": "MONITORING",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQCNQYNsSaL5QLphdMmgKJ5bAWJS24JSb1cLHysVUOWM1GM?e=ZI6bNt",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-24-2026"
+    },
+    {
+        "DATE": "2026-08-24T00:00:00.000",
+        "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
+        "ISSUE AND REQUEST": "生产调机时，在机器更改数据时，经常有保存死机现象，需要重启\nDuring production setup, the machine frequently freezes when saving data after making changes, requiring a restart.",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQCkOtAgnwLDSqdJyQS2tzFYAQHndH5J2RbXLb05y_t3wos?e=kqNmOK",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-24-2026"
+    },
+    {
+        "DATE": "2026-08-24T00:00:00.000",
+        "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
+        "ISSUE AND REQUEST": "贴片机偶尔出现机器报错，不能同时在两个模组进行编辑，实际只在一台机编辑，此异常不能复位，需要重启LCU和线控才能消除报警\nOccasional machine error on the placement machine:\nThe system cannot perform editing simultaneously on two modules, even though editing is actually being performed on only one module. The alarm cannot be reset and requires restarting the LCU and Line Control to clear the error.\n",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQD8AWPmYYmzR76QME0hW7-KAebLOWnAlRY4JZI4KXQawB0?e=z95InS",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-24-2026"
+    },
+    {
+        "DATE": "2026-08-24T00:00:00.000",
+        "SITE": "Luxvisions Innovation Technology (Yian) Co., Ltd.]",
+        "ISSUE AND REQUEST": "工作头贴装压力测试\nPlacement head placement pressure test",
+        "STATUS": "MONITORING",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQBLLZTTT_E2S4rxqzWY4hGXAcau7suWrnCsQc2DipEhSd8?e=4P3grV",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-24-2026"
+    },
+    {
+        "DATE": "2026-08-24T00:00:00.000",
+        "SITE": "Luxvisions Innovation Technology (Yian) Co., Ltd.]",
+        "ISSUE AND REQUEST": "LCR功能设备要验证测试和生产用起来\nThe LCR function needs to be validated and put into production use.",
+        "STATUS": "MONITORING",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQDykeAGdsEMTKo7bxBDqDM8AXt0uJnzqvp8ns5RYaHCpjk?e=6QPjLR",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-24-2026"
+    },
+    {
+        "DATE": "2026-08-24T00:00:00.000",
+        "SITE": "Luxvisions Innovation Technology (Yian) Co., Ltd.]",
+        "ISSUE AND REQUEST": "FMV支援现场生产一个月\nFMV to provide one month of on-site production support",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQDz8_7xlCxcR6Kc3AncAYRgAY-sKOgtG6rK-LXga9RdAvA?e=cdLUpF",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-24-2026"
+    },
+    {
+        "DATE": "2026-08-24T00:00:00.000",
+        "SITE": "Luxvisions Innovation Technology (Yian) Co., Ltd.]",
+        "ISSUE AND REQUEST": "1R模组3D功能测试\n1R Module 3D Function Testing",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQAXEAd2FhTASZD-Gftku_kXASn6cdz8clI2sY6NSeEtw7g?e=DOcOcJ",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-24-2026"
+    },
+    {
+        "DATE": "2026-08-20T00:00:00.000",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "OCPU 操作异常：客户工程师反馈，在操作过程中经常发生料带卡住的问题，导致飞达错并无法正常运行。\n**OCPU Operation Abnormality:**\nThe customer's engineer reported that the tape frequently gets stuck during operation, causing feeder errors and preventing the feeder from operating normally.",
+        "STATUS": "MONITORING",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQDumXPiEZEaR4HWQA-QV6CqAWqCAC4FwUw8O9G6XOycT9k",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00001CiDv3YAF",
+        "Release date": "08-20-2026"
+    },
+    {
+        "DATE": "2026-08-18T00:00:00.000",
+        "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
+        "ISSUE AND REQUEST": "Nexim软件删除用户账号时报错\nNEXIM software displays an error when deleting a user account.",
+        "STATUS": "PENDING",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQBzZNwJjediSopCddG7UNUfAX8FDQ33YCA9KqCcmHcLFes?e=V0Rh0X",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00001BSejdYAD",
+        "Release date": "08-18-2026"
+    },
+    {
+        "DATE": "2026-07-03T00:00:00.000",
+        "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
+        "ISSUE AND REQUEST": "一轨生产，二轨不生产，但是二轨不会自动过板需要一轨生产完才能过板\nSingle-lane production: Lane 1 is running production while Lane 2 is not. However, Lane 2 cannot automatically transfer the PCB and must wait until Lane 1 completes production before the PCB can be transferred.\n",
+        "STATUS": "MONITORING",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQCrM3XILze8Srh34pQTA1BPAVn3dDxESqe3B88aOnxaC2k?e=ZQNEf8",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK000014v5gCYAQ",
+        "Release date": "07-03-2026"
+    },
+    {
+        "DATE": "2026-08-17T00:00:00.000",
+        "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
+        "ISSUE AND REQUEST": "使用双模组出现等待板现象\nWhen using dual modules, a “waiting for PCB” condition occurs.",
+        "STATUS": "MONITORING",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQCApnDoeYeERoweSaXlboE2AToZYM5C5KENLvR2OJJ8iLw?e=aaZfbH",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00001BNfTXYA1",
+        "Release date": "08-17-2026"
+    },
+    {
+        "DATE": "2026-08-13T00:00:00.000",
+        "SITE": "MERRY & LUXSHARE (VIET NAM) CO.,LTD]",
+        "ISSUE AND REQUEST": "8.12提出印刷机看版制作\nOn August 12, a request was submitted to create a monitoring dashboard for the printer.",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQATQLdC0xzDSKwD9BY5SUfvAfW77I4DzwgaPAVZZlb3CWE?e=MU95IJ",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-13-2026"
+    },
+    {
+        "DATE": "2026-08-13T00:00:00.000",
+        "SITE": "MERRY & LUXSHARE (VIET NAM) CO.,LTD]",
+        "ISSUE AND REQUEST": "GPX二代频繁报D53E\nCamera error D53E",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQB7_KMx8FQjTLnzzMe-DtO0AQMtI9T0UrmGjKmxdZi4LmA?e=8jbuzi",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-13-2026"
+    },
+    {
+        "DATE": "2026-08-13T00:00:00.000",
+        "SITE": "MERRY & LUXSHARE (VIET NAM) CO.,LTD]",
+        "ISSUE AND REQUEST": "2026年8月8线第一轨GPX一代印刷机报Z1轴TABLE报警\nIn August 2026, the Line 8 lane 1  GPX CS printeroccur a Z1-axis TABLE alarm.",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQBO67r85LjYS5DhEVK4kUgCAQW4-da3_s8w8f_Ye_l6jac?e=rOtogu",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-13-2026"
+    },
+    {
+        "DATE": "2026-08-10T00:00:00.000",
+        "SITE": "MERRY & LUXSHARE (VIET NAM) CO.,LTD]",
+        "ISSUE AND REQUEST": "8月初异常一线第2模组二轨换线轨道宽度55mm ,轨道宽度调窄过程中报异常，因宽度小55mm贴片之前没有机型打过\nAt the beginning of August, an issue occurred on Line 1, Module 2, Lane 2 while changing the conveyor rail. The rail width was 55 mm, and an error occurred when narrowing the rail width. Since the width was less than 55 mm, no machine model had previously run production at this width.",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQCaMW54B2-jRIoN4LF4zPUTAfila8PmPbKhO5AOIVAlZCE?e=wWdBaQ",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-10-2026"
+    },
+    {
+        "DATE": "2026-08-10T00:00:00.000",
+        "SITE": "MERRY & LUXSHARE (VIET NAM) CO.,LTD]",
+        "ISSUE AND REQUEST": "8月初异常一线3模组 8站位飞达接触不良， \nAn issue occurred on Line 1, Module 3: the feeder at Station 8 had poor contact.",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQC6uJOvICZwQ6ONlLnQLW8OAexPWcJgJAKoUFXoAWpdJ2I?e=X3cKNa",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-10-2026"
+    },
+    {
+        "DATE": "2026-08-10T00:00:00.000",
+        "SITE": "MERRY & LUXSHARE (VIET NAM) CO.,LTD]",
+        "ISSUE AND REQUEST": "从设备改流向后。4线第三模组（M6III)，2线第七模组(M6III)生产中按了停止后再开起来Mark 点检测偏位，每次需要手动调位置，已反馈FMV 厂商还没解决好\nAfter pressing the Cycle Stop button and then pressing the Start button, the panel stop position not correct, causing the camera to be unable to detect the fiducial marks.",
+        "STATUS": "PENDING",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQAqknF4edX0RrXr-96MKGqsAVU9HYeSmRQcW1H4QUS5Vkk?e=C2P7p4",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-10-2026"
+    },
+    {
+        "DATE": "2026-08-10T00:00:00.000",
+        "SITE": "MERRY & LUXSHARE (VIET NAM) CO.,LTD]",
+        "ISSUE AND REQUEST": "从2025年5月开始NEXIM软件(V3.2.21)生产报告部分线体没有资料，已多次反馈FMV 厂商还没解决好.\nThere is no data in the Report function in Nexim",
+        "STATUS": "MONITORING",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQCYTmQJcGnCSJsEVOg_cO-NASfX71xFe_Te24xbyLvwasI?e=ccn5af",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK000012ImR7YAK",
+        "Release date": "08-10-2026"
+    },
+    {
+        "DATE": "2026-08-10T00:00:00.000",
+        "SITE": "MERRY & LUXSHARE (VIET NAM) CO.,LTD]",
+        "ISSUE AND REQUEST": "2025年5月开始Nexim软件生产监视器（看板）显示生产数量为0，且程序名不对，需要重启SQL服务，且问题反复；\nThe Nexim Production Monitor (dashboard) has displayed a production quantity of 0 and an incorrect program name. Restarting the SQL service is required to restore normal operation, but the issue continues to reoccur.",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQD4soech5IDR5-CP71AkGU8AVZ0BilbOw2kd-UbuTV9o4w?e=zzBy9k",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-10-2026"
+    },
+    {
+        "DATE": "2026-08-10T00:00:00.000",
+        "SITE": "MERRY & LUXSHARE (VIET NAM) CO.,LTD]",
+        "ISSUE AND REQUEST": "程式JOB简易版AVL显示错误问题\nIssue with incorrect AVL display in the simplified version of the JOB program.",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQBCJli1k-8-SZSqJ0wlWgGwAbGHI5NQuyeTeRulo9Xnwo0?e=lq5GBN",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-10-2026"
+    },
+    {
+        "DATE": "2026-08-10T00:00:00.000",
+        "SITE": "MERRY & LUXSHARE (VIET NAM) CO.,LTD]",
+        "ISSUE AND REQUEST": "彭工在群里面提出的手动固定模组优化\nThe factory engineer would like to use the “Optimize This Module” function.",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQAeFK-A5u9lQqS-f_M_OfPjAfZuWTPKyHbg8uICrhqXOYw?e=6K8Yck",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-10-2026"
+    },
+    {
+        "DATE": "2026-08-10T00:00:00.000",
+        "SITE": "MERRY & LUXSHARE (VIET NAM) CO.,LTD]",
+        "ISSUE AND REQUEST": "Nexim软件卡死或闪退\nNexim software freezes or crashes unexpectedly",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQAPqCNz6qwWSqg1eHuirmmxAdoyj0GTxz3gNuG2Wlx8C2Y?e=SHezwZ",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-10-2026"
+    },
+    {
+        "DATE": "2026-08-10T00:00:00.000",
+        "SITE": "MERRY & LUXSHARE (VIET NAM) CO.,LTD]",
+        "ISSUE AND REQUEST": "多拼板程式，不能单独修改某一PCS坐\nFor multi-panelized programs, it is not possible to modify the coordinates of a single PCS independently",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQDp8WSKoM8OS6AyDMzsVQxGAfBmcyIbRD7M04BE9v53EYE?e=rQ08jC",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-10-2026"
+    },
+    {
+        "DATE": "2026-08-10T00:00:00.000",
+        "SITE": "MERRY & LUXSHARE (VIET NAM) CO.,LTD]",
+        "ISSUE AND REQUEST": "将GPX印刷机建立到NEXIM系统布局问题\nIssue with adding the GPX printer to the NEXIM system layout.",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQA1OpcMs_wxS6xa0C-EMF1eAVQ55XXlGYoobERSJjv9vxw?e=2q3KyA",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-10-2026"
+    },
+    {
+        "DATE": "2026-08-03T00:00:00.000",
+        "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
+        "ISSUE AND REQUEST": "托盘下面的胶垫会经常脱落\nThe rubber pad underneath the tray frequently comes off.",
+        "STATUS": "PENDING",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQAX17laQ7WqSbgmqwudQTqtAR76miq754Z51DR-YaC6NCk?e=n5KBOE",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK000019QJfdYAG",
+        "Release date": "08-03-2026"
+    },
+    {
+        "DATE": "2026-08-03T00:00:00.000",
+        "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
+        "ISSUE AND REQUEST": "V1-02 模组1，真空泵报错 0001204，0001203\nV1-02 Line, Module 1 – Vacuum errors 0001204 and 0001203.",
+        "STATUS": "MONITORING",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQBbGXYxPUUBQZBaNHtBn1S8ATdMt7yyWeSnyYkQuwLC_eo?e=VFQ2EI",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK000019Yme1YAC",
+        "Release date": "08-03-2026"
+    },
+    {
+        "DATE": "2026-08-03T00:00:00.000",
+        "SITE": "Luxvisions Innovation Technology (Yian) Co., Ltd.]",
+        "ISSUE AND REQUEST": "1R模组3D功能配件未安装\n1R module 3D function accessories have not been installed",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQCiV2pbtNzqRa3IRXFuNWFDAV2sT4I8-SLFZzqEVfd_qBQ?e=Ope1AV",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-03-2026"
+    },
+    {
+        "DATE": "2026-08-03T00:00:00.000",
+        "SITE": "Luxvisions Innovation Technology (Yian) Co., Ltd.]",
+        "ISSUE AND REQUEST": "物料未及时下线，更新太慢！\nMaterials are not removed from the line in a timely manner, resulting in slow updates",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQC-yHYOJrgISpJV3YrXVSNzAQxVeSnzha6SyJPb6oR7f-s?e=BFsVxZ",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-03-2026"
+    },
+    {
+        "DATE": "2026-08-03T00:00:00.000",
+        "SITE": "Luxvisions Innovation Technology (Yian) Co., Ltd.]",
+        "ISSUE AND REQUEST": "二线1R模组生产完成后出板延迟,分析为PCB生产完成后上传数据至MES系统慢导致\nBoard output is delayed after production is completed on the 1R module of Line 2. The analysis indicates that the delay is caused by slow data uploading to the MES system after PCB production is completed",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQDhAojiCMDHRaqOp0aa9wcQAX62DOVZ8GDYcZvcFHqYAFE?e=tDw3zW",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-03-2026"
+    },
+    {
+        "DATE": "2026-08-03T00:00:00.000",
+        "SITE": "Luxvisions Innovation Technology (Yian) Co., Ltd.]",
+        "ISSUE AND REQUEST": "NXTR模组停机一段时间后出现按键无反应死机现象，重启后正常\nAfter the NXTR module has been idle for a period of time, the control buttons become unresponsive and the system freezes. The system returns to normal after restarting",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQB9LgAPjPrKSJ4NzKcGojkyAfA2-YLz1GVV46MY48ypJx4?e=Vwt3gC",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-03-2026"
+    },
+    {
+        "DATE": "2026-08-03T00:00:00.000",
+        "SITE": "Luxvisions Innovation Technology (Yian) Co., Ltd.]",
+        "ISSUE AND REQUEST": "MFU料架隔断片未配齐,一台MFU-52托架无隔断片\nMFU rack divider plates are incomplete; one MFU-52 tray is missing divider plates.",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQB1mqn4-OaNQZCuPaVWNiiQAQfD0ZaqjqShhRBFNmQJ-XU?e=THk3aj",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-03-2026"
+    },
+    {
+        "DATE": "2026-08-03T00:00:00.000",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "NXTR在线编辑程序资料，设备反应迟钝，极易死机、卡顿、蓝屏（对吸料位置、调整参数、调试影像、tray吸取位置校正）不能快速进行操作，影响生产效率。\nOperations such as adjusting component pickup positions, parameter settings, image calibration, and Tray pickup positions cannot be performed quickly, which affects production efficiency.",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQCcEKPQGL3TTLxSJ57G_L0nAS-0sUtQheOMPH181MqpaKA",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-03-2026"
+    },
+    {
+        "DATE": "2026-08-03T00:00:00.000",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "设备卡死重启设备程序掉落，无法单独传单个模组程序（1.前面产品全部拿出清除后重新传程序；\n2.拿出问题模组产品清洗，开始生产那个模组那个模组自动调取程序，线体产品生产完毕后在全部传程序。）\nWhen the equipment freezes and needs to be restarted, the program is lost, and it is not possible to transfer the program to a single module separately.Action:\n1. Remove and clear all products from the previous production, then transfer the program again.\n1. Remove and clean the products from the affected module. When production starts, the affected module will automatically call up its program. After all products on the line have been completed, transfer the programs to all modules again.",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQC86jTGDfxzQYuLz62cBq4fAbcLvFGAMa3GS0w0DrMVohI",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-03-2026"
+    },
+    {
+        "DATE": "2026-08-03T00:00:00.000",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "针对RH02头，程序优化检查无异常，传程序到设备后报错8DC5动作范围异常（程序Rail Distance：正常设置280mm，报错设置：610mm）\nFor the RH02 head, the program optimize check showed no abnormalities. However, after transmit job to machines , error 8DC5 – Operation Range Abnormal occurred.\nRail Distance in the program: Normally set to 280 mm\nRail Distance when the error occurred: 610 mm",
+        "STATUS": "open",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQBAZF-8BZ0UQIXVdFeYwDGPAckkgAt3B34u1LSR_Aq_Vtw",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00001AvDbnYAF",
+        "Release date": "08-03-2026"
+    },
+    {
+        "DATE": "2026-08-03T00:00:00.000",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "程序设置进板方向后无法根据设备显示图像调整坐标，调整坐标实际为未设置进板方向前的坐标（例如进板方向设置180°在设备上调试坐标时X需像反方向调试）\nAfter setting the PCB input direction in the program, the coordinates cannot be adjusted according to the image displayed on the equipment. The coordinate adjustment is still based on the coordinates before the PCB input direction was set.\n\nFor example, when the PCB input direction is set to 180°, the X-coordinate must be adjusted in the opposite direction when adjusting the coordinates on the equipment",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQD96n1ozLp8QJPBUyPR8UMrAVTB--DtxE_SbQ-JkK4THvE?e=OM2seD",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00001ChFagYAF",
+        "Release date": "08-03-2026"
+    },
+    {
+        "DATE": "2026-08-03T00:00:00.000",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "所有机台&吸嘴清洗机在更换吸嘴或给出下吸嘴指令时都存在误识别将空位置识别为有吸嘴，从而导致报错8F5D0000（吸嘴返回时，没有可以收存该吸嘴的存放格）All machines and SNC have a misrecognition issue when replacing nozzles or issuing a nozzle-down command. An empty slot may be incorrectly detected as occupied by a nozzle, resulting in error 8F5D0000: “When returning the nozzle, there is no available storage slot to store the nozzle.”",
+        "STATUS": "open",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQAWVXaDcMi_SZMHrC1rwP2YAV6XRgF1jhI-bGLY5BEiWI8",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00001B4Q8OYAV",
+        "Release date": "08-03-2026"
+    },
+    {
+        "DATE": "2026-08-03T00:00:00.000",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "1、4线生产胶膜板时报警:80001909，Z轴的目的地超出移动范围,检查程式参数6-2/6-5站元件高度超过2RV上限3mm；\n2、元件高度超限优化程序时未报错。\nWhen performing program optimization, the software does not detect components with a height exceeding 3 mm on the 2RV module.",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQCpNcMRRli0SpW_UPOJlLVqASO2n-wVc3Zldx36KMl7Iig",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK000019YLduYAG",
+        "Release date": "08-03-2026"
+    },
+    {
+        "DATE": "2026-08-03T00:00:00.000",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "PCB进设备时蓝屏\nBlue screen occurs when the PCB enters the machine",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQBYxMyPcAIzRp5aR9Siy5AHAcWwfZuXNT2r6yfA9bP5t5c",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK000019uCnBYAU",
+        "Release date": "08-03-2026"
+    },
+    {
+        "DATE": "2026-08-03T00:00:00.000",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "反应程序后，相邻模组报错Job的下载日期不一致，需要重新反应程序才能恢复生产。\nAfter the program is transferred, the adjacent module reports an error indicating that the Job download dates are inconsistent. The program must be transferred again before production can resume.",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQCQHfWh_VH6RrPSSraUdsKiAfhi49EH_zJ0Mo7_OjyyLlQ",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-03-2026"
+    },
+    {
+        "DATE": "2026-08-03T00:00:00.000",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "Tray-M模組报警停止/手动停止后重新开始，需要重新扫码上料（TRAY开防错料系统)\nWhen the Tray-M module stops due to an alarm or is manually stopped, after pressing the Start button, it is necessary to re-verify the components for Tray-M",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQBukitIkCHyQraGgDgqLuisAU6GGxoCYGQ85Cs3FvuvCfs",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK0000186IjYYAU",
+        "Release date": "08-03-2026"
+    },
+    {
+        "DATE": "2026-08-03T00:00:00.000",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "NXTR在线编辑程序资料只有一个权限，不能同时2个人以上进行操作，否则设备报错，换线影响生产效率。\nFor NXTR when edit job on machine, only one user is allowed to access the program data at a time. If two or more users operate it simultaneously, the equipment will report an error, and switching production lines is required, which affects production efficiency.",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQDWhN3pT7RLT5RsOEOFI77EASoH3NH8gj7FOWMDhYh6SDo",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-03-2026"
+    },
+    {
+        "DATE": "2026-08-03T00:00:00.000",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "NXT III&NXTR程序无法共用（需要重新调整影像和置件高度）\nNXT III and NXTR programs are not compatible with each other and cannot be shared directly(The image settings and placement height need to be readjuste)",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQDjsT9v0kGVTp6rdUUhD_CWAYbfR9nXslHX7MqjirBTVDs",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-03-2026"
+    },
+    {
+        "DATE": "2026-08-03T00:00:00.000",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "Nexim软件之前上线生产过的程序，双模生产的程序未做任何改动，正常固定站位及吸嘴优化报错\nAn error occurs when re-optimizing a paired-module program that is being used on another production line.",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQAvawl7P_vRSbl9P08sdKQNAakkDQJPG_4u0E5iVtMKDBY",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-03-2026"
+    },
+    {
+        "DATE": "2026-08-03T00:00:00.000",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "Nexim软件程序换线如果有之前固定站位的，选线后就会报错，必须把报错物料手动固定站位后才能选线正产分配。优化的时候不固定也会报错。\nWhen performing program optimization, some feeder positions must be fixed in advance; otherwise, an error will occur requiring those feeder positions to be fixed.",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQCvWqerhtRbQ5kt3jGok1d3AbmT-Igc6_YyTZbAi6-Fqa4",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-03-2026"
+    },
+    {
+        "DATE": "2026-08-03T00:00:00.000",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "Nexim软件优化程序时物料高度超RH20和RH28头极限高度，不会报错程序正常优化上传设备生产，生产中会抹板飞件（问题严重优先处理）\nWhen optimize a program in Nexim, if the component height exceeds the allowable limit of the RH20 and RH28 heads, the software does not report an error",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQAwP2SqKPu5Q7Ww6fk7odoNAWJFBdSKW7U2F7UTkUaO34g",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK000019YLduYAG",
+        "Release date": "08-03-2026"
+    },
+    {
+        "DATE": "2026-08-03T00:00:00.000",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "垃圾箱底部镂空设计，承载边易变形脱落。\nComplaint regarding the quality of the waste bins.",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQDDow-t6jwpQ5nl_XoOTXcVAfUOFl-Mps-V2VeC93ytG54",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-03-2026"
+    },
+    {
+        "DATE": "2026-08-03T00:00:00.000",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "W08T feeder容易损坏板卡，板卡更换频率高，目前已损坏板卡：130块\nThe 08T feeder is prone to damaging the circuit boards, resulting in a high frequency of board replacements. Currently, 130 circuit boards have been damaged",
+        "STATUS": "MONITORING",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQAgB6cQSLYPSpaUOJ_-XrCgAWZly_UYh70Lj7RXUP9ATmk",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00000h7LjoYAE",
+        "Release date": "08-03-2026"
+    },
+    {
+        "DATE": "2026-08-03T00:00:00.000",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "1.工作头易撞坏，目前已撞坏工作头13个工作头，送FMV厂商维修的6个；\n2.设备无防止工作头撞头防护措施（如：feeder翘起对射感应器）\nFeedback regarding the issue of the head being prone to collision during component placement.",
+        "STATUS": "MONITORING",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQDkih4ZmWTPTqv3-XSMjjUyAcDnUmB4rkMCQP-EBmCUsjE",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00001C9Z0kYAF",
+        "Release date": "08-03-2026"
+    },
+    {
+        "DATE": "2026-08-03T00:00:00.000",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "生产屏蔽罩物料抛料率高，良率底。\nPoor placement quality for shield components.",
+        "STATUS": "MONITORING",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQD_RtM4CxMET6um60itzWc7Ae4da_lhNtBrunGLv2o8bwo",
+        "CC LINK": "NOT AVAILABLE",
+        "Release date": "08-03-2026"
+    },
+    {
+        "DATE": "2026-06-02T00:00:00.000",
+        "SITE": "Luxvisions Innovation Technology (Yian) Co., Ltd.]",
+        "ISSUE AND REQUEST": "TVR功能不能有效检测元件本体丝印\nTVR function cannot effectively detect the component body marking",
+        "STATUS": "Closed",
+        "MEMORY": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQDW4eB5FnzES7N6cbcdn4QyAUZBtPxVFx1vYkCi2HHVXJY?e=wAjsnF",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00000zurhdYAA",
+        "Release date": "06-02-2026"
+    }
+]
