@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Issue List Management</title>
+<title>Issue List</title>
 
 <style>
     * {
@@ -23,6 +23,7 @@
     body {
         min-height: 100vh;
     }
+
 
     /* =========================
        HEADER
@@ -46,6 +47,7 @@
         font-weight: bold;
         margin-bottom: 12px;
     }
+
 
     /* =========================
        SEARCH
@@ -74,6 +76,7 @@
         box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
     }
 
+
     /* =========================
        FILTER BUTTONS
        ========================= */
@@ -93,8 +96,6 @@
         font-weight: bold;
         cursor: pointer;
         transition: 0.15s;
-        background: #e5e7eb;
-        color: #222;
     }
 
     .filter-btn:hover {
@@ -103,31 +104,113 @@
     }
 
     .filter-btn.active {
-        outline: 3px solid rgba(0, 0, 0, 0.15);
+        outline: 3px solid rgba(0, 0, 0, 0.18);
         transform: translateY(-1px);
     }
+
+
+    /* =========================
+       BU FILTER
+       ========================= */
 
     .bu-btn {
         background: #1976d2;
         color: white;
     }
 
+
+    /* =========================
+       STATUS FILTER
+       ========================= */
+
+    .status-filter-btn {
+        color: white;
+    }
+
+    .open-case-btn {
+        background: #198754;
+    }
+
+    .close-case-btn {
+        background: #6c757d;
+    }
+
+    .monitoring-case-btn {
+        background: #d97706;
+    }
+
+
+    /* =========================
+       CLEAR
+       ========================= */
+
     .clear-btn {
         background: #d32f2f;
         color: white;
     }
+
+
+    /* =========================
+       PAGINATION TOP
+       ========================= */
+
+    .pagination-top {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 10px;
+        flex-wrap: wrap;
+        background: #ffffff;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .page-btn {
+        border: 1px solid #bbb;
+        background: white;
+        border-radius: 5px;
+        padding: 7px 14px;
+        cursor: pointer;
+        font-size: 13px;
+    }
+
+    .page-btn:hover:not(:disabled) {
+        background: #eee;
+    }
+
+    .page-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+
+    .page-info {
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+
+    /* =========================
+       RECORD COUNT
+       ========================= */
+
+    .record-info {
+        margin: 10px 20px 0 20px;
+        font-size: 13px;
+        color: #555;
+    }
+
 
     /* =========================
        TABLE
        ========================= */
 
     .table-container {
-        margin: 15px 20px 0 20px;
+        margin: 10px 20px 0 20px;
         background: white;
         border: 1px solid #ddd;
         border-radius: 7px;
         overflow: auto;
-        max-height: calc(100vh - 220px);
+        max-height: calc(100vh - 280px);
     }
 
     table {
@@ -164,7 +247,23 @@
         background: #f0f4ff;
     }
 
-    /* Column widths */
+
+    /* =========================
+       OPEN STATUS ROW
+       ========================= */
+
+    tbody tr.open-case-row {
+        background: #d9f2df !important;
+    }
+
+    tbody tr.open-case-row:hover {
+        background: #c8ebd0 !important;
+    }
+
+
+    /* =========================
+       COLUMN WIDTH
+       ========================= */
 
     th:nth-child(1),
     td:nth-child(1) {
@@ -203,6 +302,7 @@
         text-align: center;
     }
 
+
     /* =========================
        STATUS
        ========================= */
@@ -232,14 +332,15 @@
     }
 
     .status-open {
-        background: #cce5ff;
-        color: #004085;
+        background: #198754;
+        color: white;
     }
 
     .status-default {
         background: #e2e3e5;
         color: #383d41;
     }
+
 
     /* =========================
        OPEN BUTTON
@@ -263,54 +364,9 @@
         transform: translateY(-1px);
     }
 
-    /* =========================
-       PAGINATION
-       ========================= */
-
-    .pagination {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-        padding: 14px 10px 20px 10px;
-        flex-wrap: wrap;
-    }
-
-    .page-btn {
-        border: 1px solid #bbb;
-        background: white;
-        border-radius: 5px;
-        padding: 7px 14px;
-        cursor: pointer;
-        font-size: 13px;
-    }
-
-    .page-btn:hover:not(:disabled) {
-        background: #eee;
-    }
-
-    .page-btn:disabled {
-        opacity: 0.4;
-        cursor: not-allowed;
-    }
-
-    .page-info {
-        font-size: 13px;
-        font-weight: bold;
-    }
 
     /* =========================
-       RECORD COUNT
-       ========================= */
-
-    .record-info {
-        margin: 10px 20px 0 20px;
-        font-size: 13px;
-        color: #555;
-    }
-
-    /* =========================
-       LOADING / EMPTY
+       EMPTY / LOADING
        ========================= */
 
     .message {
@@ -319,6 +375,7 @@
         color: #666;
         font-size: 14px;
     }
+
 
     /* =========================
        MOBILE
@@ -353,9 +410,13 @@
             font-size: 12px;
         }
 
+        .pagination-top {
+            padding: 10px 5px;
+        }
+
         .table-container {
             margin: 10px;
-            max-height: calc(100vh - 270px);
+            max-height: calc(100vh - 330px);
         }
 
         .record-info {
@@ -366,23 +427,29 @@
             min-width: 1050px;
         }
     }
+
 </style>
 </head>
 
+
 <body>
 
-<!-- =========================
+
+<!-- =========================================================
      HEADER
-     ========================= -->
+     ========================================================= -->
 
 <div class="header">
+
     <div class="header-inner">
 
         <div class="title">
             Issue List
         </div>
 
-        <!-- Search -->
+
+        <!-- SEARCH -->
+
         <div class="search-area">
 
             <input
@@ -392,24 +459,14 @@
                 oninput="applyFilter()"
             >
 
-            <input
-                type="text"
-                id="searchSite"
-                placeholder="Search Site..."
-                oninput="applyFilter()"
-            >
-
-            <input
-                type="text"
-                id="searchStatus"
-                placeholder="Search Status..."
-                oninput="applyFilter()"
-            >
-
         </div>
 
-        <!-- Filters -->
+
+        <!-- FILTERS -->
+
         <div class="filter-area">
+
+            <!-- BU FILTERS -->
 
             <button
                 class="filter-btn bu-btn"
@@ -432,6 +489,33 @@
                 BU11
             </button>
 
+
+            <!-- STATUS FILTERS -->
+
+            <button
+                class="filter-btn status-filter-btn open-case-btn"
+                id="btnOpenCase"
+                onclick="selectStatus('open')">
+                OPEN CASE
+            </button>
+
+            <button
+                class="filter-btn status-filter-btn close-case-btn"
+                id="btnCloseCase"
+                onclick="selectStatus('closed')">
+                CLOSE CASE
+            </button>
+
+            <button
+                class="filter-btn status-filter-btn monitoring-case-btn"
+                id="btnMonitoringCase"
+                onclick="selectStatus('monitoring')">
+                Monitoring CASE
+            </button>
+
+
+            <!-- CLEAR -->
+
             <button
                 class="filter-btn clear-btn"
                 onclick="clearFilter()">
@@ -441,50 +525,15 @@
         </div>
 
     </div>
-</div>
-
-
-<!-- =========================
-     RECORD INFO
-     ========================= -->
-
-<div class="record-info" id="recordInfo">
-    Loading...
-</div>
-
-
-<!-- =========================
-     TABLE
-     ========================= -->
-
-<div class="table-container">
-
-    <table>
-
-        <thead>
-            <tr>
-                <th>DATE</th>
-                <th>SITE</th>
-                <th>ISSUE AND REQUEST</th>
-                <th>STATUS</th>
-                <th>MEMORY</th>
-                <th>CC LINK</th>
-            </tr>
-        </thead>
-
-        <tbody id="tableBody">
-        </tbody>
-
-    </table>
 
 </div>
 
 
-<!-- =========================
+<!-- =========================================================
      PAGINATION
-     ========================= -->
+     ========================================================= -->
 
-<div class="pagination">
+<div class="pagination-top">
 
     <button
         class="page-btn"
@@ -509,20 +558,88 @@
 </div>
 
 
+<!-- =========================================================
+     RECORD INFO
+     ========================================================= -->
+
+<div
+    class="record-info"
+    id="recordInfo">
+    Loading...
+</div>
+
+
+<!-- =========================================================
+     TABLE
+     ========================================================= -->
+
+<div class="table-container">
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>DATE</th>
+
+                <th>SITE</th>
+
+                <th>ISSUE AND REQUEST</th>
+
+                <th>STATUS</th>
+
+                <th>MEMORY</th>
+
+                <th>CC LINK</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="tableBody">
+        </tbody>
+
+    </table>
+
+</div>
+
+
 <script>
+
 
 /* =========================================================
    GLOBAL VARIABLES
    ========================================================= */
 
 let allData = [];
+
 let filteredData = [];
 
 let currentPage = 1;
 
 const rowsPerPage = 50;
 
+
+/*
+ * Selected BU
+ *
+ * null = all BU
+ */
+
 let selectedBU = null;
+
+
+/*
+ * Selected status
+ *
+ * null = all status
+ * open
+ * closed
+ * monitoring
+ */
+
+let selectedStatus = null;
 
 
 /* =========================================================
@@ -530,7 +647,9 @@ let selectedBU = null;
    ========================================================= */
 
 let BU4Data = [];
+
 let D7Data = [];
+
 let BU11Data = [];
 
 
@@ -545,62 +664,92 @@ async function loadData() {
         const results = await Promise.all([
 
             fetch("data.json"),
+
             fetch("BU4.json"),
+
             fetch("D7.json"),
+
             fetch("BU11.json")
 
         ]);
+
 
         for (const response of results) {
 
             if (!response.ok) {
 
                 throw new Error(
-                    "Failed to load: " + response.url
+                    "Failed to load: " +
+                    response.url
                 );
 
             }
 
         }
 
+
         allData = await results[0].json();
+
         BU4Data = await results[1].json();
+
         D7Data = await results[2].json();
+
         BU11Data = await results[3].json();
 
+
         /*
-         * Sort by DATE descending
-         * Newest issue appears first.
+         * Sort newest first
          */
+
         allData.sort(function(a, b) {
 
-            const dateA = new Date(a["DATE"] || 0);
-            const dateB = new Date(b["DATE"] || 0);
+            const dateA =
+                new Date(a["DATE"] || 0);
+
+            const dateB =
+                new Date(b["DATE"] || 0);
 
             return dateB - dateA;
 
         });
 
+
         filteredData = [...allData];
 
+
         renderTable();
+
 
     } catch (error) {
 
         console.error(error);
 
-        document.getElementById("tableBody").innerHTML = `
+
+        document.getElementById(
+            "tableBody"
+        ).innerHTML = `
+
             <tr>
-                <td colspan="6" class="message">
+
+                <td
+                    colspan="6"
+                    class="message">
+
                     Failed to load data.
                     Please check data.json,
                     BU4.json,
                     D7.json and BU11.json.
+
                 </td>
+
             </tr>
+
         `;
 
-        document.getElementById("recordInfo").textContent =
+
+        document.getElementById(
+            "recordInfo"
+        ).textContent =
             "Data loading error.";
 
     }
@@ -615,8 +764,8 @@ async function loadData() {
 function selectBU(bu) {
 
     /*
-     * Click the same BU button again
-     * to cancel the filter.
+     * Click same button again
+     * to remove BU filter.
      */
 
     if (selectedBU === bu) {
@@ -629,7 +778,9 @@ function selectBU(bu) {
 
     }
 
+
     currentPage = 1;
+
 
     updateBUButtons();
 
@@ -639,28 +790,117 @@ function selectBU(bu) {
 
 
 /* =========================================================
-   UPDATE BU BUTTON STATUS
+   SELECT STATUS
+   ========================================================= */
+
+function selectStatus(status) {
+
+    /*
+     * Click same status button again
+     * to remove status filter.
+     */
+
+    if (selectedStatus === status) {
+
+        selectedStatus = null;
+
+    } else {
+
+        selectedStatus = status;
+
+    }
+
+
+    currentPage = 1;
+
+
+    updateStatusButtons();
+
+    applyFilter();
+
+}
+
+
+/* =========================================================
+   UPDATE BU BUTTONS
    ========================================================= */
 
 function updateBUButtons() {
 
     const buttons = {
 
-        BU4: document.getElementById("btnBU4"),
-        D7: document.getElementById("btnD7"),
-        BU11: document.getElementById("btnBU11")
+        BU4:
+            document.getElementById("btnBU4"),
+
+        D7:
+            document.getElementById("btnD7"),
+
+        BU11:
+            document.getElementById("btnBU11")
 
     };
 
+
     Object.keys(buttons).forEach(function(bu) {
 
-        buttons[bu].classList.remove("active");
+        buttons[bu]
+            .classList
+            .remove("active");
 
     });
 
-    if (selectedBU && buttons[selectedBU]) {
 
-        buttons[selectedBU].classList.add("active");
+    if (
+        selectedBU &&
+        buttons[selectedBU]
+    ) {
+
+        buttons[selectedBU]
+            .classList
+            .add("active");
+
+    }
+
+}
+
+
+/* =========================================================
+   UPDATE STATUS BUTTONS
+   ========================================================= */
+
+function updateStatusButtons() {
+
+    const buttons = {
+
+        open:
+            document.getElementById("btnOpenCase"),
+
+        closed:
+            document.getElementById("btnCloseCase"),
+
+        monitoring:
+            document.getElementById("btnMonitoringCase")
+
+    };
+
+
+    Object.keys(buttons).forEach(function(status) {
+
+        buttons[status]
+            .classList
+            .remove("active");
+
+    });
+
+
+    if (
+        selectedStatus &&
+        buttons[selectedStatus]
+    ) {
+
+        buttons[selectedStatus]
+            .classList
+            .add("active");
 
     }
 
@@ -679,17 +919,20 @@ function getBUValue(bu) {
 
     }
 
+
     if (bu === "D7") {
 
         return D7Data[0] || "";
 
     }
 
+
     if (bu === "BU11") {
 
         return BU11Data[0] || "";
 
     }
+
 
     return "";
 
@@ -709,37 +952,32 @@ function applyFilter() {
             .trim()
             .toLowerCase();
 
-    const siteText =
-        document
-            .getElementById("searchSite")
-            .value
-            .trim()
-            .toLowerCase();
-
-    const statusText =
-        document
-            .getElementById("searchStatus")
-            .value
-            .trim()
-            .toLowerCase();
-
 
     filteredData = allData.filter(function(item) {
 
         const issue =
-            String(item["ISSUE AND REQUEST"] || "")
-                .toLowerCase();
+            String(
+                item["ISSUE AND REQUEST"] || ""
+            ).toLowerCase();
+
 
         const site =
-            String(item["SITE"] || "")
-                .toLowerCase();
+            String(
+                item["SITE"] || ""
+            ).toLowerCase();
+
 
         const status =
-            String(item["STATUS"] || "")
-                .toLowerCase();
+            String(
+                item["STATUS"] || ""
+            )
+            .trim()
+            .toLowerCase();
 
 
-        /* Search Issue */
+        /* =========================
+           SEARCH ISSUE
+           ========================= */
 
         if (
             issueText &&
@@ -751,31 +989,9 @@ function applyFilter() {
         }
 
 
-        /* Search Site */
-
-        if (
-            siteText &&
-            !site.includes(siteText)
-        ) {
-
-            return false;
-
-        }
-
-
-        /* Search Status */
-
-        if (
-            statusText &&
-            !status.includes(statusText)
-        ) {
-
-            return false;
-
-        }
-
-
-        /* BU Filter */
+        /* =========================
+           BU FILTER
+           ========================= */
 
         if (selectedBU) {
 
@@ -783,7 +999,25 @@ function applyFilter() {
                 getBUValue(selectedBU)
                     .toLowerCase();
 
+
             if (!site.includes(buValue)) {
+
+                return false;
+
+            }
+
+        }
+
+
+        /* =========================
+           STATUS FILTER
+           ========================= */
+
+        if (selectedStatus) {
+
+            if (
+                status !== selectedStatus
+            ) {
 
                 return false;
 
@@ -798,6 +1032,7 @@ function applyFilter() {
 
 
     currentPage = 1;
+
 
     renderTable();
 
@@ -816,18 +1051,19 @@ function createOpenButton(value) {
 
     }
 
+
     const link =
         String(value).trim();
 
 
     /*
-     * Do not create button for
-     * NOT AVAILABLE.
+     * NOT AVAILABLE
      */
 
     if (
         link === "" ||
-        link.toUpperCase() === "NOT AVAILABLE"
+        link.toUpperCase() ===
+        "NOT AVAILABLE"
     ) {
 
         return "";
@@ -836,7 +1072,7 @@ function createOpenButton(value) {
 
 
     /*
-     * Only allow HTTP/HTTPS links.
+     * Only HTTP / HTTPS
      */
 
     if (
@@ -849,20 +1085,24 @@ function createOpenButton(value) {
 
 
     return `
+
         <a
             class="open-btn"
             href="${escapeAttribute(link)}"
             target="_blank"
             rel="noopener noreferrer">
+
             Open
+
         </a>
+
     `;
 
 }
 
 
 /* =========================================================
-   STATUS HTML
+   CREATE STATUS HTML
    ========================================================= */
 
 function createStatus(value) {
@@ -873,8 +1113,10 @@ function createStatus(value) {
 
     }
 
+
     const status =
         String(value).trim();
+
 
     const normalized =
         status
@@ -882,32 +1124,59 @@ function createStatus(value) {
             .replace(/\s+/g, "-");
 
 
-    let className = "status-default";
+    let className =
+        "status-default";
 
 
-    if (normalized === "monitoring") {
+    if (
+        normalized ===
+        "monitoring"
+    ) {
 
-        className = "status-monitoring";
+        className =
+            "status-monitoring";
 
-    } else if (normalized === "closed") {
+    }
 
-        className = "status-closed";
+    else if (
+        normalized ===
+        "closed"
+    ) {
 
-    } else if (normalized === "ng") {
+        className =
+            "status-closed";
 
-        className = "status-ng";
+    }
 
-    } else if (normalized === "open") {
+    else if (
+        normalized ===
+        "ng"
+    ) {
 
-        className = "status-open";
+        className =
+            "status-ng";
+
+    }
+
+    else if (
+        normalized ===
+        "open"
+    ) {
+
+        className =
+            "status-open";
 
     }
 
 
     return `
+
         <span class="status ${className}">
+
             ${escapeHTML(status)}
+
         </span>
+
     `;
 
 }
@@ -925,24 +1194,34 @@ function formatDate(value) {
 
     }
 
-    const date = new Date(value);
+
+    const date =
+        new Date(value);
+
 
     if (isNaN(date.getTime())) {
 
-        return escapeHTML(String(value));
+        return escapeHTML(
+            String(value)
+        );
 
     }
 
 
-    const year = date.getFullYear();
+    const year =
+        date.getFullYear();
+
 
     const month =
-        String(date.getMonth() + 1)
-            .padStart(2, "0");
+        String(
+            date.getMonth() + 1
+        ).padStart(2, "0");
+
 
     const day =
-        String(date.getDate())
-            .padStart(2, "0");
+        String(
+            date.getDate()
+        ).padStart(2, "0");
 
 
     return `${year}-${month}-${day}`;
@@ -957,19 +1236,33 @@ function formatDate(value) {
 function renderTable() {
 
     const tableBody =
-        document.getElementById("tableBody");
+        document.getElementById(
+            "tableBody"
+        );
+
 
     const recordInfo =
-        document.getElementById("recordInfo");
+        document.getElementById(
+            "recordInfo"
+        );
+
 
     const pageInfo =
-        document.getElementById("pageInfo");
+        document.getElementById(
+            "pageInfo"
+        );
+
 
     const prevBtn =
-        document.getElementById("prevBtn");
+        document.getElementById(
+            "prevBtn"
+        );
+
 
     const nextBtn =
-        document.getElementById("nextBtn");
+        document.getElementById(
+            "nextBtn"
+        );
 
 
     const totalRecords =
@@ -980,24 +1273,32 @@ function renderTable() {
         Math.max(
             1,
             Math.ceil(
-                totalRecords / rowsPerPage
+                totalRecords /
+                rowsPerPage
             )
         );
 
 
-    if (currentPage > totalPages) {
+    if (
+        currentPage >
+        totalPages
+    ) {
 
-        currentPage = totalPages;
+        currentPage =
+            totalPages;
 
     }
 
 
     const startIndex =
-        (currentPage - 1) * rowsPerPage;
+        (currentPage - 1) *
+        rowsPerPage;
+
 
     const endIndex =
         Math.min(
-            startIndex + rowsPerPage,
+            startIndex +
+            rowsPerPage,
             totalRecords
         );
 
@@ -1009,7 +1310,9 @@ function renderTable() {
         );
 
 
-    /* Record information */
+    /* =========================
+       RECORD INFO
+       ========================= */
 
     if (totalRecords === 0) {
 
@@ -1019,50 +1322,95 @@ function renderTable() {
     } else {
 
         recordInfo.textContent =
-            `Showing ${startIndex + 1}-${endIndex} of ${totalRecords} records`;
+            `Showing ${
+                startIndex + 1
+            }-${
+                endIndex
+            } of ${
+                totalRecords
+            } records`;
 
     }
 
 
-    /* Empty */
+    /* =========================
+       EMPTY
+       ========================= */
 
-    if (pageData.length === 0) {
+    if (
+        pageData.length === 0
+    ) {
 
         tableBody.innerHTML = `
+
             <tr>
-                <td colspan="6" class="message">
+
+                <td
+                    colspan="6"
+                    class="message">
+
                     No records found.
+
                 </td>
+
             </tr>
+
         `;
 
-    } else {
+    }
+
+    else {
 
         tableBody.innerHTML =
             pageData.map(function(item) {
 
+
+                /* =========================
+                   DATA
+                   ========================= */
+
                 const date =
-                    formatDate(item["DATE"]);
+                    formatDate(
+                        item["DATE"]
+                    );
+
 
                 const site =
                     escapeHTML(
                         item["SITE"] || ""
                     );
 
+
                 const issue =
                     escapeHTML(
-                        item["ISSUE AND REQUEST"] || ""
+                        item[
+                            "ISSUE AND REQUEST"
+                        ] || ""
                     );
+
+
+                const rawStatus =
+                    String(
+                        item["STATUS"] || ""
+                    ).trim();
+
+
+                const normalizedStatus =
+                    rawStatus
+                        .toLowerCase();
+
 
                 const status =
                     createStatus(
-                        item["STATUS"]
+                        rawStatus
                     );
+
 
                 const memory =
                     createOpenButton(
                         item["MEMORY"]
                     );
+
 
                 const ccLink =
                     createOpenButton(
@@ -1070,34 +1418,56 @@ function renderTable() {
                     );
 
 
+                /*
+                 * OPEN CASE
+                 *
+                 * The complete row receives
+                 * the green background.
+                 */
+
+                const rowClass =
+                    normalizedStatus ===
+                    "open"
+                        ? "open-case-row"
+                        : "";
+
+
                 return `
-                    <tr>
+
+                    <tr
+                        class="${rowClass}">
 
                         <td>
                             ${date}
                         </td>
 
+
                         <td>
                             ${site}
                         </td>
+
 
                         <td>
                             ${issue}
                         </td>
 
+
                         <td>
                             ${status}
                         </td>
 
+
                         <td>
                             ${memory}
                         </td>
+
 
                         <td>
                             ${ccLink}
                         </td>
 
                     </tr>
+
                 `;
 
             }).join("");
@@ -1105,10 +1475,16 @@ function renderTable() {
     }
 
 
-    /* Pagination */
+    /* =========================
+       PAGINATION
+       ========================= */
 
     pageInfo.textContent =
-        `Page ${currentPage} / ${totalPages}`;
+        `Page ${
+            currentPage
+        } / ${
+            totalPages
+        }`;
 
 
     prevBtn.disabled =
@@ -1116,7 +1492,8 @@ function renderTable() {
 
 
     nextBtn.disabled =
-        currentPage >= totalPages;
+        currentPage >=
+        totalPages;
 
 }
 
@@ -1127,7 +1504,9 @@ function renderTable() {
 
 function previousPage() {
 
-    if (currentPage > 1) {
+    if (
+        currentPage > 1
+    ) {
 
         currentPage--;
 
@@ -1150,12 +1529,16 @@ function nextPage() {
         Math.max(
             1,
             Math.ceil(
-                filteredData.length / rowsPerPage
+                filteredData.length /
+                rowsPerPage
             )
         );
 
 
-    if (currentPage < totalPages) {
+    if (
+        currentPage <
+        totalPages
+    ) {
 
         currentPage++;
 
@@ -1174,17 +1557,27 @@ function nextPage() {
 
 function clearFilter() {
 
-    document.getElementById("searchIssue").value = "";
-    document.getElementById("searchSite").value = "";
-    document.getElementById("searchStatus").value = "";
+    document.getElementById(
+        "searchIssue"
+    ).value = "";
+
 
     selectedBU = null;
 
+    selectedStatus = null;
+
+
     currentPage = 1;
+
 
     updateBUButtons();
 
-    filteredData = [...allData];
+    updateStatusButtons();
+
+
+    filteredData =
+        [...allData];
+
 
     renderTable();
 
@@ -1202,15 +1595,20 @@ function scrollToTop() {
             ".table-container"
         );
 
+
     if (container) {
 
         container.scrollTop = 0;
 
     }
 
+
     window.scrollTo({
+
         top: 0,
+
         behavior: "smooth"
+
     });
 
 }
@@ -1223,11 +1621,31 @@ function scrollToTop() {
 function escapeHTML(value) {
 
     return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
@@ -1239,10 +1657,26 @@ function escapeHTML(value) {
 function escapeAttribute(value) {
 
     return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/"/g, "&quot;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        );
 
 }
 
