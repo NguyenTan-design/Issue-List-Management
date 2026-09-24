@@ -323,7 +323,7 @@ td:nth-child(1) {
 
 
 /*
- * SITE = 18%
+ * SITE = 17%
  */
 
 th:nth-child(2),
@@ -347,7 +347,7 @@ white-space: pre-line;
 
 
 /*
- * STATUS = 12%
+ * STATUS = 13%
  */
 
 th:nth-child(4),
@@ -359,7 +359,7 @@ td:nth-child(4) {
 
 
 /*
- * MEMORY = 10%
+ * LOG = 10%
  */
 
 th:nth-child(5),
@@ -856,7 +856,7 @@ tbody tr.monitoring-case-row:hover {
 
                 <th>STATUS</th>
 
-                <th>MEMORY</th>
+                <th>LOG</th>
 
                 <th>CC LINK</th>
 
@@ -1656,9 +1656,9 @@ function renderTable() {
                     );
 
 
-                const memory =
+                const log =
                     createOpenButton(
-                        item["MEMORY"]
+                        item["LOG"]
                     );
 
 
@@ -1732,7 +1732,7 @@ function renderTable() {
 
 
                         <td>
-                            ${memory}
+                            ${log}
                         </td>
 
 
