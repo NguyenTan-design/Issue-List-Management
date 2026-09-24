@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,9 +8,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Issue List</title>
-
-<!-- PLOTLY -->
-<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 
 
 <style>
@@ -183,40 +179,6 @@ body {
 
 
 /* =========================
-   STATUS CHART
-   ========================= */
-
-.chart-container {
-    margin: 10px 20px 0 20px;
-
-    background: #ffffff;
-
-    border: 1px solid #ddd;
-
-    border-radius: 7px;
-
-    padding: 10px;
-
-    height: 360px;
-}
-
-.chart-title {
-    text-align: center;
-
-    font-size: 16px;
-
-    font-weight: bold;
-
-    margin-bottom: 0;
-}
-
-#statusChart {
-    width: 100%;
-    height: 320px;
-}
-
-
-/* =========================
    PAGINATION TOP
    ========================= */
 
@@ -280,6 +242,10 @@ body {
 }
 
 
+/*
+ * Table follows screen width
+ */
+
 table {
     width: 100%;
     table-layout: fixed;
@@ -301,7 +267,7 @@ thead th {
 
     padding: 10px 6px;
 
-    border: 1px solid #000;
+    border: 1px solid #444;
 
     text-align: center;
 
@@ -318,7 +284,7 @@ thead th {
    ========================= */
 
 tbody td {
-    border: 1px solid #000;
+    border: 1px solid #ddd;
 
     padding: 8px 6px;
 
@@ -345,7 +311,9 @@ tbody tr:hover {
    ========================= */
 
 
-/* DATE */
+/*
+ * DATE = 10%
+ */
 
 th:nth-child(1),
 td:nth-child(1) {
@@ -354,7 +322,9 @@ td:nth-child(1) {
 }
 
 
-/* SITE */
+/*
+ * SITE = 15%
+ */
 
 th:nth-child(2),
 td:nth-child(2) {
@@ -362,19 +332,23 @@ td:nth-child(2) {
 }
 
 
-/* ISSUE AND REQUEST */
+/*
+ * ISSUE AND REQUEST = 38%
+ */
 
 th:nth-child(3),
 td:nth-child(3) {
     width: 40%;
+white-space: pre-line;
 
-    white-space: pre-line;
-
-    text-align: left;
+     /* TOP ALIGN */
+    text-align: top;
 }
 
 
-/* STATUS */
+/*
+ * STATUS = 17%
+ */
 
 th:nth-child(4),
 td:nth-child(4) {
@@ -384,7 +358,9 @@ td:nth-child(4) {
 }
 
 
-/* LOG */
+/*
+ * LOG = 10%
+ */
 
 th:nth-child(5),
 td:nth-child(5) {
@@ -394,7 +370,9 @@ td:nth-child(5) {
 }
 
 
-/* CC LINK */
+/*
+ * CC LINK = 10%
+ */
 
 th:nth-child(6),
 td:nth-child(6) {
@@ -408,6 +386,11 @@ td:nth-child(6) {
    STATUS ROW COLORS
    ========================= */
 
+
+/*
+ * OPEN = LIGHT RED
+ */
+
 tbody tr.open-case-row {
     background: #f8d7da !important;
 }
@@ -417,6 +400,10 @@ tbody tr.open-case-row:hover {
 }
 
 
+/*
+ * CLOSED = LIGHT GREEN
+ */
+
 tbody tr.closed-case-row {
     background: #d4edda !important;
 }
@@ -425,6 +412,10 @@ tbody tr.closed-case-row:hover {
     background: #bee5c5 !important;
 }
 
+
+/*
+ * MONITORING = LIGHT ORANGE
+ */
 
 tbody tr.monitoring-case-row {
     background: #ffe5c2 !important;
@@ -571,27 +562,6 @@ tbody tr.monitoring-case-row:hover {
     }
 
 
-    /* =========================
-       CHART MOBILE
-       ========================= */
-
-    .chart-container {
-        margin: 10px;
-
-        height: 300px;
-
-        padding: 5px;
-    }
-
-    .chart-title {
-        font-size: 14px;
-    }
-
-    #statusChart {
-        height: 265px;
-    }
-
-
     .pagination-top {
         padding: 10px 5px;
     }
@@ -623,11 +593,15 @@ tbody tr.monitoring-case-row:hover {
 
         font-size: 11px;
 
+        /* TOP ALIGN ON MOBILE */
         vertical-align: top;
     }
 
 
-    /* STATUS */
+    /*
+     * STATUS
+     * Mobile: smaller by 1 level
+     */
 
     .status {
         font-size: 8px;
@@ -638,7 +612,10 @@ tbody tr.monitoring-case-row:hover {
     }
 
 
-    /* OPEN BUTTON */
+    /*
+     * OPEN BUTTON
+     * Mobile: smaller by 1 level
+     */
 
     .open-btn {
         font-size: 6px;
@@ -722,7 +699,9 @@ tbody tr.monitoring-case-row:hover {
         <div class="filter-area">
 
 
-            <!-- BU FILTERS -->
+            <!-- =========================
+                 BU FILTERS
+                 ========================= -->
 
             <button
                 class="filter-btn bu-btn"
@@ -754,7 +733,9 @@ tbody tr.monitoring-case-row:hover {
             </button>
 
 
-            <!-- STATUS FILTERS -->
+            <!-- =========================
+                 STATUS FILTERS
+                 ========================= -->
 
             <button
                 class="filter-btn status-filter-btn open-case-btn"
@@ -786,7 +767,9 @@ tbody tr.monitoring-case-row:hover {
             </button>
 
 
-            <!-- CLEAR -->
+            <!-- =========================
+                 CLEAR
+                 ========================= -->
 
             <button
                 class="filter-btn clear-btn"
@@ -799,21 +782,6 @@ tbody tr.monitoring-case-row:hover {
         </div>
 
     </div>
-
-</div>
-
-
-<!-- =========================================================
-     STATUS 3D CHART
-     ========================================================= -->
-
-<div class="chart-container">
-
-    <div class="chart-title">
-        Issue Status Overview
-    </div>
-
-    <div id="statusChart"></div>
 
 </div>
 
@@ -920,16 +888,26 @@ let currentPage = 1;
 
 const rowsPerPage = 50;
 
+
+/*
+ * Selected BU
+ *
+ * null = all BU
+ */
+
 let selectedBU = null;
 
+
+/*
+ * Selected status
+ *
+ * null = all status
+ * open
+ * closed
+ * monitoring
+ */
+
 let selectedStatus = null;
-
-
-/* =========================
-   CHART CONTROL
-   ========================= */
-
-let statusChartLoaded = false;
 
 
 /* =========================================================
@@ -941,247 +919,6 @@ let BU4Data = [];
 let D7Data = [];
 
 let BU11Data = [];
-
-
-/* =========================================================
-   STATUS CHART
-   ========================================================= */
-
-function createStatusChart() {
-
-    /*
-     * Do not create chart again.
-     */
-
-    if (statusChartLoaded) {
-
-        return;
-
-    }
-
-
-    const statusCount = {
-
-        open: 0,
-
-        closed: 0,
-
-        monitoring: 0
-
-    };
-
-
-    /*
-     * IMPORTANT
-     *
-     * Always use allData.
-     *
-     * Filter buttons do not affect
-     * the chart.
-     */
-
-    allData.forEach(function(item) {
-
-        const status =
-            String(
-                item["STATUS"] || ""
-            )
-            .trim()
-            .toLowerCase();
-
-
-        if (status === "open") {
-
-            statusCount.open++;
-
-        }
-
-        else if (status === "closed") {
-
-            statusCount.closed++;
-
-        }
-
-        else if (status === "monitoring") {
-
-            statusCount.monitoring++;
-
-        }
-
-    });
-
-
-    const total =
-        statusCount.open +
-        statusCount.closed +
-        statusCount.monitoring;
-
-
-    if (total === 0) {
-
-        return;
-
-    }
-
-
-    const values = [
-
-        statusCount.open,
-
-        statusCount.closed,
-
-        statusCount.monitoring
-
-    ];
-
-
-    const labels = [
-
-        "Open",
-
-        "Closed",
-
-        "Monitoring"
-
-    ];
-
-
-    const percentages = values.map(function(value) {
-
-        return (
-            value / total
-        ) * 100;
-
-    });
-
-
-    const data = [{
-
-        type: "pie",
-
-        values: values,
-
-        labels: labels,
-
-        hole: 0.08,
-
-        textinfo: "label+percent",
-
-        texttemplate:
-            "%{label}<br>%{value} / %{percent:.1%}",
-
-        hovertemplate:
-            "<b>%{label}</b><br>" +
-            "Count: %{value}<br>" +
-            "Percentage: %{percent:.1%}" +
-            "<extra></extra>",
-
-        pull: [
-            0.04,
-            0.04,
-            0.04
-        ],
-
-        rotation: 0,
-
-        direction: "clockwise",
-
-        sort: false,
-
-        marker: {
-
-            line: {
-
-                color: "#ffffff",
-
-                width: 2
-
-            }
-
-        }
-
-    }];
-
-
-    const layout = {
-
-        margin: {
-
-            l: 10,
-
-            r: 10,
-
-            t: 10,
-
-            b: 40
-
-        },
-
-        showlegend: true,
-
-        legend: {
-
-            orientation: "h",
-
-            x: 0.5,
-
-            xanchor: "center",
-
-            y: -0.05
-
-        },
-
-        paper_bgcolor:
-            "rgba(0,0,0,0)",
-
-        plot_bgcolor:
-            "rgba(0,0,0,0)",
-
-        height: 320,
-
-        transition: {
-
-            duration: 1000,
-
-            easing: "cubic-in-out"
-
-        }
-
-    };
-
-
-    const config = {
-
-        responsive: true,
-
-        displayModeBar: false
-
-    };
-
-
-    Plotly.newPlot(
-
-        "statusChart",
-
-        data,
-
-        layout,
-
-        config
-
-    );
-
-
-    /*
-     * Chart is now loaded.
-     *
-     * Filter buttons will NOT
-     * recreate it.
-     */
-
-    statusChartLoaded = true;
-
-}
 
 
 /* =========================================================
@@ -1219,20 +956,13 @@ async function loadData() {
         }
 
 
-        allData =
-            await results[0].json();
+        allData = await results[0].json();
 
+        BU4Data = await results[1].json();
 
-        BU4Data =
-            await results[1].json();
+        D7Data = await results[2].json();
 
-
-        D7Data =
-            await results[2].json();
-
-
-        BU11Data =
-            await results[3].json();
+        BU11Data = await results[3].json();
 
 
         /*
@@ -1242,29 +972,17 @@ async function loadData() {
         allData.sort(function(a, b) {
 
             const dateA =
-                new Date(
-                    a["DATE"] || 0
-                );
+                new Date(a["DATE"] || 0);
 
             const dateB =
-                new Date(
-                    b["DATE"] || 0
-                );
+                new Date(b["DATE"] || 0);
 
             return dateB - dateA;
 
         });
 
 
-        filteredData =
-            [...allData];
-
-
-        /*
-         * Create chart once.
-         */
-
-        createStatusChart();
+        filteredData = [...allData];
 
 
         renderTable();
@@ -1317,9 +1035,7 @@ function selectBU(bu) {
 
         selectedBU = null;
 
-    }
-
-    else {
+    } else {
 
         selectedBU = bu;
 
@@ -1346,9 +1062,7 @@ function selectStatus(status) {
 
         selectedStatus = null;
 
-    }
-
-    else {
+    } else {
 
         selectedStatus = status;
 
@@ -1374,31 +1088,24 @@ function updateBUButtons() {
     const buttons = {
 
         BU4:
-            document.getElementById(
-                "btnBU4"
-            ),
+            document.getElementById("btnBU4"),
 
         D7:
-            document.getElementById(
-                "btnD7"
-            ),
+            document.getElementById("btnD7"),
 
         BU11:
-            document.getElementById(
-                "btnBU11"
-            )
+            document.getElementById("btnBU11")
 
     };
 
 
-    Object.keys(buttons)
-        .forEach(function(bu) {
+    Object.keys(buttons).forEach(function(bu) {
 
-            buttons[bu]
-                .classList
-                .remove("active");
+        buttons[bu]
+            .classList
+            .remove("active");
 
-        });
+    });
 
 
     if (
@@ -1424,31 +1131,24 @@ function updateStatusButtons() {
     const buttons = {
 
         open:
-            document.getElementById(
-                "btnOpenCase"
-            ),
+            document.getElementById("btnOpenCase"),
 
         closed:
-            document.getElementById(
-                "btnCloseCase"
-            ),
+            document.getElementById("btnCloseCase"),
 
         monitoring:
-            document.getElementById(
-                "btnMonitoringCase"
-            )
+            document.getElementById("btnMonitoringCase")
 
     };
 
 
-    Object.keys(buttons)
-        .forEach(function(status) {
+    Object.keys(buttons).forEach(function(status) {
 
-            buttons[status]
-                .classList
-                .remove("active");
+        buttons[status]
+            .classList
+            .remove("active");
 
-        });
+    });
 
 
     if (
@@ -1505,90 +1205,88 @@ function applyFilter() {
 
     const issueText =
         document
-            .getElementById(
-                "searchIssue"
-            )
+            .getElementById("searchIssue")
             .value
             .trim()
             .toLowerCase();
 
 
-    filteredData =
-        allData.filter(function(item) {
+    filteredData = allData.filter(function(item) {
 
-            const issue =
-                String(
-                    item[
-                        "ISSUE AND REQUEST"
-                    ] || ""
-                )
-                .toLowerCase();
+        const issue =
+            String(
+                item["ISSUE AND REQUEST"] || ""
+            ).toLowerCase();
 
 
-            const site =
-                String(
-                    item["SITE"] || ""
-                )
-                .toLowerCase();
+        const site =
+            String(
+                item["SITE"] || ""
+            ).toLowerCase();
 
 
-            const status =
-                String(
-                    item["STATUS"] || ""
-                )
-                .trim()
-                .toLowerCase();
+        const status =
+            String(
+                item["STATUS"] || ""
+            )
+            .trim()
+            .toLowerCase();
 
+
+        /* =========================
+           SEARCH ISSUE
+           ========================= */
+
+        if (
+            issueText &&
+            !issue.includes(issueText)
+        ) {
+
+            return false;
+
+        }
+
+
+        /* =========================
+           BU FILTER
+           ========================= */
+
+        if (selectedBU) {
+
+            const buValue =
+                getBUValue(selectedBU)
+                    .toLowerCase();
+
+
+            if (!site.includes(buValue)) {
+
+                return false;
+
+            }
+
+        }
+
+
+        /* =========================
+           STATUS FILTER
+           ========================= */
+
+        if (selectedStatus) {
 
             if (
-                issueText &&
-                !issue.includes(issueText)
+                status !== selectedStatus
             ) {
 
                 return false;
 
             }
 
-
-            if (selectedBU) {
-
-                const buValue =
-                    getBUValue(
-                        selectedBU
-                    )
-                    .toLowerCase();
+        }
 
 
-                if (
-                    !site.includes(
-                        buValue
-                    )
-                ) {
+        return true;
 
-                    return false;
-
-                }
-
-            }
-
-
-            if (selectedStatus) {
-
-                if (
-                    status !==
-                    selectedStatus
-                ) {
-
-                    return false;
-
-                }
-
-            }
-
-
-            return true;
-
-        });
+    });
 
 
     currentPage = 1;
@@ -1673,10 +1371,7 @@ function createStatus(value) {
     const normalized =
         status
             .toLowerCase()
-            .replace(
-                /\s+/g,
-                "-"
-            );
+            .replace(/\s+/g, "-");
 
 
     let className =
@@ -1726,8 +1421,7 @@ function createStatus(value) {
 
     return `
 
-        <span
-            class="status ${className}">
+        <span class="status ${className}">
 
             ${escapeHTML(status)}
 
@@ -1755,11 +1449,7 @@ function formatDate(value) {
         new Date(value);
 
 
-    if (
-        isNaN(
-            date.getTime()
-        )
-    ) {
+    if (isNaN(date.getTime())) {
 
         return escapeHTML(
             String(value)
@@ -1775,15 +1465,13 @@ function formatDate(value) {
     const month =
         String(
             date.getMonth() + 1
-        )
-        .padStart(2, "0");
+        ).padStart(2, "0");
 
 
     const day =
         String(
             date.getDate()
-        )
-        .padStart(2, "0");
+        ).padStart(2, "0");
 
 
     return `${year}-${month}-${day}`;
@@ -1872,16 +1560,16 @@ function renderTable() {
         );
 
 
-    if (
-        totalRecords === 0
-    ) {
+    /* =========================
+       RECORD INFO
+       ========================= */
+
+    if (totalRecords === 0) {
 
         recordInfo.textContent =
             "0 records";
 
-    }
-
-    else {
+    } else {
 
         recordInfo.textContent =
             `Showing ${
@@ -1894,6 +1582,10 @@ function renderTable() {
 
     }
 
+
+    /* =========================
+       EMPTY
+       ========================= */
 
     if (
         pageData.length === 0
@@ -1920,139 +1612,146 @@ function renderTable() {
     else {
 
         tableBody.innerHTML =
-            pageData
-                .map(function(item) {
+            pageData.map(function(item) {
 
 
-                    const date =
-                        formatDate(
-                            item["DATE"]
-                        );
+                /* =========================
+                   DATA
+                   ========================= */
+
+                const date =
+                    formatDate(
+                        item["DATE"]
+                    );
 
 
-                    const site =
-                        escapeHTML(
-                            item["SITE"] ||
-                            ""
-                        );
+                const site =
+                    escapeHTML(
+                        item["SITE"] || ""
+                    );
 
 
-                    const issue =
-                        escapeHTML(
-                            item[
-                                "ISSUE AND REQUEST"
-                            ] || ""
-                        );
+                const issue =
+                    escapeHTML(
+                        item[
+                            "ISSUE AND REQUEST"
+                        ] || ""
+                    );
 
 
-                    const rawStatus =
-                        String(
-                            item["STATUS"] ||
-                            ""
-                        )
-                        .trim();
+                const rawStatus =
+                    String(
+                        item["STATUS"] || ""
+                    ).trim();
 
 
-                    const normalizedStatus =
+                const normalizedStatus =
+                    rawStatus
+                        .toLowerCase();
+
+
+                const status =
+                    createStatus(
                         rawStatus
-                            .toLowerCase();
+                    );
 
 
-                    const status =
-                        createStatus(
-                            rawStatus
-                        );
+                const log =
+                    createOpenButton(
+                        item["LOG"]
+                    );
 
 
-                    const log =
-                        createOpenButton(
-                            item["LOG"]
-                        );
+                const ccLink =
+                    createOpenButton(
+                        item["CC LINK"]
+                    );
 
 
-                    const ccLink =
-                        createOpenButton(
-                            item["CC LINK"]
-                        );
+                /* =========================
+                   STATUS ROW CLASS
+                   ========================= */
+
+                let rowClass = "";
 
 
-                    let rowClass = "";
+                if (
+                    normalizedStatus ===
+                    "open"
+                ) {
+
+                    rowClass =
+                        "open-case-row";
+
+                }
+
+                else if (
+                    normalizedStatus ===
+                    "closed"
+                ) {
+
+                    rowClass =
+                        "closed-case-row";
+
+                }
+
+                else if (
+                    normalizedStatus ===
+                    "monitoring"
+                ) {
+
+                    rowClass =
+                        "monitoring-case-row";
+
+                }
 
 
-                    if (
-                        normalizedStatus ===
-                        "open"
-                    ) {
+                return `
 
-                        rowClass =
-                            "open-case-row";
+                    <tr
+                        class="${rowClass}">
 
-                    }
-
-                    else if (
-                        normalizedStatus ===
-                        "closed"
-                    ) {
-
-                        rowClass =
-                            "closed-case-row";
-
-                    }
-
-                    else if (
-                        normalizedStatus ===
-                        "monitoring"
-                    ) {
-
-                        rowClass =
-                            "monitoring-case-row";
-
-                    }
+                        <td>
+                            ${date}
+                        </td>
 
 
-                    return `
-
-                        <tr
-                            class="${rowClass}">
-
-                            <td>
-                                ${date}
-                            </td>
+                        <td>
+                            ${site}
+                        </td>
 
 
-                            <td>
-                                ${site}
-                            </td>
+                        <td>
+                            ${issue}
+                        </td>
 
 
-                            <td>
-                                ${issue}
-                            </td>
+                        <td>
+                            ${status}
+                        </td>
 
 
-                            <td>
-                                ${status}
-                            </td>
+                        <td>
+                            ${log}
+                        </td>
 
 
-                            <td>
-                                ${log}
-                            </td>
+                        <td>
+                            ${ccLink}
+                        </td>
 
+                    </tr>
 
-                            <td>
-                                ${ccLink}
-                            </td>
+                `;
 
-                        </tr>
-
-                    `;
-
-                })
-                .join("");
+            }).join("");
 
     }
 
+
+    /* =========================
+       PAGINATION
+       ========================= */
 
     pageInfo.textContent =
         `Page ${
@@ -2132,11 +1831,9 @@ function nextPage() {
 
 function clearFilter() {
 
-    document
-        .getElementById(
-            "searchIssue"
-        )
-        .value = "";
+    document.getElementById(
+        "searchIssue"
+    ).value = "";
 
 
     selectedBU = null;
@@ -2269,4 +1966,3 @@ loadData();
 </body>
 
 </html>
-```
