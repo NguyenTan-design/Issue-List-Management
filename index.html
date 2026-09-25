@@ -3147,7 +3147,7 @@ function escapeAttribute(value) {
    EXPORT TO EXCEL
    ========================================================= */
 
-function exportToExcel() {
+async function exportToExcel() {
 
     if (
         typeof XLSX === "undefined"
@@ -3263,11 +3263,126 @@ function exportToExcel() {
         String(now.getMinutes()).padStart(2, "0");
 
 
+    const suggestedName =
+        `Issue_List_${stamp}.xlsx`;
+
+
+    /*
+     * Preferred path: File System Access API.
+     * Lets the user choose the save location
+     * and the file name via a native dialog.
+     * Supported in Chrome / Edge (desktop).
+     */
+
+    if (
+        window.showSaveFilePicker
+    ) {
+
+        try {
+
+            const handle =
+                await window.showSaveFilePicker({
+
+                    suggestedName:
+                        suggestedName,
+
+                    types: [{
+
+                        description:
+                            "Excel Workbook",
+
+                        accept: {
+
+                            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+                                [".xlsx"]
+
+                        }
+
+                    }]
+
+                });
+
+
+            const arrayBuffer =
+                XLSX.write(
+                    workbook,
+                    {
+
+                        bookType:
+                            "xlsx",
+
+                        type:
+                            "array"
+
+                    }
+                );
+
+
+            const writable =
+                await handle.createWritable();
+
+
+            await writable.write(
+                arrayBuffer
+            );
+
+
+            await writable.close();
+
+
+            return;
+
+        }
+
+        catch (error) {
+
+            /*
+             * User cancelled the
+             * save dialog: do nothing.
+             */
+
+            if (
+                error &&
+                error.name ===
+                "AbortError"
+            ) {
+
+                return;
+
+            }
+
+
+            console.error(
+                "Save dialog failed, falling back to default download:",
+                error
+            );
+
+            /*
+             * Fall through to the
+             * default download below.
+             */
+
+        }
+
+    }
+
+
+    /*
+     * Fallback: browsers without the
+     * File System Access API (Firefox,
+     * Safari, mobile browsers). This
+     * triggers the browser's normal
+     * download flow; if the browser
+     * setting "Ask where to save each
+     * file" is enabled, it will still
+     * prompt for a location.
+     */
+
     XLSX.writeFile(
 
         workbook,
 
-        `Issue_List_${stamp}.xlsx`
+        suggestedName
 
     );
 
