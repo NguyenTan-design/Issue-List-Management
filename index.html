@@ -911,23 +911,69 @@ tbody tr.monitoring-case-row:hover {
     line-height: 1.5;
 }
 
-.save-message {
+/* =========================
+   TOAST
+   ========================= */
 
-    margin-top: 10px;
+.toast {
+
+    position: fixed;
+
+    left: 50%;
+
+    bottom: 24px;
+
+    transform: translateX(-50%) translateY(16px);
+
+    z-index: 6000;
+
+    max-width: 90vw;
+
+    padding: 11px 18px;
+
+    border-radius: 7px;
+
+    background: #333;
+
+    color: white;
 
     font-size: 13px;
 
     font-weight: bold;
+
+    text-align: center;
+
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
 }
 
-.save-message.error {
+.toast.show {
 
-    color: #dc3545;
+    opacity: 1;
+
+    transform: translateX(-50%) translateY(0);
 }
 
-.save-message.success {
+.toast.info {
 
-    color: #198754;
+    background: #333;
+}
+
+.toast.success {
+
+    background: #198754;
+}
+
+.toast.error {
+
+    background: #dc3545;
 }
 
 
@@ -1491,6 +1537,16 @@ tbody tr.monitoring-case-row:hover {
 </div>
 
 
+<!-- =========================================================
+     TOAST
+     ========================================================= -->
+
+<div
+    id="toast"
+    class="toast">
+</div>
+
+
 <script>
 
 
@@ -1509,6 +1565,57 @@ const rowsPerPage = 50;
 let selectedBU = null;
 
 let selectedStatus = null;
+
+let toastTimer = null;
+
+
+/* =========================================================
+   TOAST NOTIFICATION
+   ========================================================= */
+
+function showToast(message, type, duration) {
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    if (!toast) {
+
+        return;
+
+    }
+
+
+    if (toastTimer) {
+
+        clearTimeout(
+            toastTimer
+        );
+
+    }
+
+
+    toast.textContent =
+        message;
+
+
+    toast.className =
+        "toast show " +
+        (type || "info");
+
+
+    toastTimer =
+        setTimeout(function() {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        }, duration || 3000);
+
+}
 
 
 /* =========================================================
@@ -1633,14 +1740,7 @@ function toggleChart() {
    STATUS CHART
    ========================================================= */
 
-function createStatusChart() {
-
-    if (statusChartLoaded) {
-
-        return;
-
-    }
-
+function computeChartData() {
 
     const statusCount = {
 
@@ -1692,7 +1792,7 @@ function createStatusChart() {
 
     if (total === 0) {
 
-        return;
+        return null;
 
     }
 
@@ -1837,20 +1937,120 @@ function createStatusChart() {
     };
 
 
+    return {
+
+        data: data,
+
+        layout: layout,
+
+        config: config
+
+    };
+
+}
+
+
+/* =========================================================
+   CREATE CHART (first render only)
+   ========================================================= */
+
+function createStatusChart() {
+
+    if (statusChartLoaded) {
+
+        return;
+
+    }
+
+
+    const chart =
+        computeChartData();
+
+
+    if (!chart) {
+
+        return;
+
+    }
+
+
     Plotly.newPlot(
 
         "statusChart",
 
-        data,
+        chart.data,
 
-        layout,
+        chart.layout,
 
-        config
+        chart.config
 
     );
 
 
     statusChartLoaded = true;
+
+}
+
+
+/* =========================================================
+   UPDATE CHART (cheap in-place update)
+   ========================================================= */
+
+function updateStatusChart() {
+
+    const chart =
+        computeChartData();
+
+
+    if (!chart) {
+
+        return;
+
+    }
+
+
+    if (!statusChartLoaded) {
+
+        Plotly.newPlot(
+
+            "statusChart",
+
+            chart.data,
+
+            chart.layout,
+
+            chart.config
+
+        );
+
+
+        statusChartLoaded = true;
+
+
+        return;
+
+    }
+
+
+    /*
+     * Plotly.react diffs against the
+     * existing plot and only updates
+     * what changed, instead of tearing
+     * down and rebuilding the whole
+     * chart like purge + newPlot did.
+     */
+
+    Plotly.react(
+
+        "statusChart",
+
+        chart.data,
+
+        chart.layout,
+
+        chart.config
+
+    );
 
 }
 
@@ -2050,14 +2250,45 @@ function parseDate(value) {
 
 function sortData() {
 
-    allData.sort(function(a, b) {
+    /*
+     * Precompute the sort key once per
+     * item instead of calling parseDate()
+     * repeatedly inside the comparator
+     * (a comparator runs O(n log n) times,
+     * parseDate() involves a regex + Date
+     * construction, so caching it up front
+     * is noticeably cheaper on larger lists).
+     */
 
-        return (
-            parseDate(b["DATE"]) -
-            parseDate(a["DATE"])
-        );
+    const keyed =
+        allData.map(function(item) {
+
+            return {
+
+                item: item,
+
+                key: parseDate(
+                    item["DATE"]
+                )
+
+            };
+
+        });
+
+
+    keyed.sort(function(a, b) {
+
+        return b.key - a.key;
 
     });
+
+
+    allData =
+        keyed.map(function(entry) {
+
+            return entry.item;
+
+        });
 
 }
 
@@ -4319,12 +4550,6 @@ function showAddConfirmation() {
 
         </div>
 
-
-        <div
-            id="saveMessage"
-            class="save-message">
-        </div>
-
     `;
 
 
@@ -4357,43 +4582,6 @@ function showAddConfirmation() {
 
 async function saveNewRecord() {
 
-    const nextBtn =
-        document.getElementById(
-            "addNextBtn"
-        );
-
-
-    const backBtn =
-        document.getElementById(
-            "addBackBtn"
-        );
-
-
-    const saveMessage =
-        document.getElementById(
-            "saveMessage"
-        );
-
-
-    /*
-     * Disable buttons while saving
-     */
-
-    nextBtn.disabled =
-        true;
-
-    backBtn.disabled =
-        true;
-
-
-    saveMessage.textContent =
-        "Đang lưu data...";
-
-
-    saveMessage.className =
-        "save-message";
-
-
     /*
      * Record sent to Worker
      */
@@ -4417,11 +4605,130 @@ async function saveNewRecord() {
     };
 
 
-    try {
+    /*
+     * =========================================================
+     * OPTIMISTIC UPDATE
+     *
+     * Show the new record on screen right
+     * away instead of waiting for the
+     * Cloudflare Worker round-trip. If the
+     * save later fails, the record is
+     * removed again and the person is told
+     * via the toast.
+     * =========================================================
+     */
 
-        /*
-         * Send to Cloudflare Worker
-         */
+    const pendingId =
+        "pending_" +
+        Date.now() +
+        "_" +
+        Math.random()
+            .toString(36)
+            .slice(2);
+
+
+    const optimisticRecord = {
+
+        DATE:
+            recordToSend.DATE,
+
+        SITE:
+            recordToSend.SITE,
+
+        "ISSUE AND REQUEST":
+            recordToSend[
+                "ISSUE AND REQUEST"
+            ],
+
+        STATUS:
+            recordToSend.STATUS,
+
+        LOG:
+            "",
+
+        "CC LINK":
+            "",
+
+        _pendingId:
+            pendingId
+
+    };
+
+
+    allData.push(
+        optimisticRecord
+    );
+
+
+    sortData();
+
+
+    /*
+     * Reset filters so the new
+     * record is visible right away
+     */
+
+    selectedBU =
+        null;
+
+    selectedStatus =
+        null;
+
+
+    updateBUButtons();
+
+    updateStatusButtons();
+
+
+    const searchInput =
+        document.getElementById(
+            "searchIssue"
+        );
+
+
+    if (searchInput) {
+
+        searchInput.value =
+            "";
+
+    }
+
+
+    filteredData =
+        [...allData];
+
+
+    currentPage =
+        1;
+
+
+    renderTable();
+
+    updateStatusChart();
+
+
+    /*
+     * Close the modal immediately —
+     * no need to keep the person
+     * waiting on the network.
+     */
+
+    closeAddDialog();
+
+
+    showToast(
+        "Đang lưu...",
+        "info"
+    );
+
+
+    /*
+     * =========================================================
+     * BACKGROUND SAVE
+     * =========================================================
+     */
+
+    try {
 
         const response =
             await fetch(
@@ -4447,10 +4754,6 @@ async function saveNewRecord() {
             );
 
 
-        /*
-         * Parse Worker response
-         */
-
         let result;
 
 
@@ -4470,10 +4773,6 @@ async function saveNewRecord() {
         }
 
 
-        /*
-         * Check Worker result
-         */
-
         if (
             !response.ok ||
             !result.success
@@ -4488,7 +4787,9 @@ async function saveNewRecord() {
 
 
         /*
-         * Use record returned by Worker
+         * Replace the optimistic
+         * record with the confirmed
+         * one from the Worker.
          */
 
         const savedRecord =
@@ -4496,18 +4797,18 @@ async function saveNewRecord() {
             {
 
                 DATE:
-                    newRecord.DATE,
+                    recordToSend.DATE,
 
                 SITE:
-                    newRecord.SITE,
+                    recordToSend.SITE,
 
                 "ISSUE AND REQUEST":
-                    newRecord[
+                    recordToSend[
                         "ISSUE AND REQUEST"
                     ],
 
                 STATUS:
-                    newRecord.STATUS,
+                    recordToSend.STATUS,
 
                 LOG:
                     "",
@@ -4518,118 +4819,51 @@ async function saveNewRecord() {
             };
 
 
-        /*
-         * Add new record locally
-         */
+        const index =
+            allData.findIndex(
+                function(item) {
 
-        allData.push(
-            savedRecord
-        );
+                    return (
+                        item._pendingId ===
+                        pendingId
+                    );
 
-
-        /*
-         * Sort newest first
-         */
-
-        sortData();
-
-
-        /*
-         * Reset filters
-         */
-
-        selectedBU =
-            null;
-
-        selectedStatus =
-            null;
-
-
-        updateBUButtons();
-
-        updateStatusButtons();
-
-
-        /*
-         * Reset search
-         */
-
-        const searchInput =
-            document.getElementById(
-                "searchIssue"
+                }
             );
 
 
-        if (searchInput) {
+        if (index !== -1) {
 
-            searchInput.value =
-                "";
+            allData[index] =
+                savedRecord;
+
+        }
+
+        else {
+
+            allData.push(
+                savedRecord
+            );
 
         }
 
 
-        /*
-         * Update filtered data
-         */
+        sortData();
+
 
         filteredData =
             [...allData];
 
 
-        currentPage =
-            1;
-
-
-        /*
-         * Recreate chart
-         */
-
-        if (
-            statusChartLoaded &&
-            typeof Plotly !== "undefined"
-        ) {
-
-            Plotly.purge(
-                "statusChart"
-            );
-
-        }
-
-
-        statusChartLoaded =
-            false;
-
-
-        createStatusChart();
-
-
-        /*
-         * Update table
-         */
-
         renderTable();
 
-
-        /*
-         * Success message
-         */
-
-        saveMessage.textContent =
-            "Record added successfully.";
-
-        saveMessage.className =
-            "save-message success";
+        updateStatusChart();
 
 
-        /*
-         * Close modal
-         */
-
-        setTimeout(function() {
-
-            closeAddDialog();
-
-        }, 800);
+        showToast(
+            "Record added successfully.",
+            "success"
+        );
 
     }
 
@@ -4641,24 +4875,40 @@ async function saveNewRecord() {
         );
 
 
-        saveMessage.textContent =
-            "Save failed: " +
-            error.message;
-
-
-        saveMessage.className =
-            "save-message error";
-
-
         /*
-         * Enable buttons again
+         * Roll back the optimistic
+         * record since the save failed.
          */
 
-        nextBtn.disabled =
-            false;
+        allData =
+            allData.filter(
+                function(item) {
 
-        backBtn.disabled =
-            false;
+                    return (
+                        item._pendingId !==
+                        pendingId
+                    );
+
+                }
+            );
+
+
+        filteredData =
+            [...allData];
+
+
+        renderTable();
+
+        updateStatusChart();
+
+
+        showToast(
+            "Save failed: " +
+            error.message +
+            " — record was not saved.",
+            "error",
+            5000
+        );
 
     }
 
