@@ -91,5 +91,67 @@ with open(
         ensure_ascii=False
     )
 
+# ===== LEADER TECH =====
+
+ldt = (
+    df["LDT"]
+    .dropna()
+    .tolist()
+)
+
+with open(
+    "LDT.json",
+    "w",
+    encoding="utf-8"
+) as f:
+
+    json.dump(
+        ldt,
+        f,
+        indent=4,
+        ensure_ascii=False
+    )
+
+# ===== GOE MICRON =====
+
+micron = (
+    df["MICRON"]
+    .dropna()
+    .tolist()
+)
+
+with open(
+    "MICRON.json",
+    "w",
+    encoding="utf-8"
+) as f:
+
+    json.dump(
+        micron,
+        f,
+        indent=4,
+        ensure_ascii=False
+    )
+
+# ===== E5 =====
+
+e5 = (
+    df["E5"]
+    .dropna()
+    .tolist()
+)
+
+with open(
+    "E5.json",
+    "w",
+    encoding="utf-8"
+) as f:
+
+    json.dump(
+        e5,
+        f,
+        indent=4,
+        ensure_ascii=False
+    )
 
 print("DONE")
