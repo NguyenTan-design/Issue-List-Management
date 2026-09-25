@@ -59,7 +59,7 @@
         "DATE": "09-08-2026",
         "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
         "ISSUE AND REQUEST": "双模组是不贴片也没有报警，这个问题只有在双模生产时发生\n2RV module does not place components onto the PCB and no alarm is displayed. The issue only occurs when using the pair module production program\n",
-        "STATUS": "MONITORING",
+        "STATUS": "Closed",
         "LOG": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQAO3omBgG8SR52hanjOULE5AaHeqlK_Kk1JoZ5IDTtehI8",
         "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00001FbGsjYAF"
     },
@@ -75,7 +75,7 @@
         "DATE": "09-03-2026",
         "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
         "ISSUE AND REQUEST": "优化后的程序，清空机台后使用LCU网页传送到机器报警：863C0000\nWhen optimizing the program from Nexim, clearing all panels in the machines, and then downloading the job to the machines through the LCU, the NXTR machines display the following error:\nError 863C0000: Insert order data mismatch\n",
-        "STATUS": "MONITORING",
+        "STATUS": "Closed",
         "LOG": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQBPlJkEyMp7R4OfGgW1BIEMAZluAafgA6F5jdocfXRkKr0",
         "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00001EUvI3YAL"
     },
@@ -227,7 +227,7 @@
         "DATE": "08-24-2026",
         "SITE": "Luxvisions Innovation Technology (Yian) Co., Ltd.]",
         "ISSUE AND REQUEST": "工作头贴装压力测试\nPlacement head placement pressure test",
-        "STATUS": "MONITORING",
+        "STATUS": "Closed",
         "LOG": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQBLLZTTT_E2S4rxqzWY4hGXAcau7suWrnCsQc2DipEhSd8?e=4P3grV",
         "CC LINK": "NOT AVAILABLE"
     },
@@ -283,7 +283,7 @@
         "DATE": "08-17-2026",
         "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
         "ISSUE AND REQUEST": "使用双模组出现等待板现象\nWhen using dual modules, a “waiting for PCB” condition occurs.",
-        "STATUS": "MONITORING",
+        "STATUS": "Closed",
         "LOG": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQCApnDoeYeERoweSaXlboE2AToZYM5C5KENLvR2OJJ8iLw?e=aaZfbH",
         "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00001BNfTXYA1"
     },
