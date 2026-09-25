@@ -1353,7 +1353,6 @@ tbody tr.monitoring-case-row:hover {
 
 <div class="header">
 
-```
 <div class="header-inner">
 
     <div class="title">
@@ -1469,7 +1468,6 @@ tbody tr.monitoring-case-row:hover {
     </div>
 
 </div>
-```
 
 </div>
 
@@ -1482,7 +1480,7 @@ tbody tr.monitoring-case-row:hover {
     id="chartContainer"
 >
 
-```
+
 <div class="chart-header">
 
     <div class="chart-title">
@@ -1503,7 +1501,7 @@ tbody tr.monitoring-case-row:hover {
 
 
 <div id="statusChart"></div>
-```
+
 
 </div>
 
@@ -1513,7 +1511,7 @@ tbody tr.monitoring-case-row:hover {
 
 <div class="pagination-top">
 
-```
+
 <button
     class="page-btn"
     id="prevBtn"
@@ -1559,7 +1557,7 @@ tbody tr.monitoring-case-row:hover {
     Add Case
 
 </button>
-```
+
 
 </div>
 
@@ -1571,9 +1569,9 @@ tbody tr.monitoring-case-row:hover {
     class="record-info"
     id="recordInfo">
 
-```
+
 Loading...
-```
+
 
 </div>
 
@@ -1583,7 +1581,7 @@ Loading...
 
 <div class="table-container">
 
-```
+
 <table>
 
     <thead>
@@ -1611,7 +1609,7 @@ Loading...
     </tbody>
 
 </table>
-```
+
 
 </div>
 
@@ -1624,7 +1622,7 @@ Loading...
     id="addModal"
 >
 
-```
+
 <div class="add-modal-content">
 
 
@@ -1683,7 +1681,7 @@ Loading...
     </div>
 
 </div>
-```
+
 
 </div>
 
@@ -2107,7 +2105,7 @@ async function loadData() {
 
         document.getElementById(
             "tableBody"
-        ).innerHTML = `
+        ).innerHTML = 
 
             <tr>
 
@@ -2126,7 +2124,7 @@ async function loadData() {
 
             </tr>
 
-        `;
+        ;
 
         document.getElementById(
             "recordInfo"
@@ -2618,7 +2616,7 @@ function createOpenButton(value) {
 
     }
 
-    return `
+    return 
 
         <a
             class="open-btn"
@@ -2630,7 +2628,7 @@ function createOpenButton(value) {
 
         </a>
 
-    `;
+    ;
 
 }
 
@@ -2701,7 +2699,7 @@ function createStatus(value) {
 
     }
 
-    return `
+    return 
 
         <span
             class="status ${className}">
@@ -2710,7 +2708,7 @@ function createStatus(value) {
 
         </span>
 
-    `;
+    ;
 
 }
 
@@ -2771,7 +2769,7 @@ function formatDate(value) {
         )
         .slice(-2);
 
-    return `${month}/${day}/${year}`;
+    return ${month}/${day}/${year};
 
 }
 
@@ -2858,13 +2856,13 @@ function renderTable() {
     else {
 
         recordInfo.textContent =
-            `Showing ${
+            Showing ${
                 startIndex + 1
             }-${
                 endIndex
             } of ${
                 totalRecords
-            } records`;
+            } records;
 
     }
 
@@ -2872,7 +2870,7 @@ function renderTable() {
         pageData.length === 0
     ) {
 
-        tableBody.innerHTML = `
+        tableBody.innerHTML = 
 
             <tr>
 
@@ -2886,7 +2884,7 @@ function renderTable() {
 
             </tr>
 
-        `;
+        ;
 
     }
 
@@ -2972,7 +2970,7 @@ function renderTable() {
 
                     }
 
-                    return `
+                    return 
 
                         <tr
                             class="${rowClass}">
@@ -3003,7 +3001,7 @@ function renderTable() {
 
                         </tr>
 
-                    `;
+                    ;
 
                 })
                 .join("");
@@ -3011,11 +3009,11 @@ function renderTable() {
     }
 
     pageInfo.textContent =
-        `Page ${
+        Page ${
             currentPage
         } / ${
             totalPages
-        }`;
+        };
 
     prevBtn.disabled =
         currentPage <= 1;
@@ -3365,7 +3363,7 @@ function renderAddStep() {
         title.textContent =
             "Add New Issue — Step 3 / 4";
 
-        content.innerHTML = `
+        content.innerHTML = 
 
             <label
                 class="add-step-label">
@@ -3384,13 +3382,13 @@ function renderAddStep() {
                 ]
             )}</textarea>
 
-```
+
         <div
             id="addError"
             class="add-error">
         </div>
 
-    `;
+    ;
 
     setTimeout(function() {
 
@@ -3419,7 +3417,7 @@ else if (addStep === 4) {
     title.textContent =
         "Add New Issue — Step 4 / 4";
 
-    content.innerHTML = `
+    content.innerHTML = 
 
         <label
             class="add-step-label">
@@ -3455,7 +3453,7 @@ else if (addStep === 4) {
             class="add-error">
         </div>
 
-    `;
+    ;
 
     document.getElementById(
         "addStatus"
@@ -3463,7 +3461,7 @@ else if (addStep === 4) {
         newRecord.STATUS;
 
 }
-```
+
 
 }
 
@@ -3473,7 +3471,7 @@ RENDER CALENDAR STEP
 
 function renderCalendarStep() {
 
-```
+
 const content =
     document.getElementById(
         "addStepContent"
@@ -3526,14 +3524,14 @@ for (
     i++
 ) {
 
-    daysHTML += `
+    daysHTML += 
 
         <button
             type="button"
             class="calendar-day empty">
         </button>
 
-    `;
+    ;
 
 }
 
@@ -3581,7 +3579,7 @@ for (
 
     }
 
-    daysHTML += `
+    daysHTML += 
 
         <button
             type="button"
@@ -3592,21 +3590,21 @@ for (
 
         </button>
 
-    `;
+    ;
 
 }
 
 const selectedInfo =
     newRecord.DATE
-        ? `
+        ? 
             Selected date:
             ${escapeHTML(
                 newRecord.DATE
             )}
-          `
+          
         : "Please select a date.";
 
-content.innerHTML = `
+content.innerHTML = 
 
     <div class="calendar-wrapper">
 
@@ -3677,8 +3675,8 @@ content.innerHTML = `
 
     </div>
 
-`;
-```
+;
+
 
 }
 
@@ -3688,7 +3686,6 @@ CHANGE CALENDAR MONTH
 
 function changeCalendarMonth(direction) {
 
-```
 calendarMonth +=
     direction;
 
@@ -3713,7 +3710,7 @@ else if (
 }
 
 renderCalendarStep();
-```
+
 
 }
 
@@ -3723,7 +3720,7 @@ SELECT CALENDAR DATE
 
 function selectCalendarDate(day) {
 
-```
+
 const month =
     String(
         calendarMonth + 1
@@ -3739,10 +3736,10 @@ const year =
         .slice(-2);
 
 newRecord.DATE =
-    `${month}/${dayText}/${year}`;
+    ${month}/${dayText}/${year};
 
 renderCalendarStep();
-```
+
 
 }
 
@@ -3752,7 +3749,7 @@ RENDER SITE STEP
 
 function renderAddSiteStep() {
 
-```
+
 const title =
     document.getElementById(
         "addStepTitle"
@@ -3769,17 +3766,17 @@ title.textContent =
 const customers =
     getAllCustomers();
 
-let options = `
+let options = 
 
     <option value="">
         Select customer
     </option>
 
-`;
+;
 
 customers.forEach(function(customer) {
 
-    options += `
+    options += 
 
         <option
             value="${escapeAttribute(
@@ -3790,11 +3787,11 @@ customers.forEach(function(customer) {
 
         </option>
 
-    `;
+    ;
 
 });
 
-content.innerHTML = `
+content.innerHTML = 
 
     <label
         class="add-step-label">
@@ -3818,13 +3815,13 @@ content.innerHTML = `
         class="add-error">
     </div>
 
-`;
+;
 
 document.getElementById(
     "addSite"
 ).value =
     newRecord.SITE;
-```
+
 
 }
 
@@ -3834,7 +3831,7 @@ ADD NEXT STEP
 
 function addNextStep() {
 
-```
+
 const error =
     document.getElementById(
         "addError"
@@ -3959,7 +3956,7 @@ else if (addStep === 4) {
 addStep++;
 
 renderAddStep();
-```
+
 
 }
 
@@ -3969,7 +3966,7 @@ ADD PREVIOUS STEP
 
 function addPreviousStep() {
 
-```
+
 if (
     addStep <= 1
 ) {
@@ -3981,7 +3978,7 @@ if (
 addStep--;
 
 renderAddStep();
-```
+
 
 }
 
@@ -3991,7 +3988,7 @@ SHOW CONFIRMATION
 
 function showAddConfirmation() {
 
-```
+
 const title =
     document.getElementById(
         "addStepTitle"
@@ -4015,7 +4012,7 @@ const backBtn =
 title.textContent =
     "Confirm New Record";
 
-content.innerHTML = `
+content.innerHTML = 
 
     <div class="add-confirm-row">
 
@@ -4095,7 +4092,7 @@ content.innerHTML = `
         class="save-message">
     </div>
 
-`;
+;
 
 backBtn.style.display =
     "inline-block";
@@ -4111,7 +4108,7 @@ nextBtn.onclick =
 
 nextBtn.disabled =
     false;
-```
+
 
 }
 
@@ -4121,7 +4118,7 @@ SAVE NEW RECORD THROUGH CLOUDFLARE WORKER
 
 async function saveNewRecord() {
 
-```
+
 const nextBtn =
     document.getElementById(
         "addNextBtn"
@@ -4334,7 +4331,7 @@ catch (error) {
         false;
 
 }
-```
+
 
 }
 
@@ -4344,7 +4341,7 @@ OUTPUT EXCEL
 
 async function outputExcel() {
 
-```
+
 if (
     typeof XLSX === "undefined"
 ) {
@@ -4587,7 +4584,7 @@ catch (error) {
     );
 
 }
-```
+
 
 }
 
