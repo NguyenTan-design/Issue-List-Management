@@ -606,5 +606,13 @@
         "STATUS": "Monitoring",
         "LOG": "",
         "CC LINK": ""
+    },
+    {
+        "DATE": "09/25/26",
+        "SITE": "MERRY & LUXSHARE (VIET NAM) CO.,LTD]",
+        "ISSUE AND REQUEST": "test",
+        "STATUS": "Closed",
+        "LOG": "",
+        "CC LINK": ""
     }
 ]
