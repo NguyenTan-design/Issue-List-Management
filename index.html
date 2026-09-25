@@ -824,6 +824,13 @@ tbody tr.monitoring-case-row:hover {
     cursor: wait;
 }
 
+.add-secondary-btn:disabled {
+
+    opacity: 0.55;
+
+    cursor: wait;
+}
+
 
 /* =========================
    CONFIRM
@@ -864,55 +871,26 @@ tbody tr.monitoring-case-row:hover {
 
 
 /* =========================
-   GITHUB TOKEN
+   SECURE BACKEND NOTE
    ========================= */
 
-.github-token-area {
+.backend-note {
 
     margin-top: 18px;
 
-    padding-top: 14px;
+    padding: 10px 12px;
 
-    border-top: 1px solid #ddd;
-}
+    background: #f0f7ff;
 
-.github-token-label {
+    border: 1px solid #c9e2ff;
 
-    display: block;
+    border-radius: 6px;
 
-    font-size: 12px;
-
-    font-weight: bold;
-
-    margin-bottom: 6px;
-
-    color: #444;
-}
-
-.github-token-input {
-
-    width: 100%;
-
-    padding: 9px;
-
-    border: 1px solid #bbb;
-
-    border-radius: 5px;
+    color: #24527a;
 
     font-size: 12px;
 
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-.github-token-note {
-
-    margin-top: 6px;
-
-    font-size: 11px;
-
-    color: #777;
-
-    line-height: 1.4;
+    line-height: 1.5;
 }
 
 .save-message {
@@ -1539,29 +1517,12 @@ let newRecord = {
 };
 
 
-/*
- * GitHub token is kept only in memory.
- * It is NOT stored in localStorage.
- */
-
-let addGitHubToken = "";
-
-
 /* =========================================================
-   GITHUB CONFIGURATION
+   CLOUDFLARE WORKER
    ========================================================= */
 
-const GITHUB_CONFIG = {
-
-    owner: "NguyenTan-design",
-
-    repo: "Issue-List-Management",
-
-    branch: "main",
-
-    file: "data.json"
-
-};
+const BACKEND_API_URL =
+    "https://issue-list-backend.quoctan91.workers.dev/add-issue";
 
 
 /* =========================================================
@@ -3171,12 +3132,26 @@ function closeAddDialog() {
         );
 
 
+    const backBtn =
+        document.getElementById(
+            "addBackBtn"
+        );
+
+
     nextBtn.textContent =
         "Next";
 
 
     nextBtn.onclick =
         addNextStep;
+
+
+    nextBtn.disabled =
+        false;
+
+
+    backBtn.disabled =
+        false;
 
 }
 
@@ -3221,6 +3196,14 @@ function renderAddStep() {
 
     nextBtn.onclick =
         addNextStep;
+
+
+    nextBtn.disabled =
+        false;
+
+
+    backBtn.disabled =
+        false;
 
 
     backBtn.style.display =
@@ -3847,67 +3830,33 @@ function showAddConfirmation() {
         </div>
 
 
-        <div class="github-token-area">
+        <div class="backend-note">
 
-            <label
-                class="github-token-label">
+            This record will be saved to
+            data.json through the secure backend.
 
-                GitHub Personal Access Token
+            <br>
 
-            </label>
+            GitHub authentication is handled
+            securely by Cloudflare Worker.
 
-
-            <input
-                type="password"
-                id="githubTokenInput"
-                class="github-token-input"
-                placeholder="Enter GitHub token"
-                autocomplete="off"
-            >
+        </div>
 
 
-            <div class="github-token-note">
-
-                Required only to update data.json.
-                The token is not saved in this website
-                or in data.json.
-
-            </div>
-
-
-            <div
-                id="saveMessage"
-                class="save-message">
-            </div>
-
+        <div
+            id="saveMessage"
+            class="save-message">
         </div>
 
     `;
 
 
-    /*
-     * If token already exists in memory,
-     * don't put it into the password field.
-     */
-
-    const tokenInput =
-        document.getElementById(
-            "githubTokenInput"
-        );
-
-
-    if (
-        addGitHubToken
-    ) {
-
-        tokenInput.placeholder =
-            "Token already available for this session";
-
-    }
-
-
     backBtn.style.display =
         "inline-block";
+
+
+    backBtn.disabled =
+        false;
 
 
     nextBtn.textContent =
@@ -3917,360 +3866,15 @@ function showAddConfirmation() {
     nextBtn.onclick =
         saveNewRecord;
 
-}
 
-
-/* =========================================================
-   GITHUB API
-   ========================================================= */
-
-function getGitHubApiUrl() {
-
-    return (
-        "https://api.github.com/repos/" +
-        encodeURIComponent(
-            GITHUB_CONFIG.owner
-        ) +
-        "/" +
-        encodeURIComponent(
-            GITHUB_CONFIG.repo
-        ) +
-        "/contents/" +
-        GITHUB_CONFIG.file
-    );
+    nextBtn.disabled =
+        false;
 
 }
 
 
 /* =========================================================
-   UTF-8 BASE64 ENCODE
-   ========================================================= */
-
-function utf8ToBase64(text) {
-
-    const bytes =
-        new TextEncoder()
-            .encode(text);
-
-
-    let binary = "";
-
-
-    const chunkSize = 0x8000;
-
-
-    for (
-        let i = 0;
-        i < bytes.length;
-        i += chunkSize
-    ) {
-
-        binary += String.fromCharCode(
-            ...bytes.subarray(
-                i,
-                i + chunkSize
-            )
-        );
-
-    }
-
-
-    return btoa(binary);
-
-}
-
-
-/* =========================================================
-   UTF-8 BASE64 DECODE
-   ========================================================= */
-
-function base64ToUtf8(base64) {
-
-    const binary =
-        atob(
-            base64.replace(
-                /\s/g,
-                ""
-            )
-        );
-
-
-    const bytes =
-        Uint8Array.from(
-            binary,
-            function(char) {
-
-                return char.charCodeAt(0);
-
-            }
-        );
-
-
-    return new TextDecoder()
-        .decode(bytes);
-
-}
-
-
-/* =========================================================
-   GET DATA.JSON FROM GITHUB
-   ========================================================= */
-
-async function getGitHubData(token) {
-
-    const url =
-        getGitHubApiUrl();
-
-
-    const response =
-        await fetch(
-            url +
-            "?ref=" +
-            encodeURIComponent(
-                GITHUB_CONFIG.branch
-            ) +
-            "&t=" +
-            Date.now(),
-            {
-
-                method: "GET",
-
-                headers: {
-
-                    "Accept":
-                        "application/vnd.github+json",
-
-                    "Authorization":
-                        "Bearer " + token,
-
-                    "X-GitHub-Api-Version":
-                        "2022-11-28"
-
-                }
-
-            }
-        );
-
-
-    if (
-        !response.ok
-    ) {
-
-        let message =
-            "Failed to read data.json from GitHub.";
-
-
-        try {
-
-            const errorData =
-                await response.json();
-
-
-            if (
-                errorData.message
-            ) {
-
-                message =
-                    errorData.message;
-
-            }
-
-        }
-
-        catch (e) {
-        }
-
-
-        throw new Error(
-            message
-        );
-
-    }
-
-
-    const result =
-        await response.json();
-
-
-    if (
-        !result.content ||
-        !result.sha
-    ) {
-
-        throw new Error(
-            "GitHub did not return data.json content or SHA."
-        );
-
-    }
-
-
-    const jsonText =
-        base64ToUtf8(
-            result.content
-        );
-
-
-    let data;
-
-
-    try {
-
-        data =
-            JSON.parse(
-                jsonText
-            );
-
-    }
-
-    catch (error) {
-
-        throw new Error(
-            "data.json contains invalid JSON."
-        );
-
-    }
-
-
-    if (
-        !Array.isArray(data)
-    ) {
-
-        throw new Error(
-            "data.json must contain a JSON array."
-        );
-
-    }
-
-
-    return {
-
-        data: data,
-
-        sha: result.sha
-
-    };
-
-}
-
-
-/* =========================================================
-   UPDATE DATA.JSON ON GITHUB
-   ========================================================= */
-
-async function updateGitHubData(
-    token,
-    data,
-    sha
-) {
-
-    const url =
-        getGitHubApiUrl();
-
-
-    const jsonText =
-        JSON.stringify(
-            data,
-            null,
-            4
-        );
-
-
-    const encodedContent =
-        utf8ToBase64(
-            jsonText
-        );
-
-
-    const body = {
-
-        message:
-            "Add new issue record",
-
-        content:
-            encodedContent,
-
-        sha:
-            sha,
-
-        branch:
-            GITHUB_CONFIG.branch
-
-    };
-
-
-    const response =
-        await fetch(
-            url,
-            {
-
-                method: "PUT",
-
-                headers: {
-
-                    "Accept":
-                        "application/vnd.github+json",
-
-                    "Authorization":
-                        "Bearer " + token,
-
-                    "X-GitHub-Api-Version":
-                        "2022-11-28",
-
-                    "Content-Type":
-                        "application/json"
-
-                },
-
-                body:
-                    JSON.stringify(body)
-
-            }
-        );
-
-
-    if (
-        !response.ok
-    ) {
-
-        let message =
-            "Failed to update data.json on GitHub.";
-
-
-        try {
-
-            const errorData =
-                await response.json();
-
-
-            if (
-                errorData.message
-            ) {
-
-                message =
-                    errorData.message;
-
-            }
-
-        }
-
-        catch (e) {
-        }
-
-
-        throw new Error(
-            message
-        );
-
-    }
-
-
-    return await response.json();
-
-}
-
-
-/* =========================================================
-   SAVE NEW RECORD
+   SAVE NEW RECORD THROUGH CLOUDFLARE WORKER
    ========================================================= */
 
 async function saveNewRecord() {
@@ -4287,12 +3891,6 @@ async function saveNewRecord() {
         );
 
 
-    const tokenInput =
-        document.getElementById(
-            "githubTokenInput"
-        );
-
-
     const saveMessage =
         document.getElementById(
             "saveMessage"
@@ -4300,59 +3898,7 @@ async function saveNewRecord() {
 
 
     /*
-     * Get token from input if available.
-     */
-
-    let token = "";
-
-
-    if (
-        tokenInput &&
-        tokenInput.value.trim()
-    ) {
-
-        token =
-            tokenInput.value.trim();
-
-    }
-
-    else if (
-        addGitHubToken
-    ) {
-
-        token =
-            addGitHubToken;
-
-    }
-
-
-    /*
-     * Token required.
-     */
-
-    if (
-        !token
-    ) {
-
-        saveMessage.textContent =
-            "Please enter your GitHub Personal Access Token.";
-
-        saveMessage.className =
-            "save-message error";
-
-        if (tokenInput) {
-
-            tokenInput.focus();
-
-        }
-
-        return;
-
-    }
-
-
-    /*
-     * Disable buttons while saving.
+     * Disable buttons while saving
      */
 
     nextBtn.disabled =
@@ -4365,100 +3911,153 @@ async function saveNewRecord() {
     saveMessage.textContent =
         "Saving record to GitHub...";
 
+
     saveMessage.className =
         "save-message";
+
+
+    /*
+     * Record sent to Worker
+     */
+
+    const recordToSend = {
+
+        DATE:
+            newRecord.DATE,
+
+        SITE:
+            newRecord.SITE,
+
+        "ISSUE AND REQUEST":
+            newRecord[
+                "ISSUE AND REQUEST"
+            ],
+
+        STATUS:
+            newRecord.STATUS
+
+    };
 
 
     try {
 
         /*
-         * Step 1:
-         * Read latest data.json
+         * Send to Cloudflare Worker
          */
 
-        const githubData =
-            await getGitHubData(
-                token
+        const response =
+            await fetch(
+                BACKEND_API_URL,
+                {
+
+                    method:
+                        "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body:
+                        JSON.stringify(
+                            recordToSend
+                        )
+
+                }
             );
 
 
         /*
-         * Step 2:
-         * Add new record
+         * Parse Worker response
          */
 
-        githubData.data.push({
+        let result;
 
-            DATE:
-                newRecord.DATE,
 
-            SITE:
-                newRecord.SITE,
+        try {
 
-            "ISSUE AND REQUEST":
-                newRecord[
-                    "ISSUE AND REQUEST"
-                ],
+            result =
+                await response.json();
 
-            STATUS:
-                newRecord.STATUS,
+        }
 
-            LOG:
-                "",
+        catch (error) {
 
-            "CC LINK":
-                ""
+            throw new Error(
+                "Invalid response from Cloudflare Worker."
+            );
 
-        });
+        }
 
 
         /*
-         * Step 3:
-         * Update GitHub
+         * Check Worker result
          */
 
-        await updateGitHubData(
+        if (
+            !response.ok ||
+            !result.success
+        ) {
 
-            token,
+            throw new Error(
+                result.message ||
+                "Failed to save record."
+            );
 
-            githubData.data,
+        }
 
-            githubData.sha
 
+        /*
+         * Use record returned by Worker
+         */
+
+        const savedRecord =
+            result.record ||
+            {
+
+                DATE:
+                    newRecord.DATE,
+
+                SITE:
+                    newRecord.SITE,
+
+                "ISSUE AND REQUEST":
+                    newRecord[
+                        "ISSUE AND REQUEST"
+                    ],
+
+                STATUS:
+                    newRecord.STATUS,
+
+                LOG:
+                    "",
+
+                "CC LINK":
+                    ""
+
+            };
+
+
+        /*
+         * Add new record locally
+         */
+
+        allData.push(
+            savedRecord
         );
 
 
         /*
-         * Token remains only in RAM
-         * for the current page session.
+         * Sort newest first
          */
-
-        addGitHubToken =
-            token;
-
-
-        /*
-         * Update local data immediately.
-         */
-
-        allData =
-            githubData.data;
-
 
         sortData();
 
 
-        filteredData =
-            [...allData];
-
-
-        currentPage =
-            1;
-
-
         /*
-         * Reset filters so the new
-         * record is immediately visible.
+         * Reset filters
          */
 
         selectedBU =
@@ -4471,6 +4070,36 @@ async function saveNewRecord() {
         updateBUButtons();
 
         updateStatusButtons();
+
+
+        /*
+         * Reset search
+         */
+
+        const searchInput =
+            document.getElementById(
+                "searchIssue"
+            );
+
+
+        if (searchInput) {
+
+            searchInput.value =
+                "";
+
+        }
+
+
+        /*
+         * Update filtered data
+         */
+
+        filteredData =
+            [...allData];
+
+
+        currentPage =
+            1;
 
 
         /*
@@ -4496,11 +4125,15 @@ async function saveNewRecord() {
         createStatusChart();
 
 
+        /*
+         * Update table
+         */
+
         renderTable();
 
 
         /*
-         * Success
+         * Success message
          */
 
         saveMessage.textContent =
@@ -4511,7 +4144,7 @@ async function saveNewRecord() {
 
 
         /*
-         * Close dialog after short delay.
+         * Close modal
          */
 
         setTimeout(function() {
@@ -4525,7 +4158,7 @@ async function saveNewRecord() {
     catch (error) {
 
         console.error(
-            "GitHub save error:",
+            "Backend save error:",
             error
         );
 
@@ -4534,28 +4167,14 @@ async function saveNewRecord() {
             "Save failed: " +
             error.message;
 
+
         saveMessage.className =
             "save-message error";
 
 
         /*
-         * Clear token if GitHub
-         * authentication failed.
+         * Enable buttons again
          */
-
-        if (
-            error.message
-                .toLowerCase()
-                .includes("bad credentials")
-        ) {
-
-            addGitHubToken = "";
-
-        }
-
-    }
-
-    finally {
 
         nextBtn.disabled =
             false;
