@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -12,18 +13,20 @@
 >
 
 <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+
 >
 
 <title>NA TEAM Issue List Management</title>
 
 <!-- PLOTLY -->
+
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 
 <!-- SHEETJS (Excel export) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
 <style>
 
@@ -107,7 +110,14 @@ body {
 
 .filter-area {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 7px;
+    align-items: stretch;
+}
+
+.filter-row {
+    display: flex;
+    flex-wrap: nowrap;
     gap: 7px;
     align-items: center;
 }
@@ -911,6 +921,7 @@ tbody tr.monitoring-case-row:hover {
     line-height: 1.5;
 }
 
+
 /* =========================
    TOAST
    ========================= */
@@ -1001,8 +1012,16 @@ tbody tr.monitoring-case-row:hover {
         min-width: 0;
     }
 
+
+    /* FILTER ROWS */
+
     .filter-area {
         gap: 5px;
+    }
+
+    .filter-row {
+        gap: 5px;
+        flex-wrap: wrap;
     }
 
     .filter-btn {
@@ -1199,9 +1218,7 @@ tbody tr.monitoring-case-row:hover {
 
 </head>
 
-
 <body>
-
 
 <!-- =========================================================
      HEADER
@@ -1209,33 +1226,39 @@ tbody tr.monitoring-case-row:hover {
 
 <div class="header">
 
-    <div class="header-inner">
 
-        <div class="title">
-            NA TEAM Issue List Management
-        </div>
+<div class="header-inner">
 
-
-        <!-- SEARCH -->
-
-        <div class="search-area">
-
-            <input
-                type="text"
-                id="searchIssue"
-                placeholder="Search Issue and Request..."
-                oninput="applyFilter()"
-            >
-
-        </div>
+    <div class="title">
+        NA TEAM Issue List Management
+    </div>
 
 
-        <!-- FILTERS -->
+    <!-- SEARCH -->
 
-        <div class="filter-area">
+    <div class="search-area">
+
+        <input
+            type="text"
+            id="searchIssue"
+            placeholder="Search Issue and Request..."
+            oninput="applyFilter()"
+        >
+
+    </div>
 
 
-            <!-- BU FILTERS -->
+    <!-- FILTERS -->
+
+    <div class="filter-area">
+
+
+        <!-- =========================
+             SITE / BU FILTERS
+             ========================= -->
+
+        <div class="filter-row">
+
 
             <button
                 class="filter-btn bu-btn"
@@ -1267,8 +1290,6 @@ tbody tr.monitoring-case-row:hover {
             </button>
 
 
-            <!-- VISION FILTER -->
-
             <button
                 class="filter-btn bu-btn"
                 id="btnVISION"
@@ -1279,7 +1300,44 @@ tbody tr.monitoring-case-row:hover {
             </button>
 
 
-            <!-- STATUS FILTERS -->
+            <button
+                class="filter-btn bu-btn"
+                id="btnE5"
+                onclick="selectBU('E5')">
+
+                E5
+
+            </button>
+
+
+            <button
+                class="filter-btn bu-btn"
+                id="btnMICRON"
+                onclick="selectBU('MICRON')">
+
+                MICRON
+
+            </button>
+
+
+            <button
+                class="filter-btn bu-btn"
+                id="btnLDT"
+                onclick="selectBU('LDT')">
+
+                LDT
+
+            </button>
+
+        </div>
+
+
+        <!-- =========================
+             STATUS FILTERS
+             ========================= -->
+
+        <div class="filter-row">
+
 
             <button
                 class="filter-btn status-filter-btn open-case-btn"
@@ -1311,8 +1369,6 @@ tbody tr.monitoring-case-row:hover {
             </button>
 
 
-            <!-- CLEAR -->
-
             <button
                 class="filter-btn clear-btn"
                 onclick="clearFilter()">
@@ -1328,6 +1384,8 @@ tbody tr.monitoring-case-row:hover {
 </div>
 
 
+</div>
+
 <!-- =========================================================
      STATUS CHART
      ========================================================= -->
@@ -1337,29 +1395,30 @@ tbody tr.monitoring-case-row:hover {
     id="chartContainer"
 >
 
-    <div class="chart-header">
 
-        <div class="chart-title">
-            Issue Status Overview
-        </div>
+<div class="chart-header">
 
-
-        <button
-            class="chart-toggle-btn"
-            id="chartToggleBtn"
-            onclick="toggleChart()">
-
-            Show graph
-
-        </button>
-
+    <div class="chart-title">
+        Issue Status Overview
     </div>
 
 
-    <div id="statusChart"></div>
+    <button
+        class="chart-toggle-btn"
+        id="chartToggleBtn"
+        onclick="toggleChart()">
+
+        Show graph
+
+    </button>
 
 </div>
 
+
+<div id="statusChart"></div>
+
+
+</div>
 
 <!-- =========================================================
      PAGINATION
@@ -1367,54 +1426,55 @@ tbody tr.monitoring-case-row:hover {
 
 <div class="pagination-top">
 
-    <button
-        class="page-btn"
-        id="prevBtn"
-        onclick="previousPage()">
 
-        Previous
+<button
+    class="page-btn"
+    id="prevBtn"
+    onclick="previousPage()">
 
-    </button>
+    Previous
 
-
-    <span
-        class="page-info"
-        id="pageInfo">
-
-        Page 1
-
-    </span>
+</button>
 
 
-    <button
-        class="page-btn"
-        id="nextBtn"
-        onclick="nextPage()">
+<span
+    class="page-info"
+    id="pageInfo">
 
-        Next
+    Page 1
 
-    </button>
-
-
-    <button
-        class="filter-btn add-btn"
-        onclick="openAddDialog()">
-
-        Add Case
-
-    </button>
+</span>
 
 
-    <button
-        class="filter-btn export-btn"
-        onclick="exportToExcel()">
+<button
+    class="page-btn"
+    id="nextBtn"
+    onclick="nextPage()">
 
-        Export Excel
+    Next
 
-    </button>
+</button>
+
+
+<button
+    class="filter-btn add-btn"
+    onclick="openAddDialog()">
+
+    Add Case
+
+</button>
+
+
+<button
+    class="filter-btn export-btn"
+    onclick="exportToExcel()">
+
+    Export Excel
+
+</button>
+
 
 </div>
-
 
 <!-- =========================================================
      RECORD INFO
@@ -1424,10 +1484,11 @@ tbody tr.monitoring-case-row:hover {
     class="record-info"
     id="recordInfo">
 
-    Loading...
+
+Loading...
+
 
 </div>
-
 
 <!-- =========================================================
      TABLE
@@ -1435,36 +1496,37 @@ tbody tr.monitoring-case-row:hover {
 
 <div class="table-container">
 
-    <table>
 
-        <thead>
+<table>
 
-            <tr>
+    <thead>
 
-                <th>DATE</th>
+        <tr>
 
-                <th>SITE</th>
+            <th>DATE</th>
 
-                <th>ISSUE AND REQUEST</th>
+            <th>SITE</th>
 
-                <th>STATUS</th>
+            <th>ISSUE AND REQUEST</th>
 
-                <th>LOG</th>
+            <th>STATUS</th>
 
-                <th>CC LINK</th>
+            <th>LOG</th>
 
-            </tr>
+            <th>CC LINK</th>
 
-        </thead>
+        </tr>
+
+    </thead>
 
 
-        <tbody id="tableBody">
-        </tbody>
+    <tbody id="tableBody">
+    </tbody>
 
-    </table>
+</table>
+
 
 </div>
-
 
 <!-- =========================================================
      ADD MODAL
@@ -1475,67 +1537,68 @@ tbody tr.monitoring-case-row:hover {
     id="addModal"
 >
 
-    <div class="add-modal-content">
+
+<div class="add-modal-content">
 
 
-        <!-- HEADER -->
+    <!-- HEADER -->
 
-        <div class="add-modal-header">
+    <div class="add-modal-header">
 
-            <span id="addStepTitle">
-                Add New Issue
-            </span>
-
-
-            <button
-                onclick="closeAddDialog()"
-                class="add-close-btn"
-                title="Close">
-
-                ×
-
-            </button>
-
-        </div>
+        <span id="addStepTitle">
+            Add New Issue
+        </span>
 
 
-        <!-- CONTENT -->
+        <button
+            onclick="closeAddDialog()"
+            class="add-close-btn"
+            title="Close">
 
-        <div
-            class="add-step"
-            id="addStepContent">
-        </div>
+            ×
 
+        </button>
 
-        <!-- FOOTER -->
-
-        <div class="add-modal-footer">
-
-            <button
-                id="addBackBtn"
-                class="add-secondary-btn"
-                onclick="addPreviousStep()">
-
-                Back
-
-            </button>
+    </div>
 
 
-            <button
-                id="addNextBtn"
-                class="add-primary-btn"
-                onclick="addNextStep()">
+    <!-- CONTENT -->
 
-                Next
+    <div
+        class="add-step"
+        id="addStepContent">
+    </div>
 
-            </button>
 
-        </div>
+    <!-- FOOTER -->
+
+    <div class="add-modal-footer">
+
+        <button
+            id="addBackBtn"
+            class="add-secondary-btn"
+            onclick="addPreviousStep()">
+
+            Back
+
+        </button>
+
+
+        <button
+            id="addNextBtn"
+            class="add-primary-btn"
+            onclick="addNextStep()">
+
+            Next
+
+        </button>
 
     </div>
 
 </div>
 
+
+</div>
 
 <!-- =========================================================
      TOAST
@@ -1545,7 +1608,6 @@ tbody tr.monitoring-case-row:hover {
     id="toast"
     class="toast">
 </div>
-
 
 <script>
 
@@ -1638,6 +1700,12 @@ let D7Data = [];
 let BU11Data = [];
 
 let VISIONData = [];
+
+let E5Data = [];
+
+let MICRONData = [];
+
+let LDTData = [];
 
 
 /* =========================================================
@@ -1949,7 +2017,7 @@ function computeChartData() {
 
 
 /* =========================================================
-   CREATE CHART (first render only)
+   CREATE CHART
    ========================================================= */
 
 function createStatusChart() {
@@ -1991,7 +2059,7 @@ function createStatusChart() {
 
 
 /* =========================================================
-   UPDATE CHART (cheap in-place update)
+   UPDATE CHART
    ========================================================= */
 
 function updateStatusChart() {
@@ -2030,14 +2098,6 @@ function updateStatusChart() {
     }
 
 
-    /*
-     * Plotly.react diffs against the
-     * existing plot and only updates
-     * what changed, instead of tearing
-     * down and rebuilding the whole
-     * chart like purge + newPlot did.
-     */
-
     Plotly.react(
 
         "statusChart",
@@ -2075,7 +2135,13 @@ async function loadData() {
 
             fetch("BU11.json" + cacheBust),
 
-            fetch("VISION.json" + cacheBust)
+            fetch("VISION.json" + cacheBust),
+
+            fetch("E5.json" + cacheBust),
+
+            fetch("MICRON.json" + cacheBust),
+
+            fetch("LDT.json" + cacheBust)
 
         ]);
 
@@ -2114,6 +2180,18 @@ async function loadData() {
             await results[4].json();
 
 
+        E5Data =
+            await results[5].json();
+
+
+        MICRONData =
+            await results[6].json();
+
+
+        LDTData =
+            await results[7].json();
+
+
         sortData();
 
 
@@ -2136,7 +2214,7 @@ async function loadData() {
 
         document.getElementById(
             "tableBody"
-        ).innerHTML = `
+        ).innerHTML = 
 
             <tr>
 
@@ -2148,14 +2226,17 @@ async function loadData() {
                     Please check data.json,
                     BU4.json,
                     D7.json,
-                    BU11.json
-                    and VISION.json.
+                    BU11.json,
+                    VISION.json,
+                    E5.json,
+                    MICRON.json
+                    and LDT.json.
 
                 </td>
 
             </tr>
 
-        `;
+        ;
 
 
         document.getElementById(
@@ -2184,10 +2265,6 @@ function parseDate(value) {
     const text =
         String(value).trim();
 
-
-    /*
-     * MM/DD/YY
-     */
 
     const match =
         text.match(
@@ -2220,17 +2297,11 @@ function parseDate(value) {
     }
 
 
-    /*
-     * Fallback for existing data
-     */
-
     const date =
         new Date(value);
 
 
-    if (
-        isNaN(date.getTime())
-    ) {
+    if (isNaN(date.getTime())) {
 
         return 0;
 
@@ -2247,16 +2318,6 @@ function parseDate(value) {
    ========================================================= */
 
 function sortData() {
-
-    /*
-     * Precompute the sort key once per
-     * item instead of calling parseDate()
-     * repeatedly inside the comparator
-     * (a comparator runs O(n log n) times,
-     * parseDate() involves a regex + Date
-     * construction, so caching it up front
-     * is noticeably cheaper on larger lists).
-     */
 
     const keyed =
         allData.map(function(item) {
@@ -2375,6 +2436,21 @@ function updateBUButtons() {
         VISION:
             document.getElementById(
                 "btnVISION"
+            ),
+
+        E5:
+            document.getElementById(
+                "btnE5"
+            ),
+
+        MICRON:
+            document.getElementById(
+                "btnMICRON"
+            ),
+
+        LDT:
+            document.getElementById(
+                "btnLDT"
             )
 
     };
@@ -2492,6 +2568,27 @@ function getBUValue(bu) {
     }
 
 
+    if (bu === "E5") {
+
+        return E5Data[0] || "";
+
+    }
+
+
+    if (bu === "MICRON") {
+
+        return MICRONData[0] || "";
+
+    }
+
+
+    if (bu === "LDT") {
+
+        return LDTData[0] || "";
+
+    }
+
+
     return "";
 
 }
@@ -2522,9 +2619,7 @@ function getAllCustomers() {
             String(value).trim();
 
 
-        if (
-            text === ""
-        ) {
+        if (text === "") {
 
             return;
 
@@ -2542,48 +2637,39 @@ function getAllCustomers() {
     }
 
 
-    if (
-        BU4Data.length > 0
-    ) {
+    const siteData = [
 
-        addCustomer(
-            BU4Data[0]
-        );
+        BU4Data,
 
-    }
+        D7Data,
 
+        BU11Data,
 
-    if (
-        D7Data.length > 0
-    ) {
+        VISIONData,
 
-        addCustomer(
-            D7Data[0]
-        );
+        E5Data,
 
-    }
+        MICRONData,
+
+        LDTData
+
+    ];
 
 
-    if (
-        BU11Data.length > 0
-    ) {
+    siteData.forEach(function(data) {
 
-        addCustomer(
-            BU11Data[0]
-        );
+        if (
+            data &&
+            data.length > 0
+        ) {
 
-    }
+            addCustomer(
+                data[0]
+            );
 
+        }
 
-    if (
-        VISIONData.length > 0
-    ) {
-
-        addCustomer(
-            VISIONData[0]
-        );
-
-    }
+    });
 
 
     return customers.sort();
@@ -2730,7 +2816,7 @@ function createOpenButton(value) {
     }
 
 
-    return `
+    return 
 
         <a
             class="open-btn"
@@ -2742,7 +2828,7 @@ function createOpenButton(value) {
 
         </a>
 
-    `;
+    ;
 
 }
 
@@ -2818,7 +2904,7 @@ function createStatus(value) {
     }
 
 
-    return `
+    return 
 
         <span
             class="status ${className}">
@@ -2827,7 +2913,7 @@ function createStatus(value) {
 
         </span>
 
-    `;
+    ;
 
 }
 
@@ -2849,11 +2935,6 @@ function formatDate(value) {
         String(value).trim();
 
 
-    /*
-     * Preserve MM/DD/YY
-     * if already in correct format.
-     */
-
     if (
         /^\d{2}\/\d{2}\/\d{2}$/.test(text)
     ) {
@@ -2868,9 +2949,7 @@ function formatDate(value) {
 
 
     if (
-        isNaN(
-            date.getTime()
-        )
+        isNaN(date.getTime())
     ) {
 
         return escapeHTML(
@@ -2901,7 +2980,7 @@ function formatDate(value) {
         .slice(-2);
 
 
-    return `${month}/${day}/${year}`;
+    return ${month}/${day}/${year};
 
 }
 
@@ -2999,13 +3078,13 @@ function renderTable() {
     else {
 
         recordInfo.textContent =
-            `Showing ${
+            Showing ${
                 startIndex + 1
             }-${
                 endIndex
             } of ${
                 totalRecords
-            } records`;
+            } records;
 
     }
 
@@ -3014,7 +3093,7 @@ function renderTable() {
         pageData.length === 0
     ) {
 
-        tableBody.innerHTML = `
+        tableBody.innerHTML = 
 
             <tr>
 
@@ -3028,7 +3107,7 @@ function renderTable() {
 
             </tr>
 
-        `;
+        ;
 
     }
 
@@ -3124,7 +3203,7 @@ function renderTable() {
                     }
 
 
-                    return `
+                    return 
 
                         <tr
                             class="${rowClass}">
@@ -3160,7 +3239,7 @@ function renderTable() {
 
                         </tr>
 
-                    `;
+                    ;
 
                 })
                 .join("");
@@ -3169,11 +3248,11 @@ function renderTable() {
 
 
     pageInfo.textContent =
-        `Page ${
+        Page ${
             currentPage
         } / ${
             totalPages
-        }`;
+        };
 
 
     prevBtn.disabled =
@@ -3405,11 +3484,6 @@ async function exportToExcel() {
     }
 
 
-    /*
-     * Build plain rows in the same
-     * column order as the table.
-     */
-
     const rows =
         filteredData.map(function(item) {
 
@@ -3447,10 +3521,6 @@ async function exportToExcel() {
             rows
         );
 
-
-    /*
-     * Reasonable column widths
-     */
 
     worksheet["!cols"] = [
 
@@ -3493,15 +3563,8 @@ async function exportToExcel() {
 
 
     const suggestedName =
-        `Issue_List_${stamp}.xlsx`;
+        Issue_List_${stamp}.xlsx;
 
-
-    /*
-     * Preferred path: File System Access API.
-     * Lets the user choose the save location
-     * and the file name via a native dialog.
-     * Supported in Chrome / Edge (desktop).
-     */
 
     if (
         window.showSaveFilePicker
@@ -3565,11 +3628,6 @@ async function exportToExcel() {
 
         catch (error) {
 
-            /*
-             * User cancelled the
-             * save dialog: do nothing.
-             */
-
             if (
                 error &&
                 error.name ===
@@ -3586,26 +3644,10 @@ async function exportToExcel() {
                 error
             );
 
-            /*
-             * Fall through to the
-             * default download below.
-             */
-
         }
 
     }
 
-
-    /*
-     * Fallback: browsers without the
-     * File System Access API (Firefox,
-     * Safari, mobile browsers). This
-     * triggers the browser's normal
-     * download flow; if the browser
-     * setting "Ask where to save each
-     * file" is enabled, it will still
-     * prompt for a location.
-     */
 
     XLSX.writeFile(
 
@@ -3619,7 +3661,7 @@ async function exportToExcel() {
 
 
 /* =========================================================
-   FORMAT DATE FOR EXPORT (plain text, no HTML escaping)
+   FORMAT DATE FOR EXPORT
    ========================================================= */
 
 function formatDateForExport(value) {
@@ -3672,7 +3714,7 @@ function formatDateForExport(value) {
         .slice(-2);
 
 
-    return `${month}/${day}/${year}`;
+    return ${month}/${day}/${year};
 
 }
 
@@ -3729,10 +3771,6 @@ function closeAddDialog() {
         .classList
         .remove("show");
 
-
-    /*
-     * Restore normal Next button
-     */
 
     const nextBtn =
         document.getElementById(
@@ -3794,10 +3832,6 @@ function renderAddStep() {
         );
 
 
-    /*
-     * Restore default button
-     */
-
     nextBtn.textContent =
         "Next";
 
@@ -3830,7 +3864,7 @@ function renderAddStep() {
             "Add New Issue — Step 1 / 4";
 
 
-        content.innerHTML = `
+        content.innerHTML = 
 
             <label
                 class="add-step-label">
@@ -3858,12 +3892,8 @@ function renderAddStep() {
                 class="add-error">
             </div>
 
-        `;
+        ;
 
-
-        /*
-         * Automatically focus date
-         */
 
         setTimeout(function() {
 
@@ -3904,7 +3934,7 @@ function renderAddStep() {
             "Add New Issue — Step 3 / 4";
 
 
-        content.innerHTML = `
+        content.innerHTML = 
 
             <label
                 class="add-step-label">
@@ -3925,161 +3955,71 @@ function renderAddStep() {
             )}</textarea>
 
 
-            <div
-                id="addError"
-                class="add-error">
-            </div>
+        <div
+            id="addError"
+            class="add-error">
+        </div>
 
-        `;
-
-
-        setTimeout(function() {
-
-            const input =
-                document.getElementById(
-                    "addIssue"
-                );
-
-            if (input) {
-
-                input.focus();
-
-            }
-
-        }, 50);
-
-    }
+    ;
 
 
-    /* =========================
-       STEP 4
-       ========================= */
+    setTimeout(function() {
 
-    else if (addStep === 4) {
+        const input =
+            document.getElementById(
+                "addIssue"
+            );
 
-        title.textContent =
-            "Add New Issue — Step 4 / 4";
+        if (input) {
 
+            input.focus();
 
-        content.innerHTML = `
+        }
 
-            <label
-                class="add-step-label">
-
-                Status
-
-            </label>
-
-
-            <select
-                id="addStatus"
-                class="add-select">
-
-                <option value="">
-                    Select status
-                </option>
-
-                <option value="Open">
-                    Open
-                </option>
-
-                <option value="Closed">
-                    Closed
-                </option>
-
-                <option value="Monitoring">
-                    Monitoring
-                </option>
-
-            </select>
-
-
-            <div
-                id="addError"
-                class="add-error">
-            </div>
-
-        `;
-
-
-        document.getElementById(
-            "addStatus"
-        ).value =
-            newRecord.STATUS;
-
-    }
+    }, 50);
 
 }
 
 
-/* =========================================================
-   RENDER SITE STEP
-   ========================================================= */
+/* =========================
+   STEP 4
+   ========================= */
 
-function renderAddSiteStep() {
-
-    const title =
-        document.getElementById(
-            "addStepTitle"
-        );
-
-
-    const content =
-        document.getElementById(
-            "addStepContent"
-        );
-
+else if (addStep === 4) {
 
     title.textContent =
-        "Add New Issue — Step 2 / 4";
+        "Add New Issue — Step 4 / 4";
 
 
-    const customers =
-        getAllCustomers();
-
-
-    let options = `
-
-        <option value="">
-            Select customer
-        </option>
-
-    `;
-
-
-    customers.forEach(function(customer) {
-
-        options += `
-
-            <option
-                value="${escapeAttribute(
-                    customer
-                )}">
-
-                ${escapeHTML(customer)}
-
-            </option>
-
-        `;
-
-    });
-
-
-    content.innerHTML = `
+    content.innerHTML = 
 
         <label
             class="add-step-label">
 
-            Customer / Site
+            Status
 
         </label>
 
 
         <select
-            id="addSite"
+            id="addStatus"
             class="add-select">
 
-            ${options}
+            <option value="">
+                Select status
+            </option>
+
+            <option value="Open">
+                Open
+            </option>
+
+            <option value="Closed">
+                Closed
+            </option>
+
+            <option value="Monitoring">
+                Monitoring
+            </option>
 
         </select>
 
@@ -4089,615 +4029,825 @@ function renderAddSiteStep() {
             class="add-error">
         </div>
 
-    `;
+    ;
 
 
     document.getElementById(
-        "addSite"
+        "addStatus"
     ).value =
-        newRecord.SITE;
+        newRecord.STATUS;
 
 }
 
 
+}
+
 /* =========================================================
-   CONVERT MM/DD/YY -> YYYY-MM-DD (ISO, for <input type="date">)
-   ========================================================= */
+RENDER SITE STEP
+========================================================= */
+
+function renderAddSiteStep() {
+
+
+const title =
+    document.getElementById(
+        "addStepTitle"
+    );
+
+
+const content =
+    document.getElementById(
+        "addStepContent"
+    );
+
+
+title.textContent =
+    "Add New Issue — Step 2 / 4";
+
+
+const customers =
+    getAllCustomers();
+
+
+let options = 
+
+    <option value="">
+        Select customer
+    </option>
+
+;
+
+
+customers.forEach(function(customer) {
+
+    options += 
+
+        <option
+            value="${escapeAttribute(
+                customer
+            )}">
+
+            ${escapeHTML(customer)}
+
+        </option>
+
+    ;
+
+});
+
+
+content.innerHTML = 
+
+    <label
+        class="add-step-label">
+
+        Customer / Site
+
+    </label>
+
+
+    <select
+        id="addSite"
+        class="add-select">
+
+        ${options}
+
+    </select>
+
+
+    <div
+        id="addError"
+        class="add-error">
+    </div>
+
+;
+
+
+document.getElementById(
+    "addSite"
+).value =
+    newRecord.SITE;
+
+
+}
+
+/* =========================================================
+CONVERT MM/DD/YY -> YYYY-MM-DD
+========================================================= */
 
 function convertMMDDYYToISO(value) {
 
-    if (!value) {
 
-        return "";
+if (!value) {
 
-    }
-
-
-    const text =
-        String(value).trim();
-
-
-    const match =
-        text.match(
-            /^(\d{2})\/(\d{2})\/(\d{2})$/
-        );
-
-
-    if (!match) {
-
-        return "";
-
-    }
-
-
-    const month = match[1];
-
-    const day = match[2];
-
-    const year =
-        "20" + match[3];
-
-
-    return `${year}-${month}-${day}`;
+    return "";
 
 }
 
 
+const text =
+    String(value).trim();
+
+
+const match =
+    text.match(
+        /^(\d{2})\/(\d{2})\/(\d{2})$/
+    );
+
+
+if (!match) {
+
+    return "";
+
+}
+
+
+const month = match[1];
+
+const day = match[2];
+
+const year =
+    "20" + match[3];
+
+
+return ${year}-${month}-${day};
+
+
+}
+
 /* =========================================================
-   CONVERT YYYY-MM-DD (ISO) -> MM/DD/YY
-   ========================================================= */
+CONVERT YYYY-MM-DD -> MM/DD/YY
+========================================================= */
 
 function convertISOToMMDDYY(value) {
 
-    if (!value) {
 
-        return "";
+if (!value) {
 
-    }
-
-
-    const match =
-        String(value)
-            .trim()
-            .match(
-                /^(\d{4})-(\d{2})-(\d{2})$/
-            );
-
-
-    if (!match) {
-
-        return "";
-
-    }
-
-
-    const year =
-        match[1].slice(-2);
-
-    const month = match[2];
-
-    const day = match[3];
-
-
-    return `${month}/${day}/${year}`;
+    return "";
 
 }
 
 
+const match =
+    String(value)
+        .trim()
+        .match(
+            /^(\d{4})-(\d{2})-(\d{2})$/
+        );
+
+
+if (!match) {
+
+    return "";
+
+}
+
+
+const year =
+    match[1].slice(-2);
+
+const month = match[2];
+
+const day = match[3];
+
+
+return ${month}/${day}/${year};
+
+
+}
+
 /* =========================================================
-   VALIDATE DATE MM/DD/YY
-   ========================================================= */
+VALIDATE DATE MM/DD/YY
+========================================================= */
 
 function validateDateMMDDYY(value) {
 
-    const regex =
-        /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/([0-9]{2})$/;
+
+const regex =
+    /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/([0-9]{2})$/;
 
 
-    if (
-        !regex.test(value)
-    ) {
+if (
+    !regex.test(value)
+) {
 
-        return false;
-
-    }
-
-
-    const parts =
-        value.split("/");
-
-
-    const month =
-        Number(parts[0]);
-
-
-    const day =
-        Number(parts[1]);
-
-
-    const year =
-        2000 +
-        Number(parts[2]);
-
-
-    const date =
-        new Date(
-            year,
-            month - 1,
-            day
-        );
-
-
-    return (
-
-        date.getFullYear() ===
-        year &&
-
-        date.getMonth() ===
-        month - 1 &&
-
-        date.getDate() ===
-        day
-
-    );
+    return false;
 
 }
 
 
+const parts =
+    value.split("/");
+
+
+const month =
+    Number(parts[0]);
+
+
+const day =
+    Number(parts[1]);
+
+
+const year =
+    2000 +
+    Number(parts[2]);
+
+
+const date =
+    new Date(
+        year,
+        month - 1,
+        day
+    );
+
+
+return (
+
+    date.getFullYear() ===
+    year &&
+
+    date.getMonth() ===
+    month - 1 &&
+
+    date.getDate() ===
+    day
+
+);
+
+
+}
+
 /* =========================================================
-   ADD NEXT STEP
-   ========================================================= */
+ADD NEXT STEP
+========================================================= */
 
 function addNextStep() {
 
-    const error =
+
+const error =
+    document.getElementById(
+        "addError"
+    );
+
+
+/* =========================
+   STEP 1
+   ========================= */
+
+if (addStep === 1) {
+
+    const isoValue =
         document.getElementById(
-            "addError"
-        );
+            "addDate"
+        )
+        .value
+        .trim();
 
 
-    /*
-     * =========================
-     * STEP 1
-     * =========================
-     */
+    if (!isoValue) {
 
-    if (addStep === 1) {
-
-        const isoValue =
-            document.getElementById(
-                "addDate"
-            )
-            .value
-            .trim();
-
-
-        if (!isoValue) {
-
-            error.textContent =
-                "Please select a date.";
-
-            return;
-
-        }
-
-
-        const value =
-            convertISOToMMDDYY(
-                isoValue
-            );
-
-
-        if (
-            !validateDateMMDDYY(value)
-        ) {
-
-            error.textContent =
-                "Invalid date. Please select a valid date.";
-
-            return;
-
-        }
-
-
-        newRecord.DATE =
-            value;
-
-    }
-
-
-    /*
-     * =========================
-     * STEP 2
-     * =========================
-     */
-
-    else if (addStep === 2) {
-
-        const value =
-            document.getElementById(
-                "addSite"
-            )
-            .value;
-
-
-        if (
-            !value
-        ) {
-
-            error.textContent =
-                "Please select a customer.";
-
-            return;
-
-        }
-
-
-        newRecord.SITE =
-            value;
-
-    }
-
-
-    /*
-     * =========================
-     * STEP 3
-     * =========================
-     */
-
-    else if (addStep === 3) {
-
-        const value =
-            document.getElementById(
-                "addIssue"
-            )
-            .value
-            .trim();
-
-
-        if (
-            !value
-        ) {
-
-            error.textContent =
-                "Please enter Issue and Request.";
-
-            return;
-
-        }
-
-
-        newRecord[
-            "ISSUE AND REQUEST"
-        ] = value;
-
-    }
-
-
-    /*
-     * =========================
-     * STEP 4
-     * =========================
-     */
-
-    else if (addStep === 4) {
-
-        const value =
-            document.getElementById(
-                "addStatus"
-            ).value;
-
-
-        if (
-            !value
-        ) {
-
-            error.textContent =
-                "Please select a status.";
-
-            return;
-
-        }
-
-
-        newRecord.STATUS =
-            value;
-
-
-        showAddConfirmation();
+        error.textContent =
+            "Please select a date.";
 
         return;
 
     }
 
 
-    addStep++;
+    const value =
+        convertISOToMMDDYY(
+            isoValue
+        );
 
-    renderAddStep();
+
+    if (
+        !validateDateMMDDYY(value)
+    ) {
+
+        error.textContent =
+            "Invalid date. Please select a valid date.";
+
+        return;
+
+    }
+
+
+    newRecord.DATE =
+        value;
 
 }
 
 
+/* =========================
+   STEP 2
+   ========================= */
+
+else if (addStep === 2) {
+
+    const value =
+        document.getElementById(
+            "addSite"
+        )
+        .value;
+
+
+    if (
+        !value
+    ) {
+
+        error.textContent =
+            "Please select a customer.";
+
+        return;
+
+    }
+
+
+    newRecord.SITE =
+        value;
+
+}
+
+
+/* =========================
+   STEP 3
+   ========================= */
+
+else if (addStep === 3) {
+
+    const value =
+        document.getElementById(
+            "addIssue"
+        )
+        .value
+        .trim();
+
+
+    if (
+        !value
+    ) {
+
+        error.textContent =
+            "Please enter Issue and Request.";
+
+        return;
+
+    }
+
+
+    newRecord[
+        "ISSUE AND REQUEST"
+    ] = value;
+
+}
+
+
+/* =========================
+   STEP 4
+   ========================= */
+
+else if (addStep === 4) {
+
+    const value =
+        document.getElementById(
+            "addStatus"
+        ).value;
+
+
+    if (
+        !value
+    ) {
+
+        error.textContent =
+            "Please select a status.";
+
+        return;
+
+    }
+
+
+    newRecord.STATUS =
+        value;
+
+
+    showAddConfirmation();
+
+    return;
+
+}
+
+
+addStep++;
+
+renderAddStep();
+
+
+}
+
 /* =========================================================
-   ADD PREVIOUS STEP
-   ========================================================= */
+ADD PREVIOUS STEP
+========================================================= */
 
 function addPreviousStep() {
 
-    if (
-        addStep <= 1
-    ) {
 
-        return;
+if (
+    addStep <= 1
+) {
+
+    return;
+
+}
+
+
+addStep--;
+
+renderAddStep();
+
+
+}
+
+/* =========================================================
+SHOW CONFIRMATION
+========================================================= */
+
+function showAddConfirmation() {
+
+
+const title =
+    document.getElementById(
+        "addStepTitle"
+    );
+
+
+const content =
+    document.getElementById(
+        "addStepContent"
+    );
+
+
+const nextBtn =
+    document.getElementById(
+        "addNextBtn"
+    );
+
+
+const backBtn =
+    document.getElementById(
+        "addBackBtn"
+    );
+
+
+title.textContent =
+    "Confirm New Record";
+
+
+content.innerHTML = 
+
+    <div class="add-confirm-row">
+
+        <div class="add-confirm-label">
+            DATE
+        </div>
+
+        <div class="add-confirm-value">
+            ${escapeHTML(
+                newRecord.DATE
+            )}
+        </div>
+
+    </div>
+
+
+    <div class="add-confirm-row">
+
+        <div class="add-confirm-label">
+            SITE
+        </div>
+
+        <div class="add-confirm-value">
+            ${escapeHTML(
+                newRecord.SITE
+            )}
+        </div>
+
+    </div>
+
+
+    <div class="add-confirm-row">
+
+        <div class="add-confirm-label">
+            ISSUE AND REQUEST
+        </div>
+
+        <div class="add-confirm-value">
+            ${escapeHTML(
+                newRecord[
+                    "ISSUE AND REQUEST"
+                ]
+            )}
+        </div>
+
+    </div>
+
+
+    <div class="add-confirm-row">
+
+        <div class="add-confirm-label">
+            STATUS
+        </div>
+
+        <div class="add-confirm-value">
+            ${escapeHTML(
+                newRecord.STATUS
+            )}
+        </div>
+
+    </div>
+
+
+    <div class="backend-note">
+
+        Ấn vào Add record để lưu issue hoặc request.
+        
+        <br>
+
+        Lưu ý kiểm tra kỹ trước khi lưu!!!
+
+    </div>
+
+;
+
+
+backBtn.style.display =
+    "inline-block";
+
+
+backBtn.disabled =
+    false;
+
+
+nextBtn.textContent =
+    "Add Record";
+
+
+nextBtn.onclick =
+    saveNewRecord;
+
+
+nextBtn.disabled =
+    false;
+
+
+}
+
+/* =========================================================
+SAVE NEW RECORD THROUGH CLOUDFLARE WORKER
+========================================================= */
+
+async function saveNewRecord() {
+
+
+const recordToSend = {
+
+    DATE:
+        newRecord.DATE,
+
+    SITE:
+        newRecord.SITE,
+
+    "ISSUE AND REQUEST":
+        newRecord[
+            "ISSUE AND REQUEST"
+        ],
+
+    STATUS:
+        newRecord.STATUS
+
+};
+
+
+/* =========================
+   OPTIMISTIC UPDATE
+   ========================= */
+
+const pendingId =
+    "pending_" +
+    Date.now() +
+    "_" +
+    Math.random()
+        .toString(36)
+        .slice(2);
+
+
+const optimisticRecord = {
+
+    DATE:
+        recordToSend.DATE,
+
+    SITE:
+        recordToSend.SITE,
+
+    "ISSUE AND REQUEST":
+        recordToSend[
+            "ISSUE AND REQUEST"
+        ],
+
+    STATUS:
+        recordToSend.STATUS,
+
+    LOG:
+        "",
+
+    "CC LINK":
+        "",
+
+    _pendingId:
+        pendingId
+
+};
+
+
+allData.push(
+    optimisticRecord
+);
+
+
+sortData();
+
+
+selectedBU =
+    null;
+
+selectedStatus =
+    null;
+
+
+updateBUButtons();
+
+updateStatusButtons();
+
+
+const searchInput =
+    document.getElementById(
+        "searchIssue"
+    );
+
+
+if (searchInput) {
+
+    searchInput.value =
+        "";
+
+}
+
+
+filteredData =
+    [...allData];
+
+
+currentPage =
+    1;
+
+
+renderTable();
+
+updateStatusChart();
+
+
+closeAddDialog();
+
+
+showToast(
+    "Đang lưu...",
+    "info"
+);
+
+
+/* =========================
+   BACKGROUND SAVE
+   ========================= */
+
+try {
+
+    const response =
+        await fetch(
+            BACKEND_API_URL,
+            {
+
+                method:
+                    "POST",
+
+                headers: {
+
+                    "Content-Type":
+                        "application/json"
+
+                },
+
+                body:
+                    JSON.stringify(
+                        recordToSend
+                    )
+
+            }
+        );
+
+
+    let result;
+
+
+    try {
+
+        result =
+            await response.json();
+
+    }
+
+    catch (error) {
+
+        throw new Error(
+            "Invalid response from Cloudflare Worker."
+        );
 
     }
 
 
-    addStep--;
+    if (
+        !response.ok ||
+        !result.success
+    ) {
 
-    renderAddStep();
+        throw new Error(
+            result.message ||
+            "Failed to save record."
+        );
 
-}
+    }
 
 
-/* =========================================================
-   SHOW CONFIRMATION
-   ========================================================= */
+    const savedRecord =
+        result.record ||
+        {
 
-function showAddConfirmation() {
+            DATE:
+                recordToSend.DATE,
 
-    const title =
-        document.getElementById(
-            "addStepTitle"
+            SITE:
+                recordToSend.SITE,
+
+            "ISSUE AND REQUEST":
+                recordToSend[
+                    "ISSUE AND REQUEST"
+                ],
+
+            STATUS:
+                recordToSend.STATUS,
+
+            LOG:
+                "",
+
+            "CC LINK":
+                ""
+
+        };
+
+
+    const index =
+        allData.findIndex(
+            function(item) {
+
+                return (
+                    item._pendingId ===
+                    pendingId
+                );
+
+            }
         );
 
 
-    const content =
-        document.getElementById(
-            "addStepContent"
+    if (index !== -1) {
+
+        allData[index] =
+            savedRecord;
+
+    }
+
+    else {
+
+        allData.push(
+            savedRecord
         );
 
-
-    const nextBtn =
-        document.getElementById(
-            "addNextBtn"
-        );
-
-
-    const backBtn =
-        document.getElementById(
-            "addBackBtn"
-        );
-
-
-    title.textContent =
-        "Confirm New Record";
-
-
-    content.innerHTML = `
-
-        <div class="add-confirm-row">
-
-            <div class="add-confirm-label">
-                DATE
-            </div>
-
-            <div class="add-confirm-value">
-                ${escapeHTML(
-                    newRecord.DATE
-                )}
-            </div>
-
-        </div>
-
-
-        <div class="add-confirm-row">
-
-            <div class="add-confirm-label">
-                SITE
-            </div>
-
-            <div class="add-confirm-value">
-                ${escapeHTML(
-                    newRecord.SITE
-                )}
-            </div>
-
-        </div>
-
-
-        <div class="add-confirm-row">
-
-            <div class="add-confirm-label">
-                ISSUE AND REQUEST
-            </div>
-
-            <div class="add-confirm-value">
-                ${escapeHTML(
-                    newRecord[
-                        "ISSUE AND REQUEST"
-                    ]
-                )}
-            </div>
-
-        </div>
-
-
-        <div class="add-confirm-row">
-
-            <div class="add-confirm-label">
-                STATUS
-            </div>
-
-            <div class="add-confirm-value">
-                ${escapeHTML(
-                    newRecord.STATUS
-                )}
-            </div>
-
-        </div>
-
-
-        <div class="backend-note">
-
-            Ấn vào Add record để lưu issue hoặc request.
-            
-            <br>
-
-            Lưu ý kiểm tra kỹ trước khi lưu!!!
-
-        </div>
-
-    `;
-
-
-    backBtn.style.display =
-        "inline-block";
-
-
-    backBtn.disabled =
-        false;
-
-
-    nextBtn.textContent =
-        "Add Record";
-
-
-    nextBtn.onclick =
-        saveNewRecord;
-
-
-    nextBtn.disabled =
-        false;
-
-
-}
-
-
-/* =========================================================
-   SAVE NEW RECORD THROUGH CLOUDFLARE WORKER
-   ========================================================= */
-
-async function saveNewRecord() {
-
-    /*
-     * Record sent to Worker
-     */
-
-    const recordToSend = {
-
-        DATE:
-            newRecord.DATE,
-
-        SITE:
-            newRecord.SITE,
-
-        "ISSUE AND REQUEST":
-            newRecord[
-                "ISSUE AND REQUEST"
-            ],
-
-        STATUS:
-            newRecord.STATUS
-
-    };
-
-
-    /*
-     * =========================================================
-     * OPTIMISTIC UPDATE
-     *
-     * Show the new record on screen right
-     * away instead of waiting for the
-     * Cloudflare Worker round-trip. If the
-     * save later fails, the record is
-     * removed again and the person is told
-     * via the toast.
-     * =========================================================
-     */
-
-    const pendingId =
-        "pending_" +
-        Date.now() +
-        "_" +
-        Math.random()
-            .toString(36)
-            .slice(2);
-
-
-    const optimisticRecord = {
-
-        DATE:
-            recordToSend.DATE,
-
-        SITE:
-            recordToSend.SITE,
-
-        "ISSUE AND REQUEST":
-            recordToSend[
-                "ISSUE AND REQUEST"
-            ],
-
-        STATUS:
-            recordToSend.STATUS,
-
-        LOG:
-            "",
-
-        "CC LINK":
-            "",
-
-        _pendingId:
-            pendingId
-
-    };
-
-
-    allData.push(
-        optimisticRecord
-    );
+    }
 
 
     sortData();
 
 
-    /*
-     * Reset filters so the new
-     * record is visible right away
-     */
-
-    selectedBU =
-        null;
-
-    selectedStatus =
-        null;
-
-
-    updateBUButtons();
-
-    updateStatusButtons();
-
-
-    const searchInput =
-        document.getElementById(
-            "searchIssue"
-        );
-
-
-    if (searchInput) {
-
-        searchInput.value =
-            "";
-
-    }
-
-
     filteredData =
         [...allData];
-
-
-    currentPage =
-        1;
 
 
     renderTable();
@@ -4705,217 +4855,59 @@ async function saveNewRecord() {
     updateStatusChart();
 
 
-    /*
-     * Close the modal immediately —
-     * no need to keep the person
-     * waiting on the network.
-     */
-
-    closeAddDialog();
-
-
     showToast(
-        "Đang lưu...",
-        "info"
+        "Record added successfully.",
+        "success"
+    );
+
+}
+
+catch (error) {
+
+    console.error(
+        "Backend save error:",
+        error
     );
 
 
-    /*
-     * =========================================================
-     * BACKGROUND SAVE
-     * =========================================================
-     */
+    allData =
+        allData.filter(
+            function(item) {
 
-    try {
+                return (
+                    item._pendingId !==
+                    pendingId
+                );
 
-        const response =
-            await fetch(
-                BACKEND_API_URL,
-                {
-
-                    method:
-                        "POST",
-
-                    headers: {
-
-                        "Content-Type":
-                            "application/json"
-
-                    },
-
-                    body:
-                        JSON.stringify(
-                            recordToSend
-                        )
-
-                }
-            );
-
-
-        let result;
-
-
-        try {
-
-            result =
-                await response.json();
-
-        }
-
-        catch (error) {
-
-            throw new Error(
-                "Invalid response from Cloudflare Worker."
-            );
-
-        }
-
-
-        if (
-            !response.ok ||
-            !result.success
-        ) {
-
-            throw new Error(
-                result.message ||
-                "Failed to save record."
-            );
-
-        }
-
-
-        /*
-         * Replace the optimistic
-         * record with the confirmed
-         * one from the Worker.
-         */
-
-        const savedRecord =
-            result.record ||
-            {
-
-                DATE:
-                    recordToSend.DATE,
-
-                SITE:
-                    recordToSend.SITE,
-
-                "ISSUE AND REQUEST":
-                    recordToSend[
-                        "ISSUE AND REQUEST"
-                    ],
-
-                STATUS:
-                    recordToSend.STATUS,
-
-                LOG:
-                    "",
-
-                "CC LINK":
-                    ""
-
-            };
-
-
-        const index =
-            allData.findIndex(
-                function(item) {
-
-                    return (
-                        item._pendingId ===
-                        pendingId
-                    );
-
-                }
-            );
-
-
-        if (index !== -1) {
-
-            allData[index] =
-                savedRecord;
-
-        }
-
-        else {
-
-            allData.push(
-                savedRecord
-            );
-
-        }
-
-
-        sortData();
-
-
-        filteredData =
-            [...allData];
-
-
-        renderTable();
-
-        updateStatusChart();
-
-
-        showToast(
-            "Record added successfully.",
-            "success"
-        );
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Backend save error:",
-            error
+            }
         );
 
 
-        /*
-         * Roll back the optimistic
-         * record since the save failed.
-         */
-
-        allData =
-            allData.filter(
-                function(item) {
-
-                    return (
-                        item._pendingId !==
-                        pendingId
-                    );
-
-                }
-            );
+    filteredData =
+        [...allData];
 
 
-        filteredData =
-            [...allData];
+    renderTable();
+
+    updateStatusChart();
 
 
-        renderTable();
-
-        updateStatusChart();
-
-
-        showToast(
-            "Save failed: " +
-            error.message +
-            " — record was not saved.",
-            "error",
-            5000
-        );
-
-    }
+    showToast(
+        "Save failed: " +
+        error.message +
+        " — record was not saved.",
+        "error",
+        5000
+    );
 
 }
 
 
+}
+
 /* =========================================================
-   START
-   ========================================================= */
+START
+========================================================= */
 
 loadData();
 
