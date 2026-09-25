@@ -839,6 +839,7 @@ tbody tr.monitoring-case-row:hover {
 .add-confirm-row {
 
     margin-bottom: 12px;
+
 }
 
 .add-confirm-label {
@@ -1203,6 +1204,18 @@ tbody tr.monitoring-case-row:hover {
             </button>
 
 
+            <!-- VISION FILTER -->
+
+            <button
+                class="filter-btn bu-btn"
+                id="btnVISION"
+                onclick="selectBU('VISION')">
+
+                VISION
+
+            </button>
+
+
             <!-- STATUS FILTERS -->
 
             <button
@@ -1319,7 +1332,8 @@ tbody tr.monitoring-case-row:hover {
 
     </button>
 
-<button
+
+    <button
         class="filter-btn add-btn"
         onclick="openAddDialog()">
 
@@ -1489,6 +1503,8 @@ let BU4Data = [];
 let D7Data = [];
 
 let BU11Data = [];
+
+let VISIONData = [];
 
 
 /* =========================================================
@@ -1833,7 +1849,9 @@ async function loadData() {
 
             fetch("D7.json" + cacheBust),
 
-            fetch("BU11.json" + cacheBust)
+            fetch("BU11.json" + cacheBust),
+
+            fetch("VISION.json" + cacheBust)
 
         ]);
 
@@ -1866,6 +1884,10 @@ async function loadData() {
 
         BU11Data =
             await results[3].json();
+
+
+        VISIONData =
+            await results[4].json();
 
 
         sortData();
@@ -1901,7 +1923,9 @@ async function loadData() {
                     Failed to load data.
                     Please check data.json,
                     BU4.json,
-                    D7.json and BU11.json.
+                    D7.json,
+                    BU11.json
+                    and VISION.json.
 
                 </td>
 
@@ -2091,6 +2115,11 @@ function updateBUButtons() {
         BU11:
             document.getElementById(
                 "btnBU11"
+            ),
+
+        VISION:
+            document.getElementById(
+                "btnVISION"
             )
 
     };
@@ -2099,9 +2128,13 @@ function updateBUButtons() {
     Object.keys(buttons)
         .forEach(function(bu) {
 
-            buttons[bu]
-                .classList
-                .remove("active");
+            if (buttons[bu]) {
+
+                buttons[bu]
+                    .classList
+                    .remove("active");
+
+            }
 
         });
 
@@ -2197,6 +2230,13 @@ function getBUValue(bu) {
     }
 
 
+    if (bu === "VISION") {
+
+        return VISIONData[0] || "";
+
+    }
+
+
     return "";
 
 }
@@ -2275,6 +2315,17 @@ function getAllCustomers() {
 
         addCustomer(
             BU11Data[0]
+        );
+
+    }
+
+
+    if (
+        VISIONData.length > 0
+    ) {
+
+        addCustomer(
+            VISIONData[0]
         );
 
     }

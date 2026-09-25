@@ -3,7 +3,7 @@ import json
 
 # Đọc Excel
 df = pd.read_excel(
-    r"D:\SOFTWARE\GIT HUB\Issue list\FILTER.xlsx"
+    r"D:\SOFTWARE\GIT HUB\Issue-List-Management\FILTER.xlsx"
 )
 
 # ===== BU11 =====
@@ -47,6 +47,28 @@ with open(
         indent=4,
         ensure_ascii=False
     )
+
+# ===== VISION =====
+
+vision = (
+    df["VISION"]
+    .dropna()
+    .tolist()
+)
+
+with open(
+    "VISION.json",
+    "w",
+    encoding="utf-8"
+) as f:
+
+    json.dump(
+        vision,
+        f,
+        indent=4,
+        ensure_ascii=False
+    )
+
 
 # ===== BU4 =====
 
