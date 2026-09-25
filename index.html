@@ -4,13 +4,17 @@
 <head>
 
 <meta charset="UTF-8">
+
 <link
     rel="icon"
     type="image/png"
     href="folder.png"
 >
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>Issue List</title>
 
@@ -154,25 +158,30 @@ body {
     color: white;
 }
 
-
-/* OPEN CASE = RED */
-
 .open-case-btn {
     background: #dc3545;
 }
-
-
-/* CLOSE CASE = GREEN */
 
 .close-case-btn {
     background: #198754;
 }
 
-
-/* MONITORING = ORANGE */
-
 .monitoring-case-btn {
     background: #d97706;
+}
+
+
+/* =========================
+   ADD BUTTON
+   ========================= */
+
+.add-btn {
+    background: #6f42c1;
+    color: white;
+}
+
+.add-btn:hover {
+    background: #59359a;
 }
 
 
@@ -189,12 +198,6 @@ body {
 /* =========================
    STATUS CHART
    ========================= */
-
-/*
- * Default:
- * Chart is hidden.
- * Only Show graph button remains.
- */
 
 .chart-container {
 
@@ -215,22 +218,14 @@ body {
     transition:
         height 0.25s ease,
         padding 0.25s ease;
-
 }
-
-
-/*
- * Chart visible
- */
 
 .chart-container.show-chart {
 
     height: 360px;
 
     padding: 10px;
-
 }
-
 
 .chart-header {
 
@@ -243,9 +238,7 @@ body {
     position: relative;
 
     min-height: 30px;
-
 }
-
 
 .chart-title {
 
@@ -254,9 +247,7 @@ body {
     font-size: 16px;
 
     font-weight: bold;
-
 }
-
 
 .chart-toggle-btn {
 
@@ -283,60 +274,36 @@ body {
     cursor: pointer;
 
     transition: 0.15s ease;
-
 }
-
 
 .chart-toggle-btn:hover {
 
     background: #333;
 
     transform: translateY(-1px);
-
 }
-
-
-/*
- * Hide title when chart is hidden.
- */
 
 .chart-container:not(.show-chart) .chart-title {
 
     display: none;
-
 }
-
-
-/*
- * Center Show graph button
- * when chart is hidden.
- */
 
 .chart-container:not(.show-chart) .chart-header {
 
     min-height: 33px;
-
 }
-
 
 .chart-container:not(.show-chart)
 .chart-toggle-btn {
 
     position: static;
-
 }
-
-
-/*
- * Chart itself
- */
 
 #statusChart {
 
     width: 100%;
 
     height: 320px;
-
 }
 
 
@@ -403,7 +370,6 @@ body {
     max-height: calc(100vh - 280px);
 }
 
-
 table {
     width: 100%;
     table-layout: fixed;
@@ -425,11 +391,6 @@ thead th {
 
     padding: 10px 6px;
 
-    /*
-     * CHANGED:
-     * Black -> Gray
-     */
-
     border: 1px solid #ddd;
 
     text-align: center;
@@ -447,11 +408,6 @@ thead th {
    ========================= */
 
 tbody td {
-
-    /*
-     * CHANGED:
-     * Black -> Gray
-     */
 
     border: 1px solid #ddd;
 
@@ -479,25 +435,16 @@ tbody tr:hover {
    COLUMN WIDTH
    ========================= */
 
-
-/* DATE */
-
 th:nth-child(1),
 td:nth-child(1) {
     width: 10%;
     text-align: center;
 }
 
-
-/* SITE */
-
 th:nth-child(2),
 td:nth-child(2) {
     width: 16%;
 }
-
-
-/* ISSUE AND REQUEST */
 
 th:nth-child(3),
 td:nth-child(3) {
@@ -509,9 +456,6 @@ td:nth-child(3) {
     text-align: left;
 }
 
-
-/* STATUS */
-
 th:nth-child(4),
 td:nth-child(4) {
 
@@ -520,9 +464,6 @@ td:nth-child(4) {
     text-align: center;
 }
 
-
-/* LOG */
-
 th:nth-child(5),
 td:nth-child(5) {
 
@@ -530,9 +471,6 @@ td:nth-child(5) {
 
     text-align: center;
 }
-
-
-/* CC LINK */
 
 th:nth-child(6),
 td:nth-child(6) {
@@ -555,7 +493,6 @@ tbody tr.open-case-row:hover {
     background: #f1bfc3 !important;
 }
 
-
 tbody tr.closed-case-row {
     background: #d4edda !important;
 }
@@ -563,7 +500,6 @@ tbody tr.closed-case-row {
 tbody tr.closed-case-row:hover {
     background: #bee5c5 !important;
 }
-
 
 tbody tr.monitoring-case-row {
     background: #ffe5c2 !important;
@@ -668,6 +604,337 @@ tbody tr.monitoring-case-row:hover {
 }
 
 
+/* =========================================================
+   ADD MODAL
+   ========================================================= */
+
+.add-modal {
+
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 5000;
+
+    background: rgba(0, 0, 0, 0.50);
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 15px;
+}
+
+.add-modal.show {
+
+    display: flex;
+}
+
+.add-modal-content {
+
+    width: 100%;
+
+    max-width: 560px;
+
+    max-height: 90vh;
+
+    background: white;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 10px 35px rgba(0,0,0,0.35);
+
+    overflow: hidden;
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+.add-modal-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 15px 18px;
+
+    background: #222;
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: bold;
+}
+
+.add-close-btn {
+
+    border: none;
+
+    background: transparent;
+
+    color: white;
+
+    font-size: 26px;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    padding: 0 3px;
+}
+
+.add-close-btn:hover {
+
+    color: #ffaaaa;
+}
+
+.add-step {
+
+    padding: 20px;
+
+    min-height: 190px;
+
+    overflow-y: auto;
+}
+
+.add-step-label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+}
+
+.add-input,
+.add-select,
+.add-textarea {
+
+    width: 100%;
+
+    border: 1px solid #bbb;
+
+    border-radius: 6px;
+
+    padding: 10px;
+
+    font-size: 14px;
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.add-input:focus,
+.add-select:focus,
+.add-textarea:focus {
+
+    outline: none;
+
+    border-color: #1976d2;
+
+    box-shadow:
+        0 0 0 2px rgba(25,118,210,0.12);
+}
+
+.add-textarea {
+
+    min-height: 140px;
+
+    resize: vertical;
+}
+
+.add-error {
+
+    margin-top: 9px;
+
+    color: #dc3545;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+.add-modal-footer {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 8px;
+
+    padding: 12px 18px;
+
+    border-top: 1px solid #ddd;
+
+    background: #fafafa;
+}
+
+.add-primary-btn,
+.add-secondary-btn {
+
+    border: none;
+
+    border-radius: 5px;
+
+    padding: 8px 16px;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+.add-primary-btn {
+
+    background: #1976d2;
+
+    color: white;
+}
+
+.add-secondary-btn {
+
+    background: #777;
+
+    color: white;
+}
+
+.add-primary-btn:hover {
+
+    background: #125aa0;
+}
+
+.add-secondary-btn:hover {
+
+    background: #555;
+}
+
+.add-primary-btn:disabled {
+
+    opacity: 0.55;
+
+    cursor: wait;
+}
+
+
+/* =========================
+   CONFIRM
+   ========================= */
+
+.add-confirm-row {
+
+    margin-bottom: 12px;
+}
+
+.add-confirm-label {
+
+    font-size: 12px;
+
+    color: #666;
+
+    font-weight: bold;
+
+    margin-bottom: 3px;
+}
+
+.add-confirm-value {
+
+    padding: 8px;
+
+    background: #f5f5f5;
+
+    border: 1px solid #e2e2e2;
+
+    border-radius: 5px;
+
+    white-space: pre-wrap;
+
+    word-break: break-word;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   GITHUB TOKEN
+   ========================= */
+
+.github-token-area {
+
+    margin-top: 18px;
+
+    padding-top: 14px;
+
+    border-top: 1px solid #ddd;
+}
+
+.github-token-label {
+
+    display: block;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    margin-bottom: 6px;
+
+    color: #444;
+}
+
+.github-token-input {
+
+    width: 100%;
+
+    padding: 9px;
+
+    border: 1px solid #bbb;
+
+    border-radius: 5px;
+
+    font-size: 12px;
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.github-token-note {
+
+    margin-top: 6px;
+
+    font-size: 11px;
+
+    color: #777;
+
+    line-height: 1.4;
+}
+
+.save-message {
+
+    margin-top: 10px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+.save-message.error {
+
+    color: #dc3545;
+}
+
+.save-message.success {
+
+    color: #198754;
+}
+
+
 /* =========================
    MOBILE
    ========================= */
@@ -678,41 +945,31 @@ tbody tr.monitoring-case-row:hover {
         padding: 10px;
     }
 
-
     .title {
         font-size: 20px;
-
         margin-bottom: 10px;
     }
-
 
     .search-area {
         flex-direction: column;
     }
 
-
     .search-area input {
         width: 100%;
-
         min-width: 0;
     }
-
 
     .filter-area {
         gap: 5px;
     }
 
-
     .filter-btn {
         padding: 7px 9px;
-
         font-size: 11px;
     }
 
 
-    /* =========================
-       CHART MOBILE
-       ========================= */
+    /* CHART */
 
     .chart-container {
 
@@ -721,46 +978,41 @@ tbody tr.monitoring-case-row:hover {
         height: 40px;
 
         padding: 4px;
-
     }
-
 
     .chart-container.show-chart {
 
         height: 300px;
 
         padding: 5px;
-
     }
-
 
     .chart-title {
 
         font-size: 14px;
-
     }
-
 
     .chart-toggle-btn {
 
         font-size: 9px;
 
         padding: 5px 8px;
-
     }
-
 
     #statusChart {
 
         height: 265px;
-
     }
 
+
+    /* PAGINATION */
 
     .pagination-top {
         padding: 10px 5px;
     }
 
+
+    /* TABLE */
 
     .table-container {
 
@@ -769,25 +1021,19 @@ tbody tr.monitoring-case-row:hover {
         max-height: calc(100vh - 330px);
 
         overflow-x: hidden;
-
     }
-
 
     .record-info {
 
         margin: 8px 10px 0 10px;
-
     }
-
 
     thead th {
 
         padding: 8px 3px;
 
         font-size: 11px;
-
     }
-
 
     tbody td {
 
@@ -796,7 +1042,6 @@ tbody tr.monitoring-case-row:hover {
         font-size: 11px;
 
         vertical-align: top;
-
     }
 
 
@@ -809,7 +1054,6 @@ tbody tr.monitoring-case-row:hover {
         padding: 4px 4px;
 
         white-space: normal;
-
     }
 
 
@@ -820,7 +1064,38 @@ tbody tr.monitoring-case-row:hover {
         font-size: 6px;
 
         padding: 5px 4px;
+    }
 
+
+    /* ADD */
+
+    .add-modal {
+
+        padding: 10px;
+    }
+
+    .add-modal-content {
+
+        max-height: 94vh;
+    }
+
+    .add-modal-header {
+
+        padding: 12px 14px;
+
+        font-size: 15px;
+    }
+
+    .add-step {
+
+        padding: 15px;
+
+        min-height: 170px;
+    }
+
+    .add-modal-footer {
+
+        padding: 10px 15px;
     }
 
 }
@@ -837,46 +1112,43 @@ tbody tr.monitoring-case-row:hover {
         padding: 6px 7px;
 
         font-size: 10px;
-
     }
-
 
     thead th {
 
         font-size: 10px;
-
     }
-
 
     tbody td {
 
         font-size: 10px;
 
         vertical-align: top;
-
     }
-
 
     .page-btn {
 
         padding: 6px 9px;
 
         font-size: 11px;
-
     }
-
 
     .chart-container.show-chart {
 
         height: 270px;
-
     }
-
 
     #statusChart {
 
         height: 235px;
+    }
 
+    .add-primary-btn,
+    .add-secondary-btn {
+
+        padding: 7px 12px;
+
+        font-size: 11px;
     }
 
 }
@@ -981,6 +1253,17 @@ tbody tr.monitoring-case-row:hover {
                 onclick="selectStatus('monitoring')">
 
                 Monitoring CASE
+
+            </button>
+
+
+            <!-- ADD -->
+
+            <button
+                class="filter-btn add-btn"
+                onclick="openAddDialog()">
+
+                ADD
 
             </button>
 
@@ -1122,6 +1405,77 @@ tbody tr.monitoring-case-row:hover {
 </div>
 
 
+<!-- =========================================================
+     ADD MODAL
+     ========================================================= -->
+
+<div
+    class="add-modal"
+    id="addModal"
+>
+
+    <div class="add-modal-content">
+
+
+        <!-- HEADER -->
+
+        <div class="add-modal-header">
+
+            <span id="addStepTitle">
+                Add New Issue
+            </span>
+
+
+            <button
+                onclick="closeAddDialog()"
+                class="add-close-btn"
+                title="Close">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <!-- CONTENT -->
+
+        <div
+            class="add-step"
+            id="addStepContent">
+        </div>
+
+
+        <!-- FOOTER -->
+
+        <div class="add-modal-footer">
+
+            <button
+                id="addBackBtn"
+                class="add-secondary-btn"
+                onclick="addPreviousStep()">
+
+                Back
+
+            </button>
+
+
+            <button
+                id="addNextBtn"
+                class="add-primary-btn"
+                onclick="addNextStep()">
+
+                Next
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
 <script>
 
 
@@ -1142,9 +1496,9 @@ let selectedBU = null;
 let selectedStatus = null;
 
 
-/* =========================
+/* =========================================================
    CHART CONTROL
-   ========================= */
+   ========================================================= */
 
 let statusChartLoaded = false;
 
@@ -1160,6 +1514,54 @@ let BU4Data = [];
 let D7Data = [];
 
 let BU11Data = [];
+
+
+/* =========================================================
+   ADD RECORD
+   ========================================================= */
+
+let addStep = 1;
+
+let newRecord = {
+
+    DATE: "",
+
+    SITE: "",
+
+    "ISSUE AND REQUEST": "",
+
+    STATUS: "",
+
+    LOG: "",
+
+    "CC LINK": ""
+
+};
+
+
+/*
+ * GitHub token is kept only in memory.
+ * It is NOT stored in localStorage.
+ */
+
+let addGitHubToken = "";
+
+
+/* =========================================================
+   GITHUB CONFIGURATION
+   ========================================================= */
+
+const GITHUB_CONFIG = {
+
+    owner: "NguyenTan-design",
+
+    repo: "Issue-List-Management",
+
+    branch: "main",
+
+    file: "data.json"
+
+};
 
 
 /* =========================================================
@@ -1194,11 +1596,6 @@ function toggleChart() {
         button.textContent =
             "Hide Graph";
 
-
-        /*
-         * Make sure Plotly resizes
-         * correctly after becoming visible.
-         */
 
         setTimeout(function() {
 
@@ -1238,10 +1635,6 @@ function toggleChart() {
 
 function createStatusChart() {
 
-    /*
-     * Do not create chart again.
-     */
-
     if (statusChartLoaded) {
 
         return;
@@ -1259,15 +1652,6 @@ function createStatusChart() {
 
     };
 
-
-    /*
-     * IMPORTANT
-     *
-     * Always use allData.
-     *
-     * Filter buttons do not affect
-     * the chart.
-     */
 
     allData.forEach(function(item) {
 
@@ -1356,17 +1740,6 @@ function createStatusChart() {
             "Percentage: %{percent:.1%}" +
             "<extra></extra>",
 
-
-        /*
-         * =========================
-         * CHART COLORS
-         * =========================
-         *
-         * Open       = RED
-         * Closed     = GREEN
-         * Monitoring = ORANGE
-         */
-
         marker: {
 
             colors: [
@@ -1388,7 +1761,6 @@ function createStatusChart() {
             }
 
         },
-
 
         pull: [
 
@@ -1478,13 +1850,6 @@ function createStatusChart() {
     );
 
 
-    /*
-     * Chart is now loaded.
-     *
-     * Filter buttons will NOT
-     * recreate it.
-     */
-
     statusChartLoaded = true;
 
 }
@@ -1498,15 +1863,19 @@ async function loadData() {
 
     try {
 
+        const cacheBust =
+            "?t=" + Date.now();
+
+
         const results = await Promise.all([
 
-            fetch("data.json"),
+            fetch("data.json" + cacheBust),
 
-            fetch("BU4.json"),
+            fetch("BU4.json" + cacheBust),
 
-            fetch("D7.json"),
+            fetch("D7.json" + cacheBust),
 
-            fetch("BU11.json")
+            fetch("BU11.json" + cacheBust)
 
         ]);
 
@@ -1541,34 +1910,12 @@ async function loadData() {
             await results[3].json();
 
 
-        /*
-         * Sort newest first
-         */
-
-        allData.sort(function(a, b) {
-
-            const dateA =
-                new Date(
-                    a["DATE"] || 0
-                );
-
-            const dateB =
-                new Date(
-                    b["DATE"] || 0
-                );
-
-            return dateB - dateA;
-
-        });
+        sortData();
 
 
         filteredData =
             [...allData];
 
-
-        /*
-         * Create chart once.
-         */
 
         createStatusChart();
 
@@ -1576,7 +1923,9 @@ async function loadData() {
         renderTable();
 
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
         console.error(error);
 
@@ -1609,6 +1958,98 @@ async function loadData() {
             "Data loading error.";
 
     }
+
+}
+
+
+/* =========================================================
+   DATE PARSER
+   ========================================================= */
+
+function parseDate(value) {
+
+    if (!value) {
+
+        return 0;
+
+    }
+
+
+    const text =
+        String(value).trim();
+
+
+    /*
+     * MM/DD/YY
+     */
+
+    const match =
+        text.match(
+            /^(\d{2})\/(\d{2})\/(\d{2})$/
+        );
+
+
+    if (match) {
+
+        const month =
+            Number(match[1]);
+
+        const day =
+            Number(match[2]);
+
+        const year =
+            2000 + Number(match[3]);
+
+
+        const date =
+            new Date(
+                year,
+                month - 1,
+                day
+            );
+
+
+        return date.getTime();
+
+    }
+
+
+    /*
+     * Fallback for existing data
+     */
+
+    const date =
+        new Date(value);
+
+
+    if (
+        isNaN(date.getTime())
+    ) {
+
+        return 0;
+
+    }
+
+
+    return date.getTime();
+
+}
+
+
+/* =========================================================
+   SORT DATA
+   ========================================================= */
+
+function sortData() {
+
+    allData.sort(function(a, b) {
+
+        return (
+            parseDate(b["DATE"]) -
+            parseDate(a["DATE"])
+        );
+
+    });
 
 }
 
@@ -1799,6 +2240,89 @@ function getBUValue(bu) {
 
 
     return "";
+
+}
+
+
+/* =========================================================
+   GET ALL CUSTOMERS
+   ========================================================= */
+
+function getAllCustomers() {
+
+    const customers = [];
+
+
+    function addCustomer(value) {
+
+        if (
+            value === null ||
+            value === undefined
+        ) {
+
+            return;
+
+        }
+
+
+        const text =
+            String(value).trim();
+
+
+        if (
+            text === ""
+        ) {
+
+            return;
+
+        }
+
+
+        if (
+            !customers.includes(text)
+        ) {
+
+            customers.push(text);
+
+        }
+
+    }
+
+
+    if (
+        BU4Data.length > 0
+    ) {
+
+        addCustomer(
+            BU4Data[0]
+        );
+
+    }
+
+
+    if (
+        D7Data.length > 0
+    ) {
+
+        addCustomer(
+            D7Data[0]
+        );
+
+    }
+
+
+    if (
+        BU11Data.length > 0
+    ) {
+
+        addCustomer(
+            BU11Data[0]
+        );
+
+    }
+
+
+    return customers.sort();
 
 }
 
@@ -2057,6 +2581,24 @@ function formatDate(value) {
     }
 
 
+    const text =
+        String(value).trim();
+
+
+    /*
+     * Preserve MM/DD/YY
+     * if already in correct format.
+     */
+
+    if (
+        /^\d{2}\/\d{2}\/\d{2}$/.test(text)
+    ) {
+
+        return escapeHTML(text);
+
+    }
+
+
     const date =
         new Date(value);
 
@@ -2068,14 +2610,10 @@ function formatDate(value) {
     ) {
 
         return escapeHTML(
-            String(value)
+            text
         );
 
     }
-
-
-    const year =
-        date.getFullYear();
 
 
     const month =
@@ -2092,7 +2630,14 @@ function formatDate(value) {
         .padStart(2, "0");
 
 
-    return `${year}-${month}-${day}`;
+    const year =
+        String(
+            date.getFullYear()
+        )
+        .slice(-2);
+
+
+    return `${month}/${day}/${year}`;
 
 }
 
@@ -2228,7 +2773,6 @@ function renderTable() {
         tableBody.innerHTML =
             pageData
                 .map(function(item) {
-
 
                     const date =
                         formatDate(
@@ -2562,6 +3106,1526 @@ function escapeAttribute(value) {
         );
 
 }
+
+
+/* =========================================================
+   ADD DIALOG
+   ========================================================= */
+
+function openAddDialog() {
+
+    addStep = 1;
+
+
+    newRecord = {
+
+        DATE: "",
+
+        SITE: "",
+
+        "ISSUE AND REQUEST": "",
+
+        STATUS: "",
+
+        LOG: "",
+
+        "CC LINK": ""
+
+    };
+
+
+    document
+        .getElementById(
+            "addModal"
+        )
+        .classList
+        .add("show");
+
+
+    renderAddStep();
+
+}
+
+
+/* =========================================================
+   CLOSE ADD DIALOG
+   ========================================================= */
+
+function closeAddDialog() {
+
+    document
+        .getElementById(
+            "addModal"
+        )
+        .classList
+        .remove("show");
+
+
+    /*
+     * Restore normal Next button
+     */
+
+    const nextBtn =
+        document.getElementById(
+            "addNextBtn"
+        );
+
+
+    nextBtn.textContent =
+        "Next";
+
+
+    nextBtn.onclick =
+        addNextStep;
+
+}
+
+
+/* =========================================================
+   RENDER ADD STEP
+   ========================================================= */
+
+function renderAddStep() {
+
+    const title =
+        document.getElementById(
+            "addStepTitle"
+        );
+
+
+    const content =
+        document.getElementById(
+            "addStepContent"
+        );
+
+
+    const backBtn =
+        document.getElementById(
+            "addBackBtn"
+        );
+
+
+    const nextBtn =
+        document.getElementById(
+            "addNextBtn"
+        );
+
+
+    /*
+     * Restore default button
+     */
+
+    nextBtn.textContent =
+        "Next";
+
+
+    nextBtn.onclick =
+        addNextStep;
+
+
+    backBtn.style.display =
+        addStep === 1
+            ? "none"
+            : "inline-block";
+
+
+    /* =========================
+       STEP 1
+       ========================= */
+
+    if (addStep === 1) {
+
+        title.textContent =
+            "Add New Issue — Step 1 / 4";
+
+
+        content.innerHTML = `
+
+            <label
+                class="add-step-label">
+
+                Date
+
+            </label>
+
+
+            <input
+                type="text"
+                id="addDate"
+                class="add-input"
+                placeholder="MM/DD/YY"
+                maxlength="8"
+                autocomplete="off"
+                value="${escapeAttribute(
+                    newRecord.DATE
+                )}"
+            >
+
+
+            <div
+                id="addError"
+                class="add-error">
+            </div>
+
+        `;
+
+
+        /*
+         * Automatically focus date
+         */
+
+        setTimeout(function() {
+
+            const input =
+                document.getElementById(
+                    "addDate"
+                );
+
+            if (input) {
+
+                input.focus();
+
+            }
+
+        }, 50);
+
+    }
+
+
+    /* =========================
+       STEP 2
+       ========================= */
+
+    else if (addStep === 2) {
+
+        renderAddSiteStep();
+
+    }
+
+
+    /* =========================
+       STEP 3
+       ========================= */
+
+    else if (addStep === 3) {
+
+        title.textContent =
+            "Add New Issue — Step 3 / 4";
+
+
+        content.innerHTML = `
+
+            <label
+                class="add-step-label">
+
+                Issue and Request
+
+            </label>
+
+
+            <textarea
+                id="addIssue"
+                class="add-textarea"
+                placeholder="Enter issue and request..."
+            >${escapeHTML(
+                newRecord[
+                    "ISSUE AND REQUEST"
+                ]
+            )}</textarea>
+
+
+            <div
+                id="addError"
+                class="add-error">
+            </div>
+
+        `;
+
+
+        setTimeout(function() {
+
+            const input =
+                document.getElementById(
+                    "addIssue"
+                );
+
+            if (input) {
+
+                input.focus();
+
+            }
+
+        }, 50);
+
+    }
+
+
+    /* =========================
+       STEP 4
+       ========================= */
+
+    else if (addStep === 4) {
+
+        title.textContent =
+            "Add New Issue — Step 4 / 4";
+
+
+        content.innerHTML = `
+
+            <label
+                class="add-step-label">
+
+                Status
+
+            </label>
+
+
+            <select
+                id="addStatus"
+                class="add-select">
+
+                <option value="">
+                    Select status
+                </option>
+
+                <option value="Open">
+                    Open
+                </option>
+
+                <option value="Closed">
+                    Closed
+                </option>
+
+                <option value="Monitoring">
+                    Monitoring
+                </option>
+
+            </select>
+
+
+            <div
+                id="addError"
+                class="add-error">
+            </div>
+
+        `;
+
+
+        document.getElementById(
+            "addStatus"
+        ).value =
+            newRecord.STATUS;
+
+    }
+
+}
+
+
+/* =========================================================
+   RENDER SITE STEP
+   ========================================================= */
+
+function renderAddSiteStep() {
+
+    const title =
+        document.getElementById(
+            "addStepTitle"
+        );
+
+
+    const content =
+        document.getElementById(
+            "addStepContent"
+        );
+
+
+    title.textContent =
+        "Add New Issue — Step 2 / 4";
+
+
+    const customers =
+        getAllCustomers();
+
+
+    let options = `
+
+        <option value="">
+            Select customer
+        </option>
+
+    `;
+
+
+    customers.forEach(function(customer) {
+
+        options += `
+
+            <option
+                value="${escapeAttribute(
+                    customer
+                )}">
+
+                ${escapeHTML(customer)}
+
+            </option>
+
+        `;
+
+    });
+
+
+    content.innerHTML = `
+
+        <label
+            class="add-step-label">
+
+            Customer / Site
+
+        </label>
+
+
+        <select
+            id="addSite"
+            class="add-select">
+
+            ${options}
+
+        </select>
+
+
+        <div
+            id="addError"
+            class="add-error">
+        </div>
+
+    `;
+
+
+    document.getElementById(
+        "addSite"
+    ).value =
+        newRecord.SITE;
+
+}
+
+
+/* =========================================================
+   VALIDATE DATE MM/DD/YY
+   ========================================================= */
+
+function validateDateMMDDYY(value) {
+
+    const regex =
+        /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/([0-9]{2})$/;
+
+
+    if (
+        !regex.test(value)
+    ) {
+
+        return false;
+
+    }
+
+
+    const parts =
+        value.split("/");
+
+
+    const month =
+        Number(parts[0]);
+
+
+    const day =
+        Number(parts[1]);
+
+
+    const year =
+        2000 +
+        Number(parts[2]);
+
+
+    const date =
+        new Date(
+            year,
+            month - 1,
+            day
+        );
+
+
+    return (
+
+        date.getFullYear() ===
+        year &&
+
+        date.getMonth() ===
+        month - 1 &&
+
+        date.getDate() ===
+        day
+
+    );
+
+}
+
+
+/* =========================================================
+   ADD NEXT STEP
+   ========================================================= */
+
+function addNextStep() {
+
+    const error =
+        document.getElementById(
+            "addError"
+        );
+
+
+    /*
+     * =========================
+     * STEP 1
+     * =========================
+     */
+
+    if (addStep === 1) {
+
+        const value =
+            document.getElementById(
+                "addDate"
+            )
+            .value
+            .trim();
+
+
+        if (
+            !validateDateMMDDYY(value)
+        ) {
+
+            error.textContent =
+                "Invalid date. Please enter date as MM/DD/YY.";
+
+            return;
+
+        }
+
+
+        newRecord.DATE =
+            value;
+
+    }
+
+
+    /*
+     * =========================
+     * STEP 2
+     * =========================
+     */
+
+    else if (addStep === 2) {
+
+        const value =
+            document.getElementById(
+                "addSite"
+            )
+            .value;
+
+
+        if (
+            !value
+        ) {
+
+            error.textContent =
+                "Please select a customer.";
+
+            return;
+
+        }
+
+
+        newRecord.SITE =
+            value;
+
+    }
+
+
+    /*
+     * =========================
+     * STEP 3
+     * =========================
+     */
+
+    else if (addStep === 3) {
+
+        const value =
+            document.getElementById(
+                "addIssue"
+            )
+            .value
+            .trim();
+
+
+        if (
+            !value
+        ) {
+
+            error.textContent =
+                "Please enter Issue and Request.";
+
+            return;
+
+        }
+
+
+        newRecord[
+            "ISSUE AND REQUEST"
+        ] = value;
+
+    }
+
+
+    /*
+     * =========================
+     * STEP 4
+     * =========================
+     */
+
+    else if (addStep === 4) {
+
+        const value =
+            document.getElementById(
+                "addStatus"
+            ).value;
+
+
+        if (
+            !value
+        ) {
+
+            error.textContent =
+                "Please select a status.";
+
+            return;
+
+        }
+
+
+        newRecord.STATUS =
+            value;
+
+
+        showAddConfirmation();
+
+        return;
+
+    }
+
+
+    addStep++;
+
+    renderAddStep();
+
+}
+
+
+/* =========================================================
+   ADD PREVIOUS STEP
+   ========================================================= */
+
+function addPreviousStep() {
+
+    if (
+        addStep <= 1
+    ) {
+
+        return;
+
+    }
+
+
+    addStep--;
+
+    renderAddStep();
+
+}
+
+
+/* =========================================================
+   SHOW CONFIRMATION
+   ========================================================= */
+
+function showAddConfirmation() {
+
+    const title =
+        document.getElementById(
+            "addStepTitle"
+        );
+
+
+    const content =
+        document.getElementById(
+            "addStepContent"
+        );
+
+
+    const nextBtn =
+        document.getElementById(
+            "addNextBtn"
+        );
+
+
+    const backBtn =
+        document.getElementById(
+            "addBackBtn"
+        );
+
+
+    title.textContent =
+        "Confirm New Record";
+
+
+    content.innerHTML = `
+
+        <div class="add-confirm-row">
+
+            <div class="add-confirm-label">
+                DATE
+            </div>
+
+            <div class="add-confirm-value">
+                ${escapeHTML(
+                    newRecord.DATE
+                )}
+            </div>
+
+        </div>
+
+
+        <div class="add-confirm-row">
+
+            <div class="add-confirm-label">
+                SITE
+            </div>
+
+            <div class="add-confirm-value">
+                ${escapeHTML(
+                    newRecord.SITE
+                )}
+            </div>
+
+        </div>
+
+
+        <div class="add-confirm-row">
+
+            <div class="add-confirm-label">
+                ISSUE AND REQUEST
+            </div>
+
+            <div class="add-confirm-value">
+                ${escapeHTML(
+                    newRecord[
+                        "ISSUE AND REQUEST"
+                    ]
+                )}
+            </div>
+
+        </div>
+
+
+        <div class="add-confirm-row">
+
+            <div class="add-confirm-label">
+                STATUS
+            </div>
+
+            <div class="add-confirm-value">
+                ${escapeHTML(
+                    newRecord.STATUS
+                )}
+            </div>
+
+        </div>
+
+
+        <div class="github-token-area">
+
+            <label
+                class="github-token-label">
+
+                GitHub Personal Access Token
+
+            </label>
+
+
+            <input
+                type="password"
+                id="githubTokenInput"
+                class="github-token-input"
+                placeholder="Enter GitHub token"
+                autocomplete="off"
+            >
+
+
+            <div class="github-token-note">
+
+                Required only to update data.json.
+                The token is not saved in this website
+                or in data.json.
+
+            </div>
+
+
+            <div
+                id="saveMessage"
+                class="save-message">
+            </div>
+
+        </div>
+
+    `;
+
+
+    /*
+     * If token already exists in memory,
+     * don't put it into the password field.
+     */
+
+    const tokenInput =
+        document.getElementById(
+            "githubTokenInput"
+        );
+
+
+    if (
+        addGitHubToken
+    ) {
+
+        tokenInput.placeholder =
+            "Token already available for this session";
+
+    }
+
+
+    backBtn.style.display =
+        "inline-block";
+
+
+    nextBtn.textContent =
+        "Add Record";
+
+
+    nextBtn.onclick =
+        saveNewRecord;
+
+}
+
+
+/* =========================================================
+   GITHUB API
+   ========================================================= */
+
+function getGitHubApiUrl() {
+
+    return (
+        "https://api.github.com/repos/" +
+        encodeURIComponent(
+            GITHUB_CONFIG.owner
+        ) +
+        "/" +
+        encodeURIComponent(
+            GITHUB_CONFIG.repo
+        ) +
+        "/contents/" +
+        GITHUB_CONFIG.file
+    );
+
+}
+
+
+/* =========================================================
+   UTF-8 BASE64 ENCODE
+   ========================================================= */
+
+function utf8ToBase64(text) {
+
+    const bytes =
+        new TextEncoder()
+            .encode(text);
+
+
+    let binary = "";
+
+
+    const chunkSize = 0x8000;
+
+
+    for (
+        let i = 0;
+        i < bytes.length;
+        i += chunkSize
+    ) {
+
+        binary += String.fromCharCode(
+            ...bytes.subarray(
+                i,
+                i + chunkSize
+            )
+        );
+
+    }
+
+
+    return btoa(binary);
+
+}
+
+
+/* =========================================================
+   UTF-8 BASE64 DECODE
+   ========================================================= */
+
+function base64ToUtf8(base64) {
+
+    const binary =
+        atob(
+            base64.replace(
+                /\s/g,
+                ""
+            )
+        );
+
+
+    const bytes =
+        Uint8Array.from(
+            binary,
+            function(char) {
+
+                return char.charCodeAt(0);
+
+            }
+        );
+
+
+    return new TextDecoder()
+        .decode(bytes);
+
+}
+
+
+/* =========================================================
+   GET DATA.JSON FROM GITHUB
+   ========================================================= */
+
+async function getGitHubData(token) {
+
+    const url =
+        getGitHubApiUrl();
+
+
+    const response =
+        await fetch(
+            url +
+            "?ref=" +
+            encodeURIComponent(
+                GITHUB_CONFIG.branch
+            ) +
+            "&t=" +
+            Date.now(),
+            {
+
+                method: "GET",
+
+                headers: {
+
+                    "Accept":
+                        "application/vnd.github+json",
+
+                    "Authorization":
+                        "Bearer " + token,
+
+                    "X-GitHub-Api-Version":
+                        "2022-11-28"
+
+                }
+
+            }
+        );
+
+
+    if (
+        !response.ok
+    ) {
+
+        let message =
+            "Failed to read data.json from GitHub.";
+
+
+        try {
+
+            const errorData =
+                await response.json();
+
+
+            if (
+                errorData.message
+            ) {
+
+                message =
+                    errorData.message;
+
+            }
+
+        }
+
+        catch (e) {
+        }
+
+
+        throw new Error(
+            message
+        );
+
+    }
+
+
+    const result =
+        await response.json();
+
+
+    if (
+        !result.content ||
+        !result.sha
+    ) {
+
+        throw new Error(
+            "GitHub did not return data.json content or SHA."
+        );
+
+    }
+
+
+    const jsonText =
+        base64ToUtf8(
+            result.content
+        );
+
+
+    let data;
+
+
+    try {
+
+        data =
+            JSON.parse(
+                jsonText
+            );
+
+    }
+
+    catch (error) {
+
+        throw new Error(
+            "data.json contains invalid JSON."
+        );
+
+    }
+
+
+    if (
+        !Array.isArray(data)
+    ) {
+
+        throw new Error(
+            "data.json must contain a JSON array."
+        );
+
+    }
+
+
+    return {
+
+        data: data,
+
+        sha: result.sha
+
+    };
+
+}
+
+
+/* =========================================================
+   UPDATE DATA.JSON ON GITHUB
+   ========================================================= */
+
+async function updateGitHubData(
+    token,
+    data,
+    sha
+) {
+
+    const url =
+        getGitHubApiUrl();
+
+
+    const jsonText =
+        JSON.stringify(
+            data,
+            null,
+            4
+        );
+
+
+    const encodedContent =
+        utf8ToBase64(
+            jsonText
+        );
+
+
+    const body = {
+
+        message:
+            "Add new issue record",
+
+        content:
+            encodedContent,
+
+        sha:
+            sha,
+
+        branch:
+            GITHUB_CONFIG.branch
+
+    };
+
+
+    const response =
+        await fetch(
+            url,
+            {
+
+                method: "PUT",
+
+                headers: {
+
+                    "Accept":
+                        "application/vnd.github+json",
+
+                    "Authorization":
+                        "Bearer " + token,
+
+                    "X-GitHub-Api-Version":
+                        "2022-11-28",
+
+                    "Content-Type":
+                        "application/json"
+
+                },
+
+                body:
+                    JSON.stringify(body)
+
+            }
+        );
+
+
+    if (
+        !response.ok
+    ) {
+
+        let message =
+            "Failed to update data.json on GitHub.";
+
+
+        try {
+
+            const errorData =
+                await response.json();
+
+
+            if (
+                errorData.message
+            ) {
+
+                message =
+                    errorData.message;
+
+            }
+
+        }
+
+        catch (e) {
+        }
+
+
+        throw new Error(
+            message
+        );
+
+    }
+
+
+    return await response.json();
+
+}
+
+
+/* =========================================================
+   SAVE NEW RECORD
+   ========================================================= */
+
+async function saveNewRecord() {
+
+    const nextBtn =
+        document.getElementById(
+            "addNextBtn"
+        );
+
+
+    const backBtn =
+        document.getElementById(
+            "addBackBtn"
+        );
+
+
+    const tokenInput =
+        document.getElementById(
+            "githubTokenInput"
+        );
+
+
+    const saveMessage =
+        document.getElementById(
+            "saveMessage"
+        );
+
+
+    /*
+     * Get token from input if available.
+     */
+
+    let token = "";
+
+
+    if (
+        tokenInput &&
+        tokenInput.value.trim()
+    ) {
+
+        token =
+            tokenInput.value.trim();
+
+    }
+
+    else if (
+        addGitHubToken
+    ) {
+
+        token =
+            addGitHubToken;
+
+    }
+
+
+    /*
+     * Token required.
+     */
+
+    if (
+        !token
+    ) {
+
+        saveMessage.textContent =
+            "Please enter your GitHub Personal Access Token.";
+
+        saveMessage.className =
+            "save-message error";
+
+        if (tokenInput) {
+
+            tokenInput.focus();
+
+        }
+
+        return;
+
+    }
+
+
+    /*
+     * Disable buttons while saving.
+     */
+
+    nextBtn.disabled =
+        true;
+
+    backBtn.disabled =
+        true;
+
+
+    saveMessage.textContent =
+        "Saving record to GitHub...";
+
+    saveMessage.className =
+        "save-message";
+
+
+    try {
+
+        /*
+         * Step 1:
+         * Read latest data.json
+         */
+
+        const githubData =
+            await getGitHubData(
+                token
+            );
+
+
+        /*
+         * Step 2:
+         * Add new record
+         */
+
+        githubData.data.push({
+
+            DATE:
+                newRecord.DATE,
+
+            SITE:
+                newRecord.SITE,
+
+            "ISSUE AND REQUEST":
+                newRecord[
+                    "ISSUE AND REQUEST"
+                ],
+
+            STATUS:
+                newRecord.STATUS,
+
+            LOG:
+                "",
+
+            "CC LINK":
+                ""
+
+        });
+
+
+        /*
+         * Step 3:
+         * Update GitHub
+         */
+
+        await updateGitHubData(
+
+            token,
+
+            githubData.data,
+
+            githubData.sha
+
+        );
+
+
+        /*
+         * Token remains only in RAM
+         * for the current page session.
+         */
+
+        addGitHubToken =
+            token;
+
+
+        /*
+         * Update local data immediately.
+         */
+
+        allData =
+            githubData.data;
+
+
+        sortData();
+
+
+        filteredData =
+            [...allData];
+
+
+        currentPage =
+            1;
+
+
+        /*
+         * Reset filters so the new
+         * record is immediately visible.
+         */
+
+        selectedBU =
+            null;
+
+        selectedStatus =
+            null;
+
+
+        updateBUButtons();
+
+        updateStatusButtons();
+
+
+        /*
+         * Recreate chart
+         */
+
+        if (
+            statusChartLoaded &&
+            typeof Plotly !== "undefined"
+        ) {
+
+            Plotly.purge(
+                "statusChart"
+            );
+
+        }
+
+
+        statusChartLoaded =
+            false;
+
+
+        createStatusChart();
+
+
+        renderTable();
+
+
+        /*
+         * Success
+         */
+
+        saveMessage.textContent =
+            "Record added successfully.";
+
+        saveMessage.className =
+            "save-message success";
+
+
+        /*
+         * Close dialog after short delay.
+         */
+
+        setTimeout(function() {
+
+            closeAddDialog();
+
+        }, 800);
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "GitHub save error:",
+            error
+        );
+
+
+        saveMessage.textContent =
+            "Save failed: " +
+            error.message;
+
+        saveMessage.className =
+            "save-message error";
+
+
+        /*
+         * Clear token if GitHub
+         * authentication failed.
+         */
+
+        if (
+            error.message
+                .toLowerCase()
+                .includes("bad credentials")
+        ) {
+
+            addGitHubToken = "";
+
+        }
+
+    }
+
+    finally {
+
+        nextBtn.disabled =
+            false;
+
+        backBtn.disabled =
+            false;
+
+    }
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL WHEN CLICK OUTSIDE
+   ========================================================= */
+
+document
+    .getElementById(
+        "addModal"
+    )
+    .addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target ===
+                this
+            ) {
+
+                closeAddDialog();
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   ESC KEY
+   ========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            const modal =
+                document.getElementById(
+                    "addModal"
+                );
+
+
+            if (
+                modal.classList.contains(
+                    "show"
+                )
+            ) {
+
+                closeAddDialog();
+
+            }
+
+        }
+
+    }
+);
 
 
 /* =========================================================
