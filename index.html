@@ -3612,14 +3612,14 @@ function renderAddStep() {
 
 
             <input
-                type="text"
+                type="date"
                 id="addDate"
                 class="add-input"
-                placeholder="MM/DD/YY"
-                maxlength="8"
                 autocomplete="off"
                 value="${escapeAttribute(
-                    newRecord.DATE
+                    convertMMDDYYToISO(
+                        newRecord.DATE
+                    )
                 )}"
             >
 
@@ -3872,6 +3872,90 @@ function renderAddSiteStep() {
 
 
 /* =========================================================
+   CONVERT MM/DD/YY -> YYYY-MM-DD (ISO, for <input type="date">)
+   ========================================================= */
+
+function convertMMDDYYToISO(value) {
+
+    if (!value) {
+
+        return "";
+
+    }
+
+
+    const text =
+        String(value).trim();
+
+
+    const match =
+        text.match(
+            /^(\d{2})\/(\d{2})\/(\d{2})$/
+        );
+
+
+    if (!match) {
+
+        return "";
+
+    }
+
+
+    const month = match[1];
+
+    const day = match[2];
+
+    const year =
+        "20" + match[3];
+
+
+    return `${year}-${month}-${day}`;
+
+}
+
+
+/* =========================================================
+   CONVERT YYYY-MM-DD (ISO) -> MM/DD/YY
+   ========================================================= */
+
+function convertISOToMMDDYY(value) {
+
+    if (!value) {
+
+        return "";
+
+    }
+
+
+    const match =
+        String(value)
+            .trim()
+            .match(
+                /^(\d{4})-(\d{2})-(\d{2})$/
+            );
+
+
+    if (!match) {
+
+        return "";
+
+    }
+
+
+    const year =
+        match[1].slice(-2);
+
+    const month = match[2];
+
+    const day = match[3];
+
+
+    return `${month}/${day}/${year}`;
+
+}
+
+
+/* =========================================================
    VALIDATE DATE MM/DD/YY
    ========================================================= */
 
@@ -3951,7 +4035,7 @@ function addNextStep() {
 
     if (addStep === 1) {
 
-        const value =
+        const isoValue =
             document.getElementById(
                 "addDate"
             )
@@ -3959,12 +4043,28 @@ function addNextStep() {
             .trim();
 
 
+        if (!isoValue) {
+
+            error.textContent =
+                "Please select a date.";
+
+            return;
+
+        }
+
+
+        const value =
+            convertISOToMMDDYY(
+                isoValue
+            );
+
+
         if (
             !validateDateMMDDYY(value)
         ) {
 
             error.textContent =
-                "Invalid date. Please enter date as MM/DD/YY.";
+                "Invalid date. Please select a valid date.";
 
             return;
 
