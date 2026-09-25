@@ -20,7 +20,6 @@
 
 <!-- PLOTLY -->
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
-<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 
 
 <style>
@@ -916,118 +915,6 @@ tbody tr.monitoring-case-row:hover {
 
 
 /* =========================
-   OUTPUT BUTTON
-   ========================= */
-
-.output-btn {
-    background: #198754;
-    color: white;
-    border-color: #198754;
-}
-
-.output-btn:hover {
-    background: #146c43;
-    border-color: #146c43;
-}
-
-
-/* =========================
-   ADD DATE CALENDAR
-   ========================= */
-
-.add-calendar {
-    width: 100%;
-    margin-top: 4px;
-}
-
-.add-calendar-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    margin-bottom: 12px;
-}
-
-.add-calendar-month {
-    flex: 1;
-    text-align: center;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.add-calendar-nav {
-    width: 34px;
-    height: 32px;
-    border: 1px solid #bbb;
-    background: #fff;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 18px;
-    line-height: 1;
-}
-
-.add-calendar-nav:hover {
-    background: #eee;
-}
-
-.add-calendar-weekdays,
-.add-calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, minmax(0, 1fr));
-    gap: 5px;
-}
-
-.add-calendar-weekday {
-    text-align: center;
-    font-size: 11px;
-    font-weight: bold;
-    color: #666;
-    padding: 4px 0;
-}
-
-.add-calendar-day {
-    min-height: 36px;
-    border: 1px solid #ddd;
-    background: #fff;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 13px;
-}
-
-.add-calendar-day:hover {
-    background: #eaf3ff;
-    border-color: #1976d2;
-}
-
-.add-calendar-day.selected {
-    background: #1976d2;
-    border-color: #1976d2;
-    color: white;
-    font-weight: bold;
-}
-
-.add-calendar-day.today {
-    box-shadow: inset 0 0 0 2px #d97706;
-}
-
-.add-calendar-day.empty {
-    visibility: hidden;
-    cursor: default;
-}
-
-.add-selected-date {
-    margin-top: 12px;
-    padding: 9px 10px;
-    background: #f5f5f5;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 13px;
-    font-weight: bold;
-}
-
-
-/* =========================
    MOBILE
    ========================= */
 
@@ -1454,15 +1341,6 @@ tbody tr.monitoring-case-row:hover {
 
     </button>
 
-
-    <button
-        class="filter-btn output-btn"
-        onclick="exportCurrentRecords()">
-
-        OUTPUT
-
-    </button>
-
 </div>
 
 
@@ -1634,9 +1512,6 @@ let VISIONData = [];
    ========================================================= */
 
 let addStep = 1;
-
-let addCalendarYear = new Date().getFullYear();
-let addCalendarMonth = new Date().getMonth();
 
 let newRecord = {
 
@@ -3243,144 +3118,10 @@ function escapeAttribute(value) {
 
 
 /* =========================================================
-   OUTPUT CURRENT RECORDS TO EXCEL
-   ========================================================= */
-
-async function exportCurrentRecords() {
-
-    if (typeof XLSX === "undefined") {
-        alert("Excel export library is not available.");
-        return;
-    }
-
-    if (!filteredData.length) {
-        alert("There are no records to export.");
-        return;
-    }
-
-    const exportData = filteredData.map(function(item) {
-        return {
-            DATE: formatDateForExport(item["DATE"]),
-            SITE: item["SITE"] || "",
-            "ISSUE AND REQUEST": item["ISSUE AND REQUEST"] || "",
-            STATUS: item["STATUS"] || "",
-            LOG: item["LOG"] || "",
-            "CC LINK": item["CC LINK"] || ""
-        };
-    });
-
-    const worksheet =
-        XLSX.utils.json_to_sheet(exportData);
-
-    worksheet["!cols"] = [
-        { wch: 12 },
-        { wch: 24 },
-        { wch: 60 },
-        { wch: 16 },
-        { wch: 40 },
-        { wch: 40 }
-    ];
-
-    const workbook =
-        XLSX.utils.book_new();
-
-    XLSX.utils.book_append_sheet(
-        workbook,
-        worksheet,
-        "Issue List"
-    );
-
-    const defaultName =
-        "NA_TEAM_Issue_List_" +
-        getFileDateStamp() +
-        ".xlsx";
-
-    try {
-
-        if (window.showSaveFilePicker) {
-
-            const handle =
-                await window.showSaveFilePicker({
-                    suggestedName: defaultName,
-                    types: [
-                        {
-                            description: "Excel Workbook",
-                            accept: {
-                                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [".xlsx"]
-                            }
-                        }
-                    ]
-                });
-
-            const buffer =
-                XLSX.write(workbook, {
-                    bookType: "xlsx",
-                    type: "array"
-                });
-
-            const writable =
-                await handle.createWritable();
-
-            await writable.write(buffer);
-            await writable.close();
-
-            return;
-        }
-
-        XLSX.writeFile(
-            workbook,
-            defaultName
-        );
-
-    }
-    catch (error) {
-
-        if (error && error.name === "AbortError") {
-            return;
-        }
-
-        console.error("Excel export error:", error);
-        alert("Failed to export Excel file: " + error.message);
-    }
-}
-
-
-function formatDateForExport(value) {
-
-    if (!value) {
-        return "";
-    }
-
-    return String(formatDate(value))
-        .replace(/&amp;/g, "&")
-        .replace(/&lt;/g, "<")
-        .replace(/&gt;/g, ">")
-        .replace(/&quot;/g, '"')
-        .replace(/&#039;/g, "'");
-}
-
-
-function getFileDateStamp() {
-
-    const now = new Date();
-
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, "0");
-    const day = String(now.getDate()).padStart(2, "0");
-
-    return `${year}${month}${day}`;
-}
-
-
-/* =========================================================
    ADD DIALOG
    ========================================================= */
 
 function openAddDialog() {
-
-    const now = new Date();
-    addCalendarYear = now.getFullYear();
-    addCalendarMonth = now.getMonth();
 
     addStep = 1;
 
@@ -3525,12 +3266,60 @@ function renderAddStep() {
 
     if (addStep === 1) {
 
-        if (!validateDateMMDDYY(newRecord.DATE)) {
+        title.textContent =
+            "Add New Issue — Step 1 / 4";
 
-            error.textContent =
-                "Please select a date from the calendar.";
-            return;
-        }
+
+        content.innerHTML = `
+
+            <label
+                class="add-step-label">
+
+                Date
+
+            </label>
+
+
+            <input
+                type="text"
+                id="addDate"
+                class="add-input"
+                placeholder="MM/DD/YY"
+                maxlength="8"
+                autocomplete="off"
+                value="${escapeAttribute(
+                    newRecord.DATE
+                )}"
+            >
+
+
+            <div
+                id="addError"
+                class="add-error">
+            </div>
+
+        `;
+
+
+        /*
+         * Automatically focus date
+         */
+
+        setTimeout(function() {
+
+            const input =
+                document.getElementById(
+                    "addDate"
+                );
+
+            if (input) {
+
+                input.focus();
+
+            }
+
+        }, 50);
+
     }
 
 
@@ -3748,162 +3537,6 @@ function renderAddSiteStep() {
     ).value =
         newRecord.SITE;
 
-}
-
-
-/* =========================================================
-   ADD DATE CALENDAR
-   ========================================================= */
-
-function renderAddDateCalendar() {
-
-    const container =
-        document.getElementById(
-            "addDateCalendar"
-        );
-
-    if (!container) {
-        return;
-    }
-
-    const date = new Date(
-        addCalendarYear,
-        addCalendarMonth,
-        1
-    );
-
-    const monthName = date.toLocaleString(
-        "en-US",
-        { month: "long" }
-    );
-
-    const firstDay = date.getDay();
-
-    const daysInMonth =
-        new Date(
-            addCalendarYear,
-            addCalendarMonth + 1,
-            0
-        ).getDate();
-
-    const today = new Date();
-
-    let html = `
-        <div class="add-calendar-header">
-            <button
-                type="button"
-                class="add-calendar-nav"
-                onclick="changeAddCalendarMonth(-1)"
-                title="Previous month">
-                ‹
-            </button>
-
-            <div class="add-calendar-month">
-                ${monthName} ${addCalendarYear}
-            </div>
-
-            <button
-                type="button"
-                class="add-calendar-nav"
-                onclick="changeAddCalendarMonth(1)"
-                title="Next month">
-                ›
-            </button>
-        </div>
-
-        <div class="add-calendar-weekdays">
-            <div class="add-calendar-weekday">Sun</div>
-            <div class="add-calendar-weekday">Mon</div>
-            <div class="add-calendar-weekday">Tue</div>
-            <div class="add-calendar-weekday">Wed</div>
-            <div class="add-calendar-weekday">Thu</div>
-            <div class="add-calendar-weekday">Fri</div>
-            <div class="add-calendar-weekday">Sat</div>
-        </div>
-
-        <div class="add-calendar-grid">
-    `;
-
-    for (let i = 0; i < firstDay; i++) {
-        html += `<button type="button" class="add-calendar-day empty" tabindex="-1"></button>`;
-    }
-
-    for (let day = 1; day <= daysInMonth; day++) {
-
-        const mm = String(addCalendarMonth + 1).padStart(2, "0");
-        const dd = String(day).padStart(2, "0");
-        const yy = String(addCalendarYear).slice(-2);
-        const dateValue = `${mm}/${dd}/${yy}`;
-
-        const isSelected = newRecord.DATE === dateValue;
-
-        const isToday =
-            today.getFullYear() === addCalendarYear &&
-            today.getMonth() === addCalendarMonth &&
-            today.getDate() === day;
-
-        const classes = [
-            "add-calendar-day",
-            isSelected ? "selected" : "",
-            isToday ? "today" : ""
-        ].filter(Boolean).join(" ");
-
-        html += `
-            <button
-                type="button"
-                class="${classes}"
-                onclick="selectAddDate('${dateValue}')">
-                ${day}
-            </button>
-        `;
-    }
-
-    html += `
-        </div>
-
-        <div class="add-selected-date">
-            Selected date: ${
-                newRecord.DATE
-                    ? escapeHTML(newRecord.DATE)
-                    : "Please select a date"
-            }
-        </div>
-    `;
-
-    container.innerHTML = html;
-}
-
-
-function changeAddCalendarMonth(offset) {
-
-    addCalendarMonth += offset;
-
-    if (addCalendarMonth < 0) {
-        addCalendarMonth = 11;
-        addCalendarYear--;
-    }
-
-    if (addCalendarMonth > 11) {
-        addCalendarMonth = 0;
-        addCalendarYear++;
-    }
-
-    renderAddDateCalendar();
-}
-
-
-function selectAddDate(value) {
-
-    newRecord.DATE = value;
-
-    renderAddDateCalendar();
-
-    const error =
-        document.getElementById("addError");
-
-    if (error) {
-        error.textContent = "";
-    }
 }
 
 
@@ -4555,22 +4188,16 @@ async function saveNewRecord() {
         saveMessage.className =
             "save-message success";
 
+
         /*
-         * Keep the Add Case window open.
-         * It can be closed only with the X button.
+         * Close modal
          */
 
-        nextBtn.textContent =
-            "Saved";
+        setTimeout(function() {
 
-        nextBtn.disabled =
-            true;
+            closeAddDialog();
 
-        backBtn.disabled =
-            true;
-
-        saveMessage.textContent =
-            "Record added successfully. Press X to close.";
+        }, 800);
 
     }
 
@@ -4607,13 +4234,63 @@ async function saveNewRecord() {
 
 
 /* =========================================================
-   MODAL CLOSE BEHAVIOR
-   =========================================================
-
-   The Add Case window is intentionally closed ONLY by
-   the X button in the modal header. Clicking outside the
-   modal or pressing Escape does not close it.
+   CLOSE MODAL WHEN CLICK OUTSIDE
    ========================================================= */
+
+document
+    .getElementById(
+        "addModal"
+    )
+    .addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target ===
+                this
+            ) {
+
+                closeAddDialog();
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   ESC KEY
+   ========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            const modal =
+                document.getElementById(
+                    "addModal"
+                );
+
+
+            if (
+                modal.classList.contains(
+                    "show"
+                )
+            ) {
+
+                closeAddDialog();
+
+            }
+
+        }
+
+    }
+);
 
 
 /* =========================================================
