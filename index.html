@@ -1,3 +1,4 @@
+html
 <!DOCTYPE html>
 
 <html lang="en">
@@ -13,20 +14,18 @@
 >
 
 <meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
-
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
 >
 
 <title>NA TEAM Issue List Management</title>
 
 <!-- PLOTLY -->
-
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 
-<!-- SHEETJS (Excel export) -->
-
+<!-- SHEETJS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
 
 <style>
 
@@ -105,14 +104,14 @@ body {
 
 
 /* =========================
-   FILTER BUTTONS
+   FILTER AREA
    ========================= */
 
 .filter-area {
     display: flex;
     flex-direction: column;
     gap: 7px;
-    align-items: stretch;
+    width: 100%;
 }
 
 .filter-row {
@@ -120,9 +119,24 @@ body {
     flex-wrap: nowrap;
     gap: 7px;
     align-items: center;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    padding-bottom: 2px;
+}
+
+.filter-row::-webkit-scrollbar {
+    height: 5px;
+}
+
+.filter-row::-webkit-scrollbar-thumb {
+    background: #bbb;
+    border-radius: 5px;
 }
 
 .filter-btn {
+    flex: 0 0 auto;
     border: none;
     border-radius: 5px;
     padding: 8px 13px;
@@ -139,7 +153,7 @@ body {
 
 
 /* =========================
-   ACTIVE BUTTON
+   ACTIVE
    ========================= */
 
 .filter-btn.active {
@@ -154,7 +168,7 @@ body {
 
 
 /* =========================
-   BU FILTER
+   BU
    ========================= */
 
 .bu-btn {
@@ -164,7 +178,7 @@ body {
 
 
 /* =========================
-   STATUS FILTER
+   STATUS
    ========================= */
 
 .status-filter-btn {
@@ -185,7 +199,7 @@ body {
 
 
 /* =========================
-   ADD BUTTON
+   ADD
    ========================= */
 
 .add-btn {
@@ -199,7 +213,7 @@ body {
 
 
 /* =========================
-   EXPORT BUTTON
+   EXPORT
    ========================= */
 
 .export-btn {
@@ -223,23 +237,16 @@ body {
 
 
 /* =========================
-   STATUS CHART
+   CHART
    ========================= */
 
 .chart-container {
-
     margin: 10px 20px 0 20px;
-
     background: #ffffff;
-
     border: 1px solid #ddd;
-
     border-radius: 7px;
-
     padding: 5px;
-
     height: 45px;
-
     overflow: hidden;
 
     transition:
@@ -248,54 +255,38 @@ body {
 }
 
 .chart-container.show-chart {
-
     height: 360px;
-
     padding: 10px;
 }
 
 .chart-header {
-
     display: flex;
-
     justify-content: center;
-
     align-items: center;
-
     position: relative;
-
     min-height: 30px;
 }
 
 .chart-title {
-
     text-align: center;
-
     font-size: 16px;
-
     font-weight: bold;
 }
 
 .chart-toggle-btn {
-
     position: absolute;
-
     right: 0;
-
     top: 0;
 
     border: none;
-
     border-radius: 5px;
 
     padding: 6px 10px;
 
     background: #555;
-
     color: white;
 
     font-size: 11px;
-
     font-weight: bold;
 
     cursor: pointer;
@@ -304,38 +295,30 @@ body {
 }
 
 .chart-toggle-btn:hover {
-
     background: #333;
-
     transform: translateY(-1px);
 }
 
 .chart-container:not(.show-chart) .chart-title {
-
     display: none;
 }
 
 .chart-container:not(.show-chart) .chart-header {
-
     min-height: 33px;
 }
 
-.chart-container:not(.show-chart)
-.chart-toggle-btn {
-
+.chart-container:not(.show-chart) .chart-toggle-btn {
     position: static;
 }
 
 #statusChart {
-
     width: 100%;
-
     height: 320px;
 }
 
 
 /* =========================
-   PAGINATION TOP
+   PAGINATION
    ========================= */
 
 .pagination-top {
@@ -425,7 +408,6 @@ thead th {
     font-size: 13px;
 
     white-space: normal;
-
     word-break: break-word;
 }
 
@@ -435,7 +417,6 @@ thead th {
    ========================= */
 
 tbody td {
-
     border: 1px solid #ddd;
 
     padding: 8px 6px;
@@ -445,7 +426,6 @@ tbody td {
     vertical-align: top;
 
     overflow-wrap: anywhere;
-
     word-break: break-word;
 }
 
@@ -475,41 +455,32 @@ td:nth-child(2) {
 
 th:nth-child(3),
 td:nth-child(3) {
-
     width: 40%;
-
     white-space: pre-line;
-
     text-align: left;
 }
 
 th:nth-child(4),
 td:nth-child(4) {
-
     width: 14%;
-
     text-align: center;
 }
 
 th:nth-child(5),
 td:nth-child(5) {
-
     width: 10%;
-
     text-align: center;
 }
 
 th:nth-child(6),
 td:nth-child(6) {
-
     width: 10%;
-
     text-align: center;
 }
 
 
 /* =========================
-   STATUS ROW COLORS
+   STATUS ROW
    ========================= */
 
 tbody tr.open-case-row {
@@ -611,22 +582,18 @@ tbody tr.monitoring-case-row:hover {
 
 .open-btn:hover {
     background: #125aa0;
-
     transform: translateY(-1px);
 }
 
 
 /* =========================
-   EMPTY / LOADING
+   MESSAGE
    ========================= */
 
 .message {
     text-align: center;
-
     padding: 30px;
-
     color: #666;
-
     font-size: 14px;
 }
 
@@ -636,7 +603,6 @@ tbody tr.monitoring-case-row:hover {
    ========================================================= */
 
 .add-modal {
-
     display: none;
 
     position: fixed;
@@ -648,19 +614,16 @@ tbody tr.monitoring-case-row:hover {
     background: rgba(0, 0, 0, 0.50);
 
     align-items: center;
-
     justify-content: center;
 
     padding: 15px;
 }
 
 .add-modal.show {
-
     display: flex;
 }
 
 .add-modal-content {
-
     width: 100%;
 
     max-width: 560px;
@@ -677,39 +640,30 @@ tbody tr.monitoring-case-row:hover {
     overflow: hidden;
 
     display: flex;
-
     flex-direction: column;
 }
 
 .add-modal-header {
-
     display: flex;
 
     align-items: center;
-
     justify-content: space-between;
 
     padding: 15px 18px;
 
     background: #222;
-
     color: white;
 
     font-size: 17px;
-
     font-weight: bold;
 }
 
 .add-close-btn {
-
     border: none;
-
     background: transparent;
-
     color: white;
 
     font-size: 26px;
-
     line-height: 1;
 
     cursor: pointer;
@@ -718,12 +672,10 @@ tbody tr.monitoring-case-row:hover {
 }
 
 .add-close-btn:hover {
-
     color: #ffaaaa;
 }
 
 .add-step {
-
     padding: 20px;
 
     min-height: 190px;
@@ -732,20 +684,17 @@ tbody tr.monitoring-case-row:hover {
 }
 
 .add-step-label {
-
     display: block;
 
     margin-bottom: 8px;
 
     font-size: 14px;
-
     font-weight: bold;
 }
 
 .add-input,
 .add-select,
 .add-textarea {
-
     width: 100%;
 
     border: 1px solid #bbb;
@@ -756,13 +705,15 @@ tbody tr.monitoring-case-row:hover {
 
     font-size: 14px;
 
-    font-family: Arial, Helvetica, sans-serif;
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 }
 
 .add-input:focus,
 .add-select:focus,
 .add-textarea:focus {
-
     outline: none;
 
     border-color: #1976d2;
@@ -772,25 +723,20 @@ tbody tr.monitoring-case-row:hover {
 }
 
 .add-textarea {
-
     min-height: 140px;
-
     resize: vertical;
 }
 
 .add-error {
-
     margin-top: 9px;
 
     color: #dc3545;
 
     font-size: 13px;
-
     font-weight: bold;
 }
 
 .add-modal-footer {
-
     display: flex;
 
     justify-content: flex-end;
@@ -806,7 +752,6 @@ tbody tr.monitoring-case-row:hover {
 
 .add-primary-btn,
 .add-secondary-btn {
-
     border: none;
 
     border-radius: 5px;
@@ -816,45 +761,30 @@ tbody tr.monitoring-case-row:hover {
     cursor: pointer;
 
     font-size: 13px;
-
     font-weight: bold;
 }
 
 .add-primary-btn {
-
     background: #1976d2;
-
     color: white;
 }
 
 .add-secondary-btn {
-
     background: #777;
-
     color: white;
 }
 
 .add-primary-btn:hover {
-
     background: #125aa0;
 }
 
 .add-secondary-btn:hover {
-
     background: #555;
 }
 
-.add-primary-btn:disabled {
-
-    opacity: 0.55;
-
-    cursor: wait;
-}
-
+.add-primary-btn:disabled,
 .add-secondary-btn:disabled {
-
     opacity: 0.55;
-
     cursor: wait;
 }
 
@@ -864,13 +794,10 @@ tbody tr.monitoring-case-row:hover {
    ========================= */
 
 .add-confirm-row {
-
     margin-bottom: 12px;
-
 }
 
 .add-confirm-label {
-
     font-size: 12px;
 
     color: #666;
@@ -881,7 +808,6 @@ tbody tr.monitoring-case-row:hover {
 }
 
 .add-confirm-value {
-
     padding: 8px;
 
     background: #f5f5f5;
@@ -899,11 +825,10 @@ tbody tr.monitoring-case-row:hover {
 
 
 /* =========================
-   SECURE BACKEND NOTE
+   BACKEND NOTE
    ========================= */
 
 .backend-note {
-
     margin-top: 18px;
 
     padding: 10px 12px;
@@ -927,14 +852,15 @@ tbody tr.monitoring-case-row:hover {
    ========================= */
 
 .toast {
-
     position: fixed;
 
     left: 50%;
 
     bottom: 24px;
 
-    transform: translateX(-50%) translateY(16px);
+    transform:
+        translateX(-50%)
+        translateY(16px);
 
     z-index: 6000;
 
@@ -954,7 +880,8 @@ tbody tr.monitoring-case-row:hover {
 
     text-align: center;
 
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.25);
 
     opacity: 0;
 
@@ -966,24 +893,22 @@ tbody tr.monitoring-case-row:hover {
 }
 
 .toast.show {
-
     opacity: 1;
 
-    transform: translateX(-50%) translateY(0);
+    transform:
+        translateX(-50%)
+        translateY(0);
 }
 
 .toast.info {
-
     background: #333;
 }
 
 .toast.success {
-
     background: #198754;
 }
 
 .toast.error {
-
     background: #dc3545;
 }
 
@@ -1012,16 +937,14 @@ tbody tr.monitoring-case-row:hover {
         min-width: 0;
     }
 
-
-    /* FILTER ROWS */
-
     .filter-area {
         gap: 5px;
     }
 
     .filter-row {
         gap: 5px;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
+        overflow-x: auto;
     }
 
     .filter-btn {
@@ -1029,136 +952,87 @@ tbody tr.monitoring-case-row:hover {
         font-size: 11px;
     }
 
-
-    /* CHART */
-
     .chart-container {
-
         margin: 10px;
-
         height: 40px;
-
         padding: 4px;
     }
 
     .chart-container.show-chart {
-
         height: 380px;
-
         padding: 5px;
     }
 
     .chart-title {
-
         font-size: 14px;
     }
 
     .chart-toggle-btn {
-
         font-size: 9px;
-
         padding: 5px 8px;
     }
 
     #statusChart {
-
         height: 335px;
     }
-
-
-    /* PAGINATION */
 
     .pagination-top {
         padding: 10px 5px;
     }
 
-
-    /* TABLE */
-
     .table-container {
-
         margin: 10px;
-
         max-height: calc(100vh - 330px);
-
         overflow-x: hidden;
     }
 
     .record-info {
-
         margin: 8px 10px 0 10px;
     }
 
     thead th {
-
         padding: 8px 3px;
-
         font-size: 11px;
     }
 
     tbody td {
-
         padding: 7px 3px;
-
         font-size: 11px;
-
         vertical-align: top;
     }
 
-
-    /* STATUS */
-
     .status {
-
         font-size: 8px;
-
         padding: 4px 4px;
-
         white-space: normal;
     }
 
-
-    /* OPEN BUTTON */
-
     .open-btn {
-
         font-size: 6px;
-
         padding: 5px 4px;
     }
 
-
-    /* ADD */
-
     .add-modal {
-
         padding: 10px;
     }
 
     .add-modal-content {
-
         max-height: 94vh;
     }
 
     .add-modal-header {
-
         padding: 12px 14px;
-
         font-size: 15px;
     }
 
     .add-step {
-
         padding: 15px;
-
         min-height: 170px;
     }
 
     .add-modal-footer {
-
         padding: 10px 15px;
     }
-
 }
 
 
@@ -1169,46 +1043,35 @@ tbody tr.monitoring-case-row:hover {
 @media (max-width: 400px) {
 
     .filter-btn {
-
         padding: 6px 7px;
-
         font-size: 10px;
     }
 
     thead th {
-
         font-size: 10px;
     }
 
     tbody td {
-
         font-size: 10px;
-
         vertical-align: top;
     }
 
     .page-btn {
-
         padding: 6px 9px;
-
         font-size: 11px;
     }
 
     .chart-container.show-chart {
-
         height: 340px;
     }
 
     #statusChart {
-
         height: 300px;
     }
 
     .add-primary-btn,
     .add-secondary-btn {
-
         padding: 7px 12px;
-
         font-size: 11px;
     }
 
@@ -1218,14 +1081,15 @@ tbody tr.monitoring-case-row:hover {
 
 </head>
 
+
 <body>
+
 
 <!-- =========================================================
      HEADER
      ========================================================= -->
 
 <div class="header">
-
 
 <div class="header-inner">
 
@@ -1254,11 +1118,10 @@ tbody tr.monitoring-case-row:hover {
 
 
         <!-- =========================
-             SITE / BU FILTERS
+             BU FILTERS
              ========================= -->
 
         <div class="filter-row">
-
 
             <button
                 class="filter-btn bu-btn"
@@ -1338,7 +1201,6 @@ tbody tr.monitoring-case-row:hover {
 
         <div class="filter-row">
 
-
             <button
                 class="filter-btn status-filter-btn open-case-btn"
                 id="btnOpenCase"
@@ -1383,8 +1245,8 @@ tbody tr.monitoring-case-row:hover {
 
 </div>
 
-
 </div>
+
 
 <!-- =========================================================
      STATUS CHART
@@ -1394,7 +1256,6 @@ tbody tr.monitoring-case-row:hover {
     class="chart-container"
     id="chartContainer"
 >
-
 
 <div class="chart-header">
 
@@ -1417,15 +1278,14 @@ tbody tr.monitoring-case-row:hover {
 
 <div id="statusChart"></div>
 
-
 </div>
+
 
 <!-- =========================================================
      PAGINATION
      ========================================================= -->
 
 <div class="pagination-top">
-
 
 <button
     class="page-btn"
@@ -1473,8 +1333,8 @@ tbody tr.monitoring-case-row:hover {
 
 </button>
 
-
 </div>
+
 
 <!-- =========================================================
      RECORD INFO
@@ -1484,18 +1344,16 @@ tbody tr.monitoring-case-row:hover {
     class="record-info"
     id="recordInfo">
 
-
-Loading...
-
+    Loading...
 
 </div>
+
 
 <!-- =========================================================
      TABLE
      ========================================================= -->
 
 <div class="table-container">
-
 
 <table>
 
@@ -1525,8 +1383,8 @@ Loading...
 
 </table>
 
-
 </div>
+
 
 <!-- =========================================================
      ADD MODAL
@@ -1537,11 +1395,8 @@ Loading...
     id="addModal"
 >
 
-
 <div class="add-modal-content">
 
-
-    <!-- HEADER -->
 
     <div class="add-modal-header">
 
@@ -1562,15 +1417,11 @@ Loading...
     </div>
 
 
-    <!-- CONTENT -->
-
     <div
         class="add-step"
         id="addStepContent">
     </div>
 
-
-    <!-- FOOTER -->
 
     <div class="add-modal-footer">
 
@@ -1597,8 +1448,8 @@ Loading...
 
 </div>
 
-
 </div>
+
 
 <!-- =========================================================
      TOAST
@@ -1608,6 +1459,7 @@ Loading...
     id="toast"
     class="toast">
 </div>
+
 
 <script>
 
@@ -1632,41 +1484,31 @@ let toastTimer = null;
 
 
 /* =========================================================
-   TOAST NOTIFICATION
+   TOAST
    ========================================================= */
 
-function showToast(message, type, duration) {
+function showToast(
+    message,
+    type,
+    duration
+) {
 
     const toast =
-        document.getElementById(
-            "toast"
-        );
-
+        document.getElementById("toast");
 
     if (!toast) {
-
         return;
-
     }
-
 
     if (toastTimer) {
-
-        clearTimeout(
-            toastTimer
-        );
-
+        clearTimeout(toastTimer);
     }
 
-
-    toast.textContent =
-        message;
-
+    toast.textContent = message;
 
     toast.className =
         "toast show " +
         (type || "info");
-
 
     toastTimer =
         setTimeout(function() {
@@ -1681,67 +1523,13 @@ function showToast(message, type, duration) {
 
 
 /* =========================================================
-   CHART CONTROL
+   CHART
    ========================================================= */
 
 let statusChartLoaded = false;
 
 let chartVisible = false;
 
-
-/* =========================================================
-   BU DATA
-   ========================================================= */
-
-let BU4Data = [];
-
-let D7Data = [];
-
-let BU11Data = [];
-
-let VISIONData = [];
-
-let E5Data = [];
-
-let MICRONData = [];
-
-let LDTData = [];
-
-
-/* =========================================================
-   ADD RECORD
-   ========================================================= */
-
-let addStep = 1;
-
-let newRecord = {
-
-    DATE: "",
-
-    SITE: "",
-
-    "ISSUE AND REQUEST": "",
-
-    STATUS: "",
-
-    LOG: "",
-
-    "CC LINK": ""
-
-};
-
-
-/* =========================================================
-   CLOUDFLARE WORKER
-   ========================================================= */
-
-const BACKEND_API_URL =
-    "https://issue-list-backend.quoctan91.workers.dev/add-issue";
-
-
-/* =========================================================
-   TOGGLE CHART
-   ========================================================= */
 
 function toggleChart() {
 
@@ -1750,16 +1538,13 @@ function toggleChart() {
             "chartContainer"
         );
 
-
     const button =
         document.getElementById(
             "chartToggleBtn"
         );
 
-
     chartVisible =
         !chartVisible;
-
 
     if (chartVisible) {
 
@@ -1767,10 +1552,8 @@ function toggleChart() {
             "show-chart"
         );
 
-
         button.textContent =
             "Hide Graph";
-
 
         setTimeout(function() {
 
@@ -1795,7 +1578,6 @@ function toggleChart() {
             "show-chart"
         );
 
-
         button.textContent =
             "Show graph";
 
@@ -1803,10 +1585,6 @@ function toggleChart() {
 
 }
 
-
-/* =========================================================
-   STATUS CHART
-   ========================================================= */
 
 function computeChartData() {
 
@@ -1843,7 +1621,9 @@ function computeChartData() {
 
         }
 
-        else if (status === "monitoring") {
+        else if (
+            status === "monitoring"
+        ) {
 
             statusCount.monitoring++;
 
@@ -2016,101 +1796,81 @@ function computeChartData() {
 }
 
 
-/* =========================================================
-   CREATE CHART
-   ========================================================= */
-
 function createStatusChart() {
 
     if (statusChartLoaded) {
-
         return;
-
     }
-
 
     const chart =
         computeChartData();
 
-
     if (!chart) {
-
         return;
-
     }
 
-
     Plotly.newPlot(
-
         "statusChart",
-
         chart.data,
-
         chart.layout,
-
         chart.config
-
     );
-
 
     statusChartLoaded = true;
 
 }
 
 
-/* =========================================================
-   UPDATE CHART
-   ========================================================= */
-
 function updateStatusChart() {
 
     const chart =
         computeChartData();
 
-
     if (!chart) {
-
         return;
-
     }
-
 
     if (!statusChartLoaded) {
 
         Plotly.newPlot(
-
             "statusChart",
-
             chart.data,
-
             chart.layout,
-
             chart.config
-
         );
-
 
         statusChartLoaded = true;
 
-
         return;
-
     }
 
-
     Plotly.react(
-
         "statusChart",
-
         chart.data,
-
         chart.layout,
-
         chart.config
-
     );
 
 }
+
+
+/* =========================================================
+   SITE DATA
+   ========================================================= */
+
+let BU4Data = [];
+
+let D7Data = [];
+
+let BU11Data = [];
+
+let VISIONData = [];
+
+let E5Data = [];
+
+let MICRONData = [];
+
+let LDTData = [];
 
 
 /* =========================================================
@@ -2125,28 +1885,55 @@ async function loadData() {
             "?t=" + Date.now();
 
 
-        const results = await Promise.all([
+        const results =
+            await Promise.all([
 
-            fetch("data.json" + cacheBust),
+                fetch(
+                    "data.json" +
+                    cacheBust
+                ),
 
-            fetch("BU4.json" + cacheBust),
+                fetch(
+                    "BU4.json" +
+                    cacheBust
+                ),
 
-            fetch("D7.json" + cacheBust),
+                fetch(
+                    "D7.json" +
+                    cacheBust
+                ),
 
-            fetch("BU11.json" + cacheBust),
+                fetch(
+                    "BU11.json" +
+                    cacheBust
+                ),
 
-            fetch("VISION.json" + cacheBust),
+                fetch(
+                    "VISION.json" +
+                    cacheBust
+                ),
 
-            fetch("E5.json" + cacheBust),
+                fetch(
+                    "E5.json" +
+                    cacheBust
+                ),
 
-            fetch("MICRON.json" + cacheBust),
+                fetch(
+                    "MICRON.json" +
+                    cacheBust
+                ),
 
-            fetch("LDT.json" + cacheBust)
+                fetch(
+                    "LDT.json" +
+                    cacheBust
+                )
 
-        ]);
+            ]);
 
 
-        for (const response of results) {
+        for (
+            const response of results
+        ) {
 
             if (!response.ok) {
 
@@ -2192,6 +1979,15 @@ async function loadData() {
             await results[7].json();
 
 
+        if (!Array.isArray(allData)) {
+
+            throw new Error(
+                "data.json must contain an array."
+            );
+
+        }
+
+
         sortData();
 
 
@@ -2201,20 +1997,21 @@ async function loadData() {
 
         createStatusChart();
 
-
         renderTable();
-
 
     }
 
     catch (error) {
 
-        console.error(error);
+        console.error(
+            "LOAD DATA ERROR:",
+            error
+        );
 
 
         document.getElementById(
             "tableBody"
-        ).innerHTML = 
+        ).innerHTML = `
 
             <tr>
 
@@ -2222,21 +2019,30 @@ async function loadData() {
                     colspan="6"
                     class="message">
 
-                    Failed to load data.
-                    Please check data.json,
-                    BU4.json,
-                    D7.json,
-                    BU11.json,
-                    VISION.json,
-                    E5.json,
-                    MICRON.json
-                    and LDT.json.
+                    Failed to load data.<br><br>
+
+                    ${escapeHTML(
+                        error.message
+                    )}
+
+                    <br><br>
+
+                    Please check:<br>
+
+                    data.json<br>
+                    BU4.json<br>
+                    D7.json<br>
+                    BU11.json<br>
+                    VISION.json<br>
+                    E5.json<br>
+                    MICRON.json<br>
+                    LDT.json
 
                 </td>
 
             </tr>
 
-        ;
+        `;
 
 
         document.getElementById(
@@ -2256,9 +2062,7 @@ async function loadData() {
 function parseDate(value) {
 
     if (!value) {
-
         return 0;
-
     }
 
 
@@ -2281,7 +2085,8 @@ function parseDate(value) {
             Number(match[2]);
 
         const year =
-            2000 + Number(match[3]);
+            2000 +
+            Number(match[3]);
 
 
         const date =
@@ -2301,7 +2106,9 @@ function parseDate(value) {
         new Date(value);
 
 
-    if (isNaN(date.getTime())) {
+    if (
+        isNaN(date.getTime())
+    ) {
 
         return 0;
 
@@ -2314,7 +2121,7 @@ function parseDate(value) {
 
 
 /* =========================================================
-   SORT DATA
+   SORT
    ========================================================= */
 
 function sortData() {
@@ -2326,9 +2133,10 @@ function sortData() {
 
                 item: item,
 
-                key: parseDate(
-                    item["DATE"]
-                )
+                key:
+                    parseDate(
+                        item["DATE"]
+                    )
 
             };
 
@@ -2373,7 +2181,6 @@ function selectBU(bu) {
 
     currentPage = 1;
 
-
     updateBUButtons();
 
     applyFilter();
@@ -2401,7 +2208,6 @@ function selectStatus(status) {
 
 
     currentPage = 1;
-
 
     updateStatusButtons();
 
@@ -2513,9 +2319,13 @@ function updateStatusButtons() {
     Object.keys(buttons)
         .forEach(function(status) {
 
-            buttons[status]
-                .classList
-                .remove("active");
+            if (buttons[status]) {
+
+                buttons[status]
+                    .classList
+                    .remove("active");
+
+            }
 
         });
 
@@ -2535,59 +2345,38 @@ function updateStatusButtons() {
 
 
 /* =========================================================
-   GET BU SITE VALUE
+   GET BU VALUE
    ========================================================= */
 
 function getBUValue(bu) {
 
     if (bu === "BU4") {
-
         return BU4Data[0] || "";
-
     }
-
 
     if (bu === "D7") {
-
         return D7Data[0] || "";
-
     }
-
 
     if (bu === "BU11") {
-
         return BU11Data[0] || "";
-
     }
-
 
     if (bu === "VISION") {
-
         return VISIONData[0] || "";
-
     }
-
 
     if (bu === "E5") {
-
         return E5Data[0] || "";
-
     }
-
 
     if (bu === "MICRON") {
-
         return MICRONData[0] || "";
-
     }
-
 
     if (bu === "LDT") {
-
         return LDTData[0] || "";
-
     }
-
 
     return "";
 
@@ -2620,9 +2409,7 @@ function getAllCustomers() {
 
 
         if (text === "") {
-
             return;
-
         }
 
 
@@ -2740,6 +2527,7 @@ function applyFilter() {
 
 
                 if (
+                    buValue &&
                     !site.includes(
                         buValue
                     )
@@ -2773,22 +2561,19 @@ function applyFilter() {
 
     currentPage = 1;
 
-
     renderTable();
 
 }
 
 
 /* =========================================================
-   CREATE OPEN BUTTON
+   OPEN BUTTON
    ========================================================= */
 
 function createOpenButton(value) {
 
     if (!value) {
-
         return "";
-
     }
 
 
@@ -2816,7 +2601,7 @@ function createOpenButton(value) {
     }
 
 
-    return 
+    return `
 
         <a
             class="open-btn"
@@ -2828,21 +2613,19 @@ function createOpenButton(value) {
 
         </a>
 
-    ;
+    `;
 
 }
 
 
 /* =========================================================
-   CREATE STATUS HTML
+   STATUS HTML
    ========================================================= */
 
 function createStatus(value) {
 
     if (!value) {
-
         return "";
-
     }
 
 
@@ -2904,7 +2687,7 @@ function createStatus(value) {
     }
 
 
-    return 
+    return `
 
         <span
             class="status ${className}">
@@ -2913,7 +2696,7 @@ function createStatus(value) {
 
         </span>
 
-    ;
+    `;
 
 }
 
@@ -2925,9 +2708,7 @@ function createStatus(value) {
 function formatDate(value) {
 
     if (!value) {
-
         return "";
-
     }
 
 
@@ -2952,9 +2733,7 @@ function formatDate(value) {
         isNaN(date.getTime())
     ) {
 
-        return escapeHTML(
-            text
-        );
+        return escapeHTML(text);
 
     }
 
@@ -2980,7 +2759,7 @@ function formatDate(value) {
         .slice(-2);
 
 
-    return ${month}/${day}/${year};
+    return `${month}/${day}/${year}`;
 
 }
 
@@ -3078,13 +2857,13 @@ function renderTable() {
     else {
 
         recordInfo.textContent =
-            Showing ${
+            `Showing ${
                 startIndex + 1
             }-${
                 endIndex
             } of ${
                 totalRecords
-            } records;
+            } records`;
 
     }
 
@@ -3093,7 +2872,7 @@ function renderTable() {
         pageData.length === 0
     ) {
 
-        tableBody.innerHTML = 
+        tableBody.innerHTML = `
 
             <tr>
 
@@ -3107,7 +2886,7 @@ function renderTable() {
 
             </tr>
 
-        ;
+        `;
 
     }
 
@@ -3203,7 +2982,7 @@ function renderTable() {
                     }
 
 
-                    return 
+                    return `
 
                         <tr
                             class="${rowClass}">
@@ -3239,7 +3018,7 @@ function renderTable() {
 
                         </tr>
 
-                    ;
+                    `;
 
                 })
                 .join("");
@@ -3248,11 +3027,11 @@ function renderTable() {
 
 
     pageInfo.textContent =
-        Page ${
+        `Page ${
             currentPage
         } / ${
             totalPages
-        };
+        }`;
 
 
     prevBtn.disabled =
@@ -3355,7 +3134,7 @@ function clearFilter() {
 
 
 /* =========================================================
-   SCROLL TO TOP
+   SCROLL
    ========================================================= */
 
 function scrollToTop() {
@@ -3452,7 +3231,7 @@ function escapeAttribute(value) {
 
 
 /* =========================================================
-   EXPORT TO EXCEL
+   EXPORT
    ========================================================= */
 
 async function exportToExcel() {
@@ -3550,20 +3329,34 @@ async function exportToExcel() {
     );
 
 
-    const now = new Date();
+    const now =
+        new Date();
 
 
     const stamp =
         now.getFullYear() +
-        String(now.getMonth() + 1).padStart(2, "0") +
-        String(now.getDate()).padStart(2, "0") +
+
+        String(
+            now.getMonth() + 1
+        ).padStart(2, "0") +
+
+        String(
+            now.getDate()
+        ).padStart(2, "0") +
+
         "_" +
-        String(now.getHours()).padStart(2, "0") +
-        String(now.getMinutes()).padStart(2, "0");
+
+        String(
+            now.getHours()
+        ).padStart(2, "0") +
+
+        String(
+            now.getMinutes()
+        ).padStart(2, "0");
 
 
     const suggestedName =
-        Issue_List_${stamp}.xlsx;
+        `Issue_List_${stamp}.xlsx`;
 
 
     if (
@@ -3640,7 +3433,7 @@ async function exportToExcel() {
 
 
             console.error(
-                "Save dialog failed, falling back to default download:",
+                "Save dialog failed:",
                 error
             );
 
@@ -3650,11 +3443,8 @@ async function exportToExcel() {
 
 
     XLSX.writeFile(
-
         workbook,
-
         suggestedName
-
     );
 
 }
@@ -3667,9 +3457,7 @@ async function exportToExcel() {
 function formatDateForExport(value) {
 
     if (!value) {
-
         return "";
-
     }
 
 
@@ -3700,21 +3488,27 @@ function formatDateForExport(value) {
 
 
     const month =
-        String(date.getMonth() + 1)
+        String(
+            date.getMonth() + 1
+        )
         .padStart(2, "0");
 
 
     const day =
-        String(date.getDate())
+        String(
+            date.getDate()
+        )
         .padStart(2, "0");
 
 
     const year =
-        String(date.getFullYear())
+        String(
+            date.getFullYear()
+        )
         .slice(-2);
 
 
-    return ${month}/${day}/${year};
+    return `${month}/${day}/${year}`;
 
 }
 
@@ -3722,6 +3516,25 @@ function formatDateForExport(value) {
 /* =========================================================
    ADD DIALOG
    ========================================================= */
+
+let addStep = 1;
+
+let newRecord = {
+
+    DATE: "",
+
+    SITE: "",
+
+    "ISSUE AND REQUEST": "",
+
+    STATUS: "",
+
+    LOG: "",
+
+    "CC LINK": ""
+
+};
+
 
 function openAddDialog() {
 
@@ -3759,7 +3572,7 @@ function openAddDialog() {
 
 
 /* =========================================================
-   CLOSE ADD DIALOG
+   CLOSE ADD
    ========================================================= */
 
 function closeAddDialog() {
@@ -3864,7 +3677,7 @@ function renderAddStep() {
             "Add New Issue — Step 1 / 4";
 
 
-        content.innerHTML = 
+        content.innerHTML = `
 
             <label
                 class="add-step-label">
@@ -3892,7 +3705,7 @@ function renderAddStep() {
                 class="add-error">
             </div>
 
-        ;
+        `;
 
 
         setTimeout(function() {
@@ -3934,7 +3747,7 @@ function renderAddStep() {
             "Add New Issue — Step 3 / 4";
 
 
-        content.innerHTML = 
+        content.innerHTML = `
 
             <label
                 class="add-step-label">
@@ -3955,71 +3768,163 @@ function renderAddStep() {
             )}</textarea>
 
 
-        <div
-            id="addError"
-            class="add-error">
-        </div>
+            <div
+                id="addError"
+                class="add-error">
+            </div>
 
-    ;
+        `;
 
 
-    setTimeout(function() {
+        setTimeout(function() {
 
-        const input =
-            document.getElementById(
-                "addIssue"
-            );
+            const input =
+                document.getElementById(
+                    "addIssue"
+                );
 
-        if (input) {
+            if (input) {
 
-            input.focus();
+                input.focus();
 
-        }
+            }
 
-    }, 50);
+        }, 50);
+
+    }
+
+
+    /* =========================
+       STEP 4
+       ========================= */
+
+    else if (addStep === 4) {
+
+        title.textContent =
+            "Add New Issue — Step 4 / 4";
+
+
+        content.innerHTML = `
+
+            <label
+                class="add-step-label">
+
+                Status
+
+            </label>
+
+
+            <select
+                id="addStatus"
+                class="add-select">
+
+                <option value="">
+                    Select status
+                </option>
+
+                <option value="Open">
+                    Open
+                </option>
+
+                <option value="Closed">
+                    Closed
+                </option>
+
+                <option value="Monitoring">
+                    Monitoring
+                </option>
+
+            </select>
+
+
+            <div
+                id="addError"
+                class="add-error">
+            </div>
+
+        `;
+
+
+        document.getElementById(
+            "addStatus"
+        ).value =
+            newRecord.STATUS;
+
+    }
 
 }
 
 
-/* =========================
-   STEP 4
-   ========================= */
+/* =========================================================
+   RENDER SITE STEP
+   ========================================================= */
 
-else if (addStep === 4) {
+function renderAddSiteStep() {
+
+    const title =
+        document.getElementById(
+            "addStepTitle"
+        );
+
+
+    const content =
+        document.getElementById(
+            "addStepContent"
+        );
+
 
     title.textContent =
-        "Add New Issue — Step 4 / 4";
+        "Add New Issue — Step 2 / 4";
 
 
-    content.innerHTML = 
+    const customers =
+        getAllCustomers();
+
+
+    let options = `
+
+        <option value="">
+            Select customer
+        </option>
+
+    `;
+
+
+    customers.forEach(function(customer) {
+
+        options += `
+
+            <option
+                value="${escapeAttribute(
+                    customer
+                )}">
+
+                ${escapeHTML(
+                    customer
+                )}
+
+            </option>
+
+        `;
+
+    });
+
+
+    content.innerHTML = `
 
         <label
             class="add-step-label">
 
-            Status
+            Customer / Site
 
         </label>
 
 
         <select
-            id="addStatus"
+            id="addSite"
             class="add-select">
 
-            <option value="">
-                Select status
-            </option>
-
-            <option value="Open">
-                Open
-            </option>
-
-            <option value="Closed">
-                Closed
-            </option>
-
-            <option value="Monitoring">
-                Monitoring
-            </option>
+            ${options}
 
         </select>
 
@@ -4029,862 +3934,571 @@ else if (addStep === 4) {
             class="add-error">
         </div>
 
-    ;
+    `;
 
 
     document.getElementById(
-        "addStatus"
+        "addSite"
     ).value =
-        newRecord.STATUS;
+        newRecord.SITE;
 
 }
 
-
-}
 
 /* =========================================================
-RENDER SITE STEP
-========================================================= */
-
-function renderAddSiteStep() {
-
-
-const title =
-    document.getElementById(
-        "addStepTitle"
-    );
-
-
-const content =
-    document.getElementById(
-        "addStepContent"
-    );
-
-
-title.textContent =
-    "Add New Issue — Step 2 / 4";
-
-
-const customers =
-    getAllCustomers();
-
-
-let options = 
-
-    <option value="">
-        Select customer
-    </option>
-
-;
-
-
-customers.forEach(function(customer) {
-
-    options += 
-
-        <option
-            value="${escapeAttribute(
-                customer
-            )}">
-
-            ${escapeHTML(customer)}
-
-        </option>
-
-    ;
-
-});
-
-
-content.innerHTML = 
-
-    <label
-        class="add-step-label">
-
-        Customer / Site
-
-    </label>
-
-
-    <select
-        id="addSite"
-        class="add-select">
-
-        ${options}
-
-    </select>
-
-
-    <div
-        id="addError"
-        class="add-error">
-    </div>
-
-;
-
-
-document.getElementById(
-    "addSite"
-).value =
-    newRecord.SITE;
-
-
-}
-
-/* =========================================================
-CONVERT MM/DD/YY -> YYYY-MM-DD
-========================================================= */
+   DATE CONVERSION
+   ========================================================= */
 
 function convertMMDDYYToISO(value) {
 
-
-if (!value) {
-
-    return "";
-
-}
+    if (!value) {
+        return "";
+    }
 
 
-const text =
-    String(value).trim();
+    const text =
+        String(value).trim();
 
 
-const match =
-    text.match(
-        /^(\d{2})\/(\d{2})\/(\d{2})$/
-    );
+    const match =
+        text.match(
+            /^(\d{2})\/(\d{2})\/(\d{2})$/
+        );
 
 
-if (!match) {
-
-    return "";
-
-}
+    if (!match) {
+        return "";
+    }
 
 
-const month = match[1];
+    const month =
+        match[1];
 
-const day = match[2];
+    const day =
+        match[2];
 
-const year =
-    "20" + match[3];
+    const year =
+        "20" + match[3];
 
 
-return ${year}-${month}-${day};
-
+    return `${year}-${month}-${day}`;
 
 }
 
-/* =========================================================
-CONVERT YYYY-MM-DD -> MM/DD/YY
-========================================================= */
 
 function convertISOToMMDDYY(value) {
 
-
-if (!value) {
-
-    return "";
-
-}
+    if (!value) {
+        return "";
+    }
 
 
-const match =
-    String(value)
-        .trim()
-        .match(
-            /^(\d{4})-(\d{2})-(\d{2})$/
-        );
+    const match =
+        String(value)
+            .trim()
+            .match(
+                /^(\d{4})-(\d{2})-(\d{2})$/
+            );
 
 
-if (!match) {
-
-    return "";
-
-}
+    if (!match) {
+        return "";
+    }
 
 
-const year =
-    match[1].slice(-2);
+    const year =
+        match[1].slice(-2);
 
-const month = match[2];
+    const month =
+        match[2];
 
-const day = match[3];
+    const day =
+        match[3];
 
 
-return ${month}/${day}/${year};
-
+    return `${month}/${day}/${year}`;
 
 }
+
 
 /* =========================================================
-VALIDATE DATE MM/DD/YY
-========================================================= */
+   VALIDATE DATE
+   ========================================================= */
 
 function validateDateMMDDYY(value) {
 
-
-const regex =
-    /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/([0-9]{2})$/;
-
-
-if (
-    !regex.test(value)
-) {
-
-    return false;
-
-}
+    const regex =
+        /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/([0-9]{2})$/;
 
 
-const parts =
-    value.split("/");
+    if (!regex.test(value)) {
+        return false;
+    }
 
 
-const month =
-    Number(parts[0]);
+    const parts =
+        value.split("/");
 
 
-const day =
-    Number(parts[1]);
+    const month =
+        Number(parts[0]);
+
+    const day =
+        Number(parts[1]);
+
+    const year =
+        2000 +
+        Number(parts[2]);
 
 
-const year =
-    2000 +
-    Number(parts[2]);
+    const date =
+        new Date(
+            year,
+            month - 1,
+            day
+        );
 
 
-const date =
-    new Date(
-        year,
-        month - 1,
+    return (
+
+        date.getFullYear() ===
+        year &&
+
+        date.getMonth() ===
+        month - 1 &&
+
+        date.getDate() ===
         day
+
     );
 
-
-return (
-
-    date.getFullYear() ===
-    year &&
-
-    date.getMonth() ===
-    month - 1 &&
-
-    date.getDate() ===
-    day
-
-);
-
-
 }
 
+
 /* =========================================================
-ADD NEXT STEP
-========================================================= */
+   ADD NEXT STEP
+   ========================================================= */
 
 function addNextStep() {
 
-
-const error =
-    document.getElementById(
-        "addError"
-    );
-
-
-/* =========================
-   STEP 1
-   ========================= */
-
-if (addStep === 1) {
-
-    const isoValue =
+    const error =
         document.getElementById(
-            "addDate"
-        )
-        .value
-        .trim();
-
-
-    if (!isoValue) {
-
-        error.textContent =
-            "Please select a date.";
-
-        return;
-
-    }
-
-
-    const value =
-        convertISOToMMDDYY(
-            isoValue
+            "addError"
         );
 
 
-    if (
-        !validateDateMMDDYY(value)
-    ) {
+    /* =========================
+       STEP 1
+       ========================= */
 
-        error.textContent =
-            "Invalid date. Please select a valid date.";
+    if (addStep === 1) {
+
+        const input =
+            document.getElementById(
+                "addDate"
+            );
+
+
+        const isoValue =
+            input.value.trim();
+
+
+        if (!isoValue) {
+
+            error.textContent =
+                "Please select a date.";
+
+            return;
+
+        }
+
+
+        const value =
+            convertISOToMMDDYY(
+                isoValue
+            );
+
+
+        if (
+            !validateDateMMDDYY(value)
+        ) {
+
+            error.textContent =
+                "Invalid date.";
+
+            return;
+
+        }
+
+
+        newRecord.DATE =
+            value;
+
+    }
+
+
+    /* =========================
+       STEP 2
+       ========================= */
+
+    else if (addStep === 2) {
+
+        const value =
+            document.getElementById(
+                "addSite"
+            ).value;
+
+
+        if (!value) {
+
+            error.textContent =
+                "Please select a customer.";
+
+            return;
+
+        }
+
+
+        newRecord.SITE =
+            value;
+
+    }
+
+
+    /* =========================
+       STEP 3
+       ========================= */
+
+    else if (addStep === 3) {
+
+        const value =
+            document.getElementById(
+                "addIssue"
+            )
+            .value
+            .trim();
+
+
+        if (!value) {
+
+            error.textContent =
+                "Please enter Issue and Request.";
+
+            return;
+
+        }
+
+
+        newRecord[
+            "ISSUE AND REQUEST"
+        ] = value;
+
+    }
+
+
+    /* =========================
+       STEP 4
+       ========================= */
+
+    else if (addStep === 4) {
+
+        const value =
+            document.getElementById(
+                "addStatus"
+            ).value;
+
+
+        if (!value) {
+
+            error.textContent =
+                "Please select a status.";
+
+            return;
+
+        }
+
+
+        newRecord.STATUS =
+            value;
+
+
+        showAddConfirmation();
 
         return;
 
     }
 
 
-    newRecord.DATE =
-        value;
+    addStep++;
+
+    renderAddStep();
 
 }
 
-
-/* =========================
-   STEP 2
-   ========================= */
-
-else if (addStep === 2) {
-
-    const value =
-        document.getElementById(
-            "addSite"
-        )
-        .value;
-
-
-    if (
-        !value
-    ) {
-
-        error.textContent =
-            "Please select a customer.";
-
-        return;
-
-    }
-
-
-    newRecord.SITE =
-        value;
-
-}
-
-
-/* =========================
-   STEP 3
-   ========================= */
-
-else if (addStep === 3) {
-
-    const value =
-        document.getElementById(
-            "addIssue"
-        )
-        .value
-        .trim();
-
-
-    if (
-        !value
-    ) {
-
-        error.textContent =
-            "Please enter Issue and Request.";
-
-        return;
-
-    }
-
-
-    newRecord[
-        "ISSUE AND REQUEST"
-    ] = value;
-
-}
-
-
-/* =========================
-   STEP 4
-   ========================= */
-
-else if (addStep === 4) {
-
-    const value =
-        document.getElementById(
-            "addStatus"
-        ).value;
-
-
-    if (
-        !value
-    ) {
-
-        error.textContent =
-            "Please select a status.";
-
-        return;
-
-    }
-
-
-    newRecord.STATUS =
-        value;
-
-
-    showAddConfirmation();
-
-    return;
-
-}
-
-
-addStep++;
-
-renderAddStep();
-
-
-}
 
 /* =========================================================
-ADD PREVIOUS STEP
-========================================================= */
+   PREVIOUS STEP
+   ========================================================= */
 
 function addPreviousStep() {
 
+    if (
+        addStep <= 1
+    ) {
 
-if (
-    addStep <= 1
-) {
+        return;
 
-    return;
-
-}
+    }
 
 
-addStep--;
+    addStep--;
 
-renderAddStep();
-
+    renderAddStep();
 
 }
+
 
 /* =========================================================
-SHOW CONFIRMATION
-========================================================= */
+   CONFIRM
+   ========================================================= */
 
 function showAddConfirmation() {
 
-
-const title =
-    document.getElementById(
-        "addStepTitle"
-    );
-
-
-const content =
-    document.getElementById(
-        "addStepContent"
-    );
+    const title =
+        document.getElementById(
+            "addStepTitle"
+        );
 
 
-const nextBtn =
-    document.getElementById(
-        "addNextBtn"
-    );
+    const content =
+        document.getElementById(
+            "addStepContent"
+        );
 
 
-const backBtn =
-    document.getElementById(
-        "addBackBtn"
-    );
+    const nextBtn =
+        document.getElementById(
+            "addNextBtn"
+        );
 
 
-title.textContent =
-    "Confirm New Record";
+    const backBtn =
+        document.getElementById(
+            "addBackBtn"
+        );
 
 
-content.innerHTML = 
+    title.textContent =
+        "Confirm New Record";
 
-    <div class="add-confirm-row">
 
-        <div class="add-confirm-label">
-            DATE
+    content.innerHTML = `
+
+        <div class="add-confirm-row">
+
+            <div class="add-confirm-label">
+                DATE
+            </div>
+
+            <div class="add-confirm-value">
+                ${escapeHTML(
+                    newRecord.DATE
+                )}
+            </div>
+
         </div>
 
-        <div class="add-confirm-value">
-            ${escapeHTML(
-                newRecord.DATE
-            )}
+
+        <div class="add-confirm-row">
+
+            <div class="add-confirm-label">
+                SITE
+            </div>
+
+            <div class="add-confirm-value">
+                ${escapeHTML(
+                    newRecord.SITE
+                )}
+            </div>
+
         </div>
 
-    </div>
 
+        <div class="add-confirm-row">
 
-    <div class="add-confirm-row">
+            <div class="add-confirm-label">
+                ISSUE AND REQUEST
+            </div>
 
-        <div class="add-confirm-label">
-            SITE
+            <div class="add-confirm-value">
+                ${escapeHTML(
+                    newRecord[
+                        "ISSUE AND REQUEST"
+                    ]
+                )}
+            </div>
+
         </div>
 
-        <div class="add-confirm-value">
-            ${escapeHTML(
-                newRecord.SITE
-            )}
+
+        <div class="add-confirm-row">
+
+            <div class="add-confirm-label">
+                STATUS
+            </div>
+
+            <div class="add-confirm-value">
+                ${escapeHTML(
+                    newRecord.STATUS
+                )}
+            </div>
+
         </div>
 
-    </div>
 
+        <div class="backend-note">
 
-    <div class="add-confirm-row">
+            Ấn vào Add Record để lưu issue hoặc request.
 
-        <div class="add-confirm-label">
-            ISSUE AND REQUEST
+            <br>
+
+            Lưu ý kiểm tra kỹ trước khi lưu!!!
+
         </div>
 
-        <div class="add-confirm-value">
-            ${escapeHTML(
-                newRecord[
-                    "ISSUE AND REQUEST"
-                ]
-            )}
-        </div>
-
-    </div>
+    `;
 
 
-    <div class="add-confirm-row">
-
-        <div class="add-confirm-label">
-            STATUS
-        </div>
-
-        <div class="add-confirm-value">
-            ${escapeHTML(
-                newRecord.STATUS
-            )}
-        </div>
-
-    </div>
+    backBtn.style.display =
+        "inline-block";
 
 
-    <div class="backend-note">
-
-        Ấn vào Add record để lưu issue hoặc request.
-        
-        <br>
-
-        Lưu ý kiểm tra kỹ trước khi lưu!!!
-
-    </div>
-
-;
+    backBtn.disabled =
+        false;
 
 
-backBtn.style.display =
-    "inline-block";
+    nextBtn.textContent =
+        "Add Record";
 
 
-backBtn.disabled =
-    false;
+    nextBtn.onclick =
+        saveNewRecord;
 
 
-nextBtn.textContent =
-    "Add Record";
-
-
-nextBtn.onclick =
-    saveNewRecord;
-
-
-nextBtn.disabled =
-    false;
-
+    nextBtn.disabled =
+        false;
 
 }
 
+
 /* =========================================================
-SAVE NEW RECORD THROUGH CLOUDFLARE WORKER
-========================================================= */
+   CLOUDFLARE WORKER
+   ========================================================= */
+
+const BACKEND_API_URL =
+    "https://issue-list-backend.quoctan91.workers.dev/add-issue";
+
+
+/* =========================================================
+   SAVE NEW RECORD
+   ========================================================= */
 
 async function saveNewRecord() {
 
+    const recordToSend = {
 
-const recordToSend = {
+        DATE:
+            newRecord.DATE,
 
-    DATE:
-        newRecord.DATE,
+        SITE:
+            newRecord.SITE,
 
-    SITE:
-        newRecord.SITE,
+        "ISSUE AND REQUEST":
+            newRecord[
+                "ISSUE AND REQUEST"
+            ],
 
-    "ISSUE AND REQUEST":
-        newRecord[
-            "ISSUE AND REQUEST"
-        ],
+        STATUS:
+            newRecord.STATUS
 
-    STATUS:
-        newRecord.STATUS
-
-};
-
-
-/* =========================
-   OPTIMISTIC UPDATE
-   ========================= */
-
-const pendingId =
-    "pending_" +
-    Date.now() +
-    "_" +
-    Math.random()
-        .toString(36)
-        .slice(2);
+    };
 
 
-const optimisticRecord = {
-
-    DATE:
-        recordToSend.DATE,
-
-    SITE:
-        recordToSend.SITE,
-
-    "ISSUE AND REQUEST":
-        recordToSend[
-            "ISSUE AND REQUEST"
-        ],
-
-    STATUS:
-        recordToSend.STATUS,
-
-    LOG:
-        "",
-
-    "CC LINK":
-        "",
-
-    _pendingId:
-        pendingId
-
-};
+    const pendingId =
+        "pending_" +
+        Date.now() +
+        "_" +
+        Math.random()
+            .toString(36)
+            .slice(2);
 
 
-allData.push(
-    optimisticRecord
-);
+    const optimisticRecord = {
+
+        DATE:
+            recordToSend.DATE,
+
+        SITE:
+            recordToSend.SITE,
+
+        "ISSUE AND REQUEST":
+            recordToSend[
+                "ISSUE AND REQUEST"
+            ],
+
+        STATUS:
+            recordToSend.STATUS,
+
+        LOG:
+            "",
+
+        "CC LINK":
+            "",
+
+        _pendingId:
+            pendingId
+
+    };
 
 
-sortData();
-
-
-selectedBU =
-    null;
-
-selectedStatus =
-    null;
-
-
-updateBUButtons();
-
-updateStatusButtons();
-
-
-const searchInput =
-    document.getElementById(
-        "searchIssue"
+    allData.push(
+        optimisticRecord
     );
-
-
-if (searchInput) {
-
-    searchInput.value =
-        "";
-
-}
-
-
-filteredData =
-    [...allData];
-
-
-currentPage =
-    1;
-
-
-renderTable();
-
-updateStatusChart();
-
-
-closeAddDialog();
-
-
-showToast(
-    "Đang lưu...",
-    "info"
-);
-
-
-/* =========================
-   BACKGROUND SAVE
-   ========================= */
-
-try {
-
-    const response =
-        await fetch(
-            BACKEND_API_URL,
-            {
-
-                method:
-                    "POST",
-
-                headers: {
-
-                    "Content-Type":
-                        "application/json"
-
-                },
-
-                body:
-                    JSON.stringify(
-                        recordToSend
-                    )
-
-            }
-        );
-
-
-    let result;
-
-
-    try {
-
-        result =
-            await response.json();
-
-    }
-
-    catch (error) {
-
-        throw new Error(
-            "Invalid response from Cloudflare Worker."
-        );
-
-    }
-
-
-    if (
-        !response.ok ||
-        !result.success
-    ) {
-
-        throw new Error(
-            result.message ||
-            "Failed to save record."
-        );
-
-    }
-
-
-    const savedRecord =
-        result.record ||
-        {
-
-            DATE:
-                recordToSend.DATE,
-
-            SITE:
-                recordToSend.SITE,
-
-            "ISSUE AND REQUEST":
-                recordToSend[
-                    "ISSUE AND REQUEST"
-                ],
-
-            STATUS:
-                recordToSend.STATUS,
-
-            LOG:
-                "",
-
-            "CC LINK":
-                ""
-
-        };
-
-
-    const index =
-        allData.findIndex(
-            function(item) {
-
-                return (
-                    item._pendingId ===
-                    pendingId
-                );
-
-            }
-        );
-
-
-    if (index !== -1) {
-
-        allData[index] =
-            savedRecord;
-
-    }
-
-    else {
-
-        allData.push(
-            savedRecord
-        );
-
-    }
 
 
     sortData();
 
 
-    filteredData =
-        [...allData];
+    selectedBU = null;
+
+    selectedStatus = null;
 
 
-    renderTable();
+    updateBUButtons();
 
-    updateStatusChart();
-
-
-    showToast(
-        "Record added successfully.",
-        "success"
-    );
-
-}
-
-catch (error) {
-
-    console.error(
-        "Backend save error:",
-        error
-    );
+    updateStatusButtons();
 
 
-    allData =
-        allData.filter(
-            function(item) {
-
-                return (
-                    item._pendingId !==
-                    pendingId
-                );
-
-            }
+    const searchInput =
+        document.getElementById(
+            "searchIssue"
         );
 
 
+    if (searchInput) {
+
+        searchInput.value =
+            "";
+
+    }
+
+
     filteredData =
         [...allData];
+
+
+    currentPage =
+        1;
 
 
     renderTable();
@@ -4892,22 +4506,194 @@ catch (error) {
     updateStatusChart();
 
 
+    closeAddDialog();
+
+
     showToast(
-        "Save failed: " +
-        error.message +
-        " — record was not saved.",
-        "error",
-        5000
+        "Đang lưu...",
+        "info"
     );
 
-}
+
+    try {
+
+        const response =
+            await fetch(
+                BACKEND_API_URL,
+                {
+
+                    method:
+                        "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body:
+                        JSON.stringify(
+                            recordToSend
+                        )
+
+                }
+            );
 
 
+        let result;
+
+
+        try {
+
+            result =
+                await response.json();
+
+        }
+
+        catch (error) {
+
+            throw new Error(
+                "Invalid response from Cloudflare Worker."
+            );
+
+        }
+
+
+        if (
+            !response.ok ||
+            !result.success
+        ) {
+
+            throw new Error(
+                result.message ||
+                "Failed to save record."
+            );
+
+        }
+
+
+        const savedRecord =
+            result.record ||
+            {
+
+                DATE:
+                    recordToSend.DATE,
+
+                SITE:
+                    recordToSend.SITE,
+
+                "ISSUE AND REQUEST":
+                    recordToSend[
+                        "ISSUE AND REQUEST"
+                    ],
+
+                STATUS:
+                    recordToSend.STATUS,
+
+                LOG:
+                    "",
+
+                "CC LINK":
+                    ""
+
+            };
+
+
+        const index =
+            allData.findIndex(
+                function(item) {
+
+                    return (
+                        item._pendingId ===
+                        pendingId
+                    );
+
+                }
+            );
+
+
+        if (index !== -1) {
+
+            allData[index] =
+                savedRecord;
+
+        }
+
+        else {
+
+            allData.push(
+                savedRecord
+            );
+
+        }
+
+
+        sortData();
+
+
+        filteredData =
+            [...allData];
+
+
+        renderTable();
+
+        updateStatusChart();
+
+
+        showToast(
+            "Record added successfully.",
+            "success"
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Backend save error:",
+            error
+        );
+
+
+        allData =
+            allData.filter(
+                function(item) {
+
+                    return (
+                        item._pendingId !==
+                        pendingId
+                    );
+
+                }
+            );
+
+
+        filteredData =
+            [...allData];
+
+
+        renderTable();
+
+        updateStatusChart();
+
+
+        showToast(
+            "Save failed: " +
+            error.message +
+            " — record was not saved.",
+            "error",
+            5000
+        );
+
+    }
+
 }
+
 
 /* =========================================================
-START
-========================================================= */
+   START
+   ========================================================= */
 
 loadData();
 
@@ -4916,3 +4702,4 @@ loadData();
 </body>
 
 </html>
+
