@@ -21,9 +21,6 @@
 <!-- PLOTLY -->
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 
-<!-- SHEETJS (Excel export) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-
 
 <style>
 
@@ -185,20 +182,6 @@ body {
 
 .add-btn:hover {
     background: #59359a;
-}
-
-
-/* =========================
-   EXPORT BUTTON
-   ========================= */
-
-.export-btn {
-    background: #0d7c4a;
-    color: white;
-}
-
-.export-btn:hover {
-    background: #0a6039;
 }
 
 
@@ -1355,15 +1338,6 @@ tbody tr.monitoring-case-row:hover {
         onclick="openAddDialog()">
 
         Add Case
-
-    </button>
-
-
-    <button
-        class="filter-btn export-btn"
-        onclick="exportToExcel()">
-
-        Export Excel
 
     </button>
 
@@ -3144,196 +3118,6 @@ function escapeAttribute(value) {
 
 
 /* =========================================================
-   EXPORT TO EXCEL
-   ========================================================= */
-
-function exportToExcel() {
-
-    if (
-        typeof XLSX === "undefined"
-    ) {
-
-        alert(
-            "Excel export library failed to load. Please check your internet connection and try again."
-        );
-
-        return;
-
-    }
-
-
-    if (
-        !filteredData ||
-        filteredData.length === 0
-    ) {
-
-        alert(
-            "No data to export."
-        );
-
-        return;
-
-    }
-
-
-    /*
-     * Build plain rows in the same
-     * column order as the table.
-     */
-
-    const rows =
-        filteredData.map(function(item) {
-
-            return {
-
-                "DATE":
-                    formatDateForExport(
-                        item["DATE"]
-                    ),
-
-                "SITE":
-                    item["SITE"] || "",
-
-                "ISSUE AND REQUEST":
-                    item[
-                        "ISSUE AND REQUEST"
-                    ] || "",
-
-                "STATUS":
-                    item["STATUS"] || "",
-
-                "LOG":
-                    item["LOG"] || "",
-
-                "CC LINK":
-                    item["CC LINK"] || ""
-
-            };
-
-        });
-
-
-    const worksheet =
-        XLSX.utils.json_to_sheet(
-            rows
-        );
-
-
-    /*
-     * Reasonable column widths
-     */
-
-    worksheet["!cols"] = [
-
-        { wch: 10 },
-
-        { wch: 18 },
-
-        { wch: 60 },
-
-        { wch: 14 },
-
-        { wch: 25 },
-
-        { wch: 25 }
-
-    ];
-
-
-    const workbook =
-        XLSX.utils.book_new();
-
-
-    XLSX.utils.book_append_sheet(
-        workbook,
-        worksheet,
-        "Issue List"
-    );
-
-
-    const now = new Date();
-
-
-    const stamp =
-        now.getFullYear() +
-        String(now.getMonth() + 1).padStart(2, "0") +
-        String(now.getDate()).padStart(2, "0") +
-        "_" +
-        String(now.getHours()).padStart(2, "0") +
-        String(now.getMinutes()).padStart(2, "0");
-
-
-    XLSX.writeFile(
-
-        workbook,
-
-        `Issue_List_${stamp}.xlsx`
-
-    );
-
-}
-
-
-/* =========================================================
-   FORMAT DATE FOR EXPORT (plain text, no HTML escaping)
-   ========================================================= */
-
-function formatDateForExport(value) {
-
-    if (!value) {
-
-        return "";
-
-    }
-
-
-    const text =
-        String(value).trim();
-
-
-    if (
-        /^\d{2}\/\d{2}\/\d{2}$/.test(text)
-    ) {
-
-        return text;
-
-    }
-
-
-    const date =
-        new Date(value);
-
-
-    if (
-        isNaN(date.getTime())
-    ) {
-
-        return text;
-
-    }
-
-
-    const month =
-        String(date.getMonth() + 1)
-        .padStart(2, "0");
-
-
-    const day =
-        String(date.getDate())
-        .padStart(2, "0");
-
-
-    const year =
-        String(date.getFullYear())
-        .slice(-2);
-
-
-    return `${month}/${day}/${year}`;
-
-}
-
-
-/* =========================================================
    ADD DIALOG
    ========================================================= */
 
@@ -4132,7 +3916,6 @@ function showAddConfirmation() {
     nextBtn.disabled =
         false;
 
-
 }
 
 
@@ -4448,6 +4231,66 @@ async function saveNewRecord() {
     }
 
 }
+
+
+/* =========================================================
+   CLOSE MODAL WHEN CLICK OUTSIDE
+   ========================================================= */
+
+document
+    .getElementById(
+        "addModal"
+    )
+    .addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target ===
+                this
+            ) {
+
+                closeAddDialog();
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   ESC KEY
+   ========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            const modal =
+                document.getElementById(
+                    "addModal"
+                );
+
+
+            if (
+                modal.classList.contains(
+                    "show"
+                )
+            ) {
+
+                closeAddDialog();
+
+            }
+
+        }
+
+    }
+);
 
 
 /* =========================================================
