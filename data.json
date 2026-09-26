@@ -437,7 +437,7 @@
         "ISSUE AND REQUEST": "二线1R模组生产完成后出板延迟,分析为PCB生产完成后上传数据至MES系统慢导致\nBoard output is delayed after production is completed on the 1R module of Line 2. The analysis indicates that the delay is caused by slow data uploading to the MES system after PCB production is completed",
         "STATUS": "open",
         "LOG": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQDhAojiCMDHRaqOp0aa9wcQAX62DOVZ8GDYcZvcFHqYAFE?e=tDw3zW",
-        "CC LINK": "NOT AVAILABLE"
+        "CC LINK": "https://community.fuji.co.jp/ccrs/s/case/500TK00001HUsvIYAT"
     },
     {
         "DATE": "08-03-2026",
