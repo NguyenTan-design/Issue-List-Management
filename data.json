@@ -12,7 +12,7 @@
         "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
         "ISSUE AND REQUEST": "飞达板卡FH2510B0F版本异常很多，FH2510C0F没有问题，FH2510B0F版本的飞达板卡需要更改为FH2510C0F\nThere are many abnormalities with the FH2510B0F version of the feeder board. The FH2510C0F version has no issues.\nTherefore, the FH2510B0F feeder boards need to be replaced with the FH2510C0F version",
         "STATUS": "MONITORING",
-        "LOG": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQAIMVEVaOwORI3co8-HP9HiAWGMFqlCOZxo4e2u9g-f_WM",
+        "LOG": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQD0wqVCd1IDRZBIfLsFEYlLAQTL3sxif_ARHGlXkvbfpXQ?e=NshGu3",
         "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00000h7LjoYAE"
     },
     {
@@ -614,5 +614,13 @@
         "STATUS": "Closed",
         "LOG": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQDW4eB5FnzES7N6cbcdn4QyAUZBtPxVFx1vYkCi2HHVXJY?e=wAjsnF",
         "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00000zurhdYAA"
+    },
+    {
+        "DATE": "07-22-2026",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "无法使用NXTR模组测光功能\nCan not perform sidelight2 pattern to check panel ID in NXTR module",
+        "STATUS": "open",
+        "LOG": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQAIMVEVaOwORI3co8-HP9HiAWGMFqlCOZxo4e2u9g-f_WM",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK000017d9uxYAA"
     }
 ]
