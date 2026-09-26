@@ -1,11 +1,27 @@
 [
     {
+        "DATE": "09-25-2026",
+        "SITE": "LEADER TECH VIETNAM COMPANY LIMITED]",
+        "ISSUE AND REQUEST": "Request seperate Nexim license after line relocation ( Move Aimex3 back CN )\n立德要支援分开nexim权限（分开aimex3线体权限）",
+        "STATUS": "Monitoring",
+        "LOG": null,
+        "CC LINK": null
+    },
+    {
         "DATE": "09-24-2026",
         "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
         "ISSUE AND REQUEST": "飞达板卡FH2510B0F版本异常很多，FH2510C0F没有问题，FH2510B0F版本的飞达板卡需要更改为FH2510C0F\nThere are many abnormalities with the FH2510B0F version of the feeder board. The FH2510C0F version has no issues.\nTherefore, the FH2510B0F feeder boards need to be replaced with the FH2510C0F version",
         "STATUS": "MONITORING",
         "LOG": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQAIMVEVaOwORI3co8-HP9HiAWGMFqlCOZxo4e2u9g-f_WM",
         "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00000h7LjoYAE"
+    },
+    {
+        "DATE": "09-18-2026",
+        "SITE": "E5",
+        "ISSUE AND REQUEST": "检查相机照片偶尔NXTR显示屏显示范围变小\nThe part image become too small in NXTR monitor",
+        "STATUS": "open",
+        "LOG": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQDfS40bQAm1QLSho5fNakLaAXfllUD5xsU8bfeU2_Ny0co?e=IJv4wb",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/s/case/500TK00001Ge02oYAB"
     },
     {
         "DATE": "09-15-2026",
@@ -272,14 +288,6 @@
         "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00001BSejdYAD"
     },
     {
-        "DATE": "07-03-2026",
-        "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
-        "ISSUE AND REQUEST": "一轨生产，二轨不生产，但是二轨不会自动过板需要一轨生产完才能过板\nSingle-lane production: Lane 1 is running production while Lane 2 is not. However, Lane 2 cannot automatically transfer the PCB and must wait until Lane 1 completes production before the PCB can be transferred.\n",
-        "STATUS": "MONITORING",
-        "LOG": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQCrM3XILze8Srh34pQTA1BPAVn3dDxESqe3B88aOnxaC2k?e=ZQNEf8",
-        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK000014v5gCYAQ"
-    },
-    {
         "DATE": "08-17-2026",
         "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
         "ISSUE AND REQUEST": "使用双模组出现等待板现象\nWhen using dual modules, a “waiting for PCB” condition occurs.",
@@ -427,7 +435,7 @@
         "DATE": "08-03-2026",
         "SITE": "Luxvisions Innovation Technology (Yian) Co., Ltd.]",
         "ISSUE AND REQUEST": "二线1R模组生产完成后出板延迟,分析为PCB生产完成后上传数据至MES系统慢导致\nBoard output is delayed after production is completed on the 1R module of Line 2. The analysis indicates that the delay is caused by slow data uploading to the MES system after PCB production is completed",
-        "STATUS": "Closed",
+        "STATUS": "open",
         "LOG": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQDhAojiCMDHRaqOp0aa9wcQAX62DOVZ8GDYcZvcFHqYAFE?e=tDw3zW",
         "CC LINK": "NOT AVAILABLE"
     },
@@ -592,19 +600,19 @@
         "CC LINK": "NOT AVAILABLE"
     },
     {
+        "DATE": "07-03-2026",
+        "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
+        "ISSUE AND REQUEST": "一轨生产，二轨不生产，但是二轨不会自动过板需要一轨生产完才能过板\nSingle-lane production: Lane 1 is running production while Lane 2 is not. However, Lane 2 cannot automatically transfer the PCB and must wait until Lane 1 completes production before the PCB can be transferred.\n",
+        "STATUS": "MONITORING",
+        "LOG": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQCrM3XILze8Srh34pQTA1BPAVn3dDxESqe3B88aOnxaC2k?e=ZQNEf8",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK000014v5gCYAQ"
+    },
+    {
         "DATE": "06-02-2026",
         "SITE": "Luxvisions Innovation Technology (Yian) Co., Ltd.]",
         "ISSUE AND REQUEST": "TVR功能不能有效检测元件本体丝印\nTVR function cannot effectively detect the component body marking",
         "STATUS": "Closed",
         "LOG": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQDW4eB5FnzES7N6cbcdn4QyAUZBtPxVFx1vYkCi2HHVXJY?e=wAjsnF",
         "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00000zurhdYAA"
-    },
-    {
-        "DATE": "09/25/26",
-        "SITE": "LEADER TECH VIETNAM COMPANY LIMITED]",
-        "ISSUE AND REQUEST": "Request seperate Nexim license after line relocation ( Move Aimex3 back CN )\n立德要支援分开nexim权限（分开aimex3线体权限）",
-        "STATUS": "Monitoring",
-        "LOG": "",
-        "CC LINK": ""
     }
 ]
