@@ -616,10 +616,10 @@
         "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00000zurhdYAA"
     },
     {
-        "DATE": "07-22-2026",
+        "DATE": "07/22/26",
         "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
         "ISSUE AND REQUEST": "无法使用NXTR模组测光功能\nCan not perform sidelight2 pattern to check panel ID in NXTR module",
-        "STATUS": "open",
+        "STATUS": "Monitoring",
         "LOG": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQAIMVEVaOwORI3co8-HP9HiAWGMFqlCOZxo4e2u9g-f_WM",
         "CC LINK": "https://community.fuji.co.jp/ccrs/500TK000017d9uxYAA"
     }
