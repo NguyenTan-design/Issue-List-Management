@@ -1013,6 +1013,21 @@ tbody tr.monitoring-case-row:hover {
         padding: 5px 4px;
     }
 
+    /* Ô DATE trên mobile: value xuống dòng tự do, 2 nút
+       ✏️ và 🗑️ xếp chồng bên dưới thay vì nằm cạnh nhau,
+       để không bị tràn sang ô SITE bên cạnh. */
+
+    .date-value {
+        white-space: normal;
+        word-break: break-word;
+    }
+
+    .row-actions {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
     .add-modal {
         padding: 10px;
     }
