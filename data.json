@@ -1,16 +1,13 @@
 [
     {
-<<<<<<< Updated upstream
-=======
         "DATE": "09-25-2026",
         "SITE": "LEADER TECH VIETNAM COMPANY LIMITED]",
         "ISSUE AND REQUEST": "Request seperate Nexim license after line relocation ( Move Aimex3 back CN )\n立德要支援分开nexim权限（分开aimex3线体权限）",
-        "STATUS": "open",
+        "STATUS": "Closed",
         "LOG": null,
         "CC LINK": null
     },
     {
->>>>>>> Stashed changes
         "DATE": "09-24-2026",
         "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
         "ISSUE AND REQUEST": "飞达板卡FH2510B0F版本异常很多，FH2510C0F没有问题，FH2510B0F版本的飞达板卡需要更改为FH2510C0F\nThere are many abnormalities with the FH2510B0F version of the feeder board. The FH2510C0F version has no issues.\nTherefore, the FH2510B0F feeder boards need to be replaced with the FH2510C0F version",
@@ -283,10 +280,10 @@
         "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00001CiDv3YAF"
     },
     {
-        "DATE": "08/18/26",
+        "DATE": "08-18-2026",
         "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
         "ISSUE AND REQUEST": "Nexim软件删除用户账号时报错\nNEXIM software displays an error when deleting a user account.",
-        "STATUS": "Open",
+        "STATUS": "open",
         "LOG": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQBzZNwJjediSopCddG7UNUfAX8FDQ33YCA9KqCcmHcLFes?e=V0Rh0X",
         "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00001BSejdYAD"
     },
@@ -619,10 +616,10 @@
         "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00000zurhdYAA"
     },
     {
-        "DATE": "07/22/26",
+        "DATE": "07-22-2026",
         "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
         "ISSUE AND REQUEST": "无法使用NXTR模组测光功能\nCan not perform sidelight2 pattern to check panel ID in NXTR module",
-        "STATUS": "Monitoring",
+        "STATUS": "open",
         "LOG": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQAIMVEVaOwORI3co8-HP9HiAWGMFqlCOZxo4e2u9g-f_WM",
         "CC LINK": "https://community.fuji.co.jp/ccrs/500TK000017d9uxYAA"
     }
