@@ -108,15 +108,8 @@ export default {
         const url =
             new URL(request.url);
 
-        const path =
-            url.pathname;
 
-
-        if (
-            path !== "/add-issue" &&
-            path !== "/update-issue" &&
-            path !== "/delete-issue"
-        ) {
+        if (url.pathname !== "/add-issue") {
 
             return jsonResponse(
                 {
@@ -198,408 +191,83 @@ export default {
 
 
         // ----------------------------------------------------
-        // Route
+        // Validate record
         // ----------------------------------------------------
 
-        if (path === "/update-issue") {
-
-            return handleUpdateIssue(
+        const validation =
+            await validateRecord(
                 body,
-                env,
+                env.GITHUB_TOKEN
+            );
+
+
+        if (!validation.valid) {
+
+            return jsonResponse(
+                {
+                    success: false,
+                    message:
+                        validation.message
+                },
+                400,
                 origin
             );
 
         }
 
-        if (path === "/delete-issue") {
 
-            return handleDeleteIssue(
-                body,
-                env,
+        const record =
+            validation.record;
+
+
+        // ----------------------------------------------------
+        // Add record to GitHub
+        // ----------------------------------------------------
+
+        try {
+
+            const result =
+                await addRecordToGitHub(
+                    record,
+                    env.GITHUB_TOKEN
+                );
+
+
+            return jsonResponse(
+                {
+                    success: true,
+                    message:
+                        "Issue record added successfully.",
+                    record:
+                        result.record
+                },
+                200,
                 origin
             );
 
         }
 
-        return handleAddIssue(
-            body,
-            env,
-            origin
-        );
+        catch (error) {
+
+            console.error(error);
+
+
+            return jsonResponse(
+                {
+                    success: false,
+                    message:
+                        error.message ||
+                        "Failed to update GitHub."
+                },
+                500,
+                origin
+            );
+
+        }
 
     }
 
 };
-
-
-// ============================================================
-// HANDLER: ADD ISSUE
-// ============================================================
-
-async function handleAddIssue(
-    body,
-    env,
-    origin
-) {
-
-    // --------------------------------------------------------
-    // Validate record
-    // --------------------------------------------------------
-
-    let validation;
-
-    try {
-
-        validation =
-            await validateRecord(
-                body,
-                null
-            );
-
-    }
-
-    catch (error) {
-
-        console.error(error);
-
-        return jsonResponse(
-            {
-                success: false,
-                message:
-                    error.message ||
-                    "Validation failed."
-            },
-            500,
-            origin
-        );
-
-    }
-
-
-    if (!validation.valid) {
-
-        return jsonResponse(
-            {
-                success: false,
-                message:
-                    validation.message
-            },
-            400,
-            origin
-        );
-
-    }
-
-
-    const record =
-        validation.record;
-
-
-    // --------------------------------------------------------
-    // Add record to GitHub
-    // --------------------------------------------------------
-
-    try {
-
-        const result =
-            await addRecordToGitHub(
-                record,
-                env.GITHUB_TOKEN
-            );
-
-
-        return jsonResponse(
-            {
-                success: true,
-                message:
-                    "Issue record added successfully.",
-                record:
-                    result.record
-            },
-            200,
-            origin
-        );
-
-    }
-
-    catch (error) {
-
-        console.error(error);
-
-
-        return jsonResponse(
-            {
-                success: false,
-                message:
-                    error.message ||
-                    "Failed to update GitHub."
-            },
-            error.status || 500,
-            origin
-        );
-
-    }
-
-}
-
-
-// ============================================================
-// HANDLER: UPDATE ISSUE
-//
-// Request body:
-// {
-//   "original": { DATE, SITE, "ISSUE AND REQUEST", STATUS, LOG, "CC LINK" },
-//   "updated":  { DATE, SITE, "ISSUE AND REQUEST", STATUS }
-// }
-//
-// The record is located by matching "original".
-// LOG and CC LINK of the existing record are preserved.
-// ============================================================
-
-async function handleUpdateIssue(
-    body,
-    env,
-    origin
-) {
-
-    if (
-        !body ||
-        typeof body !== "object" ||
-        !body.original ||
-        typeof body.original !== "object" ||
-        !body.updated ||
-        typeof body.updated !== "object"
-    ) {
-
-        return jsonResponse(
-            {
-                success: false,
-                message:
-                    "Request must contain 'original' and 'updated'."
-            },
-            400,
-            origin
-        );
-
-    }
-
-
-    const original =
-        body.original;
-
-
-    // --------------------------------------------------------
-    // Validate updated data
-    //
-    // If SITE or STATUS were not changed by the user, the old
-    // value is accepted even if it is no longer in the site
-    // list / status list (for example legacy status "NG").
-    // --------------------------------------------------------
-
-    let validation;
-
-    try {
-
-        validation =
-            await validateRecord(
-                body.updated,
-                original
-            );
-
-    }
-
-    catch (error) {
-
-        console.error(error);
-
-        return jsonResponse(
-            {
-                success: false,
-                message:
-                    error.message ||
-                    "Validation failed."
-            },
-            500,
-            origin
-        );
-
-    }
-
-
-    if (!validation.valid) {
-
-        return jsonResponse(
-            {
-                success: false,
-                message:
-                    validation.message
-            },
-            400,
-            origin
-        );
-
-    }
-
-
-    const updated =
-        validation.record;
-
-
-    // --------------------------------------------------------
-    // Update GitHub
-    // --------------------------------------------------------
-
-    try {
-
-        const result =
-            await updateRecordInGitHub(
-                original,
-                updated,
-                env.GITHUB_TOKEN
-            );
-
-
-        return jsonResponse(
-            {
-                success: true,
-                message:
-                    "Issue record updated successfully.",
-                record:
-                    result.record
-            },
-            200,
-            origin
-        );
-
-    }
-
-    catch (error) {
-
-        console.error(error);
-
-
-        return jsonResponse(
-            {
-                success: false,
-                message:
-                    error.message ||
-                    "Failed to update GitHub."
-            },
-            error.status || 500,
-            origin
-        );
-
-    }
-
-}
-
-
-// ============================================================
-// HANDLER: DELETE ISSUE
-//
-// Request body:
-// {
-//   "record": { DATE, SITE, "ISSUE AND REQUEST", STATUS, LOG, "CC LINK" }
-// }
-//
-// The record to delete is located the same way as for updates:
-// by matching all 6 fields against the row the user clicked.
-// ============================================================
-
-async function handleDeleteIssue(
-    body,
-    env,
-    origin
-) {
-
-    if (
-        !body ||
-        typeof body !== "object" ||
-        !body.record ||
-        typeof body.record !== "object"
-    ) {
-
-        return jsonResponse(
-            {
-                success: false,
-                message:
-                    "Request must contain 'record'."
-            },
-            400,
-            origin
-        );
-
-    }
-
-
-    const record =
-        body.record;
-
-
-    if (
-        !String(record.DATE || "").trim() ||
-        !String(record.SITE || "").trim()
-    ) {
-
-        return jsonResponse(
-            {
-                success: false,
-                message:
-                    "'record' must include at least DATE and SITE."
-            },
-            400,
-            origin
-        );
-
-    }
-
-
-    // --------------------------------------------------------
-    // Delete from GitHub
-    // --------------------------------------------------------
-
-    try {
-
-        const result =
-            await deleteRecordFromGitHub(
-                record,
-                env.GITHUB_TOKEN
-            );
-
-
-        return jsonResponse(
-            {
-                success: true,
-                message:
-                    "Issue record deleted successfully.",
-                record:
-                    result.record
-            },
-            200,
-            origin
-        );
-
-    }
-
-    catch (error) {
-
-        console.error(error);
-
-
-        return jsonResponse(
-            {
-                success: false,
-                message:
-                    error.message ||
-                    "Failed to update GitHub."
-            },
-            error.status || 500,
-            origin
-        );
-
-    }
-
-}
 
 
 // ============================================================
@@ -679,14 +347,11 @@ function jsonResponse(
 
 // ============================================================
 // VALIDATE RECORD
-//
-// original (optional): the record before editing. When given,
-// an unchanged SITE / STATUS is accepted as is.
 // ============================================================
 
 async function validateRecord(
     body,
-    original
+    token
 ) {
 
     if (
@@ -754,31 +419,29 @@ async function validateRecord(
     }
 
 
-    const siteUnchanged =
-        !!original &&
-        String(
-            original.SITE || ""
-        ).trim() === site;
+    // --------------------------------------------------------
+    // Check SITE against site JSON files
+    //
+    // BU4.json
+    // D7.json
+    // BU11.json
+    // VISION.json
+    // --------------------------------------------------------
+
+    const allowedSites =
+        await getAllowedSites();
 
 
-    if (!siteUnchanged) {
+    if (!allowedSites.has(site)) {
 
-        const allowedSites =
-            await getAllowedSites();
+        return {
 
+            valid: false,
 
-        if (!allowedSites.has(site)) {
+            message:
+                "Invalid SITE. The selected site is not in BU4.json, D7.json, BU11.json, or VISION.json."
 
-            return {
-
-                valid: false,
-
-                message:
-                    "Invalid SITE. The selected site is not in the site JSON files (BU4, D7, BU11, VISION, E5, MICRON, LDT)."
-
-            };
-
-        }
+        };
 
     }
 
@@ -811,32 +474,10 @@ async function validateRecord(
     // STATUS
     // --------------------------------------------------------
 
-    const rawStatus =
-        String(
-            body.STATUS || ""
-        ).trim();
-
-
-    let status =
+    const status =
         normalizeStatus(
-            rawStatus
+            body.STATUS
         );
-
-
-    // Legacy status (for example "NG") that the user did not change
-
-    if (
-        !status &&
-        original &&
-        rawStatus &&
-        String(
-            original.STATUS || ""
-        ).trim() === rawStatus
-    ) {
-
-        status = rawStatus;
-
-    }
 
 
     if (!status) {
@@ -1122,21 +763,20 @@ async function getAllowedSites() {
 
 
 // ============================================================
-// GENERIC: MODIFY data.json ON GITHUB
-//
-// mutate(currentData) modifies the array in place and returns
-// the value that should be returned to the caller.
-//
-// Tries twice. The second attempt handles a GitHub 409
-// conflict if another user updates data.json at nearly the
-// same time (the file is re-read before mutating again).
+// ADD RECORD TO GITHUB
 // ============================================================
 
-async function modifyDataJson(
-    token,
-    commitMessage,
-    mutate
+async function addRecordToGitHub(
+    record,
+    token
 ) {
+
+    // --------------------------------------------------------
+    // Try twice.
+    //
+    // Second attempt handles a GitHub 409 conflict if another
+    // user updates data.json at nearly the same time.
+    // --------------------------------------------------------
 
     for (
         let attempt = 0;
@@ -1215,11 +855,10 @@ async function modifyDataJson(
 
 
         // ----------------------------------------------------
-        // Apply change (may throw an error with .status)
+        // Add new record
         // ----------------------------------------------------
 
-        const result =
-            mutate(currentData);
+        currentData.push(record);
 
 
         // ----------------------------------------------------
@@ -1258,7 +897,7 @@ async function modifyDataJson(
                 {
 
                     message:
-                        commitMessage,
+                        "Add new issue record",
 
                     content:
                         newContent,
@@ -1280,7 +919,12 @@ async function modifyDataJson(
 
         if (updateResponse.ok) {
 
-            return result;
+            return {
+
+                record:
+                    record
+
+            };
 
         }
 
@@ -1321,312 +965,6 @@ async function modifyDataJson(
     throw new Error(
 
         "Unable to update data.json after retry."
-
-    );
-
-}
-
-
-// ============================================================
-// ADD RECORD TO GITHUB
-// ============================================================
-
-async function addRecordToGitHub(
-    record,
-    token
-) {
-
-    return modifyDataJson(
-
-        token,
-
-        "Add new issue record",
-
-        function(currentData) {
-
-            currentData.push(record);
-
-            return {
-
-                record:
-                    record
-
-            };
-
-        }
-
-    );
-
-}
-
-
-// ============================================================
-// UPDATE RECORD IN GITHUB
-// ============================================================
-
-async function updateRecordInGitHub(
-    original,
-    updated,
-    token
-) {
-
-    return modifyDataJson(
-
-        token,
-
-        "Update issue record",
-
-        function(currentData) {
-
-            const index =
-                findRecordIndex(
-                    currentData,
-                    original
-                );
-
-
-            if (index === -1) {
-
-                const error =
-                    new Error(
-                        "Record not found. It may have been changed or deleted by someone else — please reload the page."
-                    );
-
-                error.status = 404;
-
-                throw error;
-
-            }
-
-
-            const existing =
-                currentData[index];
-
-
-            // Keep every other field (LOG, CC LINK, ...) as is
-
-            const merged =
-                Object.assign(
-
-                    {},
-
-                    existing,
-
-                    {
-
-                        DATE:
-                            updated.DATE,
-
-                        SITE:
-                            updated.SITE,
-
-                        "ISSUE AND REQUEST":
-                            updated["ISSUE AND REQUEST"],
-
-                        STATUS:
-                            updated.STATUS
-
-                    }
-
-                );
-
-
-            currentData[index] =
-                merged;
-
-
-            return {
-
-                record:
-                    merged
-
-            };
-
-        }
-
-    );
-
-}
-
-
-// ============================================================
-// DELETE RECORD FROM GITHUB
-// ============================================================
-
-async function deleteRecordFromGitHub(
-    record,
-    token
-) {
-
-    return modifyDataJson(
-
-        token,
-
-        "Delete issue record",
-
-        function(currentData) {
-
-            const index =
-                findRecordIndex(
-                    currentData,
-                    record
-                );
-
-
-            if (index === -1) {
-
-                const error =
-                    new Error(
-                        "Record not found. It may have been changed or deleted by someone else — please reload the page."
-                    );
-
-                error.status = 404;
-
-                throw error;
-
-            }
-
-
-            const removed =
-                currentData.splice(
-                    index,
-                    1
-                )[0];
-
-
-            return {
-
-                record:
-                    removed
-
-            };
-
-        }
-
-    );
-
-}
-
-
-// ============================================================
-// FIND RECORD
-//
-// Matches on DATE, SITE, ISSUE AND REQUEST, STATUS, LOG and
-// CC LINK. DATE is compared after converting to MM/DD/YY, so
-// it works whichever date format is stored in data.json.
-// ============================================================
-
-function normalizeDateForCompare(value) {
-
-    const text =
-        String(
-            value || ""
-        ).trim();
-
-
-    if (
-        /^\d{2}\/\d{2}\/\d{2}$/
-            .test(text)
-    ) {
-
-        return text;
-
-    }
-
-
-    const date =
-        new Date(text);
-
-
-    if (isNaN(date.getTime())) {
-
-        return text;
-
-    }
-
-
-    const month =
-        String(
-            date.getMonth() + 1
-        ).padStart(2, "0");
-
-    const day =
-        String(
-            date.getDate()
-        ).padStart(2, "0");
-
-    const year =
-        String(
-            date.getFullYear()
-        ).slice(-2);
-
-
-    return `${month}/${day}/${year}`;
-
-}
-
-
-function sameText(a, b) {
-
-    return (
-        String(a || "").trim() ===
-        String(b || "").trim()
-    );
-
-}
-
-
-function findRecordIndex(
-    data,
-    original
-) {
-
-    const wantedDate =
-        normalizeDateForCompare(
-            original.DATE
-        );
-
-
-    return data.findIndex(
-
-        function(item) {
-
-            return (
-
-                item &&
-
-                normalizeDateForCompare(
-                    item.DATE
-                ) === wantedDate &&
-
-                sameText(
-                    item.SITE,
-                    original.SITE
-                ) &&
-
-                sameText(
-                    item["ISSUE AND REQUEST"],
-                    original["ISSUE AND REQUEST"]
-                ) &&
-
-                sameText(
-                    item.STATUS,
-                    original.STATUS
-                ) &&
-
-                sameText(
-                    item.LOG,
-                    original.LOG
-                ) &&
-
-                sameText(
-                    item["CC LINK"],
-                    original["CC LINK"]
-                )
-
-            );
-
-        }
 
     );
 

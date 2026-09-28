@@ -1078,159 +1078,6 @@ tbody tr.monitoring-case-row:hover {
 
 }
 
-/* =========================================================
-   ROW ACTIONS (EDIT / DELETE BUTTONS ON DATE CELL)
-   ========================================================= */
-
-td.date-cell {
-    position: relative;
-    padding-left: 30px !important;
-}
-
-.row-actions {
-    position: absolute;
-    top: 4px;
-    left: 3px;
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    z-index: 2;
-}
-
-.row-action-btn {
-    width: 20px;
-    height: 20px;
-    border: none;
-    border-radius: 5px;
-    background: transparent;
-    font-size: 12px;
-    line-height: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    opacity: 0.35;
-    transition: opacity 0.15s ease, background 0.15s ease;
-    padding: 0;
-}
-
-.row-action-btn:hover,
-.row-action-btn:focus-visible {
-    opacity: 1;
-    background: rgba(0, 0, 0, 0.08);
-}
-
-.row-action-btn.delete-btn:hover,
-.row-action-btn.delete-btn:focus-visible {
-    background: rgba(220, 38, 38, 0.12);
-}
-
-/* ---------------------------------------------------------
-   Edit hold-confirm popover (shown after clicking ✏️)
-   --------------------------------------------------------- */
-
-.hold-indicator {
-    position: fixed;
-    z-index: 6000;
-    display: none;
-    pointer-events: none;
-    background: #1f2937;
-    color: #fff;
-    font-size: 12px;
-    padding: 6px 10px 8px;
-    border-radius: 8px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
-    min-width: 150px;
-}
-
-.hold-indicator.show {
-    display: block;
-}
-
-.hold-indicator .hold-bar {
-    margin-top: 5px;
-    height: 4px;
-    border-radius: 2px;
-    background: rgba(255,255,255,0.25);
-    overflow: hidden;
-}
-
-.hold-indicator .hold-bar > span {
-    display: block;
-    height: 100%;
-    width: 0;
-    background: #60a5fa;
-}
-
-.hold-indicator.show .hold-bar > span {
-    animation: holdFill var(--hold-ms, 5000ms) linear forwards;
-}
-
-@keyframes holdFill {
-    from { width: 0; }
-    to   { width: 100%; }
-}
-
-/* =========================================================
-   DELETE CONFIRM MODAL
-   ========================================================= */
-
-.confirm-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 7000;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.45);
-}
-
-.confirm-overlay.show {
-    display: flex;
-}
-
-.confirm-box {
-    background: #fff;
-    border-radius: 12px;
-    padding: 22px 24px;
-    width: 90%;
-    max-width: 320px;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
-    text-align: center;
-}
-
-.confirm-box p {
-    margin: 0 0 18px;
-    font-size: 14px;
-    color: #1f2937;
-}
-
-.confirm-box .confirm-actions {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-}
-
-.confirm-box button {
-    flex: 1;
-    padding: 9px 0;
-    border-radius: 8px;
-    border: none;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.confirm-box .confirm-ok {
-    background: #dc2626;
-    color: #fff;
-}
-
-.confirm-box .confirm-cancel {
-    background: #e5e7eb;
-    color: #1f2937;
-}
-
 </style>
 
 </head>
@@ -1612,35 +1459,6 @@ td.date-cell {
 <div
     id="toast"
     class="toast">
-</div>
-
-<div
-    id="holdIndicator"
-    class="hold-indicator">
-    <div id="holdText">Ấn giữ 5 giây để sửa record...</div>
-    <div class="hold-bar"><span></span></div>
-</div>
-
-<div
-    id="deleteConfirmOverlay"
-    class="confirm-overlay">
-    <div class="confirm-box">
-        <p>Are you sure to delete ?</p>
-        <div class="confirm-actions">
-            <button
-                type="button"
-                class="confirm-ok"
-                onclick="confirmDeleteRecord()">
-                OK
-            </button>
-            <button
-                type="button"
-                class="confirm-cancel"
-                onclick="closeDeleteConfirm()">
-                Cancel
-            </button>
-        </div>
-    </div>
 </div>
 
 
@@ -3077,7 +2895,7 @@ function renderTable() {
 
         tableBody.innerHTML =
             pageData
-                .map(function(item, i) {
+                .map(function(item) {
 
                     const date =
                         formatDate(
@@ -3168,28 +2986,9 @@ function renderTable() {
                     return `
 
                         <tr
-                            class="${rowClass}"
-                            data-idx="${startIndex + i}">
+                            class="${rowClass}">
 
-                            <td class="date-cell">
-                                <div class="row-actions">
-                                    <button
-                                        type="button"
-                                        class="row-action-btn edit-btn"
-                                        title="Sửa record"
-                                        aria-label="Sửa record"
-                                        onclick="handleEditButtonClick(event, ${startIndex + i})">
-                                        ✏️
-                                    </button>
-                                    <button
-                                        type="button"
-                                        class="row-action-btn delete-btn"
-                                        title="Xóa record"
-                                        aria-label="Xóa record"
-                                        onclick="handleDeleteButtonClick(event, ${startIndex + i})">
-                                        🗑️
-                                    </button>
-                                </div>
+                            <td>
                                 ${date}
                             </td>
 
@@ -3721,17 +3520,6 @@ function formatDateForExport(value) {
 
 let addStep = 1;
 
-/* EDIT MODE STATE */
-let editMode = false;
-let editTarget = null;
-let editOriginal = null;
-
-function addTitlePrefix() {
-    return editMode
-        ? "Edit Issue"
-        : "Add New Issue";
-}
-
 let newRecord = {
 
     DATE: "",
@@ -3750,10 +3538,6 @@ let newRecord = {
 
 
 function openAddDialog() {
-
-    editMode = false;
-    editTarget = null;
-    editOriginal = null;
 
     addStep = 1;
 
@@ -3793,9 +3577,6 @@ function openAddDialog() {
    ========================================================= */
 
 function closeAddDialog() {
-
-    editMode = false;
-
 
     document
         .getElementById(
@@ -3894,8 +3675,7 @@ function renderAddStep() {
     if (addStep === 1) {
 
         title.textContent =
-            addTitlePrefix() +
-            " — Step 1 / 4";
+            "Add New Issue — Step 1 / 4";
 
 
         content.innerHTML = `
@@ -3965,8 +3745,7 @@ function renderAddStep() {
     else if (addStep === 3) {
 
         title.textContent =
-            addTitlePrefix() +
-            " — Step 3 / 4";
+            "Add New Issue — Step 3 / 4";
 
 
         content.innerHTML = `
@@ -4023,8 +3802,7 @@ function renderAddStep() {
     else if (addStep === 4) {
 
         title.textContent =
-            addTitlePrefix() +
-            " — Step 4 / 4";
+            "Add New Issue — Step 4 / 4";
 
 
         content.innerHTML = `
@@ -4068,7 +3846,10 @@ function renderAddStep() {
         `;
 
 
-        setSelectValueWithFallback("addStatus", newRecord.STATUS);
+        document.getElementById(
+            "addStatus"
+        ).value =
+            newRecord.STATUS;
 
     }
 
@@ -4094,8 +3875,7 @@ function renderAddSiteStep() {
 
 
     title.textContent =
-        addTitlePrefix() +
-            " — Step 2 / 4";
+        "Add New Issue — Step 2 / 4";
 
 
     const customers =
@@ -4158,7 +3938,10 @@ function renderAddSiteStep() {
     `;
 
 
-    setSelectValueWithFallback("addSite", newRecord.SITE);
+    document.getElementById(
+        "addSite"
+    ).value =
+        newRecord.SITE;
 
 }
 
@@ -4507,7 +4290,7 @@ function showAddConfirmation() {
 
 
     title.textContent =
-        editMode ? "Confirm Edited Record" : "Confirm New Record";
+        "Confirm New Record";
 
 
     content.innerHTML = `
@@ -4576,7 +4359,7 @@ function showAddConfirmation() {
 
         <div class="backend-note">
 
-            ${editMode ? "Ấn vào Save Changes để lưu thay đổi." : "Ấn vào Add Record để lưu issue hoặc request."}
+            Ấn vào Add Record để lưu issue hoặc request.
 
             <br>
 
@@ -4596,10 +4379,11 @@ function showAddConfirmation() {
 
 
     nextBtn.textContent =
-        editMode ? "Save Changes" : "Add Record";
+        "Add Record";
+
 
     nextBtn.onclick =
-        editMode ? saveEditedRecord : saveNewRecord;
+        saveNewRecord;
 
 
     nextBtn.disabled =
@@ -4906,630 +4690,6 @@ async function saveNewRecord() {
     }
 
 }
-
-
-/* =========================================================
-   EDIT RECORD (HOLD A ROW TO EDIT)
-   ========================================================= */
-
-const EDIT_API_URL =
-    BACKEND_API_URL.replace(
-        /\/add-issue$/,
-        "/update-issue"
-    );
-
-const DELETE_API_URL =
-    BACKEND_API_URL.replace(
-        /\/add-issue$/,
-        "/delete-issue"
-    );
-
-/* Thời gian giữ chuột / chạm trên 1 dòng để mở màn hình edit (ms) */
-const EDIT_HOLD_MS = 5000;
-
-const EDIT_FIELDS = [
-    "DATE",
-    "SITE",
-    "ISSUE AND REQUEST",
-    "STATUS"
-];
-
-function setSelectValueWithFallback(
-    selectId,
-    value
-) {
-
-    const select =
-        document.getElementById(
-            selectId
-        );
-
-    if (!select) {
-        return;
-    }
-
-    const text =
-        String(value || "");
-
-    if (text === "") {
-        select.value = "";
-        return;
-    }
-
-    /* Giá trị cũ chưa có trong danh sách -> thêm vào để không mất dữ liệu */
-    const exists =
-        Array.from(select.options)
-            .some(function(option) {
-                return option.value === text;
-            });
-
-    if (!exists) {
-
-        const option =
-            document.createElement(
-                "option"
-            );
-
-        option.value = text;
-        option.textContent = text;
-
-        select.appendChild(option);
-    }
-
-    select.value = text;
-}
-
-function openEditDialog(record) {
-
-    if (!record) {
-        return;
-    }
-
-    if (record._pendingId || record._pendingEdit) {
-
-        showToast(
-            "Record đang được lưu, vui lòng thử lại sau.",
-            "info"
-        );
-
-        return;
-    }
-
-    editMode = true;
-    editTarget = record;
-
-    editOriginal = {
-        DATE: record["DATE"] || "",
-        SITE: record["SITE"] || "",
-        "ISSUE AND REQUEST":
-            record["ISSUE AND REQUEST"] || "",
-        STATUS: record["STATUS"] || "",
-        LOG: record["LOG"] || "",
-        "CC LINK": record["CC LINK"] || ""
-    };
-
-    addStep = 1;
-
-    newRecord = {
-        DATE:
-            formatDateForExport(
-                record["DATE"]
-            ),
-        SITE:
-            String(record["SITE"] || ""),
-        "ISSUE AND REQUEST":
-            String(
-                record["ISSUE AND REQUEST"] || ""
-            ),
-        STATUS:
-            String(record["STATUS"] || "").trim(),
-        LOG: record["LOG"] || "",
-        "CC LINK": record["CC LINK"] || ""
-    };
-
-    document
-        .getElementById("addModal")
-        .classList
-        .add("show");
-
-    renderAddStep();
-}
-
-async function saveEditedRecord() {
-
-    const target = editTarget;
-    const original = editOriginal;
-
-    if (
-        !target ||
-        allData.indexOf(target) === -1
-    ) {
-
-        closeAddDialog();
-
-        showToast(
-            "Không tìm thấy record cần sửa.",
-            "error"
-        );
-
-        return;
-    }
-
-    const updated = {
-        DATE: newRecord.DATE,
-        SITE: newRecord.SITE,
-        "ISSUE AND REQUEST":
-            newRecord["ISSUE AND REQUEST"],
-        STATUS: newRecord.STATUS
-    };
-
-    const changed =
-        EDIT_FIELDS.some(function(field) {
-            return (
-                String(updated[field]) !==
-                String(
-                    field === "DATE"
-                        ? formatDateForExport(
-                            original[field]
-                        )
-                        : original[field]
-                )
-            );
-        });
-
-    if (!changed) {
-
-        closeAddDialog();
-
-        showToast(
-            "Không có thay đổi nào.",
-            "info"
-        );
-
-        return;
-    }
-
-    const backup = {};
-
-    EDIT_FIELDS.forEach(function(field) {
-        backup[field] = target[field];
-    });
-
-    /* Cập nhật giao diện ngay (optimistic) */
-
-    Object.assign(target, updated);
-    target._pendingEdit = true;
-
-    refreshAfterEdit();
-    closeAddDialog();
-
-    showToast(
-        "Đang lưu...",
-        "info"
-    );
-
-    try {
-
-        const response =
-            await fetch(
-                EDIT_API_URL,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-                    body: JSON.stringify({
-                        original: original,
-                        updated: updated
-                    })
-                }
-            );
-
-        let result;
-
-        try {
-            result =
-                await response.json();
-        }
-        catch (error) {
-            throw new Error(
-                "Invalid response from Cloudflare Worker."
-            );
-        }
-
-        if (
-            !response.ok ||
-            !result.success
-        ) {
-            throw new Error(
-                result.message ||
-                "Failed to update record."
-            );
-        }
-
-        delete target._pendingEdit;
-
-        if (
-            result.record &&
-            typeof result.record === "object"
-        ) {
-            Object.assign(
-                target,
-                result.record
-            );
-        }
-
-        refreshAfterEdit();
-
-        showToast(
-            "Record updated successfully.",
-            "success"
-        );
-    }
-    catch (error) {
-
-        console.error(
-            "Backend update error:",
-            error
-        );
-
-        Object.assign(target, backup);
-        delete target._pendingEdit;
-
-        refreshAfterEdit();
-
-        showToast(
-            "Update failed: " +
-            error.message +
-            " — changes were not saved.",
-            "error",
-            5000
-        );
-    }
-}
-
-/* Sắp xếp lại + giữ nguyên bộ lọc và trang hiện tại */
-function refreshAfterEdit() {
-
-    const page = currentPage;
-
-    sortData();
-    applyFilter();
-
-    currentPage = page;
-
-    renderTable();
-    updateStatusChart();
-}
-
-/* ---------- EDIT BUTTON: CLICK -> 5s HOLD CONFIRM ---------- */
-
-const indicator =
-    document.getElementById(
-        "holdIndicator"
-    );
-
-let holdTimer = null;
-let holdRecord = null;
-
-function cancelHold() {
-
-    if (holdTimer) {
-        clearTimeout(holdTimer);
-        holdTimer = null;
-    }
-
-    holdRecord = null;
-
-    if (indicator) {
-        indicator.classList.remove("show");
-    }
-
-    document.body.classList.remove(
-        "holding-row"
-    );
-
-    document.removeEventListener(
-        "pointerdown",
-        onOutsidePointerDown,
-        true
-    );
-}
-
-function onOutsidePointerDown(event) {
-
-    if (
-        event.target.closest(
-            ".edit-btn"
-        )
-    ) {
-        return;
-    }
-
-    cancelHold();
-}
-
-function placeIndicator(x, y) {
-
-    if (!indicator) {
-        return;
-    }
-
-    const w = 190;
-
-    const left =
-        Math.max(
-            8,
-            Math.min(
-                x + 14,
-                window.innerWidth - w - 8
-            )
-        );
-
-    const top =
-        Math.max(
-            8,
-            Math.min(
-                y + 18,
-                window.innerHeight - 60
-            )
-        );
-
-    indicator.style.left = left + "px";
-    indicator.style.top = top + "px";
-}
-
-/* Nút ✏️ ở góc trên bên trái mỗi dòng: bấm vào sẽ hiện hướng dẫn
-   "Ấn giữ 5 giây để sửa record". Người dùng phải giữ (nhấn và
-   không thả) nút này đủ 5 giây thì màn hình edit mới mở ra. */
-function handleEditButtonClick(event, idx) {
-
-    event.preventDefault();
-    event.stopPropagation();
-
-    const record =
-        filteredData[Number(idx)];
-
-    if (!record) {
-        return;
-    }
-
-    cancelHold();
-
-    holdRecord = record;
-
-    document.body.classList.add(
-        "holding-row"
-    );
-
-    if (indicator) {
-
-        indicator.style.setProperty(
-            "--hold-ms",
-            EDIT_HOLD_MS + "ms"
-        );
-
-        document.getElementById(
-            "holdText"
-        ).textContent =
-            "Ấn giữ " +
-            Math.round(EDIT_HOLD_MS / 1000) +
-            "s để sửa record...";
-
-        const rect =
-            event.currentTarget.getBoundingClientRect();
-
-        placeIndicator(
-            rect.right,
-            rect.top
-        );
-
-        indicator.classList.remove("show");
-        void indicator.offsetWidth;
-        indicator.classList.add("show");
-    }
-
-    const btn = event.currentTarget;
-
-    function finishHold() {
-
-        holdTimer = null;
-
-        const record = holdRecord;
-
-        cancelHold();
-
-        if (record) {
-            openEditDialog(record);
-        }
-    }
-
-    function stopHold() {
-        cancelHold();
-        btn.removeEventListener("pointerup", stopHold);
-        btn.removeEventListener("pointerleave", stopHold);
-        btn.removeEventListener("pointercancel", stopHold);
-    }
-
-    btn.addEventListener("pointerup", stopHold);
-    btn.addEventListener("pointerleave", stopHold);
-    btn.addEventListener("pointercancel", stopHold);
-
-    document.addEventListener(
-        "pointerdown",
-        onOutsidePointerDown,
-        true
-    );
-
-    holdTimer =
-        setTimeout(finishHold, EDIT_HOLD_MS);
-}
-
-/* ---------- DELETE BUTTON: CONFIRM DIALOG ---------- */
-
-let deleteTarget = null;
-
-function handleDeleteButtonClick(event, idx) {
-
-    event.preventDefault();
-    event.stopPropagation();
-
-    const record =
-        filteredData[Number(idx)];
-
-    if (!record) {
-        return;
-    }
-
-    if (record._pendingId || record._pendingEdit || record._pendingDelete) {
-
-        showToast(
-            "Record đang được xử lý, vui lòng thử lại sau.",
-            "info"
-        );
-
-        return;
-    }
-
-    deleteTarget = record;
-
-    document
-        .getElementById("deleteConfirmOverlay")
-        .classList
-        .add("show");
-}
-
-function closeDeleteConfirm() {
-
-    deleteTarget = null;
-
-    document
-        .getElementById("deleteConfirmOverlay")
-        .classList
-        .remove("show");
-}
-
-async function confirmDeleteRecord() {
-
-    const target = deleteTarget;
-
-    document
-        .getElementById("deleteConfirmOverlay")
-        .classList
-        .remove("show");
-
-    deleteTarget = null;
-
-    if (
-        !target ||
-        allData.indexOf(target) === -1
-    ) {
-
-        showToast(
-            "Không tìm thấy record cần xóa.",
-            "error"
-        );
-
-        return;
-    }
-
-    const payload = {
-        DATE: target["DATE"],
-        SITE: target["SITE"],
-        "ISSUE AND REQUEST":
-            target["ISSUE AND REQUEST"],
-        STATUS: target["STATUS"],
-        LOG: target["LOG"] || "",
-        "CC LINK": target["CC LINK"] || ""
-    };
-
-    const index =
-        allData.indexOf(target);
-
-    /* Xóa ngay trên giao diện (optimistic) */
-
-    target._pendingDelete = true;
-
-    allData.splice(index, 1);
-
-    refreshAfterEdit();
-
-    showToast(
-        "Đang xóa...",
-        "info"
-    );
-
-    try {
-
-        const response =
-            await fetch(
-                DELETE_API_URL,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-                    body: JSON.stringify({
-                        record: payload
-                    })
-                }
-            );
-
-        let result;
-
-        try {
-            result =
-                await response.json();
-        }
-        catch (error) {
-            throw new Error(
-                "Invalid response from Cloudflare Worker."
-            );
-        }
-
-        if (
-            !response.ok ||
-            !result.success
-        ) {
-            throw new Error(
-                result.message ||
-                "Failed to delete record."
-            );
-        }
-
-        showToast(
-            "Record deleted successfully.",
-            "success"
-        );
-    }
-    catch (error) {
-
-        console.error(
-            "Backend delete error:",
-            error
-        );
-
-        /* Khôi phục lại record nếu xóa thất bại */
-
-        delete target._pendingDelete;
-
-        allData.splice(index, 0, target);
-
-        refreshAfterEdit();
-
-        showToast(
-            "Delete failed: " +
-            error.message +
-            " — record was not deleted.",
-            "error",
-            5000
-        );
-    }
-}
-
-
 
 
 /* =========================================================
