@@ -3,7 +3,7 @@
         "DATE": "09-25-2026",
         "SITE": "LEADER TECH VIETNAM COMPANY LIMITED]",
         "ISSUE AND REQUEST": "Request seperate Nexim license after line relocation ( Move Aimex3 back CN )\n立德要支援分开nexim权限（分开aimex3线体权限）",
-        "STATUS": "Monitoring",
+        "STATUS": "Closed",
         "LOG": null,
         "CC LINK": null
     },
@@ -155,7 +155,7 @@
         "DATE": "08-24-2026",
         "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
         "ISSUE AND REQUEST": "RH28物料贴装后带回现象\nRH28 component carry-back after placement",
-        "STATUS": "open",
+        "STATUS": "Closed",
         "LOG": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQBwN-Nnf20LQIdwv84B-foAAdhIdogWaoJUc8t8k5YwYvE?e=qAmvqU",
         "CC LINK": "NOT AVAILABLE"
     },
@@ -603,7 +603,7 @@
         "DATE": "07-03-2026",
         "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
         "ISSUE AND REQUEST": "一轨生产，二轨不生产，但是二轨不会自动过板需要一轨生产完才能过板\nSingle-lane production: Lane 1 is running production while Lane 2 is not. However, Lane 2 cannot automatically transfer the PCB and must wait until Lane 1 completes production before the PCB can be transferred.\n",
-        "STATUS": "MONITORING",
+        "STATUS": "Closed",
         "LOG": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQCrM3XILze8Srh34pQTA1BPAVn3dDxESqe3B88aOnxaC2k?e=ZQNEf8",
         "CC LINK": "https://community.fuji.co.jp/ccrs/500TK000014v5gCYAQ"
     },
