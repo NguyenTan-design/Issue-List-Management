@@ -1078,6 +1078,61 @@ tbody tr.monitoring-case-row:hover {
 
 }
 
+/* =========================================================
+   EDIT ROW (HOLD TO EDIT)
+   ========================================================= */
+
+tbody tr[data-idx] {
+    -webkit-touch-callout: none;
+}
+
+body.holding-row tbody tr {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.hold-indicator {
+    position: fixed;
+    z-index: 6000;
+    display: none;
+    pointer-events: none;
+    background: #1f2937;
+    color: #fff;
+    font-size: 12px;
+    padding: 6px 10px 8px;
+    border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    min-width: 150px;
+}
+
+.hold-indicator.show {
+    display: block;
+}
+
+.hold-indicator .hold-bar {
+    margin-top: 5px;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.25);
+    overflow: hidden;
+}
+
+.hold-indicator .hold-bar > span {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: #60a5fa;
+}
+
+.hold-indicator.show .hold-bar > span {
+    animation: holdFill var(--hold-ms, 5000ms) linear forwards;
+}
+
+@keyframes holdFill {
+    from { width: 0; }
+    to   { width: 100%; }
+}
+
 </style>
 
 </head>
@@ -1459,6 +1514,13 @@ tbody tr.monitoring-case-row:hover {
 <div
     id="toast"
     class="toast">
+</div>
+
+<div
+    id="holdIndicator"
+    class="hold-indicator">
+    <div id="holdText">Giữ để sửa record...</div>
+    <div class="hold-bar"><span></span></div>
 </div>
 
 
@@ -2895,7 +2957,7 @@ function renderTable() {
 
         tableBody.innerHTML =
             pageData
-                .map(function(item) {
+                .map(function(item, i) {
 
                     const date =
                         formatDate(
@@ -2986,7 +3048,9 @@ function renderTable() {
                     return `
 
                         <tr
-                            class="${rowClass}">
+                            class="${rowClass}"
+                            data-idx="${startIndex + i}"
+                            title="Giữ 5 giây để sửa record">
 
                             <td>
                                 ${date}
@@ -3520,6 +3584,17 @@ function formatDateForExport(value) {
 
 let addStep = 1;
 
+/* EDIT MODE STATE */
+let editMode = false;
+let editTarget = null;
+let editOriginal = null;
+
+function addTitlePrefix() {
+    return editMode
+        ? "Edit Issue"
+        : "Add New Issue";
+}
+
 let newRecord = {
 
     DATE: "",
@@ -3538,6 +3613,10 @@ let newRecord = {
 
 
 function openAddDialog() {
+
+    editMode = false;
+    editTarget = null;
+    editOriginal = null;
 
     addStep = 1;
 
@@ -3577,6 +3656,9 @@ function openAddDialog() {
    ========================================================= */
 
 function closeAddDialog() {
+
+    editMode = false;
+
 
     document
         .getElementById(
@@ -3675,7 +3757,8 @@ function renderAddStep() {
     if (addStep === 1) {
 
         title.textContent =
-            "Add New Issue — Step 1 / 4";
+            addTitlePrefix() +
+            " — Step 1 / 4";
 
 
         content.innerHTML = `
@@ -3745,7 +3828,8 @@ function renderAddStep() {
     else if (addStep === 3) {
 
         title.textContent =
-            "Add New Issue — Step 3 / 4";
+            addTitlePrefix() +
+            " — Step 3 / 4";
 
 
         content.innerHTML = `
@@ -3802,7 +3886,8 @@ function renderAddStep() {
     else if (addStep === 4) {
 
         title.textContent =
-            "Add New Issue — Step 4 / 4";
+            addTitlePrefix() +
+            " — Step 4 / 4";
 
 
         content.innerHTML = `
@@ -3846,10 +3931,7 @@ function renderAddStep() {
         `;
 
 
-        document.getElementById(
-            "addStatus"
-        ).value =
-            newRecord.STATUS;
+        setSelectValueWithFallback("addStatus", newRecord.STATUS);
 
     }
 
@@ -3875,7 +3957,8 @@ function renderAddSiteStep() {
 
 
     title.textContent =
-        "Add New Issue — Step 2 / 4";
+        addTitlePrefix() +
+            " — Step 2 / 4";
 
 
     const customers =
@@ -3938,10 +4021,7 @@ function renderAddSiteStep() {
     `;
 
 
-    document.getElementById(
-        "addSite"
-    ).value =
-        newRecord.SITE;
+    setSelectValueWithFallback("addSite", newRecord.SITE);
 
 }
 
@@ -4290,7 +4370,7 @@ function showAddConfirmation() {
 
 
     title.textContent =
-        "Confirm New Record";
+        editMode ? "Confirm Edited Record" : "Confirm New Record";
 
 
     content.innerHTML = `
@@ -4359,7 +4439,7 @@ function showAddConfirmation() {
 
         <div class="backend-note">
 
-            Ấn vào Add Record để lưu issue hoặc request.
+            ${editMode ? "Ấn vào Save Changes để lưu thay đổi." : "Ấn vào Add Record để lưu issue hoặc request."}
 
             <br>
 
@@ -4379,11 +4459,10 @@ function showAddConfirmation() {
 
 
     nextBtn.textContent =
-        "Add Record";
-
+        editMode ? "Save Changes" : "Add Record";
 
     nextBtn.onclick =
-        saveNewRecord;
+        editMode ? saveEditedRecord : saveNewRecord;
 
 
     nextBtn.disabled =
@@ -4690,6 +4769,490 @@ async function saveNewRecord() {
     }
 
 }
+
+
+/* =========================================================
+   EDIT RECORD (HOLD A ROW TO EDIT)
+   ========================================================= */
+
+const EDIT_API_URL =
+    BACKEND_API_URL.replace(
+        /\/add-issue$/,
+        "/update-issue"
+    );
+
+/* Thời gian giữ chuột / chạm trên 1 dòng để mở màn hình edit (ms) */
+const EDIT_HOLD_MS = 5000;
+
+const EDIT_FIELDS = [
+    "DATE",
+    "SITE",
+    "ISSUE AND REQUEST",
+    "STATUS"
+];
+
+function setSelectValueWithFallback(
+    selectId,
+    value
+) {
+
+    const select =
+        document.getElementById(
+            selectId
+        );
+
+    if (!select) {
+        return;
+    }
+
+    const text =
+        String(value || "");
+
+    if (text === "") {
+        select.value = "";
+        return;
+    }
+
+    /* Giá trị cũ chưa có trong danh sách -> thêm vào để không mất dữ liệu */
+    const exists =
+        Array.from(select.options)
+            .some(function(option) {
+                return option.value === text;
+            });
+
+    if (!exists) {
+
+        const option =
+            document.createElement(
+                "option"
+            );
+
+        option.value = text;
+        option.textContent = text;
+
+        select.appendChild(option);
+    }
+
+    select.value = text;
+}
+
+function openEditDialog(record) {
+
+    if (!record) {
+        return;
+    }
+
+    if (record._pendingId || record._pendingEdit) {
+
+        showToast(
+            "Record đang được lưu, vui lòng thử lại sau.",
+            "info"
+        );
+
+        return;
+    }
+
+    editMode = true;
+    editTarget = record;
+
+    editOriginal = {
+        DATE: record["DATE"] || "",
+        SITE: record["SITE"] || "",
+        "ISSUE AND REQUEST":
+            record["ISSUE AND REQUEST"] || "",
+        STATUS: record["STATUS"] || "",
+        LOG: record["LOG"] || "",
+        "CC LINK": record["CC LINK"] || ""
+    };
+
+    addStep = 1;
+
+    newRecord = {
+        DATE:
+            formatDateForExport(
+                record["DATE"]
+            ),
+        SITE:
+            String(record["SITE"] || ""),
+        "ISSUE AND REQUEST":
+            String(
+                record["ISSUE AND REQUEST"] || ""
+            ),
+        STATUS:
+            String(record["STATUS"] || "").trim(),
+        LOG: record["LOG"] || "",
+        "CC LINK": record["CC LINK"] || ""
+    };
+
+    document
+        .getElementById("addModal")
+        .classList
+        .add("show");
+
+    renderAddStep();
+}
+
+async function saveEditedRecord() {
+
+    const target = editTarget;
+    const original = editOriginal;
+
+    if (
+        !target ||
+        allData.indexOf(target) === -1
+    ) {
+
+        closeAddDialog();
+
+        showToast(
+            "Không tìm thấy record cần sửa.",
+            "error"
+        );
+
+        return;
+    }
+
+    const updated = {
+        DATE: newRecord.DATE,
+        SITE: newRecord.SITE,
+        "ISSUE AND REQUEST":
+            newRecord["ISSUE AND REQUEST"],
+        STATUS: newRecord.STATUS
+    };
+
+    const changed =
+        EDIT_FIELDS.some(function(field) {
+            return (
+                String(updated[field]) !==
+                String(
+                    field === "DATE"
+                        ? formatDateForExport(
+                            original[field]
+                        )
+                        : original[field]
+                )
+            );
+        });
+
+    if (!changed) {
+
+        closeAddDialog();
+
+        showToast(
+            "Không có thay đổi nào.",
+            "info"
+        );
+
+        return;
+    }
+
+    const backup = {};
+
+    EDIT_FIELDS.forEach(function(field) {
+        backup[field] = target[field];
+    });
+
+    /* Cập nhật giao diện ngay (optimistic) */
+
+    Object.assign(target, updated);
+    target._pendingEdit = true;
+
+    refreshAfterEdit();
+    closeAddDialog();
+
+    showToast(
+        "Đang lưu...",
+        "info"
+    );
+
+    try {
+
+        const response =
+            await fetch(
+                EDIT_API_URL,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+                    body: JSON.stringify({
+                        original: original,
+                        updated: updated
+                    })
+                }
+            );
+
+        let result;
+
+        try {
+            result =
+                await response.json();
+        }
+        catch (error) {
+            throw new Error(
+                "Invalid response from Cloudflare Worker."
+            );
+        }
+
+        if (
+            !response.ok ||
+            !result.success
+        ) {
+            throw new Error(
+                result.message ||
+                "Failed to update record."
+            );
+        }
+
+        delete target._pendingEdit;
+
+        if (
+            result.record &&
+            typeof result.record === "object"
+        ) {
+            Object.assign(
+                target,
+                result.record
+            );
+        }
+
+        refreshAfterEdit();
+
+        showToast(
+            "Record updated successfully.",
+            "success"
+        );
+    }
+    catch (error) {
+
+        console.error(
+            "Backend update error:",
+            error
+        );
+
+        Object.assign(target, backup);
+        delete target._pendingEdit;
+
+        refreshAfterEdit();
+
+        showToast(
+            "Update failed: " +
+            error.message +
+            " — changes were not saved.",
+            "error",
+            5000
+        );
+    }
+}
+
+/* Sắp xếp lại + giữ nguyên bộ lọc và trang hiện tại */
+function refreshAfterEdit() {
+
+    const page = currentPage;
+
+    sortData();
+    applyFilter();
+
+    currentPage = page;
+
+    renderTable();
+    updateStatusChart();
+}
+
+/* ---------- HOLD ROW 5s ---------- */
+
+(function setupRowHold() {
+
+    const tableBody =
+        document.getElementById(
+            "tableBody"
+        );
+
+    const indicator =
+        document.getElementById(
+            "holdIndicator"
+        );
+
+    if (!tableBody || !indicator) {
+        return;
+    }
+
+    let holdTimer = null;
+    let startX = 0;
+    let startY = 0;
+
+    function cancelHold() {
+
+        if (holdTimer) {
+            clearTimeout(holdTimer);
+            holdTimer = null;
+        }
+
+        indicator.classList.remove("show");
+        document.body.classList.remove(
+            "holding-row"
+        );
+    }
+
+    function placeIndicator(x, y) {
+
+        const w = 190;
+
+        const left =
+            Math.max(
+                8,
+                Math.min(
+                    x + 14,
+                    window.innerWidth - w - 8
+                )
+            );
+
+        const top =
+            Math.max(
+                8,
+                Math.min(
+                    y + 18,
+                    window.innerHeight - 60
+                )
+            );
+
+        indicator.style.left = left + "px";
+        indicator.style.top = top + "px";
+    }
+
+    tableBody.addEventListener(
+        "pointerdown",
+        function(event) {
+
+            if (
+                event.pointerType === "mouse" &&
+                event.button !== 0
+            ) {
+                return;
+            }
+
+            if (
+                event.target.closest(
+                    "a, button, input, select, textarea"
+                )
+            ) {
+                return;
+            }
+
+            const row =
+                event.target.closest(
+                    "tr[data-idx]"
+                );
+
+            if (!row) {
+                return;
+            }
+
+            const record =
+                filteredData[
+                    Number(row.dataset.idx)
+                ];
+
+            if (!record) {
+                return;
+            }
+
+            cancelHold();
+
+            startX = event.clientX;
+            startY = event.clientY;
+
+            document.body.classList.add(
+                "holding-row"
+            );
+
+            indicator.style.setProperty(
+                "--hold-ms",
+                EDIT_HOLD_MS + "ms"
+            );
+
+            document.getElementById(
+                "holdText"
+            ).textContent =
+                "Giữ " +
+                Math.round(EDIT_HOLD_MS / 1000) +
+                "s để sửa record...";
+
+            placeIndicator(startX, startY);
+
+            /* restart animation */
+            indicator.classList.remove("show");
+            void indicator.offsetWidth;
+            indicator.classList.add("show");
+
+            holdTimer =
+                setTimeout(function() {
+
+                    holdTimer = null;
+
+                    cancelHold();
+
+                    if (window.getSelection) {
+                        window
+                            .getSelection()
+                            .removeAllRanges();
+                    }
+
+                    openEditDialog(record);
+
+                }, EDIT_HOLD_MS);
+        }
+    );
+
+    tableBody.addEventListener(
+        "pointermove",
+        function(event) {
+
+            if (!holdTimer) {
+                return;
+            }
+
+            const dx =
+                event.clientX - startX;
+
+            const dy =
+                event.clientY - startY;
+
+            if (dx * dx + dy * dy > 100) {
+                cancelHold();
+            }
+        }
+    );
+
+    ["pointerup",
+     "pointercancel",
+     "pointerleave"].forEach(
+        function(name) {
+            tableBody.addEventListener(
+                name,
+                cancelHold
+            );
+        }
+    );
+
+    tableBody.addEventListener(
+        "contextmenu",
+        function(event) {
+            if (holdTimer) {
+                event.preventDefault();
+            }
+        }
+    );
+
+    window.addEventListener(
+        "scroll",
+        cancelHold,
+        { passive: true }
+    );
+
+})();
+
 
 
 /* =========================================================
