@@ -1015,17 +1015,20 @@ tbody tr.monitoring-case-row:hover {
 
     /* Ô DATE trên mobile: value xuống dòng tự do, 2 nút
        ✏️ và 🗑️ xếp chồng bên dưới thay vì nằm cạnh nhau,
-       để không bị tràn sang ô SITE bên cạnh. */
+       để không bị tràn sang ô SITE bên cạnh.
+       !important vì các rule mặc định (.date-value,
+       .row-actions) được định nghĩa sau khối media này
+       trong file và có cùng độ ưu tiên (specificity). */
 
     .date-value {
-        white-space: normal;
-        word-break: break-word;
+        white-space: normal !important;
+        word-break: break-word !important;
     }
 
     .row-actions {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 4px;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 4px !important;
     }
 
     .add-modal {
@@ -1252,6 +1255,28 @@ td.date-cell {
 .confirm-box .confirm-cancel {
     background: #e5e7eb;
     color: #1f2937;
+}
+
+.confirm-password-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 9px 10px;
+    margin-bottom: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.confirm-password-input:focus {
+    outline: none;
+    border-color: #dc2626;
+}
+
+.confirm-password-error {
+    color: #dc2626;
+    font-size: 12px;
+    margin: -4px 0 12px;
+    text-align: left;
 }
 
 </style>
@@ -1653,13 +1678,47 @@ td.date-cell {
             <button
                 type="button"
                 class="confirm-ok"
-                onclick="confirmDeleteRecord()">
+                onclick="proceedToDeletePassword()">
                 OK
             </button>
             <button
                 type="button"
                 class="confirm-cancel"
                 onclick="closeDeleteConfirm()">
+                Cancel
+            </button>
+        </div>
+    </div>
+</div>
+
+<div
+    id="deletePasswordOverlay"
+    class="confirm-overlay">
+    <div class="confirm-box">
+        <p>Nhập password để xác nhận xóa record:</p>
+        <input
+            type="password"
+            id="deletePasswordInput"
+            class="confirm-password-input"
+            placeholder="Password"
+            autocomplete="off">
+        <div
+            id="deletePasswordError"
+            class="confirm-password-error"
+            style="display: none;">
+            Sai password, vui lòng thử lại.
+        </div>
+        <div class="confirm-actions">
+            <button
+                type="button"
+                class="confirm-ok"
+                onclick="confirmDeletePassword()">
+                Xác nhận
+            </button>
+            <button
+                type="button"
+                class="confirm-cancel"
+                onclick="cancelDeletePassword()">
                 Cancel
             </button>
         </div>
@@ -5416,6 +5475,10 @@ function handleDeleteButtonClick(event, idx) {
         .add("show");
 }
 
+/* Mật khẩu bắt buộc phải nhập đúng thì mới thực sự xóa record.
+   So khớp phân biệt hoa thường (chính xác từng ký tự). */
+const DELETE_PASSWORD = "NATTEAM";
+
 function closeDeleteConfirm() {
 
     deleteTarget = null;
@@ -5426,7 +5489,79 @@ function closeDeleteConfirm() {
         .remove("show");
 }
 
-async function confirmDeleteRecord() {
+/* Bấm OK ở bước "Are you sure to delete ?" sẽ chuyển sang
+   bước nhập password, chưa xóa gì cả. */
+function proceedToDeletePassword() {
+
+    document
+        .getElementById("deleteConfirmOverlay")
+        .classList
+        .remove("show");
+
+    const input =
+        document.getElementById(
+            "deletePasswordInput"
+        );
+
+    const error =
+        document.getElementById(
+            "deletePasswordError"
+        );
+
+    input.value = "";
+    error.style.display = "none";
+
+    document
+        .getElementById("deletePasswordOverlay")
+        .classList
+        .add("show");
+
+    input.focus();
+}
+
+function cancelDeletePassword() {
+
+    deleteTarget = null;
+
+    document
+        .getElementById("deletePasswordOverlay")
+        .classList
+        .remove("show");
+}
+
+/* Kiểm tra password. Đúng thì mới gọi performDeleteRecord()
+   để thực sự xóa; sai thì báo lỗi và cho nhập lại. */
+function confirmDeletePassword() {
+
+    const input =
+        document.getElementById(
+            "deletePasswordInput"
+        );
+
+    const error =
+        document.getElementById(
+            "deletePasswordError"
+        );
+
+    if (input.value !== DELETE_PASSWORD) {
+
+        error.style.display = "block";
+
+        input.value = "";
+        input.focus();
+
+        return;
+    }
+
+    document
+        .getElementById("deletePasswordOverlay")
+        .classList
+        .remove("show");
+
+    performDeleteRecord();
+}
+
+async function performDeleteRecord() {
 
     const target = deleteTarget;
 
