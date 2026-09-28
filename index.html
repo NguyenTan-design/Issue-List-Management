@@ -1083,18 +1083,25 @@ tbody tr.monitoring-case-row:hover {
    ========================================================= */
 
 td.date-cell {
-    position: relative;
-    padding-left: 30px !important;
+    vertical-align: top;
+}
+
+.date-cell-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+}
+
+.date-value {
+    white-space: nowrap;
 }
 
 .row-actions {
-    position: absolute;
-    top: 4px;
-    left: 3px;
     display: flex;
-    flex-direction: column;
-    gap: 3px;
-    z-index: 2;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
 }
 
 .row-action-btn {
@@ -1112,6 +1119,7 @@ td.date-cell {
     opacity: 0.35;
     transition: opacity 0.15s ease, background 0.15s ease;
     padding: 0;
+    flex-shrink: 0;
 }
 
 .row-action-btn:hover,
@@ -1617,7 +1625,7 @@ td.date-cell {
 <div
     id="holdIndicator"
     class="hold-indicator">
-    <div id="holdText">Ấn giữ 5 giây để sửa record...</div>
+    <div id="holdText">Đợi 5 giây để sửa record...</div>
     <div class="hold-bar"><span></span></div>
 </div>
 
@@ -3172,25 +3180,29 @@ function renderTable() {
                             data-idx="${startIndex + i}">
 
                             <td class="date-cell">
-                                <div class="row-actions">
-                                    <button
-                                        type="button"
-                                        class="row-action-btn edit-btn"
-                                        title="Sửa record"
-                                        aria-label="Sửa record"
-                                        onclick="handleEditButtonClick(event, ${startIndex + i})">
-                                        ✏️
-                                    </button>
-                                    <button
-                                        type="button"
-                                        class="row-action-btn delete-btn"
-                                        title="Xóa record"
-                                        aria-label="Xóa record"
-                                        onclick="handleDeleteButtonClick(event, ${startIndex + i})">
-                                        🗑️
-                                    </button>
+                                <div class="date-cell-inner">
+                                    <div class="date-value">
+                                        ${date}
+                                    </div>
+                                    <div class="row-actions">
+                                        <button
+                                            type="button"
+                                            class="row-action-btn edit-btn"
+                                            title="Sửa record"
+                                            aria-label="Sửa record"
+                                            onclick="handleEditButtonClick(event, ${startIndex + i})">
+                                            ✏️
+                                        </button>
+                                        <button
+                                            type="button"
+                                            class="row-action-btn delete-btn"
+                                            title="Xóa record"
+                                            aria-label="Xóa record"
+                                            onclick="handleDeleteButtonClick(event, ${startIndex + i})">
+                                            🗑️
+                                        </button>
+                                    </div>
                                 </div>
-                                ${date}
                             </td>
 
 
@@ -4924,7 +4936,7 @@ const DELETE_API_URL =
         "/delete-issue"
     );
 
-/* Thời gian giữ chuột / chạm trên 1 dòng để mở màn hình edit (ms) */
+/* Thời gian đợi sau khi bấm nút ✏️ trước khi mở màn hình edit (ms) */
 const EDIT_HOLD_MS = 5000;
 
 const EDIT_FIELDS = [
@@ -5280,9 +5292,11 @@ function placeIndicator(x, y) {
     indicator.style.top = top + "px";
 }
 
-/* Nút ✏️ ở góc trên bên trái mỗi dòng: bấm vào sẽ hiện hướng dẫn
-   "Ấn giữ 5 giây để sửa record". Người dùng phải giữ (nhấn và
-   không thả) nút này đủ 5 giây thì màn hình edit mới mở ra. */
+/* Nút ✏️ ở cuối mỗi ô DATE: chỉ cần bấm (click) một lần, giao diện
+   hiện chỉ dẫn "Đợi 5 giây để sửa record...". Không cần giữ chuột;
+   chỉ cần không bấm sang chỗ khác trong 5 giây đó thì màn hình edit
+   sẽ tự mở ra. Bấm ra ngoài, hoặc bấm nút edit khác trong lúc đang
+   đợi, sẽ hủy bộ đếm hiện tại. */
 function handleEditButtonClick(event, idx) {
 
     event.preventDefault();
@@ -5313,7 +5327,7 @@ function handleEditButtonClick(event, idx) {
         document.getElementById(
             "holdText"
         ).textContent =
-            "Ấn giữ " +
+            "Đợi " +
             Math.round(EDIT_HOLD_MS / 1000) +
             "s để sửa record...";
 
@@ -5330,8 +5344,6 @@ function handleEditButtonClick(event, idx) {
         indicator.classList.add("show");
     }
 
-    const btn = event.currentTarget;
-
     function finishHold() {
 
         holdTimer = null;
@@ -5344,17 +5356,6 @@ function handleEditButtonClick(event, idx) {
             openEditDialog(record);
         }
     }
-
-    function stopHold() {
-        cancelHold();
-        btn.removeEventListener("pointerup", stopHold);
-        btn.removeEventListener("pointerleave", stopHold);
-        btn.removeEventListener("pointercancel", stopHold);
-    }
-
-    btn.addEventListener("pointerup", stopHold);
-    btn.addEventListener("pointerleave", stopHold);
-    btn.addEventListener("pointercancel", stopHold);
 
     document.addEventListener(
         "pointerdown",
