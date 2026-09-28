@@ -638,5 +638,13 @@
         "STATUS": "Open",
         "LOG": "",
         "CC LINK": ""
+    },
+    {
+        "DATE": "09/28/26",
+        "SITE": "E5",
+        "ISSUE AND REQUEST": "TEST\n1. LCU FAIL",
+        "STATUS": "Monitoring",
+        "LOG": "",
+        "CC LINK": ""
     }
 ]
