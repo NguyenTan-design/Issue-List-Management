@@ -3210,14 +3210,15 @@ function createOpenButton(value) {
    LOG BUTTON
    ========================================================= */
 
-function createLogButton() {
+function createLogButton(idx) {
 
     return `
 
         <button
             type="button"
             class="log-btn"
-            title="Xem / sửa log">
+            title="Xem / sửa log"
+            onclick="handleLogButtonClick(event, ${idx})">
 
             📄 Log
 
@@ -3226,7 +3227,6 @@ function createLogButton() {
     `;
 
 }
-
 
 /* =========================================================
    STATUS HTML
@@ -3553,7 +3553,7 @@ function renderTable() {
 
 
                     const logButton =
-                        createLogButton();
+    			createLogButton(startIndex + i);
 
 
                     const ccLink =
