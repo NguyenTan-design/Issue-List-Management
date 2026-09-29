@@ -578,46 +578,10 @@ tbody tr.monitoring-case-row:hover {
     cursor: pointer;
 
     transition: 0.15s;
-
-    margin: 2px 0;
 }
 
 .open-btn:hover {
     background: #125aa0;
-    transform: translateY(-1px);
-}
-
-
-/* =========================
-   LOG BUTTON
-   ========================= */
-
-.log-btn {
-    display: inline-block;
-
-    padding: 6px 8px;
-
-    background: #6f42c1;
-
-    color: white;
-
-    border: none;
-
-    border-radius: 5px;
-
-    font-size: 11px;
-
-    font-weight: bold;
-
-    cursor: pointer;
-
-    transition: 0.15s;
-
-    margin: 2px 0;
-}
-
-.log-btn:hover {
-    background: #59359a;
     transform: translateY(-1px);
 }
 
@@ -949,152 +913,6 @@ tbody tr.monitoring-case-row:hover {
 }
 
 
-/* =========================================================
-   LOG MODAL
-   ========================================================= */
-
-.log-modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 8000;
-    background: rgba(0,0,0,0.55);
-    align-items: center;
-    justify-content: center;
-    padding: 15px;
-}
-
-.log-modal.show {
-    display: flex;
-}
-
-.log-modal-content {
-    width: 100%;
-    max-width: 900px;
-    height: 85vh;
-    background: #fff;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    box-shadow: 0 12px 40px rgba(0,0,0,0.35);
-}
-
-.log-modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 16px;
-    background: #222;
-    color: #fff;
-    font-weight: bold;
-    font-size: 15px;
-    flex-wrap: wrap;
-}
-
-.log-modal-title {
-    flex: 1;
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.log-modal-controls {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-wrap: wrap;
-}
-
-.log-zoom-btn,
-.log-mode-btn,
-.log-save-btn,
-.log-close-btn {
-    border: none;
-    border-radius: 5px;
-    padding: 6px 10px;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: bold;
-    background: #444;
-    color: #fff;
-    transition: 0.15s;
-}
-
-.log-zoom-btn:hover,
-.log-mode-btn:hover,
-.log-close-btn:hover {
-    background: #666;
-}
-
-.log-save-btn {
-    background: #198754;
-}
-
-.log-save-btn:hover {
-    background: #146c43;
-}
-
-.log-save-btn:disabled {
-    opacity: 0.6;
-    cursor: wait;
-}
-
-.log-close-btn {
-    font-size: 20px;
-    line-height: 1;
-    padding: 2px 10px;
-}
-
-.log-zoom-label {
-    font-size: 12px;
-    min-width: 42px;
-    text-align: center;
-    color: #ddd;
-}
-
-.log-modal-body {
-    flex: 1;
-    overflow: auto;
-    background: #fafafa;
-    padding: 14px;
-}
-
-.log-viewer {
-    margin: 0;
-    white-space: pre-wrap;
-    word-break: break-word;
-    font-family: Consolas, Monaco, "Courier New", monospace;
-    font-size: 14px;
-    line-height: 1.55;
-    color: #222;
-    transform-origin: top left;
-    transition: transform 0.15s ease;
-}
-
-.log-editor {
-    width: 100%;
-    height: 100%;
-    min-height: 400px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 12px;
-    font-family: Consolas, Monaco, "Courier New", monospace;
-    font-size: 14px;
-    line-height: 1.55;
-    resize: none;
-    box-sizing: border-box;
-}
-
-.log-editor:focus {
-    outline: none;
-    border-color: #1976d2;
-    box-shadow: 0 0 0 2px rgba(25,118,210,0.12);
-}
-
-
 /* =========================
    MOBILE
    ========================= */
@@ -1190,15 +1008,17 @@ tbody tr.monitoring-case-row:hover {
         white-space: normal;
     }
 
-    .open-btn,
-    .log-btn {
-        font-size: 9px;
-        padding: 5px 5px;
-        display: block;
-        width: 100%;
-        text-align: center;
-        margin: 2px 0;
+    .open-btn {
+        font-size: 6px;
+        padding: 5px 4px;
     }
+
+    /* Ô DATE trên mobile: value xuống dòng tự do, 2 nút
+       ✏️ và 🗑️ xếp chồng bên dưới thay vì nằm cạnh nhau,
+       để không bị tràn sang ô SITE bên cạnh.
+       !important vì các rule mặc định (.date-value,
+       .row-actions) được định nghĩa sau khối media này
+       trong file và có cùng độ ưu tiên (specificity). */
 
     .date-value {
         white-space: normal !important;
@@ -1231,32 +1051,6 @@ tbody tr.monitoring-case-row:hover {
 
     .add-modal-footer {
         padding: 10px 15px;
-    }
-
-    .log-modal {
-        padding: 8px;
-    }
-
-    .log-modal-content {
-        height: 92vh;
-    }
-
-    .log-modal-header {
-        padding: 10px 12px;
-        font-size: 13px;
-    }
-
-    .log-zoom-btn,
-    .log-mode-btn,
-    .log-save-btn,
-    .log-close-btn {
-        font-size: 11px;
-        padding: 5px 8px;
-    }
-
-    .log-close-btn {
-        font-size: 18px;
-        padding: 1px 8px;
     }
 }
 
@@ -1860,122 +1654,6 @@ td.date-cell {
 
 
 <!-- =========================================================
-     LOG MODAL (view + edit log file content)
-     ========================================================= -->
-
-<div
-    class="log-modal"
-    id="logModal">
-
-<div class="log-modal-content">
-
-    <div class="log-modal-header">
-
-        <span
-            class="log-modal-title"
-            id="logModalTitle">
-
-            Log File
-
-        </span>
-
-
-        <div class="log-modal-controls">
-
-            <button
-                type="button"
-                class="log-zoom-btn"
-                onclick="zoomLog(-1)"
-                title="Thu nhỏ">
-
-                −
-
-            </button>
-
-
-            <span
-                class="log-zoom-label"
-                id="logZoomLabel">
-
-                100%
-
-            </span>
-
-
-            <button
-                type="button"
-                class="log-zoom-btn"
-                onclick="zoomLog(1)"
-                title="Phóng to">
-
-                +
-
-            </button>
-
-
-            <button
-                type="button"
-                class="log-mode-btn"
-                id="logModeToggle"
-                onclick="toggleLogMode()">
-
-                ✏️ Edit
-
-            </button>
-
-
-            <button
-                type="button"
-                class="log-save-btn"
-                id="logSaveBtn"
-                style="display:none;"
-                onclick="saveLogContent()">
-
-                💾 Save
-
-            </button>
-
-
-            <button
-                type="button"
-                class="log-close-btn"
-                onclick="closeLogModal()"
-                title="Close">
-
-                ×
-
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <div
-        class="log-modal-body"
-        id="logModalBody">
-
-        <pre
-            id="logViewer"
-            class="log-viewer">
-        </pre>
-
-
-        <textarea
-            id="logEditor"
-            class="log-editor"
-            style="display:none;"
-            placeholder="Nhập nội dung log...">
-        </textarea>
-
-    </div>
-
-</div>
-
-</div>
-
-
-<!-- =========================================================
      TOAST
      ========================================================= -->
 
@@ -2429,7 +2107,6 @@ function updateStatusChart() {
         statusChartLoaded = true;
 
         return;
-
     }
 
     Plotly.react(
@@ -3207,28 +2884,6 @@ function createOpenButton(value) {
 
 
 /* =========================================================
-   LOG BUTTON
-   ========================================================= */
-
-function createLogButton() {
-
-    return `
-
-        <button
-            type="button"
-            class="log-btn"
-            title="Xem / sửa log">
-
-            📄 Log
-
-        </button>
-
-    `;
-
-}
-
-
-/* =========================================================
    STATUS HTML
    ========================================================= */
 
@@ -3546,14 +3201,10 @@ function renderTable() {
                         );
 
 
-                    const logLink =
+                    const log =
                         createOpenButton(
                             item["LOG"]
                         );
-
-
-                    const logButton =
-                        createLogButton();
 
 
                     const ccLink =
@@ -3645,8 +3296,7 @@ function renderTable() {
 
 
                             <td>
-                                ${logLink}
-                                ${logButton}
+                                ${log}
                             </td>
 
 
@@ -5051,18 +4701,6 @@ function showAddConfirmation() {
 const BACKEND_API_URL =
     "https://issue-list-backend.quoctan91.workers.dev/add-issue";
 
-const GET_LOG_API_URL =
-    BACKEND_API_URL.replace(
-        /\/add-issue$/,
-        "/get-log"
-    );
-
-const SAVE_LOG_API_URL =
-    BACKEND_API_URL.replace(
-        /\/add-issue$/,
-        "/save-log"
-    );
-
 
 /* =========================================================
    SAVE NEW RECORD
@@ -5837,6 +5475,10 @@ function handleDeleteButtonClick(event, idx) {
         .add("show");
 }
 
+/* Mật khẩu bắt buộc phải nhập đúng thì mới thực sự xóa record.
+   So khớp phân biệt hoa thường (chính xác từng ký tự). */
+const DELETE_PASSWORD = "NATTEAM";
+
 function closeDeleteConfirm() {
 
     deleteTarget = null;
@@ -5847,6 +5489,8 @@ function closeDeleteConfirm() {
         .remove("show");
 }
 
+/* Bấm OK ở bước "Are you sure to delete ?" sẽ chuyển sang
+   bước nhập password, chưa xóa gì cả. */
 function proceedToDeletePassword() {
 
     document
@@ -5865,7 +5509,6 @@ function proceedToDeletePassword() {
         );
 
     input.value = "";
-    input.disabled = false;
     error.style.display = "none";
 
     document
@@ -5886,7 +5529,9 @@ function cancelDeletePassword() {
         .remove("show");
 }
 
-async function confirmDeletePassword() {
+/* Kiểm tra password. Đúng thì mới gọi performDeleteRecord()
+   để thực sự xóa; sai thì báo lỗi và cho nhập lại. */
+function confirmDeletePassword() {
 
     const input =
         document.getElementById(
@@ -5898,35 +5543,7 @@ async function confirmDeletePassword() {
             "deletePasswordError"
         );
 
-    const password =
-        input.value;
-
-    error.style.display = "none";
-    input.disabled = true;
-
-    const outcome =
-        await performDeleteRecord(
-            password
-        );
-
-    input.disabled = false;
-
-    if (outcome.status === "success") {
-
-        document
-            .getElementById("deletePasswordOverlay")
-            .classList
-            .remove("show");
-
-        deleteTarget = null;
-
-        return;
-    }
-
-    if (outcome.status === "wrong-password") {
-
-        error.textContent =
-            "Sai password, vui lòng thử lại.";
+    if (input.value !== DELETE_PASSWORD) {
 
         error.style.display = "block";
 
@@ -5941,12 +5558,19 @@ async function confirmDeletePassword() {
         .classList
         .remove("show");
 
-    deleteTarget = null;
+    performDeleteRecord();
 }
 
-async function performDeleteRecord(password) {
+async function performDeleteRecord() {
 
     const target = deleteTarget;
+
+    document
+        .getElementById("deleteConfirmOverlay")
+        .classList
+        .remove("show");
+
+    deleteTarget = null;
 
     if (
         !target ||
@@ -5958,7 +5582,7 @@ async function performDeleteRecord(password) {
             "error"
         );
 
-        return { status: "error" };
+        return;
     }
 
     const payload = {
@@ -5971,17 +5595,25 @@ async function performDeleteRecord(password) {
         "CC LINK": target["CC LINK"] || ""
     };
 
+    const index =
+        allData.indexOf(target);
+
+    /* Xóa ngay trên giao diện (optimistic) */
+
+    target._pendingDelete = true;
+
+    allData.splice(index, 1);
+
+    refreshAfterEdit();
+
     showToast(
         "Đang xóa...",
         "info"
     );
 
-    let response;
-    let result;
-
     try {
 
-        response =
+        const response =
             await fetch(
                 DELETE_API_URL,
                 {
@@ -5991,11 +5623,12 @@ async function performDeleteRecord(password) {
                             "application/json"
                     },
                     body: JSON.stringify({
-                        record: payload,
-                        password: password
+                        record: payload
                     })
                 }
             );
+
+        let result;
 
         try {
             result =
@@ -6007,6 +5640,20 @@ async function performDeleteRecord(password) {
             );
         }
 
+        if (
+            !response.ok ||
+            !result.success
+        ) {
+            throw new Error(
+                result.message ||
+                "Failed to delete record."
+            );
+        }
+
+        showToast(
+            "Record deleted successfully.",
+            "success"
+        );
     }
     catch (error) {
 
@@ -6015,6 +5662,14 @@ async function performDeleteRecord(password) {
             error
         );
 
+        /* Khôi phục lại record nếu xóa thất bại */
+
+        delete target._pendingDelete;
+
+        allData.splice(index, 0, target);
+
+        refreshAfterEdit();
+
         showToast(
             "Delete failed: " +
             error.message +
@@ -6022,495 +5677,10 @@ async function performDeleteRecord(password) {
             "error",
             5000
         );
-
-        return { status: "error" };
     }
-
-    if (response.status === 403) {
-
-        return { status: "wrong-password" };
-    }
-
-    if (
-        !response.ok ||
-        !result.success
-    ) {
-
-        showToast(
-            "Delete failed: " +
-            (result.message ||
-                "Unknown error") +
-            " — record was not deleted.",
-            "error",
-            5000
-        );
-
-        return { status: "error" };
-    }
-
-    /* Xóa thành công: cập nhật giao diện */
-
-    const index =
-        allData.indexOf(target);
-
-    allData.splice(index, 1);
-
-    refreshAfterEdit();
-
-    showToast(
-        "Record deleted successfully.",
-        "success"
-    );
-
-    return { status: "success" };
-
 }
 
 
-/* =========================================================
-   LOG MODAL (VIEW + EDIT LOG FILE)
-   ========================================================= */
-
-let logCurrentRecord = null;
-
-let logCurrentFileName = null;
-
-let logZoomLevel = 1;
-
-let logEditMode = false;
-
-
-function handleLogButtonClick(event, idx) {
-
-    event.preventDefault();
-    event.stopPropagation();
-
-    const record =
-        filteredData[Number(idx)];
-
-    if (!record) {
-        return;
-    }
-
-    if (
-        record._pendingId ||
-        record._pendingEdit ||
-        record._pendingDelete
-    ) {
-
-        showToast(
-            "Record đang được xử lý, vui lòng thử lại sau.",
-            "info"
-        );
-
-        return;
-    }
-
-    openLogModal(record);
-}
-
-
-function openLogModal(record) {
-
-    if (!record) {
-        return;
-    }
-
-    logCurrentRecord = record;
-
-    logCurrentFileName = null;
-
-    logZoomLevel = 1;
-
-    logEditMode = false;
-
-
-    document
-        .getElementById("logModalTitle")
-        .textContent =
-            "Log — " +
-            (record.SITE || "") +
-            " — " +
-            formatDateForExport(record.DATE);
-
-
-    const viewer =
-        document.getElementById("logViewer");
-
-    viewer.textContent = "Đang tải...";
-
-    viewer.style.display = "block";
-
-    viewer.style.transform = "scale(1)";
-
-    viewer.style.width = "";
-
-
-    const editor =
-        document.getElementById("logEditor");
-
-    editor.style.display = "none";
-
-
-    document
-        .getElementById("logSaveBtn")
-        .style.display = "none";
-
-
-    document
-        .getElementById("logModeToggle")
-        .textContent = "✏️ Edit";
-
-
-    document
-        .getElementById("logZoomLabel")
-        .textContent = "100%";
-
-
-    document
-        .getElementById("logModal")
-        .classList.add("show");
-
-
-    fetchLogContent(record);
-
-}
-
-
-async function fetchLogContent(record) {
-
-    try {
-
-        const res =
-            await fetch(
-                GET_LOG_API_URL,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-                    body: JSON.stringify({
-                        record: {
-                            DATE: record["DATE"],
-                            SITE: record["SITE"],
-                            "ISSUE AND REQUEST":
-                                record[
-                                    "ISSUE AND REQUEST"
-                                ],
-                            STATUS:
-                                record["STATUS"],
-                            LOG:
-                                record["LOG"] || "",
-                            "CC LINK":
-                                record["CC LINK"] || ""
-                        }
-                    })
-                }
-            );
-
-
-        const data =
-            await res.json();
-
-
-        if (!data.success) {
-
-            throw new Error(
-                data.message ||
-                "Cannot load log."
-            );
-
-        }
-
-
-        logCurrentFileName =
-            data.fileName;
-
-
-        const viewer =
-            document.getElementById("logViewer");
-
-
-        viewer.textContent =
-
-            data.content &&
-            data.content.length
-
-                ? data.content
-
-                : "(File log rỗng — ấn ✏️ Edit để viết)";
-
-    }
-
-    catch (err) {
-
-        console.error(err);
-
-        document
-            .getElementById("logViewer")
-            .textContent =
-                "Không tải được log: " +
-                err.message;
-
-    }
-
-}
-
-
-function closeLogModal() {
-
-    document
-        .getElementById("logModal")
-        .classList.remove("show");
-
-
-    logCurrentRecord = null;
-
-    logCurrentFileName = null;
-
-    logEditMode = false;
-
-}
-
-
-function zoomLog(direction) {
-
-    const step = 0.15;
-
-    logZoomLevel =
-        Math.max(
-            0.5,
-            Math.min(
-                3,
-                logZoomLevel +
-                direction * step
-            )
-        );
-
-
-    const viewer =
-        document.getElementById("logViewer");
-
-
-    viewer.style.transform =
-        `scale(${logZoomLevel})`;
-
-
-    /* Điều chỉnh chiều rộng để không bị cắt khi zoom > 1 */
-
-    viewer.style.width =
-        (100 / logZoomLevel) + "%";
-
-
-    document
-        .getElementById("logZoomLabel")
-        .textContent =
-            Math.round(
-                logZoomLevel * 100
-            ) + "%";
-
-}
-
-
-function toggleLogMode() {
-
-    if (!logCurrentRecord) {
-        return;
-    }
-
-
-    logEditMode = !logEditMode;
-
-
-    const viewer =
-        document.getElementById("logViewer");
-
-    const editor =
-        document.getElementById("logEditor");
-
-    const saveBtn =
-        document.getElementById("logSaveBtn");
-
-    const modeBtn =
-        document.getElementById("logModeToggle");
-
-
-    if (logEditMode) {
-
-        editor.value =
-
-            viewer.textContent ===
-            "(File log rỗng — ấn ✏️ Edit để viết)"
-
-                ? ""
-
-                : viewer.textContent;
-
-
-        editor.style.display = "block";
-
-        viewer.style.display = "none";
-
-        saveBtn.style.display =
-            "inline-block";
-
-        modeBtn.textContent =
-            "👁 View";
-
-
-        /* Reset zoom khi edit */
-
-        logZoomLevel = 1;
-
-        viewer.style.transform =
-            "scale(1)";
-
-        viewer.style.width = "";
-
-        document
-            .getElementById("logZoomLabel")
-            .textContent = "100%";
-
-    }
-
-    else {
-
-        viewer.style.display = "block";
-
-        editor.style.display = "none";
-
-        saveBtn.style.display = "none";
-
-        modeBtn.textContent =
-            "✏️ Edit";
-
-    }
-
-}
-
-
-async function saveLogContent() {
-
-    if (
-        !logCurrentRecord ||
-        !logCurrentFileName
-    ) {
-
-        showToast(
-            "Không tìm thấy file log.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    const content =
-        document.getElementById(
-            "logEditor"
-        ).value;
-
-
-    const saveBtn =
-        document.getElementById("logSaveBtn");
-
-
-    saveBtn.disabled = true;
-
-    saveBtn.textContent = "Đang lưu...";
-
-
-    try {
-
-        const res =
-            await fetch(
-                SAVE_LOG_API_URL,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-                    body: JSON.stringify({
-                        record: {
-                            DATE: logCurrentRecord["DATE"],
-                            SITE: logCurrentRecord["SITE"],
-                            "ISSUE AND REQUEST":
-                                logCurrentRecord[
-                                    "ISSUE AND REQUEST"
-                                ],
-                            STATUS:
-                                logCurrentRecord["STATUS"],
-                            LOG:
-                                logCurrentRecord["LOG"] || "",
-                            "CC LINK":
-                                logCurrentRecord["CC LINK"] || ""
-                        },
-                        content: content
-                    })
-                }
-            );
-
-
-        const data =
-            await res.json();
-
-
-        if (!data.success) {
-
-            throw new Error(
-                data.message ||
-                "Save failed."
-            );
-
-        }
-
-
-        document
-            .getElementById("logViewer")
-            .textContent =
-
-            content.length
-
-                ? content
-
-                : "(File log rỗng — ấn ✏️ Edit để viết)";
-
-
-        showToast(
-            "Đã lưu log.",
-            "success"
-        );
-
-
-        toggleLogMode();
-
-    }
-
-    catch (err) {
-
-        console.error(err);
-
-        showToast(
-            "Lưu log thất bại: " +
-            err.message,
-            "error",
-            5000
-        );
-
-    }
-
-    finally {
-
-        saveBtn.disabled = false;
-
-        saveBtn.textContent = "💾 Save";
-
-    }
-
-}
 
 
 /* =========================================================
@@ -6524,3 +5694,4 @@ loadData();
 </body>
 
 </html>
+
