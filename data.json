@@ -488,10 +488,10 @@
         "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00001ChFagYAF"
     },
     {
-        "DATE": "08-03-2026",
+        "DATE": "08/03/26",
         "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
         "ISSUE AND REQUEST": "所有机台&吸嘴清洗机在更换吸嘴或给出下吸嘴指令时都存在误识别将空位置识别为有吸嘴，从而导致报错8F5D0000（吸嘴返回时，没有可以收存该吸嘴的存放格）All machines and SNC have a misrecognition issue when replacing nozzles or issuing a nozzle-down command. An empty slot may be incorrectly detected as occupied by a nozzle, resulting in error 8F5D0000: “When returning the nozzle, there is no available storage slot to store the nozzle.”",
-        "STATUS": "open",
+        "STATUS": "Monitoring",
         "LOG": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQAWVXaDcMi_SZMHrC1rwP2YAV6XRgF1jhI-bGLY5BEiWI8",
         "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00001B4Q8OYAV"
     },
@@ -622,5 +622,21 @@
         "STATUS": "open",
         "LOG": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQAIMVEVaOwORI3co8-HP9HiAWGMFqlCOZxo4e2u9g-f_WM",
         "CC LINK": "https://community.fuji.co.jp/ccrs/500TK000017d9uxYAA"
+    },
+    {
+        "DATE": "09/29/26",
+        "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
+        "ISSUE AND REQUEST": "Wu Yun Feng request\nProvide 60 pcs of waste tape box bracket\nPart number 2AHEPG009200\n武云峰申请富士免费提供60个垃圾箱盖板\n料号 2AHEPG009200",
+        "STATUS": "Open",
+        "LOG": "",
+        "CC LINK": ""
+    },
+    {
+        "DATE": "09/29/26",
+        "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
+        "ISSUE AND REQUEST": "Wu Yun Feng request FMV provide FOC  head repair support for 3 placing head\nNote : Customer will provide spare part, FMV will provide FOC labour cost\n武云峰申请fmv提供FOC工作头维护。总共有3个工作头。\n备注：客户提供备件。fmv提供foc维护服务",
+        "STATUS": "Monitoring",
+        "LOG": "",
+        "CC LINK": ""
     }
 ]
