@@ -6392,13 +6392,10 @@ function toggleLogMode() {
 
 async function saveLogContent() {
 
-    if (
-        !logCurrentRecord ||
-        !logCurrentFileName
-    ) {
+    if (!logCurrentRecord) {
 
         showToast(
-            "Không tìm thấy file log.",
+            "Không tìm thấy record.",
             "error"
         );
 
@@ -6464,6 +6461,16 @@ async function saveLogContent() {
                 data.message ||
                 "Save failed."
             );
+
+        }
+
+
+        /* Backend có thể trả về fileName mới nếu vừa tạo file */
+
+        if (data.fileName) {
+
+            logCurrentFileName =
+                data.fileName;
 
         }
 
