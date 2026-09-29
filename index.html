@@ -1060,38 +1060,60 @@ tbody tr.monitoring-case-row:hover {
     overflow: auto;
     background: #fafafa;
     padding: 14px;
+    display: flex;
+    flex-direction: column;
 }
 
-.log-viewer {
-    margin: 0;
-    white-space: pre-wrap;
-    word-break: break-word;
-    font-family: Consolas, Monaco, "Courier New", monospace;
-    font-size: 14px;
-    line-height: 1.55;
-    color: #222;
-    transform-origin: top left;
-    transition: transform 0.15s ease;
-}
-
-.log-editor {
+/* iframe hiển thị HTML (đã render) */
+.log-viewer-iframe {
+    flex: 1;
     width: 100%;
-    height: 100%;
-    min-height: 400px;
+    min-height: 500px;
     border: 1px solid #ccc;
     border-radius: 6px;
-    padding: 12px;
-    font-family: Consolas, Monaco, "Courier New", monospace;
-    font-size: 14px;
-    line-height: 1.55;
-    resize: none;
+    background: #fff;
+    display: block;
     box-sizing: border-box;
 }
 
-.log-editor:focus {
+/* editor contenteditable cho phép dán ảnh */
+.log-editor-rich {
+    flex: 1;
+    width: 100%;
+    min-height: 500px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 1.55;
+    background: #fff;
+    color: #222;
+    box-sizing: border-box;
+    overflow-y: auto;
     outline: none;
+}
+
+.log-editor-rich:focus {
     border-color: #1976d2;
     box-shadow: 0 0 0 2px rgba(25,118,210,0.12);
+}
+
+.log-editor-rich:empty::before {
+    content: attr(data-placeholder);
+    color: #999;
+    font-style: italic;
+    pointer-events: none;
+}
+
+/* Hình ảnh trong editor */
+.log-editor-rich img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+    margin: 6px 0;
+    display: block;
 }
 
 
@@ -1955,18 +1977,21 @@ td.date-cell {
         class="log-modal-body"
         id="logModalBody">
 
-        <pre
+        <iframe
             id="logViewer"
-            class="log-viewer">
-        </pre>
+            class="log-viewer-iframe"
+            sandbox="allow-same-origin"
+            referrerpolicy="no-referrer">
+        </iframe>
 
 
-        <textarea
+        <div
             id="logEditor"
-            class="log-editor"
+            class="log-editor-rich"
+            contenteditable="true"
             style="display:none;"
-            placeholder="Nhập nội dung log...">
-        </textarea>
+            data-placeholder="Nhập nội dung log, có thể dán ảnh bằng Ctrl+V...">
+        </div>
 
     </div>
 
@@ -3228,6 +3253,7 @@ function createLogButton(idx) {
 
 }
 
+
 /* =========================================================
    STATUS HTML
    ========================================================= */
@@ -3553,7 +3579,7 @@ function renderTable() {
 
 
                     const logButton =
-    			createLogButton(startIndex + i);
+                        createLogButton(startIndex + i);
 
 
                     const ccLink =
@@ -4577,8 +4603,7 @@ function renderAddSiteStep() {
         </label>
 
 
-        <select
-            id="addSite"
+        <select            id="addSite"
             class="add-select">
 
             ${options}
@@ -6028,7 +6053,30 @@ async function performDeleteRecord(password) {
 
     if (response.status === 403) {
 
-        return { status: "wrong-password" };
+        const msg =
+            String(
+                (result && result.message) || ""
+            ).toLowerCase();
+
+        /* Chỉ coi là sai password khi backend nói rõ */
+
+        if (msg.includes("password")) {
+
+            return { status: "wrong-password" };
+
+        }
+
+        /* Các 403 khác (Origin not allowed, ...) → báo lỗi thật */
+
+        showToast(
+            "Lỗi 403: " +
+            (result.message || "Unknown"),
+            "error",
+            5000
+        );
+
+        return { status: "error" };
+
     }
 
     if (
@@ -6075,6 +6123,8 @@ let logCurrentRecord = null;
 
 let logCurrentFileName = null;
 
+let logCurrentContent = "";
+
 let logZoomLevel = 1;
 
 let logEditMode = false;
@@ -6120,6 +6170,8 @@ function openLogModal(record) {
 
     logCurrentFileName = null;
 
+    logCurrentContent = "";
+
     logZoomLevel = 1;
 
     logEditMode = false;
@@ -6137,17 +6189,17 @@ function openLogModal(record) {
     const viewer =
         document.getElementById("logViewer");
 
-    viewer.textContent = "Đang tải...";
+    /* Reset iframe */
+
+    viewer.srcdoc = "<!DOCTYPE html><html><body style='font-family:Arial;color:#888;padding:14px;'>Đang tải...</body></html>";
 
     viewer.style.display = "block";
-
-    viewer.style.transform = "scale(1)";
-
-    viewer.style.width = "";
 
 
     const editor =
         document.getElementById("logEditor");
+
+    editor.innerHTML = "";
 
     editor.style.display = "none";
 
@@ -6228,18 +6280,17 @@ async function fetchLogContent(record) {
             data.fileName;
 
 
-        const viewer =
-            document.getElementById("logViewer");
-
-
-        viewer.textContent =
+        logCurrentContent =
 
             data.content &&
             data.content.length
 
                 ? data.content
 
-                : "(File log rỗng — ấn ✏️ Edit để viết)";
+                : "";
+
+
+        renderLogInViewer(logCurrentContent);
 
     }
 
@@ -6247,13 +6298,103 @@ async function fetchLogContent(record) {
 
         console.error(err);
 
-        document
-            .getElementById("logViewer")
-            .textContent =
-                "Không tải được log: " +
-                err.message;
+        renderLogInViewer(
+            "<p style='color:#dc3545;'>Không tải được log: " +
+            escapeHTML(err.message) +
+            "</p>"
+        );
 
     }
+
+}
+
+
+/* =========================================================
+   RENDER LOG TRONG IFRAME
+   ========================================================= */
+
+function renderLogInViewer(htmlContent) {
+
+    const viewer =
+        document.getElementById("logViewer");
+
+
+    /* Nếu file log được tạo ra với đuôi .txt (record cũ),
+       nội dung là text thuần → wrap trong <pre> để giữ
+       nguyên format, escape HTML để tránh render nhầm. */
+
+    const isLegacyText =
+        logCurrentFileName &&
+        logCurrentFileName.endsWith(".txt");
+
+
+    let bodyHtml;
+
+
+    if (isLegacyText) {
+
+        bodyHtml =
+            htmlContent && htmlContent.length
+                ? "<pre style='white-space:pre-wrap;word-break:break-word;font-family:Consolas,Monaco,monospace;margin:0;'>" +
+                  escapeHTML(htmlContent) +
+                  "</pre>"
+                : "<p style='color:#999;font-style:italic;'>File log rỗng — ấn ✏️ Edit để viết</p>";
+
+    }
+
+    else {
+
+        bodyHtml =
+            htmlContent && htmlContent.length
+                ? htmlContent
+                : "<p style='color:#999;font-style:italic;'>File log rỗng — ấn ✏️ Edit để viết</p>";
+
+    }
+
+
+    /* Wrap trong HTML hoàn chỉnh với style đẹp */
+
+    const fullHtml = `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+    body {
+        margin: 0;
+        padding: 14px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        line-height: 1.55;
+        color: #222;
+        background: #ffffff;
+    }
+    img {
+        max-width: 100%;
+        height: auto;
+        border: 1px solid #e5e7eb;
+        border-radius: 4px;
+        margin: 6px 0;
+        display: block;
+    }
+    p { margin: 6px 0; }
+    ul, ol { margin: 6px 0; padding-left: 24px; }
+    h1, h2, h3 { margin: 10px 0 6px; }
+    a { color: #1976d2; }
+    pre {
+        white-space: pre-wrap;
+        word-break: break-word;
+        font-family: Consolas, Monaco, monospace;
+        margin: 0;
+    }
+</style>
+</head>
+<body>
+${bodyHtml}
+</body>
+</html>`;
+
+
+    viewer.srcdoc = fullHtml;
 
 }
 
@@ -6269,12 +6410,22 @@ function closeLogModal() {
 
     logCurrentFileName = null;
 
+    logCurrentContent = "";
+
     logEditMode = false;
 
 }
 
 
 function zoomLog(direction) {
+
+    /* Zoom cho iframe: đổi trực tiếp font-size trong iframe.
+       Cách này cho kết quả tự nhiên hơn transform. */
+
+    if (!logCurrentRecord) {
+        return;
+    }
+
 
     const step = 0.15;
 
@@ -6293,14 +6444,30 @@ function zoomLog(direction) {
         document.getElementById("logViewer");
 
 
-    viewer.style.transform =
-        `scale(${logZoomLevel})`;
+    try {
+
+        const doc =
+            viewer.contentDocument ||
+            viewer.contentWindow.document;
 
 
-    /* Điều chỉnh chiều rộng để không bị cắt khi zoom > 1 */
+        if (doc && doc.body) {
 
-    viewer.style.width =
-        (100 / logZoomLevel) + "%";
+            doc.body.style.fontSize =
+                (14 * logZoomLevel) + "px";
+
+        }
+
+    }
+
+    catch (err) {
+
+        console.warn(
+            "Không thể zoom iframe:",
+            err
+        );
+
+    }
 
 
     document
@@ -6338,14 +6505,35 @@ function toggleLogMode() {
 
     if (logEditMode) {
 
-        editor.value =
+        /* Đổ nội dung hiện tại vào editor.
+           - Record cũ (.txt): escape text và wrap <pre> để giữ format.
+           - Record mới (.html): dùng trực tiếp. */
 
-            viewer.textContent ===
-            "(File log rỗng — ấn ✏️ Edit để viết)"
+        const isLegacyText =
+            logCurrentFileName &&
+            logCurrentFileName.endsWith(".txt");
 
-                ? ""
 
-                : viewer.textContent;
+        if (isLegacyText) {
+
+            editor.innerHTML =
+
+                logCurrentContent.length
+
+                    ? "<pre>" +
+                      escapeHTML(logCurrentContent) +
+                      "</pre>"
+
+                    : "";
+
+        }
+
+        else {
+
+            editor.innerHTML =
+                logCurrentContent || "";
+
+        }
 
 
         editor.style.display = "block";
@@ -6362,11 +6550,6 @@ function toggleLogMode() {
         /* Reset zoom khi edit */
 
         logZoomLevel = 1;
-
-        viewer.style.transform =
-            "scale(1)";
-
-        viewer.style.width = "";
 
         document
             .getElementById("logZoomLabel")
@@ -6404,14 +6587,38 @@ async function saveLogContent() {
     }
 
 
-    const content =
-        document.getElementById(
-            "logEditor"
-        ).value;
-
+    const editor =
+        document.getElementById("logEditor");
 
     const saveBtn =
         document.getElementById("logSaveBtn");
+
+
+    /* Lấy nội dung HTML từ contenteditable.
+       - Record cũ (.txt): lấy innerText để giữ định dạng text.
+       - Record mới (.html): lấy innerHTML đầy đủ (có ảnh base64). */
+
+    const isLegacyText =
+        logCurrentFileName &&
+        logCurrentFileName.endsWith(".txt");
+
+
+    let content;
+
+
+    if (isLegacyText) {
+
+        content =
+            editor.innerText || "";
+
+    }
+
+    else {
+
+        content =
+            editor.innerHTML || "";
+
+    }
 
 
     saveBtn.disabled = true;
@@ -6475,15 +6682,11 @@ async function saveLogContent() {
         }
 
 
-        document
-            .getElementById("logViewer")
-            .textContent =
+        logCurrentContent =
+            content;
 
-            content.length
 
-                ? content
-
-                : "(File log rỗng — ấn ✏️ Edit để viết)";
+        renderLogInViewer(content);
 
 
         showToast(
@@ -6521,10 +6724,225 @@ async function saveLogContent() {
 
 
 /* =========================================================
+   PASTE IMAGE SUPPORT (dán ảnh trực tiếp vào editor)
+   ========================================================= */
+
+function setupPasteImageSupport() {
+
+    const editor =
+        document.getElementById("logEditor");
+
+    if (!editor) {
+        return;
+    }
+
+
+    editor.addEventListener(
+        "paste",
+        function(event) {
+
+            const items =
+                (event.clipboardData ||
+                 event.originalEvent.clipboardData)
+                    .items;
+
+
+            for (
+                let i = 0;
+                i < items.length;
+                i++
+            ) {
+
+                const item = items[i];
+
+
+                if (
+                    item.type &&
+                    item.type.indexOf("image") === 0
+                ) {
+
+                    const file =
+                        item.getAsFile();
+
+
+                    if (file) {
+
+                        event.preventDefault();
+
+                        insertImageFile(file);
+
+                    }
+
+                    break;
+
+                }
+
+            }
+
+        },
+        false
+    );
+
+
+    /* Cho phép drag & drop ảnh vào editor */
+
+    editor.addEventListener(
+        "dragover",
+        function(event) {
+            event.preventDefault();
+        }
+    );
+
+
+    editor.addEventListener(
+        "drop",
+        function(event) {
+
+            const files =
+                event.dataTransfer &&
+                event.dataTransfer.files;
+
+
+            if (
+                files &&
+                files.length > 0
+            ) {
+
+                for (
+                    let i = 0;
+                    i < files.length;
+                    i++
+                ) {
+
+                    const file = files[i];
+
+
+                    if (
+                        file.type &&
+                        file.type.indexOf("image") === 0
+                    ) {
+
+                        event.preventDefault();
+
+                        insertImageFile(file);
+
+                        break;
+
+                    }
+
+                }
+
+            }
+
+        }
+    );
+
+}
+
+
+function insertImageFile(file) {
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload =
+        function(loadEvent) {
+
+            const dataUrl =
+                loadEvent.target.result;
+
+
+            const img =
+                document.createElement("img");
+
+            img.src = dataUrl;
+
+            img.style.maxWidth = "100%";
+
+            img.style.height = "auto";
+
+            img.style.border = "1px solid #e5e7eb";
+
+            img.style.borderRadius = "4px";
+
+            img.style.margin = "6px 0";
+
+            img.style.display = "block";
+
+
+            const editor =
+                document.getElementById("logEditor");
+
+
+            /* Chèn vào vị trí con trỏ */
+
+            const selection =
+                window.getSelection();
+
+
+            if (
+                selection &&
+                selection.rangeCount > 0
+            ) {
+
+                const range =
+                    selection.getRangeAt(0);
+
+                range.deleteContents();
+
+                range.insertNode(img);
+
+                range.setStartAfter(img);
+
+                range.collapse(true);
+
+                selection.removeAllRanges();
+
+                selection.addRange(range);
+
+            }
+
+            else {
+
+                editor.appendChild(img);
+
+            }
+
+
+            editor.focus();
+
+        };
+
+
+    reader.readAsDataURL(file);
+
+}
+
+
+/* =========================================================
    START
    ========================================================= */
 
 loadData();
+
+
+/* Đăng ký paste support sau khi DOM sẵn sàng */
+
+if (document.readyState === "loading") {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        setupPasteImageSupport
+    );
+
+}
+
+else {
+
+    setupPasteImageSupport();
+
+}
 
 </script>
 
