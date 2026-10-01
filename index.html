@@ -1,22 +1,9 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<link
-    rel="icon"
-    type="image/png"
-    href="folder.png"
->
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
-
+<link rel="icon" type="image/png" href="folder.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NA TEAM Issue List Management</title>
 
 <!-- PLOTLY -->
@@ -25,19 +12,13 @@
 <!-- SHEETJS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
-
 <style>
-
 /* =========================
    GLOBAL
    ========================= */
+* { box-sizing: border-box; }
 
-* {
-    box-sizing: border-box;
-}
-
-html,
-body {
+html, body {
     margin: 0;
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
@@ -45,15 +26,11 @@ body {
     color: #222;
 }
 
-body {
-    min-height: 100vh;
-}
-
+body { min-height: 100vh; }
 
 /* =========================
    HEADER
    ========================= */
-
 .header {
     position: sticky;
     top: 0;
@@ -63,9 +40,7 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
 }
 
-.header-inner {
-    padding: 14px 20px;
-}
+.header-inner { padding: 14px 20px; }
 
 .title {
     font-size: 24px;
@@ -73,11 +48,9 @@ body {
     margin-bottom: 12px;
 }
 
-
 /* =========================
    SEARCH
    ========================= */
-
 .search-area {
     display: flex;
     gap: 10px;
@@ -101,11 +74,9 @@ body {
     box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
 }
 
-
 /* =========================
    FILTER AREA
    ========================= */
-
 .filter-area {
     display: flex;
     flex-direction: column;
@@ -126,10 +97,7 @@ body {
     padding: 6px;
 }
 
-.filter-row::-webkit-scrollbar {
-    height: 5px;
-}
-
+.filter-row::-webkit-scrollbar { height: 5px; }
 .filter-row::-webkit-scrollbar-thumb {
     background: #bbb;
     border-radius: 5px;
@@ -151,95 +119,62 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }
 
-
 /* =========================
    ACTIVE
    ========================= */
-
 .filter-btn.active {
     border: 2px solid #ff0000;
-
     box-shadow:
         0 4px 8px rgba(0, 0, 0, 0.30),
         0 0 0 2px rgba(255, 0, 0, 0.15);
-
     transform: translateY(-2px);
 }
-
 
 /* =========================
    BU
    ========================= */
-
 .bu-btn {
     background: #1976d2;
     color: white;
 }
 
-
 /* =========================
    STATUS
    ========================= */
-
-.status-filter-btn {
-    color: white;
-}
-
-.open-case-btn {
-    background: #dc3545;
-}
-
-.close-case-btn {
-    background: #198754;
-}
-
-.monitoring-case-btn {
-    background: #d97706;
-}
-
+.status-filter-btn { color: white; }
+.open-case-btn { background: #dc3545; }
+.close-case-btn { background: #198754; }
+.monitoring-case-btn { background: #d97706; }
 
 /* =========================
    ADD
    ========================= */
-
 .add-btn {
     background: #6f42c1;
     color: white;
 }
-
-.add-btn:hover {
-    background: #59359a;
-}
-
+.add-btn:hover { background: #59359a; }
 
 /* =========================
    EXPORT
    ========================= */
-
 .export-btn {
     background: #0d7c4a;
     color: white;
 }
-
-.export-btn:hover {
-    background: #0a6039;
-}
-
+.export-btn:hover { background: #0a6039; }
 
 /* =========================
    CLEAR
    ========================= */
-
 .clear-btn {
     background: #d32f2f;
     color: white;
 }
 
-
 /* =========================
    CHART
    ========================= */
-
 .chart-container {
     margin: 10px 20px 0 20px;
     background: #ffffff;
@@ -248,7 +183,6 @@ body {
     padding: 5px;
     height: 45px;
     overflow: hidden;
-
     transition:
         height 0.25s ease,
         padding 0.25s ease;
@@ -277,20 +211,14 @@ body {
     position: absolute;
     right: 0;
     top: 0;
-
     border: none;
     border-radius: 5px;
-
     padding: 6px 10px;
-
     background: #555;
     color: white;
-
     font-size: 11px;
     font-weight: bold;
-
     cursor: pointer;
-
     transition: 0.15s ease;
 }
 
@@ -299,28 +227,18 @@ body {
     transform: translateY(-1px);
 }
 
-.chart-container:not(.show-chart) .chart-title {
-    display: none;
-}
-
-.chart-container:not(.show-chart) .chart-header {
-    min-height: 33px;
-}
-
-.chart-container:not(.show-chart) .chart-toggle-btn {
-    position: static;
-}
+.chart-container:not(.show-chart) .chart-title { display: none; }
+.chart-container:not(.show-chart) .chart-header { min-height: 33px; }
+.chart-container:not(.show-chart) .chart-toggle-btn { position: static; }
 
 #statusChart {
     width: 100%;
     height: 320px;
 }
 
-
 /* =========================
    PAGINATION
    ========================= */
-
 .pagination-top {
     display: flex;
     justify-content: center;
@@ -341,36 +259,26 @@ body {
     font-size: 13px;
 }
 
-.page-btn:hover:not(:disabled) {
-    background: #eee;
-}
-
-.page-btn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-}
+.page-btn:hover:not(:disabled) { background: #eee; }
+.page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
 .page-info {
     font-size: 13px;
     font-weight: bold;
 }
 
-
 /* =========================
    RECORD COUNT
    ========================= */
-
 .record-info {
     margin: 10px 20px 0 20px;
     font-size: 13px;
     color: #555;
 }
 
-
 /* =========================
    TABLE
    ========================= */
-
 .table-container {
     margin: 10px 20px 0 20px;
     background: white;
@@ -386,199 +294,95 @@ table {
     border-collapse: collapse;
 }
 
-
 /* =========================
    TABLE HEADER
    ========================= */
-
 thead th {
     position: sticky;
     top: 0;
     z-index: 10;
-
     background: #222;
     color: white;
-
     padding: 10px 6px;
-
     border: 1px solid #ddd;
-
     text-align: center;
-
     font-size: 13px;
-
     white-space: normal;
     word-break: break-word;
 }
 
-
 /* =========================
    TABLE BODY
    ========================= */
-
 tbody td {
     border: 1px solid #ddd;
-
     padding: 8px 6px;
-
     font-size: 13px;
-
     vertical-align: top;
-
     overflow-wrap: anywhere;
     word-break: break-word;
 }
 
-tbody tr:nth-child(even) {
-    background: #fafafa;
-}
-
-tbody tr:hover {
-    filter: brightness(0.97);
-}
-
+tbody tr:nth-child(even) { background: #fafafa; }
+tbody tr:hover { filter: brightness(0.97); }
 
 /* =========================
    COLUMN WIDTH
    ========================= */
-
-th:nth-child(1),
-td:nth-child(1) {
-    width: 10%;
-    text-align: center;
-}
-
-th:nth-child(2),
-td:nth-child(2) {
-    width: 16%;
-}
-
-th:nth-child(3),
-td:nth-child(3) {
+th:nth-child(1), td:nth-child(1) { width: 10%; text-align: center; }
+th:nth-child(2), td:nth-child(2) { width: 16%; }
+th:nth-child(3), td:nth-child(3) {
     width: 40%;
     white-space: pre-line;
     text-align: left;
 }
-
-th:nth-child(4),
-td:nth-child(4) {
-    width: 14%;
-    text-align: center;
-}
-
-th:nth-child(5),
-td:nth-child(5) {
-    width: 10%;
-    text-align: center;
-}
-
-th:nth-child(6),
-td:nth-child(6) {
-    width: 10%;
-    text-align: center;
-}
-
+th:nth-child(4), td:nth-child(4) { width: 14%; text-align: center; }
+th:nth-child(5), td:nth-child(5) { width: 10%; text-align: center; }
+th:nth-child(6), td:nth-child(6) { width: 10%; text-align: center; }
 
 /* =========================
    STATUS ROW
    ========================= */
-
-tbody tr.open-case-row {
-    background: #f8d7da !important;
-}
-
-tbody tr.open-case-row:hover {
-    background: #f1bfc3 !important;
-}
-
-tbody tr.closed-case-row {
-    background: #d4edda !important;
-}
-
-tbody tr.closed-case-row:hover {
-    background: #bee5c5 !important;
-}
-
-tbody tr.monitoring-case-row {
-    background: #ffe5c2 !important;
-}
-
-tbody tr.monitoring-case-row:hover {
-    background: #ffd59f !important;
-}
-
+tbody tr.open-case-row { background: #f8d7da !important; }
+tbody tr.open-case-row:hover { background: #f1bfc3 !important; }
+tbody tr.closed-case-row { background: #d4edda !important; }
+tbody tr.closed-case-row:hover { background: #bee5c5 !important; }
+tbody tr.monitoring-case-row { background: #ffe5c2 !important; }
+tbody tr.monitoring-case-row:hover { background: #ffd59f !important; }
 
 /* =========================
    STATUS BADGE
    ========================= */
-
 .status {
     display: inline-block;
-
     padding: 5px 7px;
-
     border-radius: 5px;
-
     font-size: 11px;
-
     font-weight: bold;
-
     white-space: nowrap;
-
     max-width: 100%;
 }
 
-.status-monitoring {
-    background: #fff3cd;
-    color: #856404;
-}
-
-.status-closed {
-    background: #d4edda;
-    color: #155724;
-}
-
-.status-ng {
-    background: #f8d7da;
-    color: #721c24;
-}
-
-.status-open {
-    background: #dc3545;
-    color: white;
-}
-
-.status-default {
-    background: #e2e3e5;
-    color: #383d41;
-}
-
+.status-monitoring { background: #fff3cd; color: #856404; }
+.status-closed { background: #d4edda; color: #155724; }
+.status-ng { background: #f8d7da; color: #721c24; }
+.status-open { background: #dc3545; color: white; }
+.status-default { background: #e2e3e5; color: #383d41; }
 
 /* =========================
    OPEN BUTTON
    ========================= */
-
 .open-btn {
     display: inline-block;
-
     padding: 6px 8px;
-
     background: #1976d2;
-
     color: white;
-
     text-decoration: none;
-
     border-radius: 5px;
-
     font-size: 11px;
-
     font-weight: bold;
-
     cursor: pointer;
-
     transition: 0.15s;
-
     margin: 2px 0;
 }
 
@@ -587,32 +391,20 @@ tbody tr.monitoring-case-row:hover {
     transform: translateY(-1px);
 }
 
-
 /* =========================
    LOG BUTTON
    ========================= */
-
 .log-btn {
     display: inline-block;
-
     padding: 6px 8px;
-
     background: #6f42c1;
-
     color: white;
-
     border: none;
-
     border-radius: 5px;
-
     font-size: 11px;
-
     font-weight: bold;
-
     cursor: pointer;
-
     transition: 0.15s;
-
     margin: 2px 0;
 }
 
@@ -621,11 +413,9 @@ tbody tr.monitoring-case-row:hover {
     transform: translateY(-1px);
 }
 
-
 /* =========================
    MESSAGE
    ========================= */
-
 .message {
     text-align: center;
     padding: 30px;
@@ -633,63 +423,41 @@ tbody tr.monitoring-case-row:hover {
     font-size: 14px;
 }
 
-
 /* =========================================================
    ADD MODAL
    ========================================================= */
-
 .add-modal {
     display: none;
-
     position: fixed;
-
     inset: 0;
-
     z-index: 5000;
-
     background: rgba(0, 0, 0, 0.50);
-
     align-items: center;
     justify-content: center;
-
     padding: 15px;
 }
 
-.add-modal.show {
-    display: flex;
-}
+.add-modal.show { display: flex; }
 
 .add-modal-content {
     width: 100%;
-
     max-width: 560px;
-
     max-height: 90vh;
-
     background: white;
-
     border-radius: 10px;
-
-    box-shadow:
-        0 10px 35px rgba(0,0,0,0.35);
-
+    box-shadow: 0 10px 35px rgba(0,0,0,0.35);
     overflow: hidden;
-
     display: flex;
     flex-direction: column;
 }
 
 .add-modal-header {
     display: flex;
-
     align-items: center;
     justify-content: space-between;
-
     padding: 15px 18px;
-
     background: #222;
     color: white;
-
     font-size: 17px;
     font-weight: bold;
 }
@@ -698,32 +466,23 @@ tbody tr.monitoring-case-row:hover {
     border: none;
     background: transparent;
     color: white;
-
     font-size: 26px;
     line-height: 1;
-
     cursor: pointer;
-
     padding: 0 3px;
 }
 
-.add-close-btn:hover {
-    color: #ffaaaa;
-}
+.add-close-btn:hover { color: #ffaaaa; }
 
 .add-step {
     padding: 20px;
-
     min-height: 190px;
-
     overflow-y: auto;
 }
 
 .add-step-label {
     display: block;
-
     margin-bottom: 8px;
-
     font-size: 14px;
     font-weight: bold;
 }
@@ -732,30 +491,19 @@ tbody tr.monitoring-case-row:hover {
 .add-select,
 .add-textarea {
     width: 100%;
-
     border: 1px solid #bbb;
-
     border-radius: 6px;
-
     padding: 10px;
-
     font-size: 14px;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .add-input:focus,
 .add-select:focus,
 .add-textarea:focus {
     outline: none;
-
     border-color: #1976d2;
-
-    box-shadow:
-        0 0 0 2px rgba(25,118,210,0.12);
+    box-shadow: 0 0 0 2px rgba(25,118,210,0.12);
 }
 
 .add-textarea {
@@ -765,194 +513,110 @@ tbody tr.monitoring-case-row:hover {
 
 .add-error {
     margin-top: 9px;
-
     color: #dc3545;
-
     font-size: 13px;
     font-weight: bold;
 }
 
 .add-modal-footer {
     display: flex;
-
     justify-content: flex-end;
-
     gap: 8px;
-
     padding: 12px 18px;
-
     border-top: 1px solid #ddd;
-
     background: #fafafa;
 }
 
 .add-primary-btn,
 .add-secondary-btn {
     border: none;
-
     border-radius: 5px;
-
     padding: 8px 16px;
-
     cursor: pointer;
-
     font-size: 13px;
     font-weight: bold;
 }
 
-.add-primary-btn {
-    background: #1976d2;
-    color: white;
-}
+.add-primary-btn { background: #1976d2; color: white; }
+.add-secondary-btn { background: #777; color: white; }
 
-.add-secondary-btn {
-    background: #777;
-    color: white;
-}
-
-.add-primary-btn:hover {
-    background: #125aa0;
-}
-
-.add-secondary-btn:hover {
-    background: #555;
-}
+.add-primary-btn:hover { background: #125aa0; }
+.add-secondary-btn:hover { background: #555; }
 
 .add-primary-btn:disabled,
-.add-secondary-btn:disabled {
-    opacity: 0.55;
-    cursor: wait;
-}
-
+.add-secondary-btn:disabled { opacity: 0.55; cursor: wait; }
 
 /* =========================
    CONFIRM
    ========================= */
-
-.add-confirm-row {
-    margin-bottom: 12px;
-}
+.add-confirm-row { margin-bottom: 12px; }
 
 .add-confirm-label {
     font-size: 12px;
-
     color: #666;
-
     font-weight: bold;
-
     margin-bottom: 3px;
 }
 
 .add-confirm-value {
     padding: 8px;
-
     background: #f5f5f5;
-
     border: 1px solid #e2e2e2;
-
     border-radius: 5px;
-
     white-space: pre-wrap;
-
     word-break: break-word;
-
     font-size: 13px;
 }
-
 
 /* =========================
    BACKEND NOTE
    ========================= */
-
 .backend-note {
     margin-top: 18px;
-
     padding: 10px 12px;
-
     background: #f0f7ff;
-
     border: 1px solid #c9e2ff;
-
     border-radius: 6px;
-
     color: #24527a;
-
     font-size: 12px;
-
     line-height: 1.5;
 }
-
 
 /* =========================
    TOAST
    ========================= */
-
 .toast {
     position: fixed;
-
     left: 50%;
-
     bottom: 24px;
-
-    transform:
-        translateX(-50%)
-        translateY(16px);
-
+    transform: translateX(-50%) translateY(16px);
     z-index: 6000;
-
     max-width: 90vw;
-
     padding: 11px 18px;
-
     border-radius: 7px;
-
     background: #333;
-
     color: white;
-
     font-size: 13px;
-
     font-weight: bold;
-
     text-align: center;
-
-    box-shadow:
-        0 4px 14px rgba(0, 0, 0, 0.25);
-
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
     opacity: 0;
-
     pointer-events: none;
-
-    transition:
-        opacity 0.2s ease,
-        transform 0.2s ease;
+    transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .toast.show {
     opacity: 1;
-
-    transform:
-        translateX(-50%)
-        translateY(0);
+    transform: translateX(-50%) translateY(0);
 }
 
-.toast.info {
-    background: #333;
-}
-
-.toast.success {
-    background: #198754;
-}
-
-.toast.error {
-    background: #dc3545;
-}
-
+.toast.info { background: #333; }
+.toast.success { background: #198754; }
+.toast.error { background: #dc3545; }
 
 /* =========================================================
    LOG MODAL
    ========================================================= */
-
 .log-modal {
     display: none;
     position: fixed;
@@ -964,9 +628,7 @@ tbody tr.monitoring-case-row:hover {
     padding: 15px;
 }
 
-.log-modal.show {
-    display: flex;
-}
+.log-modal.show { display: flex; }
 
 .log-modal-content {
     width: 100%;
@@ -1011,7 +673,8 @@ tbody tr.monitoring-case-row:hover {
 .log-zoom-btn,
 .log-mode-btn,
 .log-save-btn,
-.log-close-btn {
+.log-close-btn,
+.log-camera-btn {
     border: none;
     border-radius: 5px;
     padding: 6px 10px;
@@ -1033,13 +696,17 @@ tbody tr.monitoring-case-row:hover {
     background: #198754;
 }
 
-.log-save-btn:hover {
-    background: #146c43;
+.log-save-btn:hover { background: #146c43; }
+.log-save-btn:disabled { opacity: 0.6; cursor: wait; }
+
+/* Nút Camera */
+.log-camera-btn {
+    background: #0d7c4a;
+    color: #fff;
 }
 
-.log-save-btn:disabled {
-    opacity: 0.6;
-    cursor: wait;
+.log-camera-btn:hover {
+    background: #0a6039;
 }
 
 .log-close-btn {
@@ -1106,7 +773,6 @@ tbody tr.monitoring-case-row:hover {
     pointer-events: none;
 }
 
-/* Hình ảnh trong editor */
 .log-editor-rich img {
     max-width: 100%;
     height: auto;
@@ -1116,34 +782,26 @@ tbody tr.monitoring-case-row:hover {
     display: block;
 }
 
-
 /* =========================
    MOBILE
    ========================= */
-
 @media (max-width: 768px) {
 
-    .header-inner {
-        padding: 10px;
-    }
+    .header-inner { padding: 10px; }
 
     .title {
         font-size: 20px;
         margin-bottom: 10px;
     }
 
-    .search-area {
-        flex-direction: column;
-    }
+    .search-area { flex-direction: column; }
 
     .search-area input {
         width: 100%;
         min-width: 0;
     }
 
-    .filter-area {
-        gap: 5px;
-    }
+    .filter-area { gap: 5px; }
 
     .filter-row {
         gap: 5px;
@@ -1168,22 +826,16 @@ tbody tr.monitoring-case-row:hover {
         padding: 5px;
     }
 
-    .chart-title {
-        font-size: 14px;
-    }
+    .chart-title { font-size: 14px; }
 
     .chart-toggle-btn {
         font-size: 9px;
         padding: 5px 8px;
     }
 
-    #statusChart {
-        height: 335px;
-    }
+    #statusChart { height: 335px; }
 
-    .pagination-top {
-        padding: 10px 5px;
-    }
+    .pagination-top { padding: 10px 5px; }
 
     .table-container {
         margin: 10px;
@@ -1191,9 +843,7 @@ tbody tr.monitoring-case-row:hover {
         overflow-x: hidden;
     }
 
-    .record-info {
-        margin: 8px 10px 0 10px;
-    }
+    .record-info { margin: 8px 10px 0 10px; }
 
     thead th {
         padding: 8px 3px;
@@ -1233,13 +883,8 @@ tbody tr.monitoring-case-row:hover {
         gap: 4px !important;
     }
 
-    .add-modal {
-        padding: 10px;
-    }
-
-    .add-modal-content {
-        max-height: 94vh;
-    }
+    .add-modal { padding: 10px; }
+    .add-modal-content { max-height: 94vh; }
 
     .add-modal-header {
         padding: 12px 14px;
@@ -1251,17 +896,10 @@ tbody tr.monitoring-case-row:hover {
         min-height: 170px;
     }
 
-    .add-modal-footer {
-        padding: 10px 15px;
-    }
+    .add-modal-footer { padding: 10px 15px; }
 
-    .log-modal {
-        padding: 8px;
-    }
-
-    .log-modal-content {
-        height: 92vh;
-    }
+    .log-modal { padding: 8px; }
+    .log-modal-content { height: 92vh; }
 
     .log-modal-header {
         padding: 10px 12px;
@@ -1271,7 +909,8 @@ tbody tr.monitoring-case-row:hover {
     .log-zoom-btn,
     .log-mode-btn,
     .log-save-btn,
-    .log-close-btn {
+    .log-close-btn,
+    .log-camera-btn {
         font-size: 11px;
         padding: 5px 8px;
     }
@@ -1282,11 +921,9 @@ tbody tr.monitoring-case-row:hover {
     }
 }
 
-
 /* =========================
    VERY SMALL PHONE
    ========================= */
-
 @media (max-width: 400px) {
 
     .filter-btn {
@@ -1294,9 +931,7 @@ tbody tr.monitoring-case-row:hover {
         font-size: 10px;
     }
 
-    thead th {
-        font-size: 10px;
-    }
+    thead th { font-size: 10px; }
 
     tbody td {
         font-size: 10px;
@@ -1308,29 +943,20 @@ tbody tr.monitoring-case-row:hover {
         font-size: 11px;
     }
 
-    .chart-container.show-chart {
-        height: 340px;
-    }
-
-    #statusChart {
-        height: 300px;
-    }
+    .chart-container.show-chart { height: 340px; }
+    #statusChart { height: 300px; }
 
     .add-primary-btn,
     .add-secondary-btn {
         padding: 7px 12px;
         font-size: 11px;
     }
-
 }
 
 /* =========================================================
    ROW ACTIONS (EDIT / DELETE BUTTONS ON DATE CELL)
    ========================================================= */
-
-td.date-cell {
-    vertical-align: top;
-}
+td.date-cell { vertical-align: top; }
 
 .date-cell-inner {
     display: flex;
@@ -1339,9 +965,7 @@ td.date-cell {
     gap: 5px;
 }
 
-.date-value {
-    white-space: nowrap;
-}
+.date-value { white-space: nowrap; }
 
 .row-actions {
     display: flex;
@@ -1382,7 +1006,6 @@ td.date-cell {
 /* ---------------------------------------------------------
    Edit hold-confirm popover (shown after clicking ✏️)
    --------------------------------------------------------- */
-
 .hold-indicator {
     position: fixed;
     z-index: 6000;
@@ -1397,9 +1020,7 @@ td.date-cell {
     min-width: 150px;
 }
 
-.hold-indicator.show {
-    display: block;
-}
+.hold-indicator.show { display: block; }
 
 .hold-indicator .hold-bar {
     margin-top: 5px;
@@ -1422,13 +1043,12 @@ td.date-cell {
 
 @keyframes holdFill {
     from { width: 0; }
-    to   { width: 100%; }
+    to { width: 100%; }
 }
 
 /* =========================================================
    DELETE CONFIRM MODAL
    ========================================================= */
-
 .confirm-overlay {
     position: fixed;
     inset: 0;
@@ -1439,9 +1059,7 @@ td.date-cell {
     background: rgba(0, 0, 0, 0.45);
 }
 
-.confirm-overlay.show {
-    display: flex;
-}
+.confirm-overlay.show { display: flex; }
 
 .confirm-box {
     background: #fff;
@@ -1506,541 +1124,208 @@ td.date-cell {
     margin: -4px 0 12px;
     text-align: left;
 }
-
 </style>
-
 </head>
 
-
 <body>
-
 
 <!-- =========================================================
      HEADER
      ========================================================= -->
-
 <div class="header">
-
 <div class="header-inner">
 
     <div class="title">
         NA TEAM Issue List Management
     </div>
 
-
     <!-- SEARCH -->
-
     <div class="search-area">
-
         <input
             type="text"
             id="searchIssue"
             placeholder="Search Issue and Request..."
             oninput="applyFilter()"
         >
-
     </div>
-
 
     <!-- FILTERS -->
-
     <div class="filter-area">
 
-
-        <!-- =========================
-             BU FILTERS
-             ========================= -->
-
+        <!-- BU FILTERS -->
         <div class="filter-row">
-
-            <button
-                class="filter-btn bu-btn"
-                id="btnBU4"
-                onclick="selectBU('BU4')">
-
-                BU4
-
-            </button>
-
-
-            <button
-                class="filter-btn bu-btn"
-                id="btnD7"
-                onclick="selectBU('D7')">
-
-                D7
-
-            </button>
-
-
-            <button
-                class="filter-btn bu-btn"
-                id="btnBU11"
-                onclick="selectBU('BU11')">
-
-                BU11
-
-            </button>
-
-
-            <button
-                class="filter-btn bu-btn"
-                id="btnVISION"
-                onclick="selectBU('VISION')">
-
-                VISION
-
-            </button>
-
-
-            <button
-                class="filter-btn bu-btn"
-                id="btnE5"
-                onclick="selectBU('E5')">
-
-                E5
-
-            </button>
-
-
-            <button
-                class="filter-btn bu-btn"
-                id="btnMICRON"
-                onclick="selectBU('MICRON')">
-
-                MICRON
-
-            </button>
-
-
-            <button
-                class="filter-btn bu-btn"
-                id="btnLDT"
-                onclick="selectBU('LDT')">
-
-                LDT
-
-            </button>
-
+            <button class="filter-btn bu-btn" id="btnBU4" onclick="selectBU('BU4')">BU4</button>
+            <button class="filter-btn bu-btn" id="btnD7" onclick="selectBU('D7')">D7</button>
+            <button class="filter-btn bu-btn" id="btnBU11" onclick="selectBU('BU11')">BU11</button>
+            <button class="filter-btn bu-btn" id="btnVISION" onclick="selectBU('VISION')">VISION</button>
+            <button class="filter-btn bu-btn" id="btnE5" onclick="selectBU('E5')">E5</button>
+            <button class="filter-btn bu-btn" id="btnMICRON" onclick="selectBU('MICRON')">MICRON</button>
+            <button class="filter-btn bu-btn" id="btnLDT" onclick="selectBU('LDT')">LDT</button>
         </div>
 
-
-        <!-- =========================
-             STATUS FILTERS
-             ========================= -->
-
+        <!-- STATUS FILTERS -->
         <div class="filter-row">
-
-            <button
-                class="filter-btn status-filter-btn open-case-btn"
-                id="btnOpenCase"
-                onclick="selectStatus('open')">
-
-                OPEN CASE
-
-            </button>
-
-
-            <button
-                class="filter-btn status-filter-btn close-case-btn"
-                id="btnCloseCase"
-                onclick="selectStatus('closed')">
-
-                CLOSE CASE
-
-            </button>
-
-
-            <button
-                class="filter-btn status-filter-btn monitoring-case-btn"
-                id="btnMonitoringCase"
-                onclick="selectStatus('monitoring')">
-
-                Monitoring CASE
-
-            </button>
-
-
-            <button
-                class="filter-btn clear-btn"
-                onclick="clearFilter()">
-
-                CLEAR
-
-            </button>
-
+            <button class="filter-btn status-filter-btn open-case-btn" id="btnOpenCase" onclick="selectStatus('open')">OPEN CASE</button>
+            <button class="filter-btn status-filter-btn close-case-btn" id="btnCloseCase" onclick="selectStatus('closed')">CLOSE CASE</button>
+            <button class="filter-btn status-filter-btn monitoring-case-btn" id="btnMonitoringCase" onclick="selectStatus('monitoring')">Monitoring CASE</button>
+            <button class="filter-btn clear-btn" onclick="clearFilter()">CLEAR</button>
         </div>
 
     </div>
-
 </div>
-
 </div>
-
 
 <!-- =========================================================
      STATUS CHART
      ========================================================= -->
-
-<div
-    class="chart-container"
-    id="chartContainer"
->
-
-<div class="chart-header">
-
-    <div class="chart-title">
-        Issue Status Overview
+<div class="chart-container" id="chartContainer">
+    <div class="chart-header">
+        <div class="chart-title">Issue Status Overview</div>
+        <button class="chart-toggle-btn" id="chartToggleBtn" onclick="toggleChart()">Show graph</button>
     </div>
-
-
-    <button
-        class="chart-toggle-btn"
-        id="chartToggleBtn"
-        onclick="toggleChart()">
-
-        Show graph
-
-    </button>
-
+    <div id="statusChart"></div>
 </div>
-
-
-<div id="statusChart"></div>
-
-</div>
-
 
 <!-- =========================================================
      PAGINATION
      ========================================================= -->
-
 <div class="pagination-top">
-
-<button
-    class="page-btn"
-    id="prevBtn"
-    onclick="previousPage()">
-
-    Previous
-
-</button>
-
-
-<span
-    class="page-info"
-    id="pageInfo">
-
-    Page 1
-
-</span>
-
-
-<button
-    class="page-btn"
-    id="nextBtn"
-    onclick="nextPage()">
-
-    Next
-
-</button>
-
-
-<button
-    class="filter-btn add-btn"
-    onclick="openAddDialog()">
-
-    Add Case
-
-</button>
-
-
-<button
-    class="filter-btn export-btn"
-    onclick="exportToExcel()">
-
-    Export Excel
-
-</button>
-
+    <button class="page-btn" id="prevBtn" onclick="previousPage()">Previous</button>
+    <span class="page-info" id="pageInfo">Page 1</span>
+    <button class="page-btn" id="nextBtn" onclick="nextPage()">Next</button>
+    <button class="filter-btn add-btn" onclick="openAddDialog()">Add Case</button>
+    <button class="filter-btn export-btn" onclick="exportToExcel()">Export Excel</button>
 </div>
-
 
 <!-- =========================================================
      RECORD INFO
      ========================================================= -->
-
-<div
-    class="record-info"
-    id="recordInfo">
-
-    Loading...
-
-</div>
-
+<div class="record-info" id="recordInfo">Loading...</div>
 
 <!-- =========================================================
      TABLE
      ========================================================= -->
-
 <div class="table-container">
-
-<table>
-
-    <thead>
-
-        <tr>
-
-            <th>DATE</th>
-
-            <th>SITE</th>
-
-            <th>ISSUE AND REQUEST</th>
-
-            <th>STATUS</th>
-
-            <th>LOG</th>
-
-            <th>CC LINK</th>
-
-        </tr>
-
-    </thead>
-
-
-    <tbody id="tableBody">
-    </tbody>
-
-</table>
-
+    <table>
+        <thead>
+            <tr>
+                <th>DATE</th>
+                <th>SITE</th>
+                <th>ISSUE AND REQUEST</th>
+                <th>STATUS</th>
+                <th>LOG</th>
+                <th>CC LINK</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
 </div>
-
 
 <!-- =========================================================
      ADD MODAL
      ========================================================= -->
-
-<div
-    class="add-modal"
-    id="addModal"
->
-
-<div class="add-modal-content">
-
-
-    <div class="add-modal-header">
-
-        <span id="addStepTitle">
-            Add New Issue
-        </span>
-
-
-        <button
-            onclick="closeAddDialog()"
-            class="add-close-btn"
-            title="Close">
-
-            ×
-
-        </button>
-
+<div class="add-modal" id="addModal">
+    <div class="add-modal-content">
+        <div class="add-modal-header">
+            <span id="addStepTitle">Add New Issue</span>
+            <button onclick="closeAddDialog()" class="add-close-btn" title="Close">×</button>
+        </div>
+        <div class="add-step" id="addStepContent"></div>
+        <div class="add-modal-footer">
+            <button id="addBackBtn" class="add-secondary-btn" onclick="addPreviousStep()">Back</button>
+            <button id="addNextBtn" class="add-primary-btn" onclick="addNextStep()">Next</button>
+        </div>
     </div>
-
-
-    <div
-        class="add-step"
-        id="addStepContent">
-    </div>
-
-
-    <div class="add-modal-footer">
-
-        <button
-            id="addBackBtn"
-            class="add-secondary-btn"
-            onclick="addPreviousStep()">
-
-            Back
-
-        </button>
-
-
-        <button
-            id="addNextBtn"
-            class="add-primary-btn"
-            onclick="addNextStep()">
-
-            Next
-
-        </button>
-
-    </div>
-
 </div>
-
-</div>
-
 
 <!-- =========================================================
      LOG MODAL (view + edit log file content)
      ========================================================= -->
+<div class="log-modal" id="logModal">
+    <div class="log-modal-content">
+        <div class="log-modal-header">
+            <span class="log-modal-title" id="logModalTitle">Log File</span>
 
-<div
-    class="log-modal"
-    id="logModal">
+            <div class="log-modal-controls">
 
-<div class="log-modal-content">
+                <!-- NÚT CHỤP ẢNH TỪ CAMERA -->
+                <button
+                    type="button"
+                    class="log-camera-btn"
+                    id="logCameraBtn"
+                    onclick="openCameraCapture()"
+                    title="Chụp ảnh từ camera">
 
-    <div class="log-modal-header">
+                    📷 Camera
 
-        <span
-            class="log-modal-title"
-            id="logModalTitle">
+                </button>
 
-            Log File
+                <button type="button" class="log-zoom-btn" onclick="zoomLog(-1)" title="Thu nhỏ">−</button>
 
-        </span>
+                <span class="log-zoom-label" id="logZoomLabel">100%</span>
 
+                <button type="button" class="log-zoom-btn" onclick="zoomLog(1)" title="Phóng to">+</button>
 
-        <div class="log-modal-controls">
+                <button type="button" class="log-mode-btn" id="logModeToggle" onclick="toggleLogMode()">✏️ Edit</button>
 
-            <button
-                type="button"
-                class="log-zoom-btn"
-                onclick="zoomLog(-1)"
-                title="Thu nhỏ">
+                <button type="button" class="log-save-btn" id="logSaveBtn" style="display:none;" onclick="saveLogContent()">💾 Save</button>
 
-                −
+                <button type="button" class="log-close-btn" onclick="closeLogModal()" title="Close">×</button>
+            </div>
+        </div>
 
-            </button>
+        <div class="log-modal-body" id="logModalBody">
 
+            <iframe
+                id="logViewer"
+                class="log-viewer-iframe"
+                sandbox="allow-same-origin"
+                referrerpolicy="no-referrer">
+            </iframe>
 
-            <span
-                class="log-zoom-label"
-                id="logZoomLabel">
-
-                100%
-
-            </span>
-
-
-            <button
-                type="button"
-                class="log-zoom-btn"
-                onclick="zoomLog(1)"
-                title="Phóng to">
-
-                +
-
-            </button>
-
-
-            <button
-                type="button"
-                class="log-mode-btn"
-                id="logModeToggle"
-                onclick="toggleLogMode()">
-
-                ✏️ Edit
-
-            </button>
-
-
-            <button
-                type="button"
-                class="log-save-btn"
-                id="logSaveBtn"
+            <div
+                id="logEditor"
+                class="log-editor-rich"
+                contenteditable="true"
                 style="display:none;"
-                onclick="saveLogContent()">
-
-                💾 Save
-
-            </button>
-
-
-            <button
-                type="button"
-                class="log-close-btn"
-                onclick="closeLogModal()"
-                title="Close">
-
-                ×
-
-            </button>
+                data-placeholder="Nhập nội dung log, có thể dán ảnh bằng Ctrl+V...">
+            </div>
 
         </div>
-
     </div>
-
-
-    <div
-        class="log-modal-body"
-        id="logModalBody">
-
-        <iframe
-            id="logViewer"
-            class="log-viewer-iframe"
-            sandbox="allow-same-origin"
-            referrerpolicy="no-referrer">
-        </iframe>
-
-
-        <div
-            id="logEditor"
-            class="log-editor-rich"
-            contenteditable="true"
-            style="display:none;"
-            data-placeholder="Nhập nội dung log, có thể dán ảnh bằng Ctrl+V...">
-        </div>
-
-    </div>
-
 </div>
 
-</div>
-
+<!-- INPUT ẨN DÙNG ĐỂ MỞ CAMERA TRÊN ĐIỆN THOẠI -->
+<input
+    type="file"
+    id="cameraInput"
+    accept="image/*"
+    capture="environment"
+    style="display:none;"
+    onchange="handleCameraCapture(event)"
+>
 
 <!-- =========================================================
      TOAST
      ========================================================= -->
+<div id="toast" class="toast"></div>
 
-<div
-    id="toast"
-    class="toast">
-</div>
-
-<div
-    id="holdIndicator"
-    class="hold-indicator">
+<div id="holdIndicator" class="hold-indicator">
     <div id="holdText">Đợi 5 giây để sửa record...</div>
     <div class="hold-bar"><span></span></div>
 </div>
 
-<div
-    id="deleteConfirmOverlay"
-    class="confirm-overlay">
+<div id="deleteConfirmOverlay" class="confirm-overlay">
     <div class="confirm-box">
         <p>Are you sure to delete ?</p>
         <div class="confirm-actions">
-            <button
-                type="button"
-                class="confirm-ok"
-                onclick="proceedToDeletePassword()">
-                OK
-            </button>
-            <button
-                type="button"
-                class="confirm-cancel"
-                onclick="closeDeleteConfirm()">
-                Cancel
-            </button>
+            <button type="button" class="confirm-ok" onclick="proceedToDeletePassword()">OK</button>
+            <button type="button" class="confirm-cancel" onclick="closeDeleteConfirm()">Cancel</button>
         </div>
     </div>
 </div>
 
-<div
-    id="deletePasswordOverlay"
-    class="confirm-overlay">
+<div id="deletePasswordOverlay" class="confirm-overlay">
     <div class="confirm-box">
         <p>Nhập password để xác nhận xóa record:</p>
         <input
@@ -2049,599 +1334,209 @@ td.date-cell {
             class="confirm-password-input"
             placeholder="Password"
             autocomplete="off">
-        <div
-            id="deletePasswordError"
-            class="confirm-password-error"
-            style="display: none;">
+        <div id="deletePasswordError" class="confirm-password-error" style="display: none;">
             Sai password, vui lòng thử lại.
         </div>
         <div class="confirm-actions">
-            <button
-                type="button"
-                class="confirm-ok"
-                onclick="confirmDeletePassword()">
-                Xác nhận
-            </button>
-            <button
-                type="button"
-                class="confirm-cancel"
-                onclick="cancelDeletePassword()">
-                Cancel
-            </button>
+            <button type="button" class="confirm-ok" onclick="confirmDeletePassword()">Xác nhận</button>
+            <button type="button" class="confirm-cancel" onclick="cancelDeletePassword()">Cancel</button>
         </div>
     </div>
 </div>
 
-
 <script>
-
 
 /* =========================================================
    GLOBAL VARIABLES
    ========================================================= */
-
 let allData = [];
-
 let filteredData = [];
-
 let currentPage = 1;
-
 const rowsPerPage = 50;
-
 let selectedBU = null;
-
 let selectedStatus = null;
-
 let toastTimer = null;
-
 
 /* =========================================================
    TOAST
    ========================================================= */
+function showToast(message, type, duration) {
+    const toast = document.getElementById("toast");
+    if (!toast) return;
 
-function showToast(
-    message,
-    type,
-    duration
-) {
-
-    const toast =
-        document.getElementById("toast");
-
-    if (!toast) {
-        return;
-    }
-
-    if (toastTimer) {
-        clearTimeout(toastTimer);
-    }
+    if (toastTimer) clearTimeout(toastTimer);
 
     toast.textContent = message;
+    toast.className = "toast show " + (type || "info");
 
-    toast.className =
-        "toast show " +
-        (type || "info");
-
-    toastTimer =
-        setTimeout(function() {
-
-            toast.classList.remove(
-                "show"
-            );
-
-        }, duration || 3000);
-
+    toastTimer = setTimeout(function() {
+        toast.classList.remove("show");
+    }, duration || 3000);
 }
-
 
 /* =========================================================
    CHART
    ========================================================= */
-
 let statusChartLoaded = false;
-
 let chartVisible = false;
 
-
 function toggleChart() {
+    const container = document.getElementById("chartContainer");
+    const button = document.getElementById("chartToggleBtn");
 
-    const container =
-        document.getElementById(
-            "chartContainer"
-        );
-
-    const button =
-        document.getElementById(
-            "chartToggleBtn"
-        );
-
-    chartVisible =
-        !chartVisible;
+    chartVisible = !chartVisible;
 
     if (chartVisible) {
-
-        container.classList.add(
-            "show-chart"
-        );
-
-        button.textContent =
-            "Hide Graph";
+        container.classList.add("show-chart");
+        button.textContent = "Hide Graph";
 
         setTimeout(function() {
-
-            if (
-                statusChartLoaded &&
-                typeof Plotly !== "undefined"
-            ) {
-
-                Plotly.Plots.resize(
-                    "statusChart"
-                );
-
+            if (statusChartLoaded && typeof Plotly !== "undefined") {
+                Plotly.Plots.resize("statusChart");
             }
-
         }, 300);
-
     }
-
     else {
-
-        container.classList.remove(
-            "show-chart"
-        );
-
-        button.textContent =
-            "Show graph";
-
+        container.classList.remove("show-chart");
+        button.textContent = "Show graph";
     }
-
 }
-
 
 function computeChartData() {
-
-    const statusCount = {
-
-        open: 0,
-
-        closed: 0,
-
-        monitoring: 0
-
-    };
-
+    const statusCount = { open: 0, closed: 0, monitoring: 0 };
 
     allData.forEach(function(item) {
+        const status = String(item["STATUS"] || "").trim().toLowerCase();
 
-        const status =
-            String(
-                item["STATUS"] || ""
-            )
-            .trim()
-            .toLowerCase();
-
-
-        if (status === "open") {
-
-            statusCount.open++;
-
-        }
-
-        else if (status === "closed") {
-
-            statusCount.closed++;
-
-        }
-
-        else if (
-            status === "monitoring"
-        ) {
-
-            statusCount.monitoring++;
-
-        }
-
+        if (status === "open") statusCount.open++;
+        else if (status === "closed") statusCount.closed++;
+        else if (status === "monitoring") statusCount.monitoring++;
     });
 
+    const total = statusCount.open + statusCount.closed + statusCount.monitoring;
+    if (total === 0) return null;
 
-    const total =
-        statusCount.open +
-        statusCount.closed +
-        statusCount.monitoring;
-
-
-    if (total === 0) {
-
-        return null;
-
-    }
-
-
-    const values = [
-
-        statusCount.open,
-
-        statusCount.closed,
-
-        statusCount.monitoring
-
-    ];
-
-
-    const labels = [
-
-        "Open",
-
-        "Closed",
-
-        "Monitoring"
-
-    ];
-
+    const values = [statusCount.open, statusCount.closed, statusCount.monitoring];
+    const labels = ["Open", "Closed", "Monitoring"];
 
     const data = [{
-
         type: "pie",
-
         values: values,
-
         labels: labels,
-
         hole: 0.08,
-
         textinfo: "label+percent",
-
-        texttemplate:
-            "%{label}<br>%{value} / %{percent:.1%}",
-
-        hovertemplate:
-            "<b>%{label}</b><br>" +
-            "Count: %{value}<br>" +
-            "Percentage: %{percent:.1%}" +
-            "<extra></extra>",
-
+        texttemplate: "%{label}<br>%{value} / %{percent:.1%}",
+        hovertemplate: "<b>%{label}</b><br>Count: %{value}<br>Percentage: %{percent:.1%}<extra></extra>",
         marker: {
-
-            colors: [
-
-                "#dc3545",
-
-                "#198754",
-
-                "#d97706"
-
-            ],
-
-            line: {
-
-                color: "#ffffff",
-
-                width: 2
-
-            }
-
+            colors: ["#dc3545", "#198754", "#d97706"],
+            line: { color: "#ffffff", width: 2 }
         },
-
-        pull: [
-
-            0.04,
-
-            0.04,
-
-            0.04
-
-        ],
-
+        pull: [0.04, 0.04, 0.04],
         rotation: 0,
-
         direction: "clockwise",
-
         sort: false
-
     }];
 
-
     const layout = {
-
-        margin: {
-
-            l: 10,
-
-            r: 10,
-
-            t: 10,
-
-            b: 55
-
-        },
-
+        margin: { l: 10, r: 10, t: 10, b: 55 },
         showlegend: true,
-
-        legend: {
-
-            orientation: "h",
-
-            x: 0.5,
-
-            xanchor: "center",
-
-            y: -0.15
-
-        },
-
-        paper_bgcolor:
-            "rgba(0,0,0,0)",
-
-        plot_bgcolor:
-            "rgba(0,0,0,0)",
-
-        transition: {
-
-            duration: 1000,
-
-            easing: "cubic-in-out"
-
-        }
-
+        legend: { orientation: "h", x: 0.5, xanchor: "center", y: -0.15 },
+        paper_bgcolor: "rgba(0,0,0,0)",
+        plot_bgcolor: "rgba(0,0,0,0)",
+        transition: { duration: 1000, easing: "cubic-in-out" }
     };
 
+    const config = { responsive: true, displayModeBar: false };
 
-    const config = {
-
-        responsive: true,
-
-        displayModeBar: false
-
-    };
-
-
-    return {
-
-        data: data,
-
-        layout: layout,
-
-        config: config
-
-    };
-
+    return { data: data, layout: layout, config: config };
 }
-
 
 function createStatusChart() {
+    if (statusChartLoaded) return;
 
-    if (statusChartLoaded) {
-        return;
-    }
+    const chart = computeChartData();
+    if (!chart) return;
 
-    const chart =
-        computeChartData();
-
-    if (!chart) {
-        return;
-    }
-
-    Plotly.newPlot(
-        "statusChart",
-        chart.data,
-        chart.layout,
-        chart.config
-    );
-
+    Plotly.newPlot("statusChart", chart.data, chart.layout, chart.config);
     statusChartLoaded = true;
-
 }
-
 
 function updateStatusChart() {
-
-    const chart =
-        computeChartData();
-
-    if (!chart) {
-        return;
-    }
+    const chart = computeChartData();
+    if (!chart) return;
 
     if (!statusChartLoaded) {
-
-        Plotly.newPlot(
-            "statusChart",
-            chart.data,
-            chart.layout,
-            chart.config
-        );
-
+        Plotly.newPlot("statusChart", chart.data, chart.layout, chart.config);
         statusChartLoaded = true;
-
         return;
-
     }
 
-    Plotly.react(
-        "statusChart",
-        chart.data,
-        chart.layout,
-        chart.config
-    );
-
+    Plotly.react("statusChart", chart.data, chart.layout, chart.config);
 }
-
 
 /* =========================================================
    SITE DATA
    ========================================================= */
-
 let BU4Data = [];
-
 let D7Data = [];
-
 let BU11Data = [];
-
 let VISIONData = [];
-
 let E5Data = [];
-
 let MICRONData = [];
-
 let LDTData = [];
-
 
 /* =========================================================
    LOAD JSON
    ========================================================= */
-
 async function loadData() {
-
     try {
+        const cacheBust = "?t=" + Date.now();
 
-        const cacheBust =
-            "?t=" + Date.now();
+        const results = await Promise.all([
+            fetch("data.json" + cacheBust),
+            fetch("BU4.json" + cacheBust),
+            fetch("D7.json" + cacheBust),
+            fetch("BU11.json" + cacheBust),
+            fetch("VISION.json" + cacheBust),
+            fetch("E5.json" + cacheBust),
+            fetch("MICRON.json" + cacheBust),
+            fetch("LDT.json" + cacheBust)
+        ]);
 
-
-        const results =
-            await Promise.all([
-
-                fetch(
-                    "data.json" +
-                    cacheBust
-                ),
-
-                fetch(
-                    "BU4.json" +
-                    cacheBust
-                ),
-
-                fetch(
-                    "D7.json" +
-                    cacheBust
-                ),
-
-                fetch(
-                    "BU11.json" +
-                    cacheBust
-                ),
-
-                fetch(
-                    "VISION.json" +
-                    cacheBust
-                ),
-
-                fetch(
-                    "E5.json" +
-                    cacheBust
-                ),
-
-                fetch(
-                    "MICRON.json" +
-                    cacheBust
-                ),
-
-                fetch(
-                    "LDT.json" +
-                    cacheBust
-                )
-
-            ]);
-
-
-        for (
-            const response of results
-        ) {
-
+        for (const response of results) {
             if (!response.ok) {
-
-                throw new Error(
-                    "Failed to load: " +
-                    response.url
-                );
-
+                throw new Error("Failed to load: " + response.url);
             }
-
         }
 
-
-        allData =
-            await results[0].json();
-
-
-        BU4Data =
-            await results[1].json();
-
-
-        D7Data =
-            await results[2].json();
-
-
-        BU11Data =
-            await results[3].json();
-
-
-        VISIONData =
-            await results[4].json();
-
-
-        E5Data =
-            await results[5].json();
-
-
-        MICRONData =
-            await results[6].json();
-
-
-        LDTData =
-            await results[7].json();
-
+        allData = await results[0].json();
+        BU4Data = await results[1].json();
+        D7Data = await results[2].json();
+        BU11Data = await results[3].json();
+        VISIONData = await results[4].json();
+        E5Data = await results[5].json();
+        MICRONData = await results[6].json();
+        LDTData = await results[7].json();
 
         if (!Array.isArray(allData)) {
-
-            throw new Error(
-                "data.json must contain an array."
-            );
-
+            throw new Error("data.json must contain an array.");
         }
 
-
         sortData();
-
-
-        filteredData =
-            [...allData];
-
-
+        filteredData = [...allData];
         createStatusChart();
-
         renderTable();
-
     }
-
     catch (error) {
+        console.error("LOAD DATA ERROR:", error);
 
-        console.error(
-            "LOAD DATA ERROR:",
-            error
-        );
-
-
-        document.getElementById(
-            "tableBody"
-        ).innerHTML = `
-
+        document.getElementById("tableBody").innerHTML = `
             <tr>
-
-                <td
-                    colspan="6"
-                    class="message">
-
+                <td colspan="6" class="message">
                     Failed to load data.<br><br>
-
-                    ${escapeHTML(
-                        error.message
-                    )}
-
+                    ${escapeHTML(error.message)}
                     <br><br>
-
                     Please check:<br>
-
                     data.json<br>
                     BU4.json<br>
                     D7.json<br>
@@ -2650,572 +1545,196 @@ async function loadData() {
                     E5.json<br>
                     MICRON.json<br>
                     LDT.json
-
                 </td>
-
             </tr>
-
         `;
 
-
-        document.getElementById(
-            "recordInfo"
-        ).textContent =
-            "Data loading error.";
-
+        document.getElementById("recordInfo").textContent = "Data loading error.";
     }
-
 }
-
 
 /* =========================================================
    DATE PARSER
    ========================================================= */
-
 function parseDate(value) {
+    if (!value) return 0;
 
-    if (!value) {
-        return 0;
-    }
-
-
-    const text =
-        String(value).trim();
-
-
-    const match =
-        text.match(
-            /^(\d{2})\/(\d{2})\/(\d{2})$/
-        );
-
+    const text = String(value).trim();
+    const match = text.match(/^(\d{2})\/(\d{2})\/(\d{2})$/);
 
     if (match) {
+        const month = Number(match[1]);
+        const day = Number(match[2]);
+        const year = 2000 + Number(match[3]);
 
-        const month =
-            Number(match[1]);
-
-        const day =
-            Number(match[2]);
-
-        const year =
-            2000 +
-            Number(match[3]);
-
-
-        const date =
-            new Date(
-                year,
-                month - 1,
-                day
-            );
-
-
+        const date = new Date(year, month - 1, day);
         return date.getTime();
-
     }
 
-
-    const date =
-        new Date(value);
-
-
-    if (
-        isNaN(date.getTime())
-    ) {
-
-        return 0;
-
-    }
-
+    const date = new Date(value);
+    if (isNaN(date.getTime())) return 0;
 
     return date.getTime();
-
 }
-
 
 /* =========================================================
    SORT
    ========================================================= */
-
 function sortData() {
-
-    const keyed =
-        allData.map(function(item) {
-
-            return {
-
-                item: item,
-
-                key:
-                    parseDate(
-                        item["DATE"]
-                    )
-
-            };
-
-        });
-
-
-    keyed.sort(function(a, b) {
-
-        return b.key - a.key;
-
+    const keyed = allData.map(function(item) {
+        return { item: item, key: parseDate(item["DATE"]) };
     });
 
+    keyed.sort(function(a, b) { return b.key - a.key; });
 
-    allData =
-        keyed.map(function(entry) {
-
-            return entry.item;
-
-        });
-
+    allData = keyed.map(function(entry) { return entry.item; });
 }
-
 
 /* =========================================================
    SELECT BU
    ========================================================= */
-
 function selectBU(bu) {
-
-    if (selectedBU === bu) {
-
-        selectedBU = null;
-
-    }
-
-    else {
-
-        selectedBU = bu;
-
-    }
-
+    if (selectedBU === bu) selectedBU = null;
+    else selectedBU = bu;
 
     currentPage = 1;
-
     updateBUButtons();
-
     applyFilter();
-
 }
-
 
 /* =========================================================
    SELECT STATUS
    ========================================================= */
-
 function selectStatus(status) {
-
-    if (selectedStatus === status) {
-
-        selectedStatus = null;
-
-    }
-
-    else {
-
-        selectedStatus = status;
-
-    }
-
+    if (selectedStatus === status) selectedStatus = null;
+    else selectedStatus = status;
 
     currentPage = 1;
-
     updateStatusButtons();
-
     applyFilter();
-
 }
-
 
 /* =========================================================
    UPDATE BU BUTTONS
    ========================================================= */
-
 function updateBUButtons() {
-
     const buttons = {
-
-        BU4:
-            document.getElementById(
-                "btnBU4"
-            ),
-
-        D7:
-            document.getElementById(
-                "btnD7"
-            ),
-
-        BU11:
-            document.getElementById(
-                "btnBU11"
-            ),
-
-        VISION:
-            document.getElementById(
-                "btnVISION"
-            ),
-
-        E5:
-            document.getElementById(
-                "btnE5"
-            ),
-
-        MICRON:
-            document.getElementById(
-                "btnMICRON"
-            ),
-
-        LDT:
-            document.getElementById(
-                "btnLDT"
-            )
-
+        BU4: document.getElementById("btnBU4"),
+        D7: document.getElementById("btnD7"),
+        BU11: document.getElementById("btnBU11"),
+        VISION: document.getElementById("btnVISION"),
+        E5: document.getElementById("btnE5"),
+        MICRON: document.getElementById("btnMICRON"),
+        LDT: document.getElementById("btnLDT")
     };
 
+    Object.keys(buttons).forEach(function(bu) {
+        if (buttons[bu]) buttons[bu].classList.remove("active");
+    });
 
-    Object.keys(buttons)
-        .forEach(function(bu) {
-
-            if (buttons[bu]) {
-
-                buttons[bu]
-                    .classList
-                    .remove("active");
-
-            }
-
-        });
-
-
-    if (
-        selectedBU &&
-        buttons[selectedBU]
-    ) {
-
-        buttons[selectedBU]
-            .classList
-            .add("active");
-
+    if (selectedBU && buttons[selectedBU]) {
+        buttons[selectedBU].classList.add("active");
     }
-
 }
-
 
 /* =========================================================
    UPDATE STATUS BUTTONS
    ========================================================= */
-
 function updateStatusButtons() {
-
     const buttons = {
-
-        open:
-            document.getElementById(
-                "btnOpenCase"
-            ),
-
-        closed:
-            document.getElementById(
-                "btnCloseCase"
-            ),
-
-        monitoring:
-            document.getElementById(
-                "btnMonitoringCase"
-            )
-
+        open: document.getElementById("btnOpenCase"),
+        closed: document.getElementById("btnCloseCase"),
+        monitoring: document.getElementById("btnMonitoringCase")
     };
 
+    Object.keys(buttons).forEach(function(status) {
+        if (buttons[status]) buttons[status].classList.remove("active");
+    });
 
-    Object.keys(buttons)
-        .forEach(function(status) {
-
-            if (buttons[status]) {
-
-                buttons[status]
-                    .classList
-                    .remove("active");
-
-            }
-
-        });
-
-
-    if (
-        selectedStatus &&
-        buttons[selectedStatus]
-    ) {
-
-        buttons[selectedStatus]
-            .classList
-            .add("active");
-
+    if (selectedStatus && buttons[selectedStatus]) {
+        buttons[selectedStatus].classList.add("active");
     }
-
 }
-
 
 /* =========================================================
    GET BU VALUE
    ========================================================= */
-
 function getBUValue(bu) {
-
-    if (bu === "BU4") {
-        return BU4Data[0] || "";
-    }
-
-    if (bu === "D7") {
-        return D7Data[0] || "";
-    }
-
-    if (bu === "BU11") {
-        return BU11Data[0] || "";
-    }
-
-    if (bu === "VISION") {
-        return VISIONData[0] || "";
-    }
-
-    if (bu === "E5") {
-        return E5Data[0] || "";
-    }
-
-    if (bu === "MICRON") {
-        return MICRONData[0] || "";
-    }
-
-    if (bu === "LDT") {
-        return LDTData[0] || "";
-    }
-
+    if (bu === "BU4") return BU4Data[0] || "";
+    if (bu === "D7") return D7Data[0] || "";
+    if (bu === "BU11") return BU11Data[0] || "";
+    if (bu === "VISION") return VISIONData[0] || "";
+    if (bu === "E5") return E5Data[0] || "";
+    if (bu === "MICRON") return MICRONData[0] || "";
+    if (bu === "LDT") return LDTData[0] || "";
     return "";
-
 }
-
 
 /* =========================================================
    GET ALL CUSTOMERS
    ========================================================= */
-
 function getAllCustomers() {
-
     const customers = [];
 
-
     function addCustomer(value) {
+        if (value === null || value === undefined) return;
 
-        if (
-            value === null ||
-            value === undefined
-        ) {
+        const text = String(value).trim();
+        if (text === "") return;
 
-            return;
-
-        }
-
-
-        const text =
-            String(value).trim();
-
-
-        if (text === "") {
-            return;
-        }
-
-
-        if (
-            !customers.includes(text)
-        ) {
-
-            customers.push(text);
-
-        }
-
+        if (!customers.includes(text)) customers.push(text);
     }
 
-
-    const siteData = [
-
-        BU4Data,
-
-        D7Data,
-
-        BU11Data,
-
-        VISIONData,
-
-        E5Data,
-
-        MICRONData,
-
-        LDTData
-
-    ];
-
+    const siteData = [BU4Data, D7Data, BU11Data, VISIONData, E5Data, MICRONData, LDTData];
 
     siteData.forEach(function(data) {
-
-        if (
-            data &&
-            data.length > 0
-        ) {
-
-            addCustomer(
-                data[0]
-            );
-
-        }
-
+        if (data && data.length > 0) addCustomer(data[0]);
     });
 
-
     return customers.sort();
-
 }
-
 
 /* =========================================================
    FILTER
    ========================================================= */
-
 function applyFilter() {
+    const issueText = document.getElementById("searchIssue").value.trim().toLowerCase();
 
-    const issueText =
-        document
-            .getElementById(
-                "searchIssue"
-            )
-            .value
-            .trim()
-            .toLowerCase();
+    filteredData = allData.filter(function(item) {
+        const issue = String(item["ISSUE AND REQUEST"] || "").toLowerCase();
+        const site = String(item["SITE"] || "").toLowerCase();
+        const status = String(item["STATUS"] || "").trim().toLowerCase();
 
+        if (issueText && !issue.includes(issueText)) return false;
 
-    filteredData =
-        allData.filter(function(item) {
+        if (selectedBU) {
+            const buValue = getBUValue(selectedBU).toLowerCase();
+            if (buValue && !site.includes(buValue)) return false;
+        }
 
-            const issue =
-                String(
-                    item[
-                        "ISSUE AND REQUEST"
-                    ] || ""
-                )
-                .toLowerCase();
+        if (selectedStatus) {
+            if (status !== selectedStatus) return false;
+        }
 
-
-            const site =
-                String(
-                    item["SITE"] || ""
-                )
-                .toLowerCase();
-
-
-            const status =
-                String(
-                    item["STATUS"] || ""
-                )
-                .trim()
-                .toLowerCase();
-
-
-            if (
-                issueText &&
-                !issue.includes(issueText)
-            ) {
-
-                return false;
-
-            }
-
-
-            if (selectedBU) {
-
-                const buValue =
-                    getBUValue(
-                        selectedBU
-                    )
-                    .toLowerCase();
-
-
-                if (
-                    buValue &&
-                    !site.includes(
-                        buValue
-                    )
-                ) {
-
-                    return false;
-
-                }
-
-            }
-
-
-            if (selectedStatus) {
-
-                if (
-                    status !==
-                    selectedStatus
-                ) {
-
-                    return false;
-
-                }
-
-            }
-
-
-            return true;
-
-        });
-
+        return true;
+    });
 
     currentPage = 1;
-
     renderTable();
-
 }
-
 
 /* =========================================================
    OPEN BUTTON
    ========================================================= */
-
 function createOpenButton(value) {
+    if (!value) return "";
 
-    if (!value) {
-        return "";
-    }
+    const link = String(value).trim();
 
-
-    const link =
-        String(value).trim();
-
-
-    if (
-        link === "" ||
-        link.toUpperCase() ===
-        "NOT AVAILABLE"
-    ) {
-
-        return "";
-
-    }
-
-
-    if (
-        !/^https?:\/\//i.test(link)
-    ) {
-
-        return "";
-
-    }
-
+    if (link === "" || link.toUpperCase() === "NOT AVAILABLE") return "";
+    if (!/^https?:\/\//i.test(link)) return "";
 
     return `
-
         <a
             class="open-btn"
             href="${escapeAttribute(link)}"
@@ -3225,20 +1744,14 @@ function createOpenButton(value) {
             Open
 
         </a>
-
     `;
-
 }
-
 
 /* =========================================================
    LOG BUTTON
    ========================================================= */
-
 function createLogButton(idx) {
-
     return `
-
         <button
             type="button"
             class="log-btn"
@@ -3248,2204 +1761,801 @@ function createLogButton(idx) {
             📄 Log
 
         </button>
-
     `;
-
 }
-
 
 /* =========================================================
    STATUS HTML
    ========================================================= */
-
 function createStatus(value) {
+    if (!value) return "";
 
-    if (!value) {
-        return "";
-    }
+    const status = String(value).trim();
+    const normalized = status.toLowerCase().replace(/\s+/g, "-");
 
+    let className = "status-default";
 
-    const status =
-        String(value).trim();
-
-
-    const normalized =
-        status
-            .toLowerCase()
-            .replace(
-                /\s+/g,
-                "-"
-            );
-
-
-    let className =
-        "status-default";
-
-
-    if (
-        normalized ===
-        "monitoring"
-    ) {
-
-        className =
-            "status-monitoring";
-
-    }
-
-    else if (
-        normalized ===
-        "closed"
-    ) {
-
-        className =
-            "status-closed";
-
-    }
-
-    else if (
-        normalized ===
-        "ng"
-    ) {
-
-        className =
-            "status-ng";
-
-    }
-
-    else if (
-        normalized ===
-        "open"
-    ) {
-
-        className =
-            "status-open";
-
-    }
-
+    if (normalized === "monitoring") className = "status-monitoring";
+    else if (normalized === "closed") className = "status-closed";
+    else if (normalized === "ng") className = "status-ng";
+    else if (normalized === "open") className = "status-open";
 
     return `
-
-        <span
-            class="status ${className}">
-
+        <span class="status ${className}">
             ${escapeHTML(status)}
-
         </span>
-
     `;
-
 }
-
 
 /* =========================================================
    FORMAT DATE
    ========================================================= */
-
 function formatDate(value) {
+    if (!value) return "";
 
-    if (!value) {
-        return "";
-    }
+    const text = String(value).trim();
 
+    if (/^\d{2}\/\d{2}\/\d{2}$/.test(text)) return escapeHTML(text);
 
-    const text =
-        String(value).trim();
+    const date = new Date(value);
+    if (isNaN(date.getTime())) return escapeHTML(text);
 
-
-    if (
-        /^\d{2}\/\d{2}\/\d{2}$/.test(text)
-    ) {
-
-        return escapeHTML(text);
-
-    }
-
-
-    const date =
-        new Date(value);
-
-
-    if (
-        isNaN(date.getTime())
-    ) {
-
-        return escapeHTML(text);
-
-    }
-
-
-    const month =
-        String(
-            date.getMonth() + 1
-        )
-        .padStart(2, "0");
-
-
-    const day =
-        String(
-            date.getDate()
-        )
-        .padStart(2, "0");
-
-
-    const year =
-        String(
-            date.getFullYear()
-        )
-        .slice(-2);
-
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const year = String(date.getFullYear()).slice(-2);
 
     return `${month}/${day}/${year}`;
-
 }
-
 
 /* =========================================================
    RENDER TABLE
    ========================================================= */
-
 function renderTable() {
+    const tableBody = document.getElementById("tableBody");
+    const recordInfo = document.getElementById("recordInfo");
+    const pageInfo = document.getElementById("pageInfo");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
 
-    const tableBody =
-        document.getElementById(
-            "tableBody"
-        );
+    const totalRecords = filteredData.length;
+    const totalPages = Math.max(1, Math.ceil(totalRecords / rowsPerPage));
 
+    if (currentPage > totalPages) currentPage = totalPages;
 
-    const recordInfo =
-        document.getElementById(
-            "recordInfo"
-        );
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const endIndex = Math.min(startIndex + rowsPerPage, totalRecords);
+    const pageData = filteredData.slice(startIndex, endIndex);
 
-
-    const pageInfo =
-        document.getElementById(
-            "pageInfo"
-        );
-
-
-    const prevBtn =
-        document.getElementById(
-            "prevBtn"
-        );
-
-
-    const nextBtn =
-        document.getElementById(
-            "nextBtn"
-        );
-
-
-    const totalRecords =
-        filteredData.length;
-
-
-    const totalPages =
-        Math.max(
-            1,
-            Math.ceil(
-                totalRecords /
-                rowsPerPage
-            )
-        );
-
-
-    if (
-        currentPage >
-        totalPages
-    ) {
-
-        currentPage =
-            totalPages;
-
+    if (totalRecords === 0) {
+        recordInfo.textContent = "0 records";
     }
-
-
-    const startIndex =
-        (currentPage - 1) *
-        rowsPerPage;
-
-
-    const endIndex =
-        Math.min(
-            startIndex +
-            rowsPerPage,
-            totalRecords
-        );
-
-
-    const pageData =
-        filteredData.slice(
-            startIndex,
-            endIndex
-        );
-
-
-    if (
-        totalRecords === 0
-    ) {
-
-        recordInfo.textContent =
-            "0 records";
-
-    }
-
     else {
-
-        recordInfo.textContent =
-            `Showing ${
-                startIndex + 1
-            }-${
-                endIndex
-            } of ${
-                totalRecords
-            } records`;
-
+        recordInfo.textContent = `Showing ${startIndex + 1}-${endIndex} of ${totalRecords} records`;
     }
 
-
-    if (
-        pageData.length === 0
-    ) {
-
+    if (pageData.length === 0) {
         tableBody.innerHTML = `
-
             <tr>
-
-                <td
-                    colspan="6"
-                    class="message">
-
-                    No records found.
-
-                </td>
-
+                <td colspan="6" class="message">No records found.</td>
             </tr>
-
         `;
-
     }
-
     else {
+        tableBody.innerHTML = pageData.map(function(item, i) {
+            const date = formatDate(item["DATE"]);
+            const site = escapeHTML(item["SITE"] || "");
+            const issue = escapeHTML(item["ISSUE AND REQUEST"] || "");
+            const rawStatus = String(item["STATUS"] || "").trim();
+            const normalizedStatus = rawStatus.toLowerCase();
+            const status = createStatus(rawStatus);
+            const logLink = createOpenButton(item["LOG"]);
+            const logButton = createLogButton(startIndex + i);
+            const ccLink = createOpenButton(item["CC LINK"]);
 
-        tableBody.innerHTML =
-            pageData
-                .map(function(item, i) {
+            let rowClass = "";
 
-                    const date =
-                        formatDate(
-                            item["DATE"]
-                        );
+            if (normalizedStatus === "open") rowClass = "open-case-row";
+            else if (normalizedStatus === "closed") rowClass = "closed-case-row";
+            else if (normalizedStatus === "monitoring") rowClass = "monitoring-case-row";
 
-
-                    const site =
-                        escapeHTML(
-                            item["SITE"] ||
-                            ""
-                        );
-
-
-                    const issue =
-                        escapeHTML(
-                            item[
-                                "ISSUE AND REQUEST"
-                            ] || ""
-                        );
-
-
-                    const rawStatus =
-                        String(
-                            item["STATUS"] ||
-                            ""
-                        )
-                        .trim();
-
-
-                    const normalizedStatus =
-                        rawStatus
-                            .toLowerCase();
-
-
-                    const status =
-                        createStatus(
-                            rawStatus
-                        );
-
-
-                    const logLink =
-                        createOpenButton(
-                            item["LOG"]
-                        );
-
-
-                    const logButton =
-                        createLogButton(startIndex + i);
-
-
-                    const ccLink =
-                        createOpenButton(
-                            item["CC LINK"]
-                        );
-
-
-                    let rowClass = "";
-
-
-                    if (
-                        normalizedStatus ===
-                        "open"
-                    ) {
-
-                        rowClass =
-                            "open-case-row";
-
-                    }
-
-                    else if (
-                        normalizedStatus ===
-                        "closed"
-                    ) {
-
-                        rowClass =
-                            "closed-case-row";
-
-                    }
-
-                    else if (
-                        normalizedStatus ===
-                        "monitoring"
-                    ) {
-
-                        rowClass =
-                            "monitoring-case-row";
-
-                    }
-
-
-                    return `
-
-                        <tr
-                            class="${rowClass}"
-                            data-idx="${startIndex + i}">
-
-                            <td class="date-cell">
-                                <div class="date-cell-inner">
-                                    <div class="date-value">
-                                        ${date}
-                                    </div>
-                                    <div class="row-actions">
-                                        <button
-                                            type="button"
-                                            class="row-action-btn edit-btn"
-                                            title="Sửa record"
-                                            aria-label="Sửa record"
-                                            onclick="handleEditButtonClick(event, ${startIndex + i})">
-                                            ✏️
-                                        </button>
-                                        <button
-                                            type="button"
-                                            class="row-action-btn delete-btn"
-                                            title="Xóa record"
-                                            aria-label="Xóa record"
-                                            onclick="handleDeleteButtonClick(event, ${startIndex + i})">
-                                            🗑️
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-
-
-                            <td>
-                                ${site}
-                            </td>
-
-
-                            <td>
-                                ${issue}
-                            </td>
-
-
-                            <td>
-                                ${status}
-                            </td>
-
-
-                            <td>
-                                ${logLink}
-                                ${logButton}
-                            </td>
-
-
-                            <td>
-                                ${ccLink}
-                            </td>
-
-                        </tr>
-
-                    `;
-
-                })
-                .join("");
-
+            return `
+                <tr class="${rowClass}" data-idx="${startIndex + i}">
+                    <td class="date-cell">
+                        <div class="date-cell-inner">
+                            <div class="date-value">${date}</div>
+                            <div class="row-actions">
+                                <button
+                                    type="button"
+                                    class="row-action-btn edit-btn"
+                                    title="Sửa record"
+                                    aria-label="Sửa record"
+                                    onclick="handleEditButtonClick(event, ${startIndex + i})">
+                                    ✏️
+                                </button>
+                                <button
+                                    type="button"
+                                    class="row-action-btn delete-btn"
+                                    title="Xóa record"
+                                    aria-label="Xóa record"
+                                    onclick="handleDeleteButtonClick(event, ${startIndex + i})">
+                                    🗑️
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                    <td>${site}</td>
+                    <td>${issue}</td>
+                    <td>${status}</td>
+                    <td>${logLink}${logButton}</td>
+                    <td>${ccLink}</td>
+                </tr>
+            `;
+        }).join("");
     }
 
-
-    pageInfo.textContent =
-        `Page ${
-            currentPage
-        } / ${
-            totalPages
-        }`;
-
-
-    prevBtn.disabled =
-        currentPage <= 1;
-
-
-    nextBtn.disabled =
-        currentPage >=
-        totalPages;
-
+    pageInfo.textContent = `Page ${currentPage} / ${totalPages}`;
+    prevBtn.disabled = currentPage <= 1;
+    nextBtn.disabled = currentPage >= totalPages;
 }
-
 
 /* =========================================================
    PREVIOUS PAGE
    ========================================================= */
-
 function previousPage() {
-
-    if (
-        currentPage > 1
-    ) {
-
+    if (currentPage > 1) {
         currentPage--;
-
         renderTable();
-
         scrollToTop();
-
     }
-
 }
-
 
 /* =========================================================
    NEXT PAGE
    ========================================================= */
-
 function nextPage() {
+    const totalPages = Math.max(1, Math.ceil(filteredData.length / rowsPerPage));
 
-    const totalPages =
-        Math.max(
-            1,
-            Math.ceil(
-                filteredData.length /
-                rowsPerPage
-            )
-        );
-
-
-    if (
-        currentPage <
-        totalPages
-    ) {
-
+    if (currentPage < totalPages) {
         currentPage++;
-
         renderTable();
-
         scrollToTop();
-
     }
-
 }
-
 
 /* =========================================================
    CLEAR FILTER
    ========================================================= */
-
 function clearFilter() {
-
-    document
-        .getElementById(
-            "searchIssue"
-        )
-        .value = "";
-
-
+    document.getElementById("searchIssue").value = "";
     selectedBU = null;
-
     selectedStatus = null;
-
-
     currentPage = 1;
 
-
     updateBUButtons();
-
     updateStatusButtons();
 
-
-    filteredData =
-        [...allData];
-
-
+    filteredData = [...allData];
     renderTable();
-
 }
-
 
 /* =========================================================
    SCROLL
    ========================================================= */
-
 function scrollToTop() {
+    const container = document.querySelector(".table-container");
+    if (container) container.scrollTop = 0;
 
-    const container =
-        document.querySelector(
-            ".table-container"
-        );
-
-
-    if (container) {
-
-        container.scrollTop = 0;
-
-    }
-
-
-    window.scrollTo({
-
-        top: 0,
-
-        behavior: "smooth"
-
-    });
-
+    window.scrollTo({ top: 0, behavior: "smooth" });
 }
-
 
 /* =========================================================
    ESCAPE HTML
    ========================================================= */
-
 function escapeHTML(value) {
-
     return String(value)
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }
-
 
 /* =========================================================
    ESCAPE ATTRIBUTE
    ========================================================= */
-
 function escapeAttribute(value) {
-
     return String(value)
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        );
-
+        .replace(/&/g, "&amp;")
+        .replace(/"/g, "&quot;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
 }
-
 
 /* =========================================================
    EXPORT
    ========================================================= */
-
 async function exportToExcel() {
-
-    if (
-        typeof XLSX === "undefined"
-    ) {
-
-        alert(
-            "Excel export library failed to load. Please check your internet connection and try again."
-        );
-
+    if (typeof XLSX === "undefined") {
+        alert("Excel export library failed to load. Please check your internet connection and try again.");
         return;
-
     }
 
-
-    if (
-        !filteredData ||
-        filteredData.length === 0
-    ) {
-
-        alert(
-            "No data to export."
-        );
-
+    if (!filteredData || filteredData.length === 0) {
+        alert("No data to export.");
         return;
-
     }
 
+    const rows = filteredData.map(function(item) {
+        return {
+            "DATE": formatDateForExport(item["DATE"]),
+            "SITE": item["SITE"] || "",
+            "ISSUE AND REQUEST": item["ISSUE AND REQUEST"] || "",
+            "STATUS": item["STATUS"] || "",
+            "LOG": item["LOG"] || "",
+            "CC LINK": item["CC LINK"] || ""
+        };
+    });
 
-    const rows =
-        filteredData.map(function(item) {
-
-            return {
-
-                "DATE":
-                    formatDateForExport(
-                        item["DATE"]
-                    ),
-
-                "SITE":
-                    item["SITE"] || "",
-
-                "ISSUE AND REQUEST":
-                    item[
-                        "ISSUE AND REQUEST"
-                    ] || "",
-
-                "STATUS":
-                    item["STATUS"] || "",
-
-                "LOG":
-                    item["LOG"] || "",
-
-                "CC LINK":
-                    item["CC LINK"] || ""
-
-            };
-
-        });
-
-
-    const worksheet =
-        XLSX.utils.json_to_sheet(
-            rows
-        );
-
+    const worksheet = XLSX.utils.json_to_sheet(rows);
 
     worksheet["!cols"] = [
-
         { wch: 10 },
-
         { wch: 18 },
-
         { wch: 60 },
-
         { wch: 14 },
-
         { wch: 25 },
-
         { wch: 25 }
-
     ];
 
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Issue List");
 
-    const workbook =
-        XLSX.utils.book_new();
-
-
-    XLSX.utils.book_append_sheet(
-        workbook,
-        worksheet,
-        "Issue List"
-    );
-
-
-    const now =
-        new Date();
-
-
+    const now = new Date();
     const stamp =
         now.getFullYear() +
-
-        String(
-            now.getMonth() + 1
-        ).padStart(2, "0") +
-
-        String(
-            now.getDate()
-        ).padStart(2, "0") +
-
+        String(now.getMonth() + 1).padStart(2, "0") +
+        String(now.getDate()).padStart(2, "0") +
         "_" +
+        String(now.getHours()).padStart(2, "0") +
+        String(now.getMinutes()).padStart(2, "0");
 
-        String(
-            now.getHours()
-        ).padStart(2, "0") +
+    const suggestedName = `Issue_List_${stamp}.xlsx`;
 
-        String(
-            now.getMinutes()
-        ).padStart(2, "0");
-
-
-    const suggestedName =
-        `Issue_List_${stamp}.xlsx`;
-
-
-    if (
-        window.showSaveFilePicker
-    ) {
-
+    if (window.showSaveFilePicker) {
         try {
-
-            const handle =
-                await window.showSaveFilePicker({
-
-                    suggestedName:
-                        suggestedName,
-
-                    types: [{
-
-                        description:
-                            "Excel Workbook",
-
-                        accept: {
-
-                            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
-                                [".xlsx"]
-
-                        }
-
-                    }]
-
-                });
-
-
-            const arrayBuffer =
-                XLSX.write(
-                    workbook,
-                    {
-
-                        bookType:
-                            "xlsx",
-
-                        type:
-                            "array"
-
+            const handle = await window.showSaveFilePicker({
+                suggestedName: suggestedName,
+                types: [{
+                    description: "Excel Workbook",
+                    accept: {
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [".xlsx"]
                     }
-                );
+                }]
+            });
 
+            const arrayBuffer = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
+            const writable = await handle.createWritable();
 
-            const writable =
-                await handle.createWritable();
-
-
-            await writable.write(
-                arrayBuffer
-            );
-
-
+            await writable.write(arrayBuffer);
             await writable.close();
 
-
             return;
-
         }
-
         catch (error) {
-
-            if (
-                error &&
-                error.name ===
-                "AbortError"
-            ) {
-
-                return;
-
-            }
-
-
-            console.error(
-                "Save dialog failed:",
-                error
-            );
-
+            if (error && error.name === "AbortError") return;
+            console.error("Save dialog failed:", error);
         }
-
     }
 
-
-    XLSX.writeFile(
-        workbook,
-        suggestedName
-    );
-
+    XLSX.writeFile(workbook, suggestedName);
 }
-
 
 /* =========================================================
    FORMAT DATE FOR EXPORT
    ========================================================= */
-
 function formatDateForExport(value) {
+    if (!value) return "";
 
-    if (!value) {
-        return "";
-    }
+    const text = String(value).trim();
+    if (/^\d{2}\/\d{2}\/\d{2}$/.test(text)) return text;
 
+    const date = new Date(value);
+    if (isNaN(date.getTime())) return text;
 
-    const text =
-        String(value).trim();
-
-
-    if (
-        /^\d{2}\/\d{2}\/\d{2}$/.test(text)
-    ) {
-
-        return text;
-
-    }
-
-
-    const date =
-        new Date(value);
-
-
-    if (
-        isNaN(date.getTime())
-    ) {
-
-        return text;
-
-    }
-
-
-    const month =
-        String(
-            date.getMonth() + 1
-        )
-        .padStart(2, "0");
-
-
-    const day =
-        String(
-            date.getDate()
-        )
-        .padStart(2, "0");
-
-
-    const year =
-        String(
-            date.getFullYear()
-        )
-        .slice(-2);
-
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const year = String(date.getFullYear()).slice(-2);
 
     return `${month}/${day}/${year}`;
-
 }
-
 
 /* =========================================================
    ADD DIALOG
    ========================================================= */
-
 let addStep = 1;
-
-/* EDIT MODE STATE */
 let editMode = false;
 let editTarget = null;
 let editOriginal = null;
 
 function addTitlePrefix() {
-    return editMode
-        ? "Edit Issue"
-        : "Add New Issue";
+    return editMode ? "Edit Issue" : "Add New Issue";
 }
 
 let newRecord = {
-
     DATE: "",
-
     SITE: "",
-
     "ISSUE AND REQUEST": "",
-
     STATUS: "",
-
     LOG: "",
-
     "CC LINK": ""
-
 };
 
-
 function openAddDialog() {
-
     editMode = false;
     editTarget = null;
     editOriginal = null;
-
     addStep = 1;
 
-
     newRecord = {
-
         DATE: "",
-
         SITE: "",
-
         "ISSUE AND REQUEST": "",
-
         STATUS: "",
-
         LOG: "",
-
         "CC LINK": ""
-
     };
 
-
-    document
-        .getElementById(
-            "addModal"
-        )
-        .classList
-        .add("show");
-
-
+    document.getElementById("addModal").classList.add("show");
     renderAddStep();
-
 }
-
 
 /* =========================================================
    CLOSE ADD
    ========================================================= */
-
 function closeAddDialog() {
-
     editMode = false;
+    document.getElementById("addModal").classList.remove("show");
 
+    const nextBtn = document.getElementById("addNextBtn");
+    const backBtn = document.getElementById("addBackBtn");
 
-    document
-        .getElementById(
-            "addModal"
-        )
-        .classList
-        .remove("show");
-
-
-    const nextBtn =
-        document.getElementById(
-            "addNextBtn"
-        );
-
-
-    const backBtn =
-        document.getElementById(
-            "addBackBtn"
-        );
-
-
-    nextBtn.textContent =
-        "Next";
-
-
-    nextBtn.onclick =
-        addNextStep;
-
-
-    nextBtn.disabled =
-        false;
-
-
-    backBtn.disabled =
-        false;
-
+    nextBtn.textContent = "Next";
+    nextBtn.onclick = addNextStep;
+    nextBtn.disabled = false;
+    backBtn.disabled = false;
 }
-
 
 /* =========================================================
    RENDER ADD STEP
    ========================================================= */
-
 function renderAddStep() {
+    const title = document.getElementById("addStepTitle");
+    const content = document.getElementById("addStepContent");
+    const backBtn = document.getElementById("addBackBtn");
+    const nextBtn = document.getElementById("addNextBtn");
 
-    const title =
-        document.getElementById(
-            "addStepTitle"
-        );
+    nextBtn.textContent = "Next";
+    nextBtn.onclick = addNextStep;
+    nextBtn.disabled = false;
+    backBtn.disabled = false;
 
+    backBtn.style.display = addStep === 1 ? "none" : "inline-block";
 
-    const content =
-        document.getElementById(
-            "addStepContent"
-        );
-
-
-    const backBtn =
-        document.getElementById(
-            "addBackBtn"
-        );
-
-
-    const nextBtn =
-        document.getElementById(
-            "addNextBtn"
-        );
-
-
-    nextBtn.textContent =
-        "Next";
-
-
-    nextBtn.onclick =
-        addNextStep;
-
-
-    nextBtn.disabled =
-        false;
-
-
-    backBtn.disabled =
-        false;
-
-
-    backBtn.style.display =
-        addStep === 1
-            ? "none"
-            : "inline-block";
-
-
-    /* =========================
-       STEP 1
-       ========================= */
-
+    /* STEP 1 */
     if (addStep === 1) {
-
-        title.textContent =
-            addTitlePrefix() +
-            " — Step 1 / 4";
-
+        title.textContent = addTitlePrefix() + " — Step 1 / 4";
 
         content.innerHTML = `
-
-            <label
-                class="add-step-label">
-
-                Date
-
-            </label>
-
-
+            <label class="add-step-label">Date</label>
             <input
                 type="date"
                 id="addDate"
                 class="add-input"
                 autocomplete="off"
-                value="${escapeAttribute(
-                    convertMMDDYYToISO(
-                        newRecord.DATE
-                    )
-                )}"
+                value="${escapeAttribute(convertMMDDYYToISO(newRecord.DATE))}"
             >
-
-
-            <div
-                id="addError"
-                class="add-error">
-            </div>
-
+            <div id="addError" class="add-error"></div>
         `;
 
-
         setTimeout(function() {
-
-            const input =
-                document.getElementById(
-                    "addDate"
-                );
-
-            if (input) {
-
-                input.focus();
-
-            }
-
+            const input = document.getElementById("addDate");
+            if (input) input.focus();
         }, 50);
-
     }
 
-
-    /* =========================
-       STEP 2
-       ========================= */
-
+    /* STEP 2 */
     else if (addStep === 2) {
-
         renderAddSiteStep();
-
     }
 
-
-    /* =========================
-       STEP 3
-       ========================= */
-
+    /* STEP 3 */
     else if (addStep === 3) {
-
-        title.textContent =
-            addTitlePrefix() +
-            " — Step 3 / 4";
-
+        title.textContent = addTitlePrefix() + " — Step 3 / 4";
 
         content.innerHTML = `
-
-            <label
-                class="add-step-label">
-
-                Issue and Request
-
-            </label>
-
-
+            <label class="add-step-label">Issue and Request</label>
             <textarea
                 id="addIssue"
                 class="add-textarea"
                 placeholder="Enter issue and request..."
-            >${escapeHTML(
-                newRecord[
-                    "ISSUE AND REQUEST"
-                ]
-            )}</textarea>
-
-
-            <div
-                id="addError"
-                class="add-error">
-            </div>
-
+            >${escapeHTML(newRecord["ISSUE AND REQUEST"])}</textarea>
+            <div id="addError" class="add-error"></div>
         `;
-
 
         setTimeout(function() {
-
-            const input =
-                document.getElementById(
-                    "addIssue"
-                );
-
-            if (input) {
-
-                input.focus();
-
-            }
-
+            const input = document.getElementById("addIssue");
+            if (input) input.focus();
         }, 50);
-
     }
 
-
-    /* =========================
-       STEP 4
-       ========================= */
-
+    /* STEP 4 */
     else if (addStep === 4) {
-
-        title.textContent =
-            addTitlePrefix() +
-            " — Step 4 / 4";
-
+        title.textContent = addTitlePrefix() + " — Step 4 / 4";
 
         content.innerHTML = `
-
-            <label
-                class="add-step-label">
-
-                Status
-
-            </label>
-
-
-            <select
-                id="addStatus"
-                class="add-select">
-
-                <option value="">
-                    Select status
-                </option>
-
-                <option value="Open">
-                    Open
-                </option>
-
-                <option value="Closed">
-                    Closed
-                </option>
-
-                <option value="Monitoring">
-                    Monitoring
-                </option>
-
+            <label class="add-step-label">Status</label>
+            <select id="addStatus" class="add-select">
+                <option value="">Select status</option>
+                <option value="Open">Open</option>
+                <option value="Closed">Closed</option>
+                <option value="Monitoring">Monitoring</option>
             </select>
-
-
-            <div
-                id="addError"
-                class="add-error">
-            </div>
-
+            <div id="addError" class="add-error"></div>
         `;
 
-
         setSelectValueWithFallback("addStatus", newRecord.STATUS);
-
     }
-
 }
-
 
 /* =========================================================
    RENDER SITE STEP
    ========================================================= */
-
 function renderAddSiteStep() {
+    const title = document.getElementById("addStepTitle");
+    const content = document.getElementById("addStepContent");
 
-    const title =
-        document.getElementById(
-            "addStepTitle"
-        );
+    title.textContent = addTitlePrefix() + " — Step 2 / 4";
 
+    const customers = getAllCustomers();
 
-    const content =
-        document.getElementById(
-            "addStepContent"
-        );
-
-
-    title.textContent =
-        addTitlePrefix() +
-            " — Step 2 / 4";
-
-
-    const customers =
-        getAllCustomers();
-
-
-    let options = `
-
-        <option value="">
-            Select customer
-        </option>
-
-    `;
-
+    let options = `<option value="">Select customer</option>`;
 
     customers.forEach(function(customer) {
-
         options += `
-
-            <option
-                value="${escapeAttribute(
-                    customer
-                )}">
-
-                ${escapeHTML(
-                    customer
-                )}
-
+            <option value="${escapeAttribute(customer)}">
+                ${escapeHTML(customer)}
             </option>
-
         `;
-
     });
 
-
     content.innerHTML = `
-
-        <label
-            class="add-step-label">
-
-            Customer / Site
-
-        </label>
-
-
-        <select            id="addSite"
-            class="add-select">
-
+        <label class="add-step-label">Customer / Site</label>
+        <select id="addSite" class="add-select">
             ${options}
-
         </select>
-
-
-        <div
-            id="addError"
-            class="add-error">
-        </div>
-
+        <div id="addError" class="add-error"></div>
     `;
 
-
     setSelectValueWithFallback("addSite", newRecord.SITE);
-
 }
-
 
 /* =========================================================
    DATE CONVERSION
    ========================================================= */
-
 function convertMMDDYYToISO(value) {
+    if (!value) return "";
 
-    if (!value) {
-        return "";
-    }
+    const text = String(value).trim();
+    const match = text.match(/^(\d{2})\/(\d{2})\/(\d{2})$/);
 
+    if (!match) return "";
 
-    const text =
-        String(value).trim();
-
-
-    const match =
-        text.match(
-            /^(\d{2})\/(\d{2})\/(\d{2})$/
-        );
-
-
-    if (!match) {
-        return "";
-    }
-
-
-    const month =
-        match[1];
-
-    const day =
-        match[2];
-
-    const year =
-        "20" + match[3];
-
+    const month = match[1];
+    const day = match[2];
+    const year = "20" + match[3];
 
     return `${year}-${month}-${day}`;
-
 }
-
 
 function convertISOToMMDDYY(value) {
+    if (!value) return "";
 
-    if (!value) {
-        return "";
-    }
+    const match = String(value).trim().match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (!match) return "";
 
-
-    const match =
-        String(value)
-            .trim()
-            .match(
-                /^(\d{4})-(\d{2})-(\d{2})$/
-            );
-
-
-    if (!match) {
-        return "";
-    }
-
-
-    const year =
-        match[1].slice(-2);
-
-    const month =
-        match[2];
-
-    const day =
-        match[3];
-
+    const year = match[1].slice(-2);
+    const month = match[2];
+    const day = match[3];
 
     return `${month}/${day}/${year}`;
-
 }
-
 
 /* =========================================================
    VALIDATE DATE
    ========================================================= */
-
 function validateDateMMDDYY(value) {
+    const regex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/([0-9]{2})$/;
+    if (!regex.test(value)) return false;
 
-    const regex =
-        /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/([0-9]{2})$/;
+    const parts = value.split("/");
+    const month = Number(parts[0]);
+    const day = Number(parts[1]);
+    const year = 2000 + Number(parts[2]);
 
-
-    if (!regex.test(value)) {
-        return false;
-    }
-
-
-    const parts =
-        value.split("/");
-
-
-    const month =
-        Number(parts[0]);
-
-    const day =
-        Number(parts[1]);
-
-    const year =
-        2000 +
-        Number(parts[2]);
-
-
-    const date =
-        new Date(
-            year,
-            month - 1,
-            day
-        );
-
+    const date = new Date(year, month - 1, day);
 
     return (
-
-        date.getFullYear() ===
-        year &&
-
-        date.getMonth() ===
-        month - 1 &&
-
-        date.getDate() ===
-        day
-
+        date.getFullYear() === year &&
+        date.getMonth() === month - 1 &&
+        date.getDate() === day
     );
-
 }
-
 
 /* =========================================================
    ADD NEXT STEP
    ========================================================= */
-
 function addNextStep() {
+    const error = document.getElementById("addError");
 
-    const error =
-        document.getElementById(
-            "addError"
-        );
-
-
-    /* =========================
-       STEP 1
-       ========================= */
-
+    /* STEP 1 */
     if (addStep === 1) {
-
-        const input =
-            document.getElementById(
-                "addDate"
-            );
-
-
-        const isoValue =
-            input.value.trim();
-
+        const input = document.getElementById("addDate");
+        const isoValue = input.value.trim();
 
         if (!isoValue) {
-
-            error.textContent =
-                "Please select a date.";
-
+            error.textContent = "Please select a date.";
             return;
-
         }
 
+        const value = convertISOToMMDDYY(isoValue);
 
-        const value =
-            convertISOToMMDDYY(
-                isoValue
-            );
-
-
-        if (
-            !validateDateMMDDYY(value)
-        ) {
-
-            error.textContent =
-                "Invalid date.";
-
+        if (!validateDateMMDDYY(value)) {
+            error.textContent = "Invalid date.";
             return;
-
         }
 
-
-        newRecord.DATE =
-            value;
-
+        newRecord.DATE = value;
     }
 
-
-    /* =========================
-       STEP 2
-       ========================= */
-
+    /* STEP 2 */
     else if (addStep === 2) {
-
-        const value =
-            document.getElementById(
-                "addSite"
-            ).value;
-
+        const value = document.getElementById("addSite").value;
 
         if (!value) {
-
-            error.textContent =
-                "Please select a customer.";
-
+            error.textContent = "Please select a customer.";
             return;
-
         }
 
-
-        newRecord.SITE =
-            value;
-
+        newRecord.SITE = value;
     }
 
-
-    /* =========================
-       STEP 3
-       ========================= */
-
+    /* STEP 3 */
     else if (addStep === 3) {
-
-        const value =
-            document.getElementById(
-                "addIssue"
-            )
-            .value
-            .trim();
-
+        const value = document.getElementById("addIssue").value.trim();
 
         if (!value) {
-
-            error.textContent =
-                "Please enter Issue and Request.";
-
+            error.textContent = "Please enter Issue and Request.";
             return;
-
         }
 
-
-        newRecord[
-            "ISSUE AND REQUEST"
-        ] = value;
-
+        newRecord["ISSUE AND REQUEST"] = value;
     }
 
-
-    /* =========================
-       STEP 4
-       ========================= */
-
+    /* STEP 4 */
     else if (addStep === 4) {
-
-        const value =
-            document.getElementById(
-                "addStatus"
-            ).value;
-
+        const value = document.getElementById("addStatus").value;
 
         if (!value) {
-
-            error.textContent =
-                "Please select a status.";
-
+            error.textContent = "Please select a status.";
             return;
-
         }
 
-
-        newRecord.STATUS =
-            value;
-
-
+        newRecord.STATUS = value;
         showAddConfirmation();
-
         return;
-
     }
-
 
     addStep++;
-
     renderAddStep();
-
 }
-
 
 /* =========================================================
    PREVIOUS STEP
    ========================================================= */
-
 function addPreviousStep() {
-
-    if (
-        addStep <= 1
-    ) {
-
-        return;
-
-    }
-
+    if (addStep <= 1) return;
 
     addStep--;
-
     renderAddStep();
-
 }
-
 
 /* =========================================================
    CONFIRM
    ========================================================= */
-
 function showAddConfirmation() {
+    const title = document.getElementById("addStepTitle");
+    const content = document.getElementById("addStepContent");
+    const nextBtn = document.getElementById("addNextBtn");
+    const backBtn = document.getElementById("addBackBtn");
 
-    const title =
-        document.getElementById(
-            "addStepTitle"
-        );
-
-
-    const content =
-        document.getElementById(
-            "addStepContent"
-        );
-
-
-    const nextBtn =
-        document.getElementById(
-            "addNextBtn"
-        );
-
-
-    const backBtn =
-        document.getElementById(
-            "addBackBtn"
-        );
-
-
-    title.textContent =
-        editMode ? "Confirm Edited Record" : "Confirm New Record";
-
+    title.textContent = editMode ? "Confirm Edited Record" : "Confirm New Record";
 
     content.innerHTML = `
-
         <div class="add-confirm-row">
-
-            <div class="add-confirm-label">
-                DATE
-            </div>
-
-            <div class="add-confirm-value">
-                ${escapeHTML(
-                    newRecord.DATE
-                )}
-            </div>
-
+            <div class="add-confirm-label">DATE</div>
+            <div class="add-confirm-value">${escapeHTML(newRecord.DATE)}</div>
         </div>
-
-
         <div class="add-confirm-row">
-
-            <div class="add-confirm-label">
-                SITE
-            </div>
-
-            <div class="add-confirm-value">
-                ${escapeHTML(
-                    newRecord.SITE
-                )}
-            </div>
-
+            <div class="add-confirm-label">SITE</div>
+            <div class="add-confirm-value">${escapeHTML(newRecord.SITE)}</div>
         </div>
-
-
         <div class="add-confirm-row">
-
-            <div class="add-confirm-label">
-                ISSUE AND REQUEST
-            </div>
-
-            <div class="add-confirm-value">
-                ${escapeHTML(
-                    newRecord[
-                        "ISSUE AND REQUEST"
-                    ]
-                )}
-            </div>
-
+            <div class="add-confirm-label">ISSUE AND REQUEST</div>
+            <div class="add-confirm-value">${escapeHTML(newRecord["ISSUE AND REQUEST"])}</div>
         </div>
-
-
         <div class="add-confirm-row">
-
-            <div class="add-confirm-label">
-                STATUS
-            </div>
-
-            <div class="add-confirm-value">
-                ${escapeHTML(
-                    newRecord.STATUS
-                )}
-            </div>
-
+            <div class="add-confirm-label">STATUS</div>
+            <div class="add-confirm-value">${escapeHTML(newRecord.STATUS)}</div>
         </div>
-
-
         <div class="backend-note">
-
             ${editMode ? "Ấn vào Save Changes để lưu thay đổi." : "Ấn vào Add Record để lưu issue hoặc request."}
-
             <br>
-
             Lưu ý kiểm tra kỹ trước khi lưu!!!
-
         </div>
-
     `;
 
+    backBtn.style.display = "inline-block";
+    backBtn.disabled = false;
 
-    backBtn.style.display =
-        "inline-block";
-
-
-    backBtn.disabled =
-        false;
-
-
-    nextBtn.textContent =
-        editMode ? "Save Changes" : "Add Record";
-
-    nextBtn.onclick =
-        editMode ? saveEditedRecord : saveNewRecord;
-
-
-    nextBtn.disabled =
-        false;
-
+    nextBtn.textContent = editMode ? "Save Changes" : "Add Record";
+    nextBtn.onclick = editMode ? saveEditedRecord : saveNewRecord;
+    nextBtn.disabled = false;
 }
-
 
 /* =========================================================
    CLOUDFLARE WORKER
    ========================================================= */
-
-const BACKEND_API_URL =
-    "https://issue-list-backend.quoctan91.workers.dev/add-issue";
-
-const GET_LOG_API_URL =
-    BACKEND_API_URL.replace(
-        /\/add-issue$/,
-        "/get-log"
-    );
-
-const SAVE_LOG_API_URL =
-    BACKEND_API_URL.replace(
-        /\/add-issue$/,
-        "/save-log"
-    );
-
+const BACKEND_API_URL = "https://issue-list-backend.quoctan91.workers.dev/add-issue";
+const GET_LOG_API_URL = BACKEND_API_URL.replace(/\/add-issue$/, "/get-log");
+const SAVE_LOG_API_URL = BACKEND_API_URL.replace(/\/add-issue$/, "/save-log");
 
 /* =========================================================
    SAVE NEW RECORD
    ========================================================= */
-
 async function saveNewRecord() {
-
     const recordToSend = {
-
-        DATE:
-            newRecord.DATE,
-
-        SITE:
-            newRecord.SITE,
-
-        "ISSUE AND REQUEST":
-            newRecord[
-                "ISSUE AND REQUEST"
-            ],
-
-        STATUS:
-            newRecord.STATUS
-
+        DATE: newRecord.DATE,
+        SITE: newRecord.SITE,
+        "ISSUE AND REQUEST": newRecord["ISSUE AND REQUEST"],
+        STATUS: newRecord.STATUS
     };
 
-
-    const pendingId =
-        "pending_" +
-        Date.now() +
-        "_" +
-        Math.random()
-            .toString(36)
-            .slice(2);
-
+    const pendingId = "pending_" + Date.now() + "_" + Math.random().toString(36).slice(2);
 
     const optimisticRecord = {
-
-        DATE:
-            recordToSend.DATE,
-
-        SITE:
-            recordToSend.SITE,
-
-        "ISSUE AND REQUEST":
-            recordToSend[
-                "ISSUE AND REQUEST"
-            ],
-
-        STATUS:
-            recordToSend.STATUS,
-
-        LOG:
-            "",
-
-        "CC LINK":
-            "",
-
-        _pendingId:
-            pendingId
-
+        DATE: recordToSend.DATE,
+        SITE: recordToSend.SITE,
+        "ISSUE AND REQUEST": recordToSend["ISSUE AND REQUEST"],
+        STATUS: recordToSend.STATUS,
+        LOG: "",
+        "CC LINK": "",
+        _pendingId: pendingId
     };
 
-
-    allData.push(
-        optimisticRecord
-    );
-
-
+    allData.push(optimisticRecord);
     sortData();
 
-
     selectedBU = null;
-
     selectedStatus = null;
 
-
     updateBUButtons();
-
     updateStatusButtons();
 
+    const searchInput = document.getElementById("searchIssue");
+    if (searchInput) searchInput.value = "";
 
-    const searchInput =
-        document.getElementById(
-            "searchIssue"
-        );
-
-
-    if (searchInput) {
-
-        searchInput.value =
-            "";
-
-    }
-
-
-    filteredData =
-        [...allData];
-
-
-    currentPage =
-        1;
-
+    filteredData = [...allData];
+    currentPage = 1;
 
     renderTable();
-
     updateStatusChart();
-
-
     closeAddDialog();
 
-
-    showToast(
-        "Đang lưu...",
-        "info"
-    );
-
+    showToast("Đang lưu...", "info");
 
     try {
-
-        const response =
-            await fetch(
-                BACKEND_API_URL,
-                {
-
-                    method:
-                        "POST",
-
-                    headers: {
-
-                        "Content-Type":
-                            "application/json"
-
-                    },
-
-                    body:
-                        JSON.stringify(
-                            recordToSend
-                        )
-
-                }
-            );
-
+        const response = await fetch(BACKEND_API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(recordToSend)
+        });
 
         let result;
 
-
         try {
-
-            result =
-                await response.json();
-
+            result = await response.json();
         }
-
         catch (error) {
-
-            throw new Error(
-                "Invalid response from Cloudflare Worker."
-            );
-
+            throw new Error("Invalid response from Cloudflare Worker.");
         }
 
-
-        if (
-            !response.ok ||
-            !result.success
-        ) {
-
-            throw new Error(
-                result.message ||
-                "Failed to save record."
-            );
-
+        if (!response.ok || !result.success) {
+            throw new Error(result.message || "Failed to save record.");
         }
 
+        const savedRecord = result.record || {
+            DATE: recordToSend.DATE,
+            SITE: recordToSend.SITE,
+            "ISSUE AND REQUEST": recordToSend["ISSUE AND REQUEST"],
+            STATUS: recordToSend.STATUS,
+            LOG: "",
+            "CC LINK": ""
+        };
 
-        const savedRecord =
-            result.record ||
-            {
+        const index = allData.findIndex(function(item) {
+            return item._pendingId === pendingId;
+        });
 
-                DATE:
-                    recordToSend.DATE,
-
-                SITE:
-                    recordToSend.SITE,
-
-                "ISSUE AND REQUEST":
-                    recordToSend[
-                        "ISSUE AND REQUEST"
-                    ],
-
-                STATUS:
-                    recordToSend.STATUS,
-
-                LOG:
-                    "",
-
-                "CC LINK":
-                    ""
-
-            };
-
-
-        const index =
-            allData.findIndex(
-                function(item) {
-
-                    return (
-                        item._pendingId ===
-                        pendingId
-                    );
-
-                }
-            );
-
-
-        if (index !== -1) {
-
-            allData[index] =
-                savedRecord;
-
-        }
-
-        else {
-
-            allData.push(
-                savedRecord
-            );
-
-        }
-
+        if (index !== -1) allData[index] = savedRecord;
+        else allData.push(savedRecord);
 
         sortData();
-
-
-        filteredData =
-            [...allData];
-
+        filteredData = [...allData];
 
         renderTable();
-
         updateStatusChart();
 
-
-        showToast(
-            "Record added successfully.",
-            "success"
-        );
-
+        showToast("Record added successfully.", "success");
     }
-
     catch (error) {
+        console.error("Backend save error:", error);
 
-        console.error(
-            "Backend save error:",
-            error
-        );
+        allData = allData.filter(function(item) {
+            return item._pendingId !== pendingId;
+        });
 
-
-        allData =
-            allData.filter(
-                function(item) {
-
-                    return (
-                        item._pendingId !==
-                        pendingId
-                    );
-
-                }
-            );
-
-
-        filteredData =
-            [...allData];
-
+        filteredData = [...allData];
 
         renderTable();
-
         updateStatusChart();
 
-
         showToast(
-            "Save failed: " +
-            error.message +
-            " — record was not saved.",
+            "Save failed: " + error.message + " — record was not saved.",
             "error",
             5000
         );
-
     }
-
 }
 
-
 /* =========================================================
-   EDIT RECORD (HOLD A ROW TO EDIT)
+   EDIT RECORD
    ========================================================= */
+const EDIT_API_URL = BACKEND_API_URL.replace(/\/add-issue$/, "/update-issue");
+const DELETE_API_URL = BACKEND_API_URL.replace(/\/add-issue$/, "/delete-issue");
 
-const EDIT_API_URL =
-    BACKEND_API_URL.replace(
-        /\/add-issue$/,
-        "/update-issue"
-    );
-
-const DELETE_API_URL =
-    BACKEND_API_URL.replace(
-        /\/add-issue$/,
-        "/delete-issue"
-    );
-
-/* Thời gian đợi sau khi bấm nút ✏️ trước khi mở màn hình edit (ms) */
 const EDIT_HOLD_MS = 5000;
 
-const EDIT_FIELDS = [
-    "DATE",
-    "SITE",
-    "ISSUE AND REQUEST",
-    "STATUS"
-];
+const EDIT_FIELDS = ["DATE", "SITE", "ISSUE AND REQUEST", "STATUS"];
 
-function setSelectValueWithFallback(
-    selectId,
-    value
-) {
+function setSelectValueWithFallback(selectId, value) {
+    const select = document.getElementById(selectId);
+    if (!select) return;
 
-    const select =
-        document.getElementById(
-            selectId
-        );
-
-    if (!select) {
-        return;
-    }
-
-    const text =
-        String(value || "");
+    const text = String(value || "");
 
     if (text === "") {
         select.value = "";
         return;
     }
 
-    /* Giá trị cũ chưa có trong danh sách -> thêm vào để không mất dữ liệu */
-    const exists =
-        Array.from(select.options)
-            .some(function(option) {
-                return option.value === text;
-            });
+    const exists = Array.from(select.options).some(function(option) {
+        return option.value === text;
+    });
 
     if (!exists) {
-
-        const option =
-            document.createElement(
-                "option"
-            );
-
+        const option = document.createElement("option");
         option.value = text;
         option.textContent = text;
-
         select.appendChild(option);
     }
 
@@ -5453,18 +2563,10 @@ function setSelectValueWithFallback(
 }
 
 function openEditDialog(record) {
-
-    if (!record) {
-        return;
-    }
+    if (!record) return;
 
     if (record._pendingId || record._pendingEdit) {
-
-        showToast(
-            "Record đang được lưu, vui lòng thử lại sau.",
-            "info"
-        );
-
+        showToast("Record đang được lưu, vui lòng thử lại sau.", "info");
         return;
     }
 
@@ -5474,8 +2576,7 @@ function openEditDialog(record) {
     editOriginal = {
         DATE: record["DATE"] || "",
         SITE: record["SITE"] || "",
-        "ISSUE AND REQUEST":
-            record["ISSUE AND REQUEST"] || "",
+        "ISSUE AND REQUEST": record["ISSUE AND REQUEST"] || "",
         STATUS: record["STATUS"] || "",
         LOG: record["LOG"] || "",
         "CC LINK": record["CC LINK"] || ""
@@ -5484,81 +2585,45 @@ function openEditDialog(record) {
     addStep = 1;
 
     newRecord = {
-        DATE:
-            formatDateForExport(
-                record["DATE"]
-            ),
-        SITE:
-            String(record["SITE"] || ""),
-        "ISSUE AND REQUEST":
-            String(
-                record["ISSUE AND REQUEST"] || ""
-            ),
-        STATUS:
-            String(record["STATUS"] || "").trim(),
+        DATE: formatDateForExport(record["DATE"]),
+        SITE: String(record["SITE"] || ""),
+        "ISSUE AND REQUEST": String(record["ISSUE AND REQUEST"] || ""),
+        STATUS: String(record["STATUS"] || "").trim(),
         LOG: record["LOG"] || "",
         "CC LINK": record["CC LINK"] || ""
     };
 
-    document
-        .getElementById("addModal")
-        .classList
-        .add("show");
-
+    document.getElementById("addModal").classList.add("show");
     renderAddStep();
 }
 
 async function saveEditedRecord() {
-
     const target = editTarget;
     const original = editOriginal;
 
-    if (
-        !target ||
-        allData.indexOf(target) === -1
-    ) {
-
+    if (!target || allData.indexOf(target) === -1) {
         closeAddDialog();
-
-        showToast(
-            "Không tìm thấy record cần sửa.",
-            "error"
-        );
-
+        showToast("Không tìm thấy record cần sửa.", "error");
         return;
     }
 
     const updated = {
         DATE: newRecord.DATE,
         SITE: newRecord.SITE,
-        "ISSUE AND REQUEST":
-            newRecord["ISSUE AND REQUEST"],
+        "ISSUE AND REQUEST": newRecord["ISSUE AND REQUEST"],
         STATUS: newRecord.STATUS
     };
 
-    const changed =
-        EDIT_FIELDS.some(function(field) {
-            return (
-                String(updated[field]) !==
-                String(
-                    field === "DATE"
-                        ? formatDateForExport(
-                            original[field]
-                        )
-                        : original[field]
-                )
-            );
-        });
+    const changed = EDIT_FIELDS.some(function(field) {
+        return (
+            String(updated[field]) !==
+            String(field === "DATE" ? formatDateForExport(original[field]) : original[field])
+        );
+    });
 
     if (!changed) {
-
         closeAddDialog();
-
-        showToast(
-            "Không có thay đổi nào.",
-            "info"
-        );
-
+        showToast("Không có thay đổi nào.", "info");
         return;
     }
 
@@ -5568,84 +2633,45 @@ async function saveEditedRecord() {
         backup[field] = target[field];
     });
 
-    /* Cập nhật giao diện ngay (optimistic) */
-
     Object.assign(target, updated);
     target._pendingEdit = true;
 
     refreshAfterEdit();
     closeAddDialog();
 
-    showToast(
-        "Đang lưu...",
-        "info"
-    );
+    showToast("Đang lưu...", "info");
 
     try {
-
-        const response =
-            await fetch(
-                EDIT_API_URL,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-                    body: JSON.stringify({
-                        original: original,
-                        updated: updated
-                    })
-                }
-            );
+        const response = await fetch(EDIT_API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ original: original, updated: updated })
+        });
 
         let result;
 
         try {
-            result =
-                await response.json();
+            result = await response.json();
         }
         catch (error) {
-            throw new Error(
-                "Invalid response from Cloudflare Worker."
-            );
+            throw new Error("Invalid response from Cloudflare Worker.");
         }
 
-        if (
-            !response.ok ||
-            !result.success
-        ) {
-            throw new Error(
-                result.message ||
-                "Failed to update record."
-            );
+        if (!response.ok || !result.success) {
+            throw new Error(result.message || "Failed to update record.");
         }
 
         delete target._pendingEdit;
 
-        if (
-            result.record &&
-            typeof result.record === "object"
-        ) {
-            Object.assign(
-                target,
-                result.record
-            );
+        if (result.record && typeof result.record === "object") {
+            Object.assign(target, result.record);
         }
 
         refreshAfterEdit();
-
-        showToast(
-            "Record updated successfully.",
-            "success"
-        );
+        showToast("Record updated successfully.", "success");
     }
     catch (error) {
-
-        console.error(
-            "Backend update error:",
-            error
-        );
+        console.error("Backend update error:", error);
 
         Object.assign(target, backup);
         delete target._pendingEdit;
@@ -5653,18 +2679,14 @@ async function saveEditedRecord() {
         refreshAfterEdit();
 
         showToast(
-            "Update failed: " +
-            error.message +
-            " — changes were not saved.",
+            "Update failed: " + error.message + " — changes were not saved.",
             "error",
             5000
         );
     }
 }
 
-/* Sắp xếp lại + giữ nguyên bộ lọc và trang hiện tại */
 function refreshAfterEdit() {
-
     const page = currentPage;
 
     sortData();
@@ -5677,17 +2699,11 @@ function refreshAfterEdit() {
 }
 
 /* ---------- EDIT BUTTON: CLICK -> 5s HOLD CONFIRM ---------- */
-
-const indicator =
-    document.getElementById(
-        "holdIndicator"
-    );
-
+const indicator = document.getElementById("holdIndicator");
 let holdTimer = null;
 let holdRecord = null;
 
 function cancelHold() {
-
     if (holdTimer) {
         clearTimeout(holdTimer);
         holdTimer = null;
@@ -5695,110 +2711,50 @@ function cancelHold() {
 
     holdRecord = null;
 
-    if (indicator) {
-        indicator.classList.remove("show");
-    }
+    if (indicator) indicator.classList.remove("show");
 
-    document.body.classList.remove(
-        "holding-row"
-    );
-
-    document.removeEventListener(
-        "pointerdown",
-        onOutsidePointerDown,
-        true
-    );
+    document.body.classList.remove("holding-row");
+    document.removeEventListener("pointerdown", onOutsidePointerDown, true);
 }
 
 function onOutsidePointerDown(event) {
-
-    if (
-        event.target.closest(
-            ".edit-btn"
-        )
-    ) {
-        return;
-    }
-
+    if (event.target.closest(".edit-btn")) return;
     cancelHold();
 }
 
 function placeIndicator(x, y) {
-
-    if (!indicator) {
-        return;
-    }
+    if (!indicator) return;
 
     const w = 190;
-
-    const left =
-        Math.max(
-            8,
-            Math.min(
-                x + 14,
-                window.innerWidth - w - 8
-            )
-        );
-
-    const top =
-        Math.max(
-            8,
-            Math.min(
-                y + 18,
-                window.innerHeight - 60
-            )
-        );
+    const left = Math.max(8, Math.min(x + 14, window.innerWidth - w - 8));
+    const top = Math.max(8, Math.min(y + 18, window.innerHeight - 60));
 
     indicator.style.left = left + "px";
     indicator.style.top = top + "px";
 }
 
-/* Nút ✏️ ở cuối mỗi ô DATE: chỉ cần bấm (click) một lần, giao diện
-   hiện chỉ dẫn "Đợi 5 giây để sửa record...". Không cần giữ chuột;
-   chỉ cần không bấm sang chỗ khác trong 5 giây đó thì màn hình edit
-   sẽ tự mở ra. Bấm ra ngoài, hoặc bấm nút edit khác trong lúc đang
-   đợi, sẽ hủy bộ đếm hiện tại. */
 function handleEditButtonClick(event, idx) {
-
     event.preventDefault();
     event.stopPropagation();
 
-    const record =
-        filteredData[Number(idx)];
-
-    if (!record) {
-        return;
-    }
+    const record = filteredData[Number(idx)];
+    if (!record) return;
 
     cancelHold();
 
     holdRecord = record;
 
-    document.body.classList.add(
-        "holding-row"
-    );
+    document.body.classList.add("holding-row");
 
     if (indicator) {
+        indicator.style.setProperty("--hold-ms", EDIT_HOLD_MS + "ms");
 
-        indicator.style.setProperty(
-            "--hold-ms",
-            EDIT_HOLD_MS + "ms"
-        );
+        document.getElementById("holdText").textContent =
+            "Đợi " + Math.round(EDIT_HOLD_MS / 1000) + "s để sửa record...";
 
-        document.getElementById(
-            "holdText"
-        ).textContent =
-            "Đợi " +
-            Math.round(EDIT_HOLD_MS / 1000) +
-            "s để sửa record...";
+        const rect = event.currentTarget.getBoundingClientRect();
 
-        const rect =
-            event.currentTarget.getBoundingClientRect();
-
-        placeIndicator(
-            rect.right,
-            rect.top
-        );
+        placeIndicator(rect.right, rect.top);
 
         indicator.classList.remove("show");
         void indicator.offsetWidth;
@@ -5806,244 +2762,135 @@ function handleEditButtonClick(event, idx) {
     }
 
     function finishHold() {
-
         holdTimer = null;
 
         const record = holdRecord;
-
         cancelHold();
 
-        if (record) {
-            openEditDialog(record);
-        }
+        if (record) openEditDialog(record);
     }
 
-    document.addEventListener(
-        "pointerdown",
-        onOutsidePointerDown,
-        true
-    );
+    document.addEventListener("pointerdown", onOutsidePointerDown, true);
 
-    holdTimer =
-        setTimeout(finishHold, EDIT_HOLD_MS);
+    holdTimer = setTimeout(finishHold, EDIT_HOLD_MS);
 }
 
 /* ---------- DELETE BUTTON: CONFIRM DIALOG ---------- */
-
 let deleteTarget = null;
 
 function handleDeleteButtonClick(event, idx) {
-
     event.preventDefault();
     event.stopPropagation();
 
-    const record =
-        filteredData[Number(idx)];
-
-    if (!record) {
-        return;
-    }
+    const record = filteredData[Number(idx)];
+    if (!record) return;
 
     if (record._pendingId || record._pendingEdit || record._pendingDelete) {
-
-        showToast(
-            "Record đang được xử lý, vui lòng thử lại sau.",
-            "info"
-        );
-
+        showToast("Record đang được xử lý, vui lòng thử lại sau.", "info");
         return;
     }
 
     deleteTarget = record;
 
-    document
-        .getElementById("deleteConfirmOverlay")
-        .classList
-        .add("show");
+    document.getElementById("deleteConfirmOverlay").classList.add("show");
 }
 
 function closeDeleteConfirm() {
-
     deleteTarget = null;
-
-    document
-        .getElementById("deleteConfirmOverlay")
-        .classList
-        .remove("show");
+    document.getElementById("deleteConfirmOverlay").classList.remove("show");
 }
 
 function proceedToDeletePassword() {
+    document.getElementById("deleteConfirmOverlay").classList.remove("show");
 
-    document
-        .getElementById("deleteConfirmOverlay")
-        .classList
-        .remove("show");
-
-    const input =
-        document.getElementById(
-            "deletePasswordInput"
-        );
-
-    const error =
-        document.getElementById(
-            "deletePasswordError"
-        );
+    const input = document.getElementById("deletePasswordInput");
+    const error = document.getElementById("deletePasswordError");
 
     input.value = "";
     input.disabled = false;
     error.style.display = "none";
 
-    document
-        .getElementById("deletePasswordOverlay")
-        .classList
-        .add("show");
-
+    document.getElementById("deletePasswordOverlay").classList.add("show");
     input.focus();
 }
 
 function cancelDeletePassword() {
-
     deleteTarget = null;
-
-    document
-        .getElementById("deletePasswordOverlay")
-        .classList
-        .remove("show");
+    document.getElementById("deletePasswordOverlay").classList.remove("show");
 }
 
 async function confirmDeletePassword() {
-
-    const input =
-        document.getElementById(
-            "deletePasswordInput"
-        );
-
-    const error =
-        document.getElementById(
-            "deletePasswordError"
-        );
-
-    const password =
-        input.value;
+    const input = document.getElementById("deletePasswordInput");
+    const error = document.getElementById("deletePasswordError");
+    const password = input.value;
 
     error.style.display = "none";
     input.disabled = true;
 
-    const outcome =
-        await performDeleteRecord(
-            password
-        );
+    const outcome = await performDeleteRecord(password);
 
     input.disabled = false;
 
     if (outcome.status === "success") {
-
-        document
-            .getElementById("deletePasswordOverlay")
-            .classList
-            .remove("show");
-
+        document.getElementById("deletePasswordOverlay").classList.remove("show");
         deleteTarget = null;
-
         return;
     }
 
     if (outcome.status === "wrong-password") {
-
-        error.textContent =
-            "Sai password, vui lòng thử lại.";
-
+        error.textContent = "Sai password, vui lòng thử lại.";
         error.style.display = "block";
 
         input.value = "";
         input.focus();
-
         return;
     }
 
-    document
-        .getElementById("deletePasswordOverlay")
-        .classList
-        .remove("show");
-
+    document.getElementById("deletePasswordOverlay").classList.remove("show");
     deleteTarget = null;
 }
 
 async function performDeleteRecord(password) {
-
     const target = deleteTarget;
 
-    if (
-        !target ||
-        allData.indexOf(target) === -1
-    ) {
-
-        showToast(
-            "Không tìm thấy record cần xóa.",
-            "error"
-        );
-
+    if (!target || allData.indexOf(target) === -1) {
+        showToast("Không tìm thấy record cần xóa.", "error");
         return { status: "error" };
     }
 
     const payload = {
         DATE: target["DATE"],
         SITE: target["SITE"],
-        "ISSUE AND REQUEST":
-            target["ISSUE AND REQUEST"],
+        "ISSUE AND REQUEST": target["ISSUE AND REQUEST"],
         STATUS: target["STATUS"],
         LOG: target["LOG"] || "",
         "CC LINK": target["CC LINK"] || ""
     };
 
-    showToast(
-        "Đang xóa...",
-        "info"
-    );
+    showToast("Đang xóa...", "info");
 
     let response;
     let result;
 
     try {
-
-        response =
-            await fetch(
-                DELETE_API_URL,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-                    body: JSON.stringify({
-                        record: payload,
-                        password: password
-                    })
-                }
-            );
+        response = await fetch(DELETE_API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ record: payload, password: password })
+        });
 
         try {
-            result =
-                await response.json();
+            result = await response.json();
         }
         catch (error) {
-            throw new Error(
-                "Invalid response from Cloudflare Worker."
-            );
+            throw new Error("Invalid response from Cloudflare Worker.");
         }
-
     }
     catch (error) {
-
-        console.error(
-            "Backend delete error:",
-            error
-        );
+        console.error("Backend delete error:", error);
 
         showToast(
-            "Delete failed: " +
-            error.message +
-            " — record was not deleted.",
+            "Delete failed: " + error.message + " — record was not deleted.",
             "error",
             5000
         );
@@ -6052,43 +2899,19 @@ async function performDeleteRecord(password) {
     }
 
     if (response.status === 403) {
-
-        const msg =
-            String(
-                (result && result.message) || ""
-            ).toLowerCase();
-
-        /* Chỉ coi là sai password khi backend nói rõ */
+        const msg = String((result && result.message) || "").toLowerCase();
 
         if (msg.includes("password")) {
-
             return { status: "wrong-password" };
-
         }
 
-        /* Các 403 khác (Origin not allowed, ...) → báo lỗi thật */
-
-        showToast(
-            "Lỗi 403: " +
-            (result.message || "Unknown"),
-            "error",
-            5000
-        );
-
+        showToast("Lỗi 403: " + (result.message || "Unknown"), "error", 5000);
         return { status: "error" };
-
     }
 
-    if (
-        !response.ok ||
-        !result.success
-    ) {
-
+    if (!response.ok || !result.success) {
         showToast(
-            "Delete failed: " +
-            (result.message ||
-                "Unknown error") +
-            " — record was not deleted.",
+            "Delete failed: " + (result.message || "Unknown error") + " — record was not deleted.",
             "error",
             5000
         );
@@ -6096,206 +2919,106 @@ async function performDeleteRecord(password) {
         return { status: "error" };
     }
 
-    /* Xóa thành công: cập nhật giao diện */
-
-    const index =
-        allData.indexOf(target);
+    const index = allData.indexOf(target);
 
     allData.splice(index, 1);
-
     refreshAfterEdit();
 
-    showToast(
-        "Record deleted successfully.",
-        "success"
-    );
+    showToast("Record deleted successfully.", "success");
 
     return { status: "success" };
-
 }
-
 
 /* =========================================================
    LOG MODAL (VIEW + EDIT LOG FILE)
    ========================================================= */
-
 let logCurrentRecord = null;
-
 let logCurrentFileName = null;
-
 let logCurrentContent = "";
-
 let logZoomLevel = 1;
-
 let logEditMode = false;
 
-
 function handleLogButtonClick(event, idx) {
-
     event.preventDefault();
     event.stopPropagation();
 
-    const record =
-        filteredData[Number(idx)];
+    const record = filteredData[Number(idx)];
+    if (!record) return;
 
-    if (!record) {
-        return;
-    }
-
-    if (
-        record._pendingId ||
-        record._pendingEdit ||
-        record._pendingDelete
-    ) {
-
-        showToast(
-            "Record đang được xử lý, vui lòng thử lại sau.",
-            "info"
-        );
-
+    if (record._pendingId || record._pendingEdit || record._pendingDelete) {
+        showToast("Record đang được xử lý, vui lòng thử lại sau.", "info");
         return;
     }
 
     openLogModal(record);
 }
 
-
 function openLogModal(record) {
-
-    if (!record) {
-        return;
-    }
+    if (!record) return;
 
     logCurrentRecord = record;
-
     logCurrentFileName = null;
-
     logCurrentContent = "";
-
     logZoomLevel = 1;
-
     logEditMode = false;
 
+    document.getElementById("logModalTitle").textContent =
+        "Log — " + (record.SITE || "") + " — " + formatDateForExport(record.DATE);
 
-    document
-        .getElementById("logModalTitle")
-        .textContent =
-            "Log — " +
-            (record.SITE || "") +
-            " — " +
-            formatDateForExport(record.DATE);
-
-
-    const viewer =
-        document.getElementById("logViewer");
-
-    /* Reset iframe */
+    const viewer = document.getElementById("logViewer");
 
     viewer.srcdoc = "<!DOCTYPE html><html><body style='font-family:Arial;color:#888;padding:14px;'>Đang tải...</body></html>";
-
     viewer.style.display = "block";
 
-
-    const editor =
-        document.getElementById("logEditor");
+    const editor = document.getElementById("logEditor");
 
     editor.innerHTML = "";
-
     editor.style.display = "none";
 
+    document.getElementById("logSaveBtn").style.display = "none";
+    document.getElementById("logModeToggle").textContent = "✏️ Edit";
+    document.getElementById("logZoomLabel").textContent = "100%";
 
-    document
-        .getElementById("logSaveBtn")
-        .style.display = "none";
+    /* Ẩn nút camera khi mới mở (đang ở chế độ View) */
+    const cameraBtn = document.getElementById("logCameraBtn");
+    if (cameraBtn) cameraBtn.style.display = "none";
 
-
-    document
-        .getElementById("logModeToggle")
-        .textContent = "✏️ Edit";
-
-
-    document
-        .getElementById("logZoomLabel")
-        .textContent = "100%";
-
-
-    document
-        .getElementById("logModal")
-        .classList.add("show");
-
+    document.getElementById("logModal").classList.add("show");
 
     fetchLogContent(record);
-
 }
 
-
 async function fetchLogContent(record) {
-
     try {
-
-        const res =
-            await fetch(
-                GET_LOG_API_URL,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-                    body: JSON.stringify({
-                        record: {
-                            DATE: record["DATE"],
-                            SITE: record["SITE"],
-                            "ISSUE AND REQUEST":
-                                record[
-                                    "ISSUE AND REQUEST"
-                                ],
-                            STATUS:
-                                record["STATUS"],
-                            LOG:
-                                record["LOG"] || "",
-                            "CC LINK":
-                                record["CC LINK"] || ""
-                        }
-                    })
+        const res = await fetch(GET_LOG_API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                record: {
+                    DATE: record["DATE"],
+                    SITE: record["SITE"],
+                    "ISSUE AND REQUEST": record["ISSUE AND REQUEST"],
+                    STATUS: record["STATUS"],
+                    LOG: record["LOG"] || "",
+                    "CC LINK": record["CC LINK"] || ""
                 }
-            );
+            })
+        });
 
-
-        const data =
-            await res.json();
-
+        const data = await res.json();
 
         if (!data.success) {
-
-            throw new Error(
-                data.message ||
-                "Cannot load log."
-            );
-
+            throw new Error(data.message || "Cannot load log.");
         }
 
-
-        logCurrentFileName =
-            data.fileName;
-
+        logCurrentFileName = data.fileName;
 
         logCurrentContent =
-
-            data.content &&
-            data.content.length
-
-                ? data.content
-
-                : "";
-
+            data.content && data.content.length ? data.content : "";
 
         renderLogInViewer(logCurrentContent);
-
     }
-
     catch (err) {
-
         console.error(err);
 
         renderLogInViewer(
@@ -6303,56 +3026,34 @@ async function fetchLogContent(record) {
             escapeHTML(err.message) +
             "</p>"
         );
-
     }
-
 }
-
 
 /* =========================================================
    RENDER LOG TRONG IFRAME
    ========================================================= */
-
 function renderLogInViewer(htmlContent) {
-
-    const viewer =
-        document.getElementById("logViewer");
-
-
-    /* Nếu file log được tạo ra với đuôi .txt (record cũ),
-       nội dung là text thuần → wrap trong <pre> để giữ
-       nguyên format, escape HTML để tránh render nhầm. */
+    const viewer = document.getElementById("logViewer");
 
     const isLegacyText =
-        logCurrentFileName &&
-        logCurrentFileName.endsWith(".txt");
-
+        logCurrentFileName && logCurrentFileName.endsWith(".txt");
 
     let bodyHtml;
 
-
     if (isLegacyText) {
-
         bodyHtml =
             htmlContent && htmlContent.length
                 ? "<pre style='white-space:pre-wrap;word-break:break-word;font-family:Consolas,Monaco,monospace;margin:0;'>" +
                   escapeHTML(htmlContent) +
                   "</pre>"
                 : "<p style='color:#999;font-style:italic;'>File log rỗng — ấn ✏️ Edit để viết</p>";
-
     }
-
     else {
-
         bodyHtml =
             htmlContent && htmlContent.length
                 ? htmlContent
                 : "<p style='color:#999;font-style:italic;'>File log rỗng — ấn ✏️ Edit để viết</p>";
-
     }
-
-
-    /* Wrap trong HTML hoàn chỉnh với style đẹp */
 
     const fullHtml = `<!DOCTYPE html>
 <html>
@@ -6393,559 +3094,358 @@ ${bodyHtml}
 </body>
 </html>`;
 
-
     viewer.srcdoc = fullHtml;
-
 }
-
 
 function closeLogModal() {
-
-    document
-        .getElementById("logModal")
-        .classList.remove("show");
-
+    document.getElementById("logModal").classList.remove("show");
 
     logCurrentRecord = null;
-
     logCurrentFileName = null;
-
     logCurrentContent = "";
-
     logEditMode = false;
-
 }
 
-
 function zoomLog(direction) {
-
-    /* Zoom cho iframe: đổi trực tiếp font-size trong iframe.
-       Cách này cho kết quả tự nhiên hơn transform. */
-
-    if (!logCurrentRecord) {
-        return;
-    }
-
+    if (!logCurrentRecord) return;
 
     const step = 0.15;
 
-    logZoomLevel =
-        Math.max(
-            0.5,
-            Math.min(
-                3,
-                logZoomLevel +
-                direction * step
-            )
-        );
+    logZoomLevel = Math.max(0.5, Math.min(3, logZoomLevel + direction * step));
 
-
-    const viewer =
-        document.getElementById("logViewer");
-
+    const viewer = document.getElementById("logViewer");
 
     try {
-
-        const doc =
-            viewer.contentDocument ||
-            viewer.contentWindow.document;
-
+        const doc = viewer.contentDocument || viewer.contentWindow.document;
 
         if (doc && doc.body) {
-
-            doc.body.style.fontSize =
-                (14 * logZoomLevel) + "px";
-
+            doc.body.style.fontSize = (14 * logZoomLevel) + "px";
         }
-
     }
-
     catch (err) {
-
-        console.warn(
-            "Không thể zoom iframe:",
-            err
-        );
-
+        console.warn("Không thể zoom iframe:", err);
     }
 
-
-    document
-        .getElementById("logZoomLabel")
-        .textContent =
-            Math.round(
-                logZoomLevel * 100
-            ) + "%";
-
+    document.getElementById("logZoomLabel").textContent =
+        Math.round(logZoomLevel * 100) + "%";
 }
 
-
 function toggleLogMode() {
-
-    if (!logCurrentRecord) {
-        return;
-    }
-
+    if (!logCurrentRecord) return;
 
     logEditMode = !logEditMode;
 
-
-    const viewer =
-        document.getElementById("logViewer");
-
-    const editor =
-        document.getElementById("logEditor");
-
-    const saveBtn =
-        document.getElementById("logSaveBtn");
-
-    const modeBtn =
-        document.getElementById("logModeToggle");
-
+    const viewer = document.getElementById("logViewer");
+    const editor = document.getElementById("logEditor");
+    const saveBtn = document.getElementById("logSaveBtn");
+    const modeBtn = document.getElementById("logModeToggle");
+    const cameraBtn = document.getElementById("logCameraBtn");
 
     if (logEditMode) {
-
-        /* Đổ nội dung hiện tại vào editor.
-           - Record cũ (.txt): escape text và wrap <pre> để giữ format.
-           - Record mới (.html): dùng trực tiếp. */
-
         const isLegacyText =
-            logCurrentFileName &&
-            logCurrentFileName.endsWith(".txt");
-
+            logCurrentFileName && logCurrentFileName.endsWith(".txt");
 
         if (isLegacyText) {
-
-            editor.innerHTML =
-
-                logCurrentContent.length
-
-                    ? "<pre>" +
-                      escapeHTML(logCurrentContent) +
-                      "</pre>"
-
-                    : "";
-
+            editor.innerHTML = logCurrentContent.length
+                ? "<pre>" + escapeHTML(logCurrentContent) + "</pre>"
+                : "";
         }
-
         else {
-
-            editor.innerHTML =
-                logCurrentContent || "";
-
+            editor.innerHTML = logCurrentContent || "";
         }
-
 
         editor.style.display = "block";
-
         viewer.style.display = "none";
+        saveBtn.style.display = "inline-block";
+        modeBtn.textContent = "👁 View";
 
-        saveBtn.style.display =
-            "inline-block";
-
-        modeBtn.textContent =
-            "👁 View";
-
-
-        /* Reset zoom khi edit */
+        /* HIỆN NÚT CAMERA KHI Ở CHẾ ĐỘ EDIT */
+        if (cameraBtn) cameraBtn.style.display = "inline-block";
 
         logZoomLevel = 1;
-
-        document
-            .getElementById("logZoomLabel")
-            .textContent = "100%";
-
+        document.getElementById("logZoomLabel").textContent = "100%";
     }
-
     else {
-
         viewer.style.display = "block";
-
         editor.style.display = "none";
-
         saveBtn.style.display = "none";
+        modeBtn.textContent = "✏️ Edit";
 
-        modeBtn.textContent =
-            "✏️ Edit";
-
+        /* ẨN NÚT CAMERA KHI Ở CHẾ ĐỘ VIEW */
+        if (cameraBtn) cameraBtn.style.display = "none";
     }
-
 }
 
-
 async function saveLogContent() {
-
     if (!logCurrentRecord) {
-
-        showToast(
-            "Không tìm thấy record.",
-            "error"
-        );
-
+        showToast("Không tìm thấy record.", "error");
         return;
-
     }
 
-
-    const editor =
-        document.getElementById("logEditor");
-
-    const saveBtn =
-        document.getElementById("logSaveBtn");
-
-
-    /* Lấy nội dung HTML từ contenteditable.
-       - Record cũ (.txt): lấy innerText để giữ định dạng text.
-       - Record mới (.html): lấy innerHTML đầy đủ (có ảnh base64). */
+    const editor = document.getElementById("logEditor");
+    const saveBtn = document.getElementById("logSaveBtn");
 
     const isLegacyText =
-        logCurrentFileName &&
-        logCurrentFileName.endsWith(".txt");
-
+        logCurrentFileName && logCurrentFileName.endsWith(".txt");
 
     let content;
 
-
-    if (isLegacyText) {
-
-        content =
-            editor.innerText || "";
-
-    }
-
-    else {
-
-        content =
-            editor.innerHTML || "";
-
-    }
-
+    if (isLegacyText) content = editor.innerText || "";
+    else content = editor.innerHTML || "";
 
     saveBtn.disabled = true;
-
     saveBtn.textContent = "Đang lưu...";
 
-
     try {
+        const res = await fetch(SAVE_LOG_API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                record: {
+                    DATE: logCurrentRecord["DATE"],
+                    SITE: logCurrentRecord["SITE"],
+                    "ISSUE AND REQUEST": logCurrentRecord["ISSUE AND REQUEST"],
+                    STATUS: logCurrentRecord["STATUS"],
+                    LOG: logCurrentRecord["LOG"] || "",
+                    "CC LINK": logCurrentRecord["CC LINK"] || ""
+                },
+                content: content
+            })
+        });
 
-        const res =
-            await fetch(
-                SAVE_LOG_API_URL,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-                    body: JSON.stringify({
-                        record: {
-                            DATE: logCurrentRecord["DATE"],
-                            SITE: logCurrentRecord["SITE"],
-                            "ISSUE AND REQUEST":
-                                logCurrentRecord[
-                                    "ISSUE AND REQUEST"
-                                ],
-                            STATUS:
-                                logCurrentRecord["STATUS"],
-                            LOG:
-                                logCurrentRecord["LOG"] || "",
-                            "CC LINK":
-                                logCurrentRecord["CC LINK"] || ""
-                        },
-                        content: content
-                    })
-                }
-            );
-
-
-        const data =
-            await res.json();
-
+        const data = await res.json();
 
         if (!data.success) {
-
-            throw new Error(
-                data.message ||
-                "Save failed."
-            );
-
+            throw new Error(data.message || "Save failed.");
         }
 
+        if (data.fileName) logCurrentFileName = data.fileName;
 
-        /* Backend có thể trả về fileName mới nếu vừa tạo file */
-
-        if (data.fileName) {
-
-            logCurrentFileName =
-                data.fileName;
-
-        }
-
-
-        logCurrentContent =
-            content;
-
+        logCurrentContent = content;
 
         renderLogInViewer(content);
 
-
-        showToast(
-            "Đã lưu log.",
-            "success"
-        );
-
+        showToast("Đã lưu log.", "success");
 
         toggleLogMode();
-
     }
-
     catch (err) {
-
         console.error(err);
 
         showToast(
-            "Lưu log thất bại: " +
-            err.message,
+            "Lưu log thất bại: " + err.message,
             "error",
             5000
         );
-
     }
-
     finally {
-
         saveBtn.disabled = false;
-
         saveBtn.textContent = "💾 Save";
-
     }
-
 }
-
 
 /* =========================================================
    PASTE IMAGE SUPPORT (dán ảnh trực tiếp vào editor)
    ========================================================= */
-
 function setupPasteImageSupport() {
+    const editor = document.getElementById("logEditor");
+    if (!editor) return;
 
-    const editor =
-        document.getElementById("logEditor");
+    editor.addEventListener("paste", function(event) {
+        const items =
+            (event.clipboardData || event.originalEvent.clipboardData).items;
 
-    if (!editor) {
-        return;
-    }
+        for (let i = 0; i < items.length; i++) {
+            const item = items[i];
 
+            if (item.type && item.type.indexOf("image") === 0) {
+                const file = item.getAsFile();
 
-    editor.addEventListener(
-        "paste",
-        function(event) {
-
-            const items =
-                (event.clipboardData ||
-                 event.originalEvent.clipboardData)
-                    .items;
-
-
-            for (
-                let i = 0;
-                i < items.length;
-                i++
-            ) {
-
-                const item = items[i];
-
-
-                if (
-                    item.type &&
-                    item.type.indexOf("image") === 0
-                ) {
-
-                    const file =
-                        item.getAsFile();
-
-
-                    if (file) {
-
-                        event.preventDefault();
-
-                        insertImageFile(file);
-
-                    }
-
-                    break;
-
+                if (file) {
+                    event.preventDefault();
+                    insertImageFile(file);
                 }
 
+                break;
             }
-
-        },
-        false
-    );
-
+        }
+    }, false);
 
     /* Cho phép drag & drop ảnh vào editor */
+    editor.addEventListener("dragover", function(event) {
+        event.preventDefault();
+    });
 
-    editor.addEventListener(
-        "dragover",
-        function(event) {
-            event.preventDefault();
-        }
-    );
+    editor.addEventListener("drop", function(event) {
+        const files = event.dataTransfer && event.dataTransfer.files;
 
+        if (files && files.length > 0) {
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
 
-    editor.addEventListener(
-        "drop",
-        function(event) {
-
-            const files =
-                event.dataTransfer &&
-                event.dataTransfer.files;
-
-
-            if (
-                files &&
-                files.length > 0
-            ) {
-
-                for (
-                    let i = 0;
-                    i < files.length;
-                    i++
-                ) {
-
-                    const file = files[i];
-
-
-                    if (
-                        file.type &&
-                        file.type.indexOf("image") === 0
-                    ) {
-
-                        event.preventDefault();
-
-                        insertImageFile(file);
-
-                        break;
-
-                    }
-
+                if (file.type && file.type.indexOf("image") === 0) {
+                    event.preventDefault();
+                    insertImageFile(file);
+                    break;
                 }
-
             }
-
         }
-    );
-
+    });
 }
 
-
+/* =========================================================
+   NÉN ẢNH + CHÈN VÀO EDITOR
+   ========================================================= */
 function insertImageFile(file) {
+    const reader = new FileReader();
 
-    const reader =
-        new FileReader();
+    reader.onload = function(loadEvent) {
+        const img = new Image();
 
+        img.onload = function() {
+            /* === CẤU HÌNH NÉN ẢNH === */
+            const MAX_WIDTH = 900;   // Chiều rộng tối đa
+            const MAX_HEIGHT = 900;  // Chiều cao tối đa
+            const QUALITY = 0.75;    // Chất lượng JPEG
 
-    reader.onload =
-        function(loadEvent) {
+            let width = img.width;
+            let height = img.height;
 
-            const dataUrl =
-                loadEvent.target.result;
+            if (width > height) {
+                if (width > MAX_WIDTH) {
+                    height = Math.round(height * (MAX_WIDTH / width));
+                    width = MAX_WIDTH;
+                }
+            }
+            else {
+                if (height > MAX_HEIGHT) {
+                    width = Math.round(width * (MAX_HEIGHT / height));
+                    height = MAX_HEIGHT;
+                }
+            }
 
+            const canvas = document.createElement("canvas");
+            canvas.width = width;
+            canvas.height = height;
 
-            const img =
-                document.createElement("img");
+            const ctx = canvas.getContext("2d");
 
-            img.src = dataUrl;
+            /* Nền trắng (tránh PNG trong suốt bị đen khi nén JPEG) */
+            ctx.fillStyle = "#ffffff";
+            ctx.fillRect(0, 0, width, height);
 
-            img.style.maxWidth = "100%";
+            ctx.drawImage(img, 0, 0, width, height);
 
-            img.style.height = "auto";
+            const compressedDataUrl = canvas.toDataURL("image/jpeg", QUALITY);
 
-            img.style.border = "1px solid #e5e7eb";
+            console.log(
+                "Ảnh gốc: " + (file.size / 1024).toFixed(0) + " KB",
+                "→ Sau nén: " + ((compressedDataUrl.length * 0.75) / 1024).toFixed(0) + " KB"
+            );
 
-            img.style.borderRadius = "4px";
+            const newImg = document.createElement("img");
+            newImg.src = compressedDataUrl;
+            newImg.style.maxWidth = "100%";
+            newImg.style.height = "auto";
+            newImg.style.border = "1px solid #e5e7eb";
+            newImg.style.borderRadius = "4px";
+            newImg.style.margin = "6px 0";
+            newImg.style.display = "block";
 
-            img.style.margin = "6px 0";
+            const editor = document.getElementById("logEditor");
 
-            img.style.display = "block";
-
-
-            const editor =
-                document.getElementById("logEditor");
-
-
-            /* Chèn vào vị trí con trỏ */
-
-            const selection =
-                window.getSelection();
-
+            const selection = window.getSelection();
 
             if (
                 selection &&
-                selection.rangeCount > 0
+                selection.rangeCount > 0 &&
+                editor.contains(selection.anchorNode)
             ) {
-
-                const range =
-                    selection.getRangeAt(0);
+                const range = selection.getRangeAt(0);
 
                 range.deleteContents();
-
-                range.insertNode(img);
-
-                range.setStartAfter(img);
-
+                range.insertNode(newImg);
+                range.setStartAfter(newImg);
                 range.collapse(true);
-
                 selection.removeAllRanges();
-
                 selection.addRange(range);
-
             }
-
             else {
-
-                editor.appendChild(img);
-
+                editor.appendChild(newImg);
             }
-
 
             editor.focus();
 
+            showToast("Đã chèn ảnh.", "success", 1500);
         };
 
+        img.onerror = function() {
+            showToast("Không đọc được ảnh.", "error");
+        };
+
+        img.src = loadEvent.target.result;
+    };
+
+    reader.onerror = function() {
+        showToast("Lỗi đọc file ảnh.", "error");
+    };
 
     reader.readAsDataURL(file);
-
 }
 
+/* =========================================================
+   CAMERA CAPTURE (CHỤP ẢNH TRỰC TIẾP TỪ ĐIỆN THOẠI)
+   ========================================================= */
+function openCameraCapture() {
+    /* Đảm bảo editor đang ở chế độ edit */
+    if (!logEditMode) {
+        showToast("Vui lòng ấn ✏️ Edit trước khi chụp ảnh.", "info");
+        return;
+    }
+
+    const input = document.getElementById("cameraInput");
+    if (!input) return;
+
+    /* Reset value để có thể chọn lại cùng 1 file */
+    input.value = "";
+    input.click();
+}
+
+function handleCameraCapture(event) {
+    const file = event.target.files && event.target.files[0];
+    if (!file) return;
+
+    /* Kiểm tra định dạng ảnh */
+    if (!file.type || file.type.indexOf("image") !== 0) {
+        showToast("File không phải là ảnh.", "error");
+        return;
+    }
+
+    /* Cảnh báo nếu ảnh quá lớn (>10MB) */
+    if (file.size > 10 * 1024 * 1024) {
+        showToast("Ảnh quá lớn (>10MB), sẽ được nén lại.", "info");
+    }
+
+    /* Gọi hàm nén + chèn ảnh */
+    insertImageFile(file);
+
+    /* Reset lại input */
+    event.target.value = "";
+}
 
 /* =========================================================
    START
    ========================================================= */
-
 loadData();
 
-
-/* Đăng ký paste support sau khi DOM sẵn sàng */
-
 if (document.readyState === "loading") {
-
-    document.addEventListener(
-        "DOMContentLoaded",
-        setupPasteImageSupport
-    );
-
+    document.addEventListener("DOMContentLoaded", setupPasteImageSupport);
 }
-
 else {
-
     setupPasteImageSupport();
-
 }
 
 </script>
 
 </body>
-
 </html>
