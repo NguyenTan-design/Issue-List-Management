@@ -670,5 +670,13 @@
         "STATUS": "Open",
         "LOG": "",
         "CC LINK": ""
+    },
+    {
+        "DATE": "09/28/26",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "1. Module 3 line 6 gắn lệch linh kiện ( xảy ra rõ ràng nhất với linh kiện nhỏ 0201)\n2. Chuyển linh kiện 0201 qua module khác gắn thì không xảy ra hiện tượng gắn lệch\n3. Các linh kiện kích thước lớn hơn trên module 3 vẫn thỉnh thoảng bị AOI phát hiện gắn lệch",
+        "STATUS": "Open",
+        "LOG": "",
+        "CC LINK": ""
     }
 ]
