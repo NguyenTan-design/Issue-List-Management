@@ -1,9 +1,10 @@
 {
     "09/25/26||LEADER TECH VIETNAM COMPANY LIMITED]||Request seperate Nexim license after line relocation ( Move Aimex3 back CN )\n立德要支援分开nexim权限（分开aimex3线体权限）||Closed": "log_2.txt",
     "09/29/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||Wu Yun Feng request FMV provide FOC  head repair support for 3 placing head\nNote : Customer will provide spare part, FMV will provide FOC labour cost\n武云峰申请fmv提供FOC工作头维护。总共有3个工作头。\n备注：客户提供备件。fmv提供foc维护服务||Monitoring": "log_3.txt",
-    "09/29/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||Wu Yun Feng request\nProvide 60 pcs of waste tape box bracket\nPart number 2AHEPG009200\n武云峰申请富士免费提供60个垃圾箱盖板\n料号 2AHEPG009200||Open": "log_4.txt",
-    "09/29/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||TVR check||Open": "log_1.html",
-    "10/01/26||Luxvisions Innovation Technology (Yian) Co., Ltd.]||Customer issue :\n1. Line server line 1 Ram 8Gb < minimum 16Gb\n2. Line server line 2 Ram 8Gb < minimum 16Gb\n3. LCU line 1,network card speed 100mb < minimum 1gbs||Open": "log_2.html",
     "09/29/26||Luxvisions Innovation Technology (Yian) Co., Ltd.]||khách hàng request: Dùng chức năng MPI phát hiện dị vật trên panel trước khi gắn linh kiện lên.||Open": "log_3.html",
-    "10/01/26||Luxvisions Innovation Technology (Yian) Co., Ltd.]||Khách hàng request: Dùng chức năng kiểm soát lực gắn(sử dụng calibration unit).||Open": "log_4.html"
+    "10/01/26||Luxvisions Innovation Technology (Yian) Co., Ltd.]||Khách hàng request: Dùng chức năng kiểm soát lực gắn(sử dụng calibration unit).||Open": "log_4.html",
+    "09/26/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||Wu Yun Feng request\nProvide 60 pcs of waste tape box bracket\nPart number 2AHEPG009200\n武云峰申请富士免费提供60个垃圾箱盖板\n料号 2AHEPG009200||Open": "log_5.html",
+    "09/28/26||Luxshare Precision (Yi'an) Co.,Ltd]||1. Module 3 line 6 gắn lệch linh kiện ( xảy ra rõ ràng nhất với linh kiện nhỏ 0201)\n2. Chuyển linh kiện 0201 qua module khác gắn thì không xảy ra hiện tượng gắn lệch\n3. Các linh kiện kích thước lớn hơn trên module 3 vẫn thỉnh thoảng bị AOI phát hiện gắn lệch||Open": "log_6.html",
+    "09/29/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||Áp dung chức năng TVR check với linh kiện đặc biệt ( Đã gửi mẫu cho Thomas )||Open": "log_1.html",
+    "10/01/26||Luxvisions Innovation Technology (Yian) Co., Ltd.]||Vấn đề máy tính :\n1. Line server line 1 Ram 8Gb < minimum 16Gb\n2. Line server line 2 Ram 8Gb < minimum 16Gb\n3. LCU line 1,network card speed 100mb < minimum 1gbs||Open": "log_2.html"
 }
