@@ -3362,15 +3362,29 @@ function selectCCPickerRow(index) {
 
     ccPickerSelectedRow._selectedLink = linkValue;
 
+    /* Lấy CC NUMBER để hiện trong confirm thay vì link */
+    const ccNumber = getRowCell(row, ["CC NUMBER", "CCNUMBER", "CC NO", "CCNO"]);
+    const customer = getRowCell(row, ["Customer", "SITE", "SITE NAME"]);
+    const topic    = getRowCell(row, ["TOPIC", "TITLE", "SUBJECT"]);
+
+    const infoLines = [];
+    if (ccNumber) infoLines.push("CC NUMBER: " + ccNumber);
+    if (customer) infoLines.push("Customer: " + customer);
+    if (topic)    infoLines.push("TOPIC: " + topic);
+
+    const infoText = infoLines.length
+        ? infoLines.join("\n")
+        : "(Không có thông tin)";
+
     const confirmText = document.getElementById("ccConfirmText");
 
     if (ccPickerTargetRecord) {
         confirmText.textContent =
-            "Xác nhận đổi liên kết thành:\n" + linkValue;
+            "Xác nhận đổi liên kết cho:\n" + infoText;
     }
     else {
         confirmText.textContent =
-            "Xác nhận chọn liên kết:\n" + linkValue;
+            "Xác nhận chọn liên kết:\n" + infoText;
     }
 
     document.getElementById("ccConfirmOverlay").classList.add("show");
