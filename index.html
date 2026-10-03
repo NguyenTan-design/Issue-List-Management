@@ -906,25 +906,35 @@ tbody tr.monitoring-case-row:hover { background: #ffd59f !important; }
 
 .cc-picker-close:hover { color: #ffaaaa; }
 
+/* 3 ô search */
 .cc-picker-search {
+    display: flex;
+    gap: 8px;
     padding: 10px 14px;
     border-bottom: 1px solid #ddd;
     background: #fafafa;
+    flex-wrap: wrap;
 }
 
 .cc-picker-search input {
-    width: 100%;
     padding: 9px 11px;
     border: 1px solid #bbb;
     border-radius: 6px;
     font-size: 14px;
     box-sizing: border-box;
+    min-width: 0;
 }
 
 .cc-picker-search input:focus {
     outline: none;
     border-color: #1976d2;
+    box-shadow: 0 0 0 2px rgba(25,118,210,0.12);
 }
+
+/* Tỷ lệ ô search khớp với tỷ lệ cột: 25/25/50 */
+#ccPickerSearchCCNumber { flex: 0 0 25%; }
+#ccPickerSearchCustomer { flex: 0 0 25%; }
+#ccPickerSearchTopic    { flex: 1 1 50%; }
 
 .cc-picker-body {
     flex: 1;
@@ -936,6 +946,11 @@ tbody tr.monitoring-case-row:hover { background: #ffd59f !important; }
     border-collapse: collapse;
     table-layout: fixed;
 }
+
+/* Tỷ lệ cột 25% / 25% / 50% */
+.cc-picker-table col.col-cc-number { width: 25%; }
+.cc-picker-table col.col-customer  { width: 25%; }
+.cc-picker-table col.col-topic     { width: 50%; }
 
 .cc-picker-table thead th {
     position: sticky;
@@ -959,6 +974,13 @@ tbody tr.monitoring-case-row:hover { background: #ffd59f !important; }
 
 .cc-picker-table tbody tr { cursor: pointer; }
 .cc-picker-table tbody tr:hover { background: #eef6ff; }
+
+.cc-picker-empty {
+    padding: 20px;
+    text-align: center;
+    color: #888;
+    font-size: 13px;
+}
 
 /* =========================
    MOBILE
@@ -1109,6 +1131,12 @@ tbody tr.monitoring-case-row:hover { background: #ffd59f !important; }
     .cc-picker-content { height: 88vh; }
     .cc-picker-table thead th,
     .cc-picker-table tbody td { font-size: 11px; padding: 6px 4px; }
+
+    /* Trên mobile: search xếp dọc, full width */
+    .cc-picker-search { flex-direction: column; }
+    #ccPickerSearchCCNumber,
+    #ccPickerSearchCustomer,
+    #ccPickerSearchTopic { flex: 1 1 auto; width: 100%; }
 }
 
 /* =========================
@@ -1194,7 +1222,7 @@ td.date-cell { vertical-align: top; }
 }
 
 /* ---------------------------------------------------------
-   Edit hold-confirm popover (shown after clicking ✏️)
+   Edit / CC hold popover
    --------------------------------------------------------- */
 .hold-indicator {
     position: fixed;
@@ -1237,7 +1265,7 @@ td.date-cell { vertical-align: top; }
 }
 
 /* =========================================================
-   DELETE CONFIRM MODAL
+   CONFIRM MODAL
    ========================================================= */
 .confirm-overlay {
     position: fixed;
@@ -1494,15 +1522,29 @@ td.date-cell { vertical-align: top; }
             <button type="button" class="cc-picker-close" onclick="closeCCLinkPicker()">×</button>
         </div>
 
+        <!-- 3 ô search -->
         <div class="cc-picker-search">
             <input type="text"
-                   id="ccPickerSearch"
-                   placeholder="Tìm kiếm..."
+                   id="ccPickerSearchCCNumber"
+                   placeholder="Search CC NUMBER..."
+                   oninput="filterCCPickerRows()">
+            <input type="text"
+                   id="ccPickerSearchCustomer"
+                   placeholder="Search Customer..."
+                   oninput="filterCCPickerRows()">
+            <input type="text"
+                   id="ccPickerSearchTopic"
+                   placeholder="Search TOPIC..."
                    oninput="filterCCPickerRows()">
         </div>
 
         <div class="cc-picker-body">
             <table class="cc-picker-table">
+                <colgroup>
+                    <col class="col-cc-number">
+                    <col class="col-customer">
+                    <col class="col-topic">
+                </colgroup>
                 <thead id="ccPickerThead"></thead>
                 <tbody id="ccPickerTbody"></tbody>
             </table>
@@ -1993,7 +2035,6 @@ function createCCLinkButton(record, idx) {
     const value = record["CC LINK"];
 
     if (!value || !/^https?:\/\//i.test(String(value).trim())) {
-        /* Không có link → nút 🔗 để chọn */
         return `
             <button type="button"
                     class="cc-link-empty-btn"
@@ -3079,6 +3120,8 @@ function handleEditButtonClick(event, idx) {
 
 /* =========================================================
    CC LINK HOLD (2s + 5s để đổi link)
+   Yêu cầu mới: KHÔNG hiện "Giữ 2s..." — sau khi hold 2s
+   thì hiện thẳng "Chờ 5s để thay đổi liên kết..."
    ========================================================= */
 const CC_HOLD_FIRST_MS  = 2000;
 const CC_HOLD_SECOND_MS = 5000;
@@ -3091,8 +3134,7 @@ let ccHoldJustFinished = false;
 function startCCHold(event, idx) {
     if (event.button !== undefined && event.button !== 0) return;
 
-    /* Chỉ chặn khi thực sự hold; còn click bình thường vẫn cho mở link */
-    cancelHold();          /* huỷ hold ✏️ nếu có */
+    cancelHold();
     cancelCCHold();
 
     ccHoldRecordIdx = idx;
@@ -3100,20 +3142,19 @@ function startCCHold(event, idx) {
     const indicatorEl = document.getElementById("holdIndicator");
     const holdText = document.getElementById("holdText");
 
-    indicatorEl.style.setProperty("--hold-ms", CC_HOLD_FIRST_MS + "ms");
-    holdText.textContent = "Giữ 2s để thay đổi liên kết...";
-
-    const rect = event.currentTarget.getBoundingClientRect();
-    placeIndicator(rect.right, rect.top);
-
-    indicatorEl.classList.remove("show");
-    void indicatorEl.offsetWidth;
-    indicatorEl.classList.add("show");
+    /*
+        Không hiện "Giữ 2s..." nữa.
+        Giai đoạn 1 (2s) chạy âm thầm (không show indicator).
+        Chỉ sau khi hết 2s mới show "Chờ 5s để thay đổi liên kết..."
+    */
 
     ccHoldFirstTimer = setTimeout(function() {
-        /* Giai đoạn 2 */
+        /* Giai đoạn 2: hiện thông báo + thanh tiến trình 5s */
         indicatorEl.style.setProperty("--hold-ms", CC_HOLD_SECOND_MS + "ms");
         holdText.textContent = "Chờ 5s để thay đổi liên kết...";
+
+        const rect = event.currentTarget.getBoundingClientRect();
+        placeIndicator(rect.right, rect.top);
 
         indicatorEl.classList.remove("show");
         void indicatorEl.offsetWidth;
@@ -3122,7 +3163,6 @@ function startCCHold(event, idx) {
         ccHoldSecondTimer = setTimeout(function() {
             const targetIdx = ccHoldRecordIdx;
 
-            /* Đánh dấu để chặn click mở link ngay sau khi hold xong */
             ccHoldJustFinished = true;
             setTimeout(function() { ccHoldJustFinished = false; }, 500);
 
@@ -3142,8 +3182,9 @@ function cancelCCHold() {
 
     ccHoldRecordIdx = null;
 
+    /* Ẩn indicator nếu đang hiện và không có hold ✏️ nào đang chạy */
     const el = document.getElementById("holdIndicator");
-    if (el) el.classList.remove("show");
+    if (el && !holdTimer) el.classList.remove("show");
 }
 
 /* Chặn click mở link nếu vừa hold xong */
@@ -3157,14 +3198,14 @@ document.addEventListener("click", function(e) {
 
 /* =========================================================
    CC LINK PICKER (data2.json)
+   Chỉ hiện 3 cột: CC NUMBER, Customer, TOPIC
+   3 ô search riêng cho 3 cột
    ========================================================= */
 let ccPickerData = [];
-let ccPickerColumns = [];
 let ccPickerSelectedRow = null;
-let ccPickerTargetRecord = null;   /* null = đang ADD, có giá trị = đang sửa record */
+let ccPickerTargetRecord = null;   /* null = ADD, có giá trị = UPDATE */
 
 async function openCCLinkPicker() {
-    /* Chế độ ADD: target = null */
     ccPickerTargetRecord = null;
     document.getElementById("ccPickerTitle").textContent = "Chọn liên kết (CC LINK)";
     await loadAndShowCCPicker();
@@ -3181,13 +3222,17 @@ async function loadAndShowCCPicker() {
     const thead = document.getElementById("ccPickerThead");
     const tbody = document.getElementById("ccPickerTbody");
 
-    /* Reset search */
-    const searchInput = document.getElementById("ccPickerSearch");
-    if (searchInput) searchInput.value = "";
+    /* Reset 3 ô search */
+    const sCC = document.getElementById("ccPickerSearchCCNumber");
+    const sCus = document.getElementById("ccPickerSearchCustomer");
+    const sTopic = document.getElementById("ccPickerSearchTopic");
+    if (sCC) sCC.value = "";
+    if (sCus) sCus.value = "";
+    if (sTopic) sTopic.value = "";
 
     modal.classList.add("show");
     thead.innerHTML = "";
-    tbody.innerHTML = `<tr><td style="padding:20px;text-align:center;color:#888;">Đang tải data2.json...</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="3" class="cc-picker-empty">Đang tải data2.json...</td></tr>`;
 
     try {
         const res = await fetch(SECOND_REPO_RAW_URL + "?t=" + Date.now());
@@ -3201,7 +3246,15 @@ async function loadAndShowCCPicker() {
         }
 
         ccPickerData = data;
-        ccPickerColumns = Object.keys(data[0]);
+
+        /* Header cố định 3 cột */
+        thead.innerHTML = `
+            <tr>
+                <th>CC NUMBER</th>
+                <th>Customer</th>
+                <th>TOPIC</th>
+            </tr>
+        `;
 
         renderCCPickerTable(ccPickerData);
     }
@@ -3209,7 +3262,7 @@ async function loadAndShowCCPicker() {
         console.error(err);
         tbody.innerHTML = `
             <tr>
-                <td style="padding:20px;text-align:center;color:#dc3545;">
+                <td colspan="3" class="cc-picker-empty" style="color:#dc3545;">
                     Không tải được data2.json: ${escapeHTML(err.message)}
                 </td>
             </tr>
@@ -3217,42 +3270,79 @@ async function loadAndShowCCPicker() {
     }
 }
 
+/* Tìm key của object theo danh sách tên có thể có (không phân biệt hoa thường, bỏ space) */
+function findKeyByNames(obj, names) {
+    if (!obj) return null;
+    const keys = Object.keys(obj);
+    const normalizedNames = names.map(n => n.toLowerCase().replace(/\s+/g, ""));
+
+    for (const key of keys) {
+        const norm = key.toLowerCase().replace(/\s+/g, "");
+        if (normalizedNames.includes(norm)) return key;
+    }
+    return null;
+}
+
+function getRowCell(row, names) {
+    const key = findKeyByNames(row, names);
+    return key ? String(row[key] ?? "") : "";
+}
+
+/* Lấy link từ row: ưu tiên cột "GO TO WEB", sau đó cột nào có http */
+function getRowLink(row) {
+    const linkKey =
+        findKeyByNames(row, ["GO TO WEB", "GOTOWEB", "LINK", "URL"]) ||
+        Object.keys(row).find(k => /^https?:\/\//i.test(String(row[k] ?? "")));
+
+    return linkKey ? String(row[linkKey] ?? "").trim() : "";
+}
+
 function renderCCPickerTable(rows) {
-    const thead = document.getElementById("ccPickerThead");
     const tbody = document.getElementById("ccPickerTbody");
 
-    thead.innerHTML = `
-        <tr>
-            ${ccPickerColumns.map(c => `<th>${escapeHTML(c)}</th>`).join("")}
-        </tr>
-    `;
-
     if (rows.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="${ccPickerColumns.length}" style="padding:20px;text-align:center;color:#888;">Không có dữ liệu.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="3" class="cc-picker-empty">Không có dữ liệu.</td></tr>`;
         return;
     }
 
-    tbody.innerHTML = rows.map((row, idx) => `
-        <tr data-row-index="${idx}"
-            onclick="selectCCPickerRow(${idx})">
-            ${ccPickerColumns.map(c => `<td>${escapeHTML(String(row[c] ?? ""))}</td>`).join("")}
-        </tr>
-    `).join("");
+    tbody.innerHTML = rows.map((row, idx) => {
+        const ccNumber = getRowCell(row, ["CC NUMBER", "CCNUMBER", "CC NO", "CCNO"]);
+        const customer = getRowCell(row, ["Customer", "SITE", "SITE NAME"]);
+        const topic    = getRowCell(row, ["TOPIC", "TITLE", "SUBJECT"]);
+
+        return `
+            <tr data-row-index="${idx}"
+                onclick="selectCCPickerRow(${idx})">
+                <td>${escapeHTML(ccNumber)}</td>
+                <td>${escapeHTML(customer)}</td>
+                <td>${escapeHTML(topic)}</td>
+            </tr>
+        `;
+    }).join("");
 }
 
+/* Lọc đồng thời cả 3 cột */
 function filterCCPickerRows() {
-    const keyword = document.getElementById("ccPickerSearch").value.trim().toLowerCase();
+    const kwCC = (document.getElementById("ccPickerSearchCCNumber").value || "").trim().toLowerCase();
+    const kwCus = (document.getElementById("ccPickerSearchCustomer").value || "").trim().toLowerCase();
+    const kwTopic = (document.getElementById("ccPickerSearchTopic").value || "").trim().toLowerCase();
 
-    if (!keyword) {
+    if (!kwCC && !kwCus && !kwTopic) {
         renderCCPickerTable(ccPickerData);
         return;
     }
 
-    const filtered = ccPickerData.filter(row =>
-        ccPickerColumns.some(col =>
-            String(row[col] ?? "").toLowerCase().includes(keyword)
-        )
-    );
+    const filtered = ccPickerData.filter(row => {
+        const ccNumber = getRowCell(row, ["CC NUMBER", "CCNUMBER", "CC NO", "CCNO"]).toLowerCase();
+        const customer = getRowCell(row, ["Customer", "SITE", "SITE NAME"]).toLowerCase();
+        const topic    = getRowCell(row, ["TOPIC", "TITLE", "SUBJECT"]).toLowerCase();
+
+        if (kwCC && !ccNumber.includes(kwCC)) return false;
+        if (kwCus && !customer.includes(kwCus)) return false;
+        if (kwTopic && !topic.includes(kwTopic)) return false;
+
+        return true;
+    });
 
     renderCCPickerTable(filtered);
 }
@@ -3263,12 +3353,7 @@ function selectCCPickerRow(index) {
 
     ccPickerSelectedRow = row;
 
-    /* Ưu tiên cột "GO TO WEB", sau đó cột nào có http */
-    const linkColumn =
-        ccPickerColumns.find(c => c.toUpperCase().includes("GO TO WEB")) ||
-        ccPickerColumns.find(c => /^https?:\/\//i.test(String(row[c] ?? "")));
-
-    const linkValue = linkColumn ? String(row[linkColumn] ?? "").trim() : "";
+    const linkValue = getRowLink(row);
 
     if (!linkValue || !/^https?:\/\//i.test(linkValue)) {
         showToast("Hàng này không có link hợp lệ.", "error");
@@ -3276,7 +3361,6 @@ function selectCCPickerRow(index) {
     }
 
     ccPickerSelectedRow._selectedLink = linkValue;
-    ccPickerSelectedRow._selectedLinkColumn = linkColumn;
 
     const confirmText = document.getElementById("ccConfirmText");
 
@@ -3300,7 +3384,7 @@ function confirmCCLinkSelection() {
 
     const newLink = ccPickerSelectedRow._selectedLink;
 
-    /* Chế độ ADD: lưu tạm vào newRecord */
+    /* ADD mode */
     if (!ccPickerTargetRecord) {
         newRecord["CC LINK"] = newLink;
 
@@ -3316,7 +3400,7 @@ function confirmCCLinkSelection() {
         return;
     }
 
-    /* Chế độ UPDATE: cập nhật record qua API */
+    /* UPDATE mode */
     const target = ccPickerTargetRecord;
 
     document.getElementById("ccConfirmOverlay").classList.remove("show");
