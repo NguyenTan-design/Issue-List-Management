@@ -384,35 +384,12 @@ tbody tr.monitoring-case-row:hover { background: #ffd59f !important; }
     cursor: pointer;
     transition: 0.15s;
     margin: 2px 0;
-    user-select: none;
-    -webkit-user-select: none;
 }
 
 .open-btn:hover {
     background: #125aa0;
     transform: translateY(-1px);
 }
-
-/* =========================
-   CC LINK EMPTY BUTTON
-   ========================= */
-.cc-link-empty-btn {
-    border: none;
-    background: #0d7c4a;
-    color: #fff;
-    width: 32px;
-    height: 28px;
-    border-radius: 6px;
-    font-size: 14px;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.15s;
-    margin: 2px 0;
-}
-
-.cc-link-empty-btn:hover { background: #0a6039; }
 
 /* =========================
    LOG BUTTON
@@ -570,59 +547,6 @@ tbody tr.monitoring-case-row:hover { background: #ffd59f !important; }
 .add-secondary-btn:disabled { opacity: 0.55; cursor: wait; }
 
 /* =========================
-   CC LINK PICKER ROW IN ADD
-   ========================= */
-.cc-link-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.cc-link-btn {
-    border: none;
-    background: #0d7c4a;
-    color: #fff;
-    width: 42px;
-    height: 38px;
-    border-radius: 8px;
-    font-size: 18px;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.15s;
-    flex-shrink: 0;
-}
-
-.cc-link-btn:hover {
-    background: #0a6039;
-    transform: translateY(-1px);
-}
-
-.cc-link-preview {
-    font-size: 12px;
-    color: #555;
-    word-break: break-all;
-    flex: 1;
-    min-width: 0;
-}
-
-.cc-link-clear-btn {
-    border: none;
-    background: #dc2626;
-    color: #fff;
-    padding: 6px 10px;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: bold;
-    cursor: pointer;
-    flex-shrink: 0;
-}
-
-.cc-link-clear-btn:hover { background: #b91c1c; }
-
-/* =========================
    CONFIRM
    ========================= */
 .add-confirm-row { margin-bottom: 12px; }
@@ -666,7 +590,7 @@ tbody tr.monitoring-case-row:hover { background: #ffd59f !important; }
     left: 50%;
     bottom: 24px;
     transform: translateX(-50%) translateY(16px);
-    z-index: 9000;
+    z-index: 6000;
     max-width: 90vw;
     padding: 11px 18px;
     border-radius: 7px;
@@ -775,6 +699,7 @@ tbody tr.monitoring-case-row:hover { background: #ffd59f !important; }
 .log-save-btn:hover { background: #146c43; }
 .log-save-btn:disabled { opacity: 0.6; cursor: wait; }
 
+/* Nút Camera */
 .log-camera-btn {
     background: #0d7c4a;
     color: #fff;
@@ -806,6 +731,7 @@ tbody tr.monitoring-case-row:hover { background: #ffd59f !important; }
     flex-direction: column;
 }
 
+/* iframe hiển thị HTML (đã render) */
 .log-viewer-iframe {
     flex: 1;
     width: 100%;
@@ -817,6 +743,7 @@ tbody tr.monitoring-case-row:hover { background: #ffd59f !important; }
     box-sizing: border-box;
 }
 
+/* editor contenteditable cho phép dán ảnh */
 .log-editor-rich {
     flex: 1;
     width: 100%;
@@ -854,111 +781,6 @@ tbody tr.monitoring-case-row:hover { background: #ffd59f !important; }
     margin: 6px 0;
     display: block;
 }
-
-/* =========================================================
-   CC PICKER MODAL (chọn link từ data2.json)
-   ========================================================= */
-.cc-picker-modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 7000;
-    background: rgba(0,0,0,0.55);
-    align-items: center;
-    justify-content: center;
-    padding: 15px;
-}
-
-.cc-picker-modal.show { display: flex; }
-
-.cc-picker-content {
-    width: 100%;
-    max-width: 900px;
-    height: 80vh;
-    background: #fff;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    box-shadow: 0 12px 40px rgba(0,0,0,0.35);
-}
-
-.cc-picker-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 16px;
-    background: #222;
-    color: #fff;
-    font-weight: bold;
-    font-size: 15px;
-}
-
-.cc-picker-close {
-    border: none;
-    background: transparent;
-    color: #fff;
-    font-size: 24px;
-    cursor: pointer;
-    padding: 0 6px;
-    line-height: 1;
-}
-
-.cc-picker-close:hover { color: #ffaaaa; }
-
-.cc-picker-search {
-    padding: 10px 14px;
-    border-bottom: 1px solid #ddd;
-    background: #fafafa;
-}
-
-.cc-picker-search input {
-    width: 100%;
-    padding: 9px 11px;
-    border: 1px solid #bbb;
-    border-radius: 6px;
-    font-size: 14px;
-    box-sizing: border-box;
-}
-
-.cc-picker-search input:focus {
-    outline: none;
-    border-color: #1976d2;
-}
-
-.cc-picker-body {
-    flex: 1;
-    overflow: auto;
-}
-
-.cc-picker-table {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed;
-}
-
-.cc-picker-table thead th {
-    position: sticky;
-    top: 0;
-    background: #333;
-    color: #fff;
-    padding: 10px 8px;
-    font-size: 13px;
-    text-align: left;
-    border: 1px solid #444;
-    z-index: 5;
-}
-
-.cc-picker-table tbody td {
-    padding: 9px 8px;
-    font-size: 13px;
-    border: 1px solid #e5e7eb;
-    word-break: break-word;
-    vertical-align: top;
-}
-
-.cc-picker-table tbody tr { cursor: pointer; }
-.cc-picker-table tbody tr:hover { background: #eef6ff; }
 
 /* =========================
    MOBILE
@@ -1050,14 +872,6 @@ tbody tr.monitoring-case-row:hover { background: #ffd59f !important; }
         margin: 2px 0;
     }
 
-    .cc-link-empty-btn {
-        width: 26px;
-        height: 24px;
-        font-size: 12px;
-        display: block;
-        margin: 2px auto;
-    }
-
     .date-value {
         white-space: normal !important;
         word-break: break-word !important;
@@ -1105,10 +919,6 @@ tbody tr.monitoring-case-row:hover { background: #ffd59f !important; }
         font-size: 18px;
         padding: 1px 8px;
     }
-
-    .cc-picker-content { height: 88vh; }
-    .cc-picker-table thead th,
-    .cc-picker-table tbody td { font-size: 11px; padding: 6px 4px; }
 }
 
 /* =========================
@@ -1242,7 +1052,7 @@ td.date-cell { vertical-align: top; }
 .confirm-overlay {
     position: fixed;
     inset: 0;
-    z-index: 8500;
+    z-index: 7000;
     display: none;
     align-items: center;
     justify-content: center;
@@ -1265,8 +1075,6 @@ td.date-cell { vertical-align: top; }
     margin: 0 0 18px;
     font-size: 14px;
     color: #1f2937;
-    white-space: pre-line;
-    word-break: break-word;
 }
 
 .confirm-box .confirm-actions {
@@ -1431,7 +1239,7 @@ td.date-cell { vertical-align: top; }
 </div>
 
 <!-- =========================================================
-     LOG MODAL
+     LOG MODAL (view + edit log file content)
      ========================================================= -->
 <div class="log-modal" id="logModal">
     <div class="log-modal-content">
@@ -1440,13 +1248,16 @@ td.date-cell { vertical-align: top; }
 
             <div class="log-modal-controls">
 
+                <!-- NÚT CHỤP ẢNH TỪ CAMERA -->
                 <button
                     type="button"
                     class="log-camera-btn"
                     id="logCameraBtn"
                     onclick="openCameraCapture()"
                     title="Chụp ảnh từ camera">
+
                     📷 Camera
+
                 </button>
 
                 <button type="button" class="log-zoom-btn" onclick="zoomLog(-1)" title="Thu nhỏ">−</button>
@@ -1484,35 +1295,7 @@ td.date-cell { vertical-align: top; }
     </div>
 </div>
 
-<!-- =========================================================
-     CC LINK PICKER MODAL
-     ========================================================= -->
-<div class="cc-picker-modal" id="ccPickerModal">
-    <div class="cc-picker-content">
-        <div class="cc-picker-header">
-            <span id="ccPickerTitle">Chọn liên kết (CC LINK)</span>
-            <button type="button" class="cc-picker-close" onclick="closeCCLinkPicker()">×</button>
-        </div>
-
-        <div class="cc-picker-search">
-            <input type="text"
-                   id="ccPickerSearch"
-                   placeholder="Tìm kiếm..."
-                   oninput="filterCCPickerRows()">
-        </div>
-
-        <div class="cc-picker-body">
-            <table class="cc-picker-table">
-                <thead id="ccPickerThead"></thead>
-                <tbody id="ccPickerTbody"></tbody>
-            </table>
-        </div>
-    </div>
-</div>
-
-<!-- =========================================================
-     INPUT ẨN DÙNG ĐỂ MỞ CAMERA
-     ========================================================= -->
+<!-- INPUT ẨN DÙNG ĐỂ MỞ CAMERA TRÊN ĐIỆN THOẠI -->
 <input
     type="file"
     id="cameraInput"
@@ -1523,7 +1306,7 @@ td.date-cell { vertical-align: top; }
 >
 
 <!-- =========================================================
-     TOAST + HOLD + CONFIRM
+     TOAST
      ========================================================= -->
 <div id="toast" class="toast"></div>
 
@@ -1532,7 +1315,6 @@ td.date-cell { vertical-align: top; }
     <div class="hold-bar"><span></span></div>
 </div>
 
-<!-- Confirm xoá record -->
 <div id="deleteConfirmOverlay" class="confirm-overlay">
     <div class="confirm-box">
         <p>Are you sure to delete ?</p>
@@ -1543,7 +1325,6 @@ td.date-cell { vertical-align: top; }
     </div>
 </div>
 
-<!-- Password xoá record -->
 <div id="deletePasswordOverlay" class="confirm-overlay">
     <div class="confirm-box">
         <p>Nhập password để xác nhận xóa record:</p>
@@ -1563,17 +1344,6 @@ td.date-cell { vertical-align: top; }
     </div>
 </div>
 
-<!-- Confirm chọn CC LINK -->
-<div id="ccConfirmOverlay" class="confirm-overlay">
-    <div class="confirm-box">
-        <p id="ccConfirmText">Xác nhận chọn liên kết này?</p>
-        <div class="confirm-actions">
-            <button type="button" class="confirm-ok" onclick="confirmCCLinkSelection()">OK</button>
-            <button type="button" class="confirm-cancel" onclick="cancelCCLinkSelection()">Cancel</button>
-        </div>
-    </div>
-</div>
-
 <script>
 
 /* =========================================================
@@ -1586,17 +1356,6 @@ const rowsPerPage = 50;
 let selectedBU = null;
 let selectedStatus = null;
 let toastTimer = null;
-
-/* =========================================================
-   SECOND REPO CONFIG (data2.json)
-   ========================================================= */
-const SECOND_REPO_OWNER  = "NguyenTan-design";
-const SECOND_REPO_NAME   = "Call-center-data";
-const SECOND_REPO_BRANCH = "main";
-const SECOND_REPO_FILE   = "data2.json";
-
-const SECOND_REPO_RAW_URL =
-    `https://raw.githubusercontent.com/${SECOND_REPO_OWNER}/${SECOND_REPO_NAME}/${SECOND_REPO_BRANCH}/${SECOND_REPO_FILE}`;
 
 /* =========================================================
    TOAST
@@ -1965,7 +1724,7 @@ function applyFilter() {
 }
 
 /* =========================================================
-   OPEN BUTTON (generic — dùng cho LOG)
+   OPEN BUTTON
    ========================================================= */
 function createOpenButton(value) {
     if (!value) return "";
@@ -1981,43 +1740,9 @@ function createOpenButton(value) {
             href="${escapeAttribute(link)}"
             target="_blank"
             rel="noopener noreferrer">
+
             Open
-        </a>
-    `;
-}
 
-/* =========================================================
-   CC LINK BUTTON (Open hoặc 🔗)
-   ========================================================= */
-function createCCLinkButton(record, idx) {
-    const value = record["CC LINK"];
-
-    if (!value || !/^https?:\/\//i.test(String(value).trim())) {
-        /* Không có link → nút 🔗 để chọn */
-        return `
-            <button type="button"
-                    class="cc-link-empty-btn"
-                    title="Chọn liên kết"
-                    onclick="pickCCLinkForRecord(${idx})">
-                🔗
-            </button>
-        `;
-    }
-
-    const link = String(value).trim();
-
-    return `
-        <a class="open-btn cc-open-btn"
-           href="${escapeAttribute(link)}"
-           target="_blank"
-           rel="noopener noreferrer"
-           data-idx="${idx}"
-           onpointerdown="startCCHold(event, ${idx})"
-           onpointerup="cancelCCHold()"
-           onpointerleave="cancelCCHold()"
-           onpointercancel="cancelCCHold()"
-           oncontextmenu="return false;">
-            Open
         </a>
     `;
 }
@@ -2032,7 +1757,9 @@ function createLogButton(idx) {
             class="log-btn"
             title="Xem / sửa log"
             onclick="handleLogButtonClick(event, ${idx})">
+
             📄 Log
+
         </button>
     `;
 }
@@ -2123,7 +1850,7 @@ function renderTable() {
             const status = createStatus(rawStatus);
             const logLink = createOpenButton(item["LOG"]);
             const logButton = createLogButton(startIndex + i);
-            const ccLink = createCCLinkButton(item, startIndex + i);
+            const ccLink = createOpenButton(item["CC LINK"]);
 
             let rowClass = "";
 
@@ -2461,11 +2188,9 @@ function renderAddStep() {
         }, 50);
     }
 
-    /* STEP 4 — Status + CC LINK */
+    /* STEP 4 */
     else if (addStep === 4) {
         title.textContent = addTitlePrefix() + " — Step 4 / 4";
-
-        const hasCCLink = !!newRecord["CC LINK"];
 
         content.innerHTML = `
             <label class="add-step-label">Status</label>
@@ -2475,27 +2200,6 @@ function renderAddStep() {
                 <option value="Closed">Closed</option>
                 <option value="Monitoring">Monitoring</option>
             </select>
-
-            <label class="add-step-label" style="margin-top:14px;">
-                CC LINK (liên kết tới web)
-            </label>
-
-            <div class="cc-link-row">
-                <button type="button" class="cc-link-btn" onclick="openCCLinkPicker()" title="Chọn liên kết">
-                    🔗
-                </button>
-                <span class="cc-link-preview" id="ccLinkPreview">
-                    ${hasCCLink ? "Đã chọn: " + escapeHTML(newRecord["CC LINK"]) : "Chưa chọn liên kết"}
-                </span>
-                <button type="button"
-                        id="ccLinkClearBtn"
-                        class="cc-link-clear-btn"
-                        onclick="clearCCLink()"
-                        style="display:${hasCCLink ? "inline-block" : "none"};">
-                    Xoá
-                </button>
-            </div>
-
             <div id="addError" class="add-error"></div>
         `;
 
@@ -2693,10 +2397,6 @@ function showAddConfirmation() {
             <div class="add-confirm-label">STATUS</div>
             <div class="add-confirm-value">${escapeHTML(newRecord.STATUS)}</div>
         </div>
-        <div class="add-confirm-row">
-            <div class="add-confirm-label">CC LINK</div>
-            <div class="add-confirm-value">${escapeHTML(newRecord["CC LINK"] || "(trống)")}</div>
-        </div>
         <div class="backend-note">
             ${editMode ? "Ấn vào Save Changes để lưu thay đổi." : "Ấn vào Add Record để lưu issue hoặc request."}
             <br>
@@ -2718,8 +2418,6 @@ function showAddConfirmation() {
 const BACKEND_API_URL = "https://issue-list-backend.quoctan91.workers.dev/add-issue";
 const GET_LOG_API_URL = BACKEND_API_URL.replace(/\/add-issue$/, "/get-log");
 const SAVE_LOG_API_URL = BACKEND_API_URL.replace(/\/add-issue$/, "/save-log");
-const EDIT_API_URL    = BACKEND_API_URL.replace(/\/add-issue$/, "/update-issue");
-const DELETE_API_URL  = BACKEND_API_URL.replace(/\/add-issue$/, "/delete-issue");
 
 /* =========================================================
    SAVE NEW RECORD
@@ -2729,8 +2427,7 @@ async function saveNewRecord() {
         DATE: newRecord.DATE,
         SITE: newRecord.SITE,
         "ISSUE AND REQUEST": newRecord["ISSUE AND REQUEST"],
-        STATUS: newRecord.STATUS,
-        "CC LINK": newRecord["CC LINK"] || ""
+        STATUS: newRecord.STATUS
     };
 
     const pendingId = "pending_" + Date.now() + "_" + Math.random().toString(36).slice(2);
@@ -2741,7 +2438,7 @@ async function saveNewRecord() {
         "ISSUE AND REQUEST": recordToSend["ISSUE AND REQUEST"],
         STATUS: recordToSend.STATUS,
         LOG: "",
-        "CC LINK": recordToSend["CC LINK"],
+        "CC LINK": "",
         _pendingId: pendingId
     };
 
@@ -2792,7 +2489,7 @@ async function saveNewRecord() {
             "ISSUE AND REQUEST": recordToSend["ISSUE AND REQUEST"],
             STATUS: recordToSend.STATUS,
             LOG: "",
-            "CC LINK": recordToSend["CC LINK"]
+            "CC LINK": ""
         };
 
         const index = allData.findIndex(function(item) {
@@ -2833,6 +2530,9 @@ async function saveNewRecord() {
 /* =========================================================
    EDIT RECORD
    ========================================================= */
+const EDIT_API_URL = BACKEND_API_URL.replace(/\/add-issue$/, "/update-issue");
+const DELETE_API_URL = BACKEND_API_URL.replace(/\/add-issue$/, "/delete-issue");
+
 const EDIT_HOLD_MS = 5000;
 
 const EDIT_FIELDS = ["DATE", "SITE", "ISSUE AND REQUEST", "STATUS"];
@@ -2911,8 +2611,7 @@ async function saveEditedRecord() {
         DATE: newRecord.DATE,
         SITE: newRecord.SITE,
         "ISSUE AND REQUEST": newRecord["ISSUE AND REQUEST"],
-        STATUS: newRecord.STATUS,
-        "CC LINK": newRecord["CC LINK"] || ""
+        STATUS: newRecord.STATUS
     };
 
     const changed = EDIT_FIELDS.some(function(field) {
@@ -2920,7 +2619,7 @@ async function saveEditedRecord() {
             String(updated[field]) !==
             String(field === "DATE" ? formatDateForExport(original[field]) : original[field])
         );
-    }) || (String(updated["CC LINK"]) !== String(original["CC LINK"] || ""));
+    });
 
     if (!changed) {
         closeAddDialog();
@@ -2933,7 +2632,6 @@ async function saveEditedRecord() {
     EDIT_FIELDS.forEach(function(field) {
         backup[field] = target[field];
     });
-    backup["CC LINK"] = target["CC LINK"];
 
     Object.assign(target, updated);
     target._pendingEdit = true;
@@ -3075,365 +2773,6 @@ function handleEditButtonClick(event, idx) {
     document.addEventListener("pointerdown", onOutsidePointerDown, true);
 
     holdTimer = setTimeout(finishHold, EDIT_HOLD_MS);
-}
-
-/* =========================================================
-   CC LINK HOLD (2s + 5s để đổi link)
-   ========================================================= */
-const CC_HOLD_FIRST_MS  = 2000;
-const CC_HOLD_SECOND_MS = 5000;
-
-let ccHoldFirstTimer = null;
-let ccHoldSecondTimer = null;
-let ccHoldRecordIdx = null;
-let ccHoldJustFinished = false;
-
-function startCCHold(event, idx) {
-    if (event.button !== undefined && event.button !== 0) return;
-
-    /* Chỉ chặn khi thực sự hold; còn click bình thường vẫn cho mở link */
-    cancelHold();          /* huỷ hold ✏️ nếu có */
-    cancelCCHold();
-
-    ccHoldRecordIdx = idx;
-
-    const indicatorEl = document.getElementById("holdIndicator");
-    const holdText = document.getElementById("holdText");
-
-    indicatorEl.style.setProperty("--hold-ms", CC_HOLD_FIRST_MS + "ms");
-    holdText.textContent = "Giữ 2s để thay đổi liên kết...";
-
-    const rect = event.currentTarget.getBoundingClientRect();
-    placeIndicator(rect.right, rect.top);
-
-    indicatorEl.classList.remove("show");
-    void indicatorEl.offsetWidth;
-    indicatorEl.classList.add("show");
-
-    ccHoldFirstTimer = setTimeout(function() {
-        /* Giai đoạn 2 */
-        indicatorEl.style.setProperty("--hold-ms", CC_HOLD_SECOND_MS + "ms");
-        holdText.textContent = "Chờ 5s để thay đổi liên kết...";
-
-        indicatorEl.classList.remove("show");
-        void indicatorEl.offsetWidth;
-        indicatorEl.classList.add("show");
-
-        ccHoldSecondTimer = setTimeout(function() {
-            const targetIdx = ccHoldRecordIdx;
-
-            /* Đánh dấu để chặn click mở link ngay sau khi hold xong */
-            ccHoldJustFinished = true;
-            setTimeout(function() { ccHoldJustFinished = false; }, 500);
-
-            cancelCCHold();
-
-            if (targetIdx !== null) {
-                pickCCLinkForRecord(targetIdx, true);
-            }
-        }, CC_HOLD_SECOND_MS);
-
-    }, CC_HOLD_FIRST_MS);
-}
-
-function cancelCCHold() {
-    if (ccHoldFirstTimer)  { clearTimeout(ccHoldFirstTimer);  ccHoldFirstTimer  = null; }
-    if (ccHoldSecondTimer) { clearTimeout(ccHoldSecondTimer); ccHoldSecondTimer = null; }
-
-    ccHoldRecordIdx = null;
-
-    const el = document.getElementById("holdIndicator");
-    if (el) el.classList.remove("show");
-}
-
-/* Chặn click mở link nếu vừa hold xong */
-document.addEventListener("click", function(e) {
-    if (e.target.closest(".cc-open-btn") && ccHoldJustFinished) {
-        e.preventDefault();
-        e.stopPropagation();
-        ccHoldJustFinished = false;
-    }
-}, true);
-
-/* =========================================================
-   CC LINK PICKER (data2.json)
-   ========================================================= */
-let ccPickerData = [];
-let ccPickerColumns = [];
-let ccPickerSelectedRow = null;
-let ccPickerTargetRecord = null;   /* null = đang ADD, có giá trị = đang sửa record */
-
-async function openCCLinkPicker() {
-    /* Chế độ ADD: target = null */
-    ccPickerTargetRecord = null;
-    document.getElementById("ccPickerTitle").textContent = "Chọn liên kết (CC LINK)";
-    await loadAndShowCCPicker();
-}
-
-async function openCCLinkPickerForRecord(record) {
-    ccPickerTargetRecord = record;
-    document.getElementById("ccPickerTitle").textContent = "Đổi liên kết cho record";
-    await loadAndShowCCPicker();
-}
-
-async function loadAndShowCCPicker() {
-    const modal = document.getElementById("ccPickerModal");
-    const thead = document.getElementById("ccPickerThead");
-    const tbody = document.getElementById("ccPickerTbody");
-
-    /* Reset search */
-    const searchInput = document.getElementById("ccPickerSearch");
-    if (searchInput) searchInput.value = "";
-
-    modal.classList.add("show");
-    thead.innerHTML = "";
-    tbody.innerHTML = `<tr><td style="padding:20px;text-align:center;color:#888;">Đang tải data2.json...</td></tr>`;
-
-    try {
-        const res = await fetch(SECOND_REPO_RAW_URL + "?t=" + Date.now());
-
-        if (!res.ok) throw new Error("HTTP " + res.status);
-
-        const data = await res.json();
-
-        if (!Array.isArray(data) || data.length === 0) {
-            throw new Error("data2.json rỗng hoặc không phải mảng.");
-        }
-
-        ccPickerData = data;
-        ccPickerColumns = Object.keys(data[0]);
-
-        renderCCPickerTable(ccPickerData);
-    }
-    catch (err) {
-        console.error(err);
-        tbody.innerHTML = `
-            <tr>
-                <td style="padding:20px;text-align:center;color:#dc3545;">
-                    Không tải được data2.json: ${escapeHTML(err.message)}
-                </td>
-            </tr>
-        `;
-    }
-}
-
-function renderCCPickerTable(rows) {
-    const thead = document.getElementById("ccPickerThead");
-    const tbody = document.getElementById("ccPickerTbody");
-
-    thead.innerHTML = `
-        <tr>
-            ${ccPickerColumns.map(c => `<th>${escapeHTML(c)}</th>`).join("")}
-        </tr>
-    `;
-
-    if (rows.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="${ccPickerColumns.length}" style="padding:20px;text-align:center;color:#888;">Không có dữ liệu.</td></tr>`;
-        return;
-    }
-
-    tbody.innerHTML = rows.map((row, idx) => `
-        <tr data-row-index="${idx}"
-            onclick="selectCCPickerRow(${idx})">
-            ${ccPickerColumns.map(c => `<td>${escapeHTML(String(row[c] ?? ""))}</td>`).join("")}
-        </tr>
-    `).join("");
-}
-
-function filterCCPickerRows() {
-    const keyword = document.getElementById("ccPickerSearch").value.trim().toLowerCase();
-
-    if (!keyword) {
-        renderCCPickerTable(ccPickerData);
-        return;
-    }
-
-    const filtered = ccPickerData.filter(row =>
-        ccPickerColumns.some(col =>
-            String(row[col] ?? "").toLowerCase().includes(keyword)
-        )
-    );
-
-    renderCCPickerTable(filtered);
-}
-
-function selectCCPickerRow(index) {
-    const row = ccPickerData[index];
-    if (!row) return;
-
-    ccPickerSelectedRow = row;
-
-    /* Ưu tiên cột "GO TO WEB", sau đó cột nào có http */
-    const linkColumn =
-        ccPickerColumns.find(c => c.toUpperCase().includes("GO TO WEB")) ||
-        ccPickerColumns.find(c => /^https?:\/\//i.test(String(row[c] ?? "")));
-
-    const linkValue = linkColumn ? String(row[linkColumn] ?? "").trim() : "";
-
-    if (!linkValue || !/^https?:\/\//i.test(linkValue)) {
-        showToast("Hàng này không có link hợp lệ.", "error");
-        return;
-    }
-
-    ccPickerSelectedRow._selectedLink = linkValue;
-    ccPickerSelectedRow._selectedLinkColumn = linkColumn;
-
-    const confirmText = document.getElementById("ccConfirmText");
-
-    if (ccPickerTargetRecord) {
-        confirmText.textContent =
-            "Xác nhận đổi liên kết thành:\n" + linkValue;
-    }
-    else {
-        confirmText.textContent =
-            "Xác nhận chọn liên kết:\n" + linkValue;
-    }
-
-    document.getElementById("ccConfirmOverlay").classList.add("show");
-}
-
-function confirmCCLinkSelection() {
-    if (!ccPickerSelectedRow || !ccPickerSelectedRow._selectedLink) {
-        cancelCCLinkSelection();
-        return;
-    }
-
-    const newLink = ccPickerSelectedRow._selectedLink;
-
-    /* Chế độ ADD: lưu tạm vào newRecord */
-    if (!ccPickerTargetRecord) {
-        newRecord["CC LINK"] = newLink;
-
-        const preview = document.getElementById("ccLinkPreview");
-        const clearBtn = document.getElementById("ccLinkClearBtn");
-
-        if (preview) preview.textContent = "Đã chọn: " + newLink;
-        if (clearBtn) clearBtn.style.display = "inline-block";
-
-        document.getElementById("ccConfirmOverlay").classList.remove("show");
-        closeCCLinkPicker();
-        ccPickerSelectedRow = null;
-        return;
-    }
-
-    /* Chế độ UPDATE: cập nhật record qua API */
-    const target = ccPickerTargetRecord;
-
-    document.getElementById("ccConfirmOverlay").classList.remove("show");
-    closeCCLinkPicker();
-    ccPickerSelectedRow = null;
-    ccPickerTargetRecord = null;
-
-    updateRecordCCLink(target, newLink);
-}
-
-function cancelCCLinkSelection() {
-    ccPickerSelectedRow = null;
-    ccPickerTargetRecord = null;
-    document.getElementById("ccConfirmOverlay").classList.remove("show");
-}
-
-function closeCCLinkPicker() {
-    document.getElementById("ccPickerModal").classList.remove("show");
-    ccPickerTargetRecord = null;
-}
-
-function clearCCLink() {
-    newRecord["CC LINK"] = "";
-
-    const preview = document.getElementById("ccLinkPreview");
-    const clearBtn = document.getElementById("ccLinkClearBtn");
-
-    if (preview) preview.textContent = "Chưa chọn liên kết";
-    if (clearBtn) clearBtn.style.display = "none";
-}
-
-/* =========================================================
-   PICK CC LINK CHO RECORD CÓ SẴN
-   ========================================================= */
-function pickCCLinkForRecord(idx, fromHold) {
-    const record = filteredData[Number(idx)];
-    if (!record) return;
-
-    if (record._pendingId || record._pendingEdit || record._pendingDelete) {
-        showToast("Record đang được xử lý, vui lòng thử lại sau.", "info");
-        return;
-    }
-
-    if (fromHold) {
-        ccHoldJustFinished = true;
-        setTimeout(function() { ccHoldJustFinished = false; }, 500);
-    }
-
-    openCCLinkPickerForRecord(record);
-}
-
-/* =========================================================
-   UPDATE CC LINK CỦA RECORD QUA API
-   ========================================================= */
-async function updateRecordCCLink(target, newLink) {
-    const original = {
-        DATE: target["DATE"] || "",
-        SITE: target["SITE"] || "",
-        "ISSUE AND REQUEST": target["ISSUE AND REQUEST"] || "",
-        STATUS: target["STATUS"] || "",
-        LOG: target["LOG"] || "",
-        "CC LINK": target["CC LINK"] || ""
-    };
-
-    const updated = {
-        DATE: target["DATE"] || "",
-        SITE: target["SITE"] || "",
-        "ISSUE AND REQUEST": target["ISSUE AND REQUEST"] || "",
-        STATUS: target["STATUS"] || "",
-        "CC LINK": newLink
-    };
-
-    const backup = target["CC LINK"];
-    target["CC LINK"] = newLink;
-    target._pendingEdit = true;
-    refreshAfterEdit();
-
-    showToast("Đang cập nhật liên kết...", "info");
-
-    try {
-        const response = await fetch(EDIT_API_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ original: original, updated: updated })
-        });
-
-        let result;
-
-        try {
-            result = await response.json();
-        }
-        catch (error) {
-            throw new Error("Invalid response from Cloudflare Worker.");
-        }
-
-        if (!response.ok || !result.success) {
-            throw new Error(result.message || "Failed to update CC LINK.");
-        }
-
-        delete target._pendingEdit;
-
-        if (result.record && typeof result.record === "object") {
-            Object.assign(target, result.record);
-        }
-
-        refreshAfterEdit();
-        showToast("Đã cập nhật liên kết.", "success");
-    }
-    catch (err) {
-        console.error("Update CC LINK error:", err);
-
-        target["CC LINK"] = backup;
-        delete target._pendingEdit;
-        refreshAfterEdit();
-
-        showToast("Cập nhật thất bại: " + err.message, "error", 5000);
-    }
 }
 
 /* ---------- DELETE BUTTON: CONFIRM DIALOG ---------- */
@@ -3640,6 +2979,7 @@ function openLogModal(record) {
     document.getElementById("logModeToggle").textContent = "✏️ Edit";
     document.getElementById("logZoomLabel").textContent = "100%";
 
+    /* Ẩn nút camera khi mới mở (đang ở chế độ View) */
     const cameraBtn = document.getElementById("logCameraBtn");
     if (cameraBtn) cameraBtn.style.display = "none";
 
@@ -3689,6 +3029,9 @@ async function fetchLogContent(record) {
     }
 }
 
+/* =========================================================
+   RENDER LOG TRONG IFRAME
+   ========================================================= */
 function renderLogInViewer(htmlContent) {
     const viewer = document.getElementById("logViewer");
 
@@ -3816,6 +3159,7 @@ function toggleLogMode() {
         saveBtn.style.display = "inline-block";
         modeBtn.textContent = "👁 View";
 
+        /* HIỆN NÚT CAMERA KHI Ở CHẾ ĐỘ EDIT */
         if (cameraBtn) cameraBtn.style.display = "inline-block";
 
         logZoomLevel = 1;
@@ -3827,6 +3171,7 @@ function toggleLogMode() {
         saveBtn.style.display = "none";
         modeBtn.textContent = "✏️ Edit";
 
+        /* ẨN NÚT CAMERA KHI Ở CHẾ ĐỘ VIEW */
         if (cameraBtn) cameraBtn.style.display = "none";
     }
 }
@@ -3900,7 +3245,7 @@ async function saveLogContent() {
 }
 
 /* =========================================================
-   PASTE IMAGE SUPPORT
+   PASTE IMAGE SUPPORT (dán ảnh trực tiếp vào editor)
    ========================================================= */
 function setupPasteImageSupport() {
     const editor = document.getElementById("logEditor");
@@ -3926,6 +3271,7 @@ function setupPasteImageSupport() {
         }
     }, false);
 
+    /* Cho phép drag & drop ảnh vào editor */
     editor.addEventListener("dragover", function(event) {
         event.preventDefault();
     });
@@ -3957,9 +3303,10 @@ function insertImageFile(file) {
         const img = new Image();
 
         img.onload = function() {
-            const MAX_WIDTH = 900;
-            const MAX_HEIGHT = 900;
-            const QUALITY = 0.75;
+            /* === CẤU HÌNH NÉN ẢNH === */
+            const MAX_WIDTH = 900;   // Chiều rộng tối đa
+            const MAX_HEIGHT = 900;  // Chiều cao tối đa
+            const QUALITY = 0.75;    // Chất lượng JPEG
 
             let width = img.width;
             let height = img.height;
@@ -3983,6 +3330,7 @@ function insertImageFile(file) {
 
             const ctx = canvas.getContext("2d");
 
+            /* Nền trắng (tránh PNG trong suốt bị đen khi nén JPEG) */
             ctx.fillStyle = "#ffffff";
             ctx.fillRect(0, 0, width, height);
 
@@ -4046,9 +3394,10 @@ function insertImageFile(file) {
 }
 
 /* =========================================================
-   CAMERA CAPTURE
+   CAMERA CAPTURE (CHỤP ẢNH TRỰC TIẾP TỪ ĐIỆN THOẠI)
    ========================================================= */
 function openCameraCapture() {
+    /* Đảm bảo editor đang ở chế độ edit */
     if (!logEditMode) {
         showToast("Vui lòng ấn ✏️ Edit trước khi chụp ảnh.", "info");
         return;
@@ -4057,6 +3406,7 @@ function openCameraCapture() {
     const input = document.getElementById("cameraInput");
     if (!input) return;
 
+    /* Reset value để có thể chọn lại cùng 1 file */
     input.value = "";
     input.click();
 }
@@ -4065,17 +3415,21 @@ function handleCameraCapture(event) {
     const file = event.target.files && event.target.files[0];
     if (!file) return;
 
+    /* Kiểm tra định dạng ảnh */
     if (!file.type || file.type.indexOf("image") !== 0) {
         showToast("File không phải là ảnh.", "error");
         return;
     }
 
+    /* Cảnh báo nếu ảnh quá lớn (>10MB) */
     if (file.size > 10 * 1024 * 1024) {
         showToast("Ảnh quá lớn (>10MB), sẽ được nén lại.", "info");
     }
 
+    /* Gọi hàm nén + chèn ảnh */
     insertImageFile(file);
 
+    /* Reset lại input */
     event.target.value = "";
 }
 
