@@ -694,13 +694,5 @@
         "STATUS": "Monitoring",
         "LOG": "",
         "CC LINK": ""
-    },
-    {
-        "DATE": "10/03/26",
-        "SITE": "GOERTEK MICROELECTRONICS VINA CO., LTD.]",
-        "ISSUE AND REQUEST": "Test",
-        "STATUS": "Open",
-        "LOG": "",
-        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00000evAeoYAE"
     }
 ]
