@@ -856,7 +856,7 @@ tbody tr.monitoring-case-row:hover { background: #ffd59f !important; }
 }
 
 /* =========================================================
-   CC PICKER MODAL (chọn link từ data2.json)
+   CC PICKER MODAL
    ========================================================= */
 .cc-picker-modal {
     display: none;
@@ -1284,7 +1284,7 @@ td.date-cell { vertical-align: top; }
     border-radius: 12px;
     padding: 22px 24px;
     width: 90%;
-    max-width: 320px;
+    max-width: 360px;
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
     text-align: center;
 }
@@ -1295,6 +1295,7 @@ td.date-cell { vertical-align: top; }
     color: #1f2937;
     white-space: pre-line;
     word-break: break-word;
+    text-align: left;
 }
 
 .confirm-box .confirm-actions {
@@ -3120,8 +3121,8 @@ function handleEditButtonClick(event, idx) {
 
 /* =========================================================
    CC LINK HOLD (2s + 5s để đổi link)
-   Yêu cầu mới: KHÔNG hiện "Giữ 2s..." — sau khi hold 2s
-   thì hiện thẳng "Chờ 5s để thay đổi liên kết..."
+   - Không hiện "Giữ 2s..."
+   - Sau 2s hiện thẳng "Chờ 5s để thay đổi liên kết..."
    ========================================================= */
 const CC_HOLD_FIRST_MS  = 2000;
 const CC_HOLD_SECOND_MS = 5000;
@@ -3141,12 +3142,6 @@ function startCCHold(event, idx) {
 
     const indicatorEl = document.getElementById("holdIndicator");
     const holdText = document.getElementById("holdText");
-
-    /*
-        Không hiện "Giữ 2s..." nữa.
-        Giai đoạn 1 (2s) chạy âm thầm (không show indicator).
-        Chỉ sau khi hết 2s mới show "Chờ 5s để thay đổi liên kết..."
-    */
 
     ccHoldFirstTimer = setTimeout(function() {
         /* Giai đoạn 2: hiện thông báo + thanh tiến trình 5s */
@@ -3182,7 +3177,6 @@ function cancelCCHold() {
 
     ccHoldRecordIdx = null;
 
-    /* Ẩn indicator nếu đang hiện và không có hold ✏️ nào đang chạy */
     const el = document.getElementById("holdIndicator");
     if (el && !holdTimer) el.classList.remove("show");
 }
@@ -3245,7 +3239,27 @@ async function loadAndShowCCPicker() {
             throw new Error("data2.json rỗng hoặc không phải mảng.");
         }
 
-        ccPickerData = data;
+        /*
+            Gán _originalIndex cho mỗi row (non-enumerable)
+            để tránh nhầm row khi filter.
+        */
+        ccPickerData = data.map((row, i) => {
+            if (row && typeof row === "object" && !Array.isArray(row)) {
+                try {
+                    Object.defineProperty(row, "_originalIndex", {
+                        value: i,
+                        enumerable: false,
+                        writable: false,
+                        configurable: false
+                    });
+                }
+                catch (e) {
+                    /* fallback nếu defineProperty fail */
+                    row._originalIndex = i;
+                }
+            }
+            return row;
+        });
 
         /* Header cố định 3 cột */
         thead.innerHTML = `
@@ -3277,6 +3291,7 @@ function findKeyByNames(obj, names) {
     const normalizedNames = names.map(n => n.toLowerCase().replace(/\s+/g, ""));
 
     for (const key of keys) {
+        if (key === "_originalIndex") continue;
         const norm = key.toLowerCase().replace(/\s+/g, "");
         if (normalizedNames.includes(norm)) return key;
     }
@@ -3292,7 +3307,10 @@ function getRowCell(row, names) {
 function getRowLink(row) {
     const linkKey =
         findKeyByNames(row, ["GO TO WEB", "GOTOWEB", "LINK", "URL"]) ||
-        Object.keys(row).find(k => /^https?:\/\//i.test(String(row[k] ?? "")));
+        Object.keys(row).find(k => {
+            if (k === "_originalIndex") return false;
+            return /^https?:\/\//i.test(String(row[k] ?? ""));
+        });
 
     return linkKey ? String(row[linkKey] ?? "").trim() : "";
 }
@@ -3305,14 +3323,20 @@ function renderCCPickerTable(rows) {
         return;
     }
 
-    tbody.innerHTML = rows.map((row, idx) => {
+    tbody.innerHTML = rows.map((row) => {
+        /* Dùng index GỐC trong ccPickerData (không phải index sau filter) */
+        const originalIndex =
+            (row && typeof row._originalIndex === "number")
+                ? row._originalIndex
+                : ccPickerData.indexOf(row);
+
         const ccNumber = getRowCell(row, ["CC NUMBER", "CCNUMBER", "CC NO", "CCNO"]);
         const customer = getRowCell(row, ["Customer", "SITE", "SITE NAME"]);
         const topic    = getRowCell(row, ["TOPIC", "TITLE", "SUBJECT"]);
 
         return `
-            <tr data-row-index="${idx}"
-                onclick="selectCCPickerRow(${idx})">
+            <tr data-row-index="${originalIndex}"
+                onclick="selectCCPickerRow(${originalIndex})">
                 <td>${escapeHTML(ccNumber)}</td>
                 <td>${escapeHTML(customer)}</td>
                 <td>${escapeHTML(topic)}</td>
@@ -3362,7 +3386,7 @@ function selectCCPickerRow(index) {
 
     ccPickerSelectedRow._selectedLink = linkValue;
 
-    /* Lấy CC NUMBER để hiện trong confirm thay vì link */
+    /* Lấy CC NUMBER + Customer + TOPIC để hiện trong confirm */
     const ccNumber = getRowCell(row, ["CC NUMBER", "CCNUMBER", "CC NO", "CCNO"]);
     const customer = getRowCell(row, ["Customer", "SITE", "SITE NAME"]);
     const topic    = getRowCell(row, ["TOPIC", "TITLE", "SUBJECT"]);
