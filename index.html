@@ -3494,8 +3494,11 @@ function pickCCLinkForRecord(idx, fromHold) {
    UPDATE CC LINK CỦA RECORD QUA API
    ========================================================= */
 async function updateRecordCCLink(target, newLink) {
+    /* Chuẩn hoá DATE về MM/DD/YY — worker yêu cầu format này */
+    const normalizedDate = formatDateForExport(target["DATE"]);
+
     const original = {
-        DATE: target["DATE"] || "",
+        DATE: normalizedDate,
         SITE: target["SITE"] || "",
         "ISSUE AND REQUEST": target["ISSUE AND REQUEST"] || "",
         STATUS: target["STATUS"] || "",
@@ -3504,12 +3507,59 @@ async function updateRecordCCLink(target, newLink) {
     };
 
     const updated = {
-        DATE: target["DATE"] || "",
+        DATE: normalizedDate,
         SITE: target["SITE"] || "",
         "ISSUE AND REQUEST": target["ISSUE AND REQUEST"] || "",
         STATUS: target["STATUS"] || "",
         "CC LINK": newLink
     };
+
+    const backup = target["CC LINK"];
+    target["CC LINK"] = newLink;
+    target._pendingEdit = true;
+    refreshAfterEdit();
+
+    showToast("Đang cập nhật liên kết...", "info");
+
+    try {
+        const response = await fetch(EDIT_API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ original: original, updated: updated })
+        });
+
+        let result;
+
+        try {
+            result = await response.json();
+        }
+        catch (error) {
+            throw new Error("Invalid response from Cloudflare Worker.");
+        }
+
+        if (!response.ok || !result.success) {
+            throw new Error(result.message || "Failed to update CC LINK.");
+        }
+
+        delete target._pendingEdit;
+
+        if (result.record && typeof result.record === "object") {
+            Object.assign(target, result.record);
+        }
+
+        refreshAfterEdit();
+        showToast("Đã cập nhật liên kết.", "success");
+    }
+    catch (err) {
+        console.error("Update CC LINK error:", err);
+
+        target["CC LINK"] = backup;
+        delete target._pendingEdit;
+        refreshAfterEdit();
+
+        showToast("Cập nhật thất bại: " + err.message, "error", 5000);
+    }
+}
 
     const backup = target["CC LINK"];
     target["CC LINK"] = newLink;
