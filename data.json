@@ -717,6 +717,6 @@
         "ISSUE AND REQUEST": "-The customer is using SECS/GEM.\n-The customer wants to use the S2F41 CYCLESTOP command to stop the machine remotely.\n-We wrote the command based on the SECS/GEM manual. However, when we send the command, the machine has no response. The machine does not stop and does not show any error message.",
         "STATUS": "Open",
         "LOG": "",
-        "CC LINK": ""
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00001Ise7JYAR"
     }
 ]
