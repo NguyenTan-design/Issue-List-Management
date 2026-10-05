@@ -14,5 +14,6 @@
     "09/15/26||Luxshare Precision (Yi'an) Co.,Ltd]||双轨生产大板时，轨道宽度太大，轨道传感器信号异常，调整感应器灵敏度时死机\nWhen performing production with paired modules, if the Sensor Adjustment function is used on one module, a module is hang out||open": "log_11.html",
     "09/20/26||Luxshare Precision (Yi'an) Co.,Ltd]||Issue Line 7 module số 6 : Lỗi module bị kẹt khi ấn lệnh pull module, cần trợ lực từ operator.||Open": "log_12.html",
     "09/18/26||E5||检查相机照片偶尔NXTR显示屏显示范围变小\nThe part image become too small in NXTR monitor||open": "log_13.html",
-    "08/26/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||长方形小PCB尺寸37*55mm无法识别底部二维码\nThe bottom 2D code cannot be recognized on the small rectangular PCB with dimensions of 37 × 55 mm.||open": "log_14.html"
+    "08/26/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||长方形小PCB尺寸37*55mm无法识别底部二维码\nThe bottom 2D code cannot be recognized on the small rectangular PCB with dimensions of 37 × 55 mm.||open": "log_14.html",
+    "08/03/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||托盘下面的胶垫会经常脱落\nThe rubber pad underneath the tray frequently comes off.||open": "log_15.html"
 }
