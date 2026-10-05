@@ -15,5 +15,6 @@
     "09/20/26||Luxshare Precision (Yi'an) Co.,Ltd]||Issue Line 7 module số 6 : Lỗi module bị kẹt khi ấn lệnh pull module, cần trợ lực từ operator.||Open": "log_12.html",
     "09/18/26||E5||检查相机照片偶尔NXTR显示屏显示范围变小\nThe part image become too small in NXTR monitor||open": "log_13.html",
     "08/26/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||长方形小PCB尺寸37*55mm无法识别底部二维码\nThe bottom 2D code cannot be recognized on the small rectangular PCB with dimensions of 37 × 55 mm.||open": "log_14.html",
-    "08/03/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||托盘下面的胶垫会经常脱落\nThe rubber pad underneath the tray frequently comes off.||open": "log_15.html"
+    "08/03/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||托盘下面的胶垫会经常脱落\nThe rubber pad underneath the tray frequently comes off.||open": "log_15.html",
+    "07/22/26||Luxshare Precision (Yi'an) Co.,Ltd]||无法使用NXTR模组测光功能\nCan not perform sidelight2 pattern to check panel ID in NXTR module||open": "log_16.html"
 }
