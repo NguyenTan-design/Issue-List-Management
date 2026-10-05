@@ -12,5 +12,6 @@
     "09/21/26||Luxshare Precision (Yi'an) Co.,Ltd]||Sau khi nhà máy thay đổi vị trú Hub kết nối giữa LCU và NXTR, không thể truy cập LCUweb từ Fujiweb||Open": "log_9.html",
     "09/24/26||Luxshare Precision (Yi'an) Co.,Ltd]||飞达板卡FH2510B0F版本异常很多，FH2510C0F没有问题，FH2510B0F版本的飞达板卡需要更改为FH2510C0F\nThere are many abnormalities with the FH2510B0F version of the feeder board. The FH2510C0F version has no issues.\nTherefore, the FH2510B0F feeder boards need to be replaced with the FH2510C0F version||MONITORING": "log_10.html",
     "09/15/26||Luxshare Precision (Yi'an) Co.,Ltd]||双轨生产大板时，轨道宽度太大，轨道传感器信号异常，调整感应器灵敏度时死机\nWhen performing production with paired modules, if the Sensor Adjustment function is used on one module, a module is hang out||open": "log_11.html",
-    "09/20/26||Luxshare Precision (Yi'an) Co.,Ltd]||Issue Line 7 module số 6 : Lỗi module bị kẹt khi ấn lệnh pull module, cần trợ lực từ operator.||Open": "log_12.html"
+    "09/20/26||Luxshare Precision (Yi'an) Co.,Ltd]||Issue Line 7 module số 6 : Lỗi module bị kẹt khi ấn lệnh pull module, cần trợ lực từ operator.||Open": "log_12.html",
+    "09/18/26||E5||检查相机照片偶尔NXTR显示屏显示范围变小\nThe part image become too small in NXTR monitor||open": "log_13.html"
 }
