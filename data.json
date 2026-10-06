@@ -272,10 +272,10 @@
         "CC LINK": "NOT AVAILABLE"
     },
     {
-        "DATE": "08-20-2026",
+        "DATE": "08/20/26",
         "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
         "ISSUE AND REQUEST": "OCPU 操作异常：客户工程师反馈，在操作过程中经常发生料带卡住的问题，导致飞达错并无法正常运行。\n**OCPU Operation Abnormality:**\nThe customer's engineer reported that the tape frequently gets stuck during operation, causing feeder errors and preventing the feeder from operating normally.",
-        "STATUS": "MONITORING",
+        "STATUS": "Open",
         "LOG": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQDumXPiEZEaR4HWQA-QV6CqAWqCAC4FwUw8O9G6XOycT9k",
         "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00001CiDv3YAF"
     },
