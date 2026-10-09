@@ -19,5 +19,6 @@
     "09/24/26||Luxshare Precision (Yi'an) Co.,Ltd]||飞达板卡FH2510B0F版本异常很多，FH2510C0F没有问题，FH2510B0F版本的飞达板卡需要更改为FH2510C0F\nThere are many abnormalities with the FH2510B0F version of the feeder board. The FH2510C0F version has no issues.\nTherefore, the FH2510B0F feeder boards need to be replaced with the FH2510C0F version||Open": "log_10.html",
     "08/18/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||Nexim软件删除用户账号时报错\nNEXIM software displays an error when deleting a user account.||open": "log_19.html",
     "09/29/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||Wu Yun Feng request FMV provide FOC  head repair support for 3 placing head\nNote : Customer will provide spare part, FMV will provide FOC labour cost\n武云峰申请fmv提供FOC工作头维护。总共有3个工作头。\n备注：客户提供备件。fmv提供foc维护服务||Open": "log_3.txt",
-    "09/21/26||Luxshare Precision (Yi'an) Co.,Ltd]||Sau khi nhà máy thay đổi vị trí Hub kết nối giữa LCU và NXTR, không thể truy cập LCUweb từ Fujiweb||Open": "log_9.html"
+    "09/21/26||Luxshare Precision (Yi'an) Co.,Ltd]||Sau khi nhà máy thay đổi vị trí Hub kết nối giữa LCU và NXTR, không thể truy cập LCUweb từ Fujiweb||Open": "log_9.html",
+    "10/03/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||Line V1-02, Line V1-03 và Line VS1-03 có trên màn hình NXTR, hiển thị thông báo mất kết nối với Line Console.||Open": "log_20.html"
 }
