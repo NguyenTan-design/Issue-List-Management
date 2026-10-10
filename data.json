@@ -722,7 +722,7 @@
     {
         "DATE": "10/07/26",
         "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
-        "ISSUE AND REQUEST": "Line V1-02, Line V1-03 và Line VS1-03 có trên màn hình NXTR, hiển thị thông báo mất kết nối với Line Console.",
+        "ISSUE AND REQUEST": "Line V1-02, Line V1-03 và Line VS1-03 có trên màn hình NXTR, hiển thị thông báo mất kết nối với Line Console.\nLines V1-02, V1-03, and VS1-03 displayed a “Connection to Line Console lost” message on the NXTR screen.",
         "STATUS": "Open",
         "LOG": "",
         "CC LINK": ""
