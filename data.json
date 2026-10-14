@@ -774,5 +774,13 @@
         "STATUS": "Open",
         "LOG": "",
         "CC LINK": ""
+    },
+    {
+        "DATE": "10/13/26",
+        "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
+        "ISSUE AND REQUEST": "BGA贴装反向。贴装上料前检查没有反向，贴装后转角度。在NXTIII上没有，但是NXTRS有反向\n\nThe BGA component is placed in the reverse orientation. Before loading, the component is checked and confirmed to be correctly oriented, but its orientation changes after placement. This issue does not occur on the NXTIII, but it does occur on the NXTR-S",
+        "STATUS": "Open",
+        "LOG": "",
+        "CC LINK": ""
     }
 ]
