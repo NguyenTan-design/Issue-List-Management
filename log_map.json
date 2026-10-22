@@ -30,5 +30,6 @@
     "10/15/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||Trong quá trình sản xuất bình thường, máy xuất hiện lỗi yêu cầu scan liệu.||Monitoring": "log_30.html",
     "10/07/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||Line V1-02, Line V1-03 và Line VS1-03 có trên màn hình NXTR, hiển thị thông báo mất kết nối với Line Console.\nLines V1-02, V1-03, and VS1-03 displayed a “Connection to Line Console lost” message on the NXTR screen.||Monitoring": "log_20.html",
     "08/18/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||Nexim软件删除用户账号时报错\nNEXIM software displays an error when deleting a user account.||Closed": "log_19.html",
-    "08/03/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||托盘下面的胶垫会经常脱落\nThe rubber pad underneath the tray frequently comes off.||Monitoring": "log_15.html"
+    "08/03/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||托盘下面的胶垫会经常脱落\nThe rubber pad underneath the tray frequently comes off.||Monitoring": "log_15.html",
+    "10/22/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||lỗi khi sử dụng Medit truyền xuống module thành công, nhưng panel đang đánh dỡ ở trong module, không tiếp tục gắn liệu.||Monitoring": "log_31.html"
 }
