@@ -18,7 +18,6 @@
     "09/26/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||Wu Yun Feng request\nProvide 60 pcs of waste tape box bracket\nPart number 2AHEPG009200\n武云峰申请富士免费提供60个垃圾箱盖板\n料号 2AHEPG009200||Closed": "log_5.html",
     "08/10/26||MERRY & LUXSHARE (VIET NAM) CO.,LTD]||从2025年5月开始NEXIM软件(V3.2.21)生产报告部分线体没有资料，已多次反馈FMV 厂商还没解决好.\nThere is no data in the Report function in Nexim||Open": "log_21.html",
     "08/03/26||Luxshare Precision (Yi'an) Co.,Ltd]||所有机台&吸嘴清洗机在更换吸嘴或给出下吸嘴指令时都存在误识别将空位置识别为有吸嘴，从而导致报错8F5D0000（吸嘴返回时，没有可以收存该吸嘴的存放格）All machines and SNC have a misrecognition issue when replacing nozzles or issuing a nozzle-down command. An empty slot may be incorrectly detected as occupied by a nozzle, resulting in error 8F5D0000: “When returning the nozzle, there is no available storage slot to store the nozzle.”||Open": "log_22.html",
-    "10/07/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||Line V1-02, Line V1-03 và Line VS1-03 có trên màn hình NXTR, hiển thị thông báo mất kết nối với Line Console.\nLines V1-02, V1-03, and VS1-03 displayed a “Connection to Line Console lost” message on the NXTR screen.||Open": "log_20.html",
     "10/05/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||The customer requested consultation on purchasing spare parts for the GPX-CS and GPX-CS2 printers.\n\n客户要求咨询购买 GPX-CS 和 GPX-CS2 印刷机的备件。||Closed": "log_7.html",
     "09/28/26||E5||Thay nguyên cụm nozzle changer cho E5 vì bị lỗi solenoid valve||Closed": "log_8.html",
     "10/13/26||MERRY & LUXSHARE (VIET NAM) CO.,LTD]||要求 : Nexim生产日报周报月报邮件通知功能设定\nRequest  : Mail notification fuction setting||Open": "log_23.html",
@@ -30,5 +29,6 @@
     "10/13/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||BGA贴装反向。贴装上料前检查没有反向，贴装后转角度。在NXTIII上没有，但是NXTRS有反向\n\nThe BGA component is placed in the reverse orientation. Before loading, the component is checked and confirmed to be correctly oriented, but its orientation changes after placement. This issue does not occur on the NXTIII, but it does occur on the NXTR-S||Open": "log_29.html",
     "09/20/26||Luxshare Precision (Yi'an) Co.,Ltd]||Issue Line 7 module số 6 : Lỗi module bị kẹt khi ấn lệnh pull module, cần trợ lực từ operator.||Monitoring": "log_12.html",
     "09/18/26||E5||检查相机照片偶尔NXTR显示屏显示范围变小\nThe part image become too small in NXTR monitor||Monitoring": "log_13.html",
-    "10/15/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||Trong quá trình sản xuất bình thường, máy xuất hiện lỗi yêu cầu scan liệu.||Monitoring": "log_30.html"
+    "10/15/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||Trong quá trình sản xuất bình thường, máy xuất hiện lỗi yêu cầu scan liệu.||Monitoring": "log_30.html",
+    "10/07/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||Line V1-02, Line V1-03 và Line VS1-03 có trên màn hình NXTR, hiển thị thông báo mất kết nối với Line Console.\nLines V1-02, V1-03, and VS1-03 displayed a “Connection to Line Console lost” message on the NXTR screen.||Monitoring": "log_20.html"
 }
