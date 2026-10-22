@@ -28,7 +28,7 @@
     "10/13/26||MERRY & LUXSHARE (VIET NAM) CO.,LTD]||1、FUJI设备各项功能是否在使用\n2、FUJI设备正常使用存在的问题，例如稼动率OEE较低需协助分析及给出有效可行的建议。\n\n1. Verify whether all functions of the FUJI equipment are being utilized.\n2. Identify issues affecting the normal operation of FUJI equipment. For example, if the Overall Equipment Effectiveness (OEE) is low, provide support in analyzing the root causes and offer effective, practical recommendations for improvement.||Open": "log_26.html",
     "10/13/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||要求 ： 3台机同时编辑Remote VPD功能要求\nRequest : Can do on machine edit with 3 machine at the same times||Open": "log_28.html",
     "10/13/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||BGA贴装反向。贴装上料前检查没有反向，贴装后转角度。在NXTIII上没有，但是NXTRS有反向\n\nThe BGA component is placed in the reverse orientation. Before loading, the component is checked and confirmed to be correctly oriented, but its orientation changes after placement. This issue does not occur on the NXTIII, but it does occur on the NXTR-S||Open": "log_29.html",
-    "10/15/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||Trong quá trình sản xuất bình thường, máy xuất hiện lỗi yêu cầu scan liệu.||Open": "log_30.html",
     "09/20/26||Luxshare Precision (Yi'an) Co.,Ltd]||Issue Line 7 module số 6 : Lỗi module bị kẹt khi ấn lệnh pull module, cần trợ lực từ operator.||Monitoring": "log_12.html",
-    "09/18/26||E5||检查相机照片偶尔NXTR显示屏显示范围变小\nThe part image become too small in NXTR monitor||Monitoring": "log_13.html"
+    "09/18/26||E5||检查相机照片偶尔NXTR显示屏显示范围变小\nThe part image become too small in NXTR monitor||Monitoring": "log_13.html",
+    "10/15/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||Trong quá trình sản xuất bình thường, máy xuất hiện lỗi yêu cầu scan liệu.||Monitoring": "log_30.html"
 }
