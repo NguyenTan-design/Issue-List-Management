@@ -806,5 +806,13 @@
         "STATUS": "Open",
         "LOG": "",
         "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00001MbMh7YAF"
+    },
+    {
+        "DATE": "10/26/26",
+        "SITE": "E5",
+        "ISSUE AND REQUEST": "LINE E52S1-02 không hiển thị data sản xuất",
+        "STATUS": "Monitoring",
+        "LOG": "",
+        "CC LINK": ""
     }
 ]
