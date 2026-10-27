@@ -34,5 +34,6 @@
     "10/22/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||lỗi khi sử dụng Medit truyền xuống module thành công, nhưng panel đang đánh dỡ ở trong module, không tiếp tục gắn liệu.||Monitoring": "log_31.html",
     "10/25/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||Cycle Time in the Job Does Not Match the Actual Cycle Time\nAt Luxsharetech Nghe An, there is a job in which each module places only one type of component.\nFor the 2RV module, the cycle time specified in the job is approximately 31 seconds. However, the actual cycle time displayed on the machine is approximately 60 seconds, and the actual placement time is also around 60 seconds.||Open": "log_32.html",
     "10/26/26||E5||LINE E52S1-02 không hiển thị data sản xuất||Monitoring": "log_33.html",
-    "10/27/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||Module 3 ,line V1-03 báo lỗi 1203,1204||Open": "log_34.html"
+    "10/27/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||Module 3 ,line V1-03 báo lỗi 1203,1204||Open": "log_34.html",
+    "10/26/26||MERRY & LUXSHARE (VIET NAM) CO.,LTD]||Khách hàng báo trên fujiweb cột thông tin no pickup của các line NXT3 không có thông số||Open": "log_35.html"
 }
