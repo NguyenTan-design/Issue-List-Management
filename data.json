@@ -814,5 +814,13 @@
         "STATUS": "Monitoring",
         "LOG": "",
         "CC LINK": ""
+    },
+    {
+        "DATE": "10/27/26",
+        "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
+        "ISSUE AND REQUEST": "Module 3 ,line V1-03 báo lỗi 1203,1204",
+        "STATUS": "Open",
+        "LOG": "",
+        "CC LINK": ""
     }
 ]
