@@ -830,5 +830,13 @@
         "STATUS": "Open",
         "LOG": "",
         "CC LINK": ""
+    },
+    {
+        "DATE": "10/27/26",
+        "SITE": "LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]",
+        "ISSUE AND REQUEST": "V1-02 模组3，真空泵报错 0001204，0001203\nV1-02 Line, Module 3 – Vacuum pump errors 0001204 and 0001203.",
+        "STATUS": "Open",
+        "LOG": "",
+        "CC LINK": ""
     }
 ]
