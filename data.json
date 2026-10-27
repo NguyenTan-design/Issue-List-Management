@@ -336,10 +336,10 @@
         "CC LINK": "NOT AVAILABLE"
     },
     {
-        "DATE": "08-10-2026",
+        "DATE": "08/10/26",
         "SITE": "MERRY & LUXSHARE (VIET NAM) CO.,LTD]",
         "ISSUE AND REQUEST": "从设备改流向后。4线第三模组（M6III)，2线第七模组(M6III)生产中按了停止后再开起来Mark 点检测偏位，每次需要手动调位置，已反馈FMV 厂商还没解决好\nAfter pressing the Cycle Stop button and then pressing the Start button, the panel stop position not correct, causing the camera to be unable to detect the fiducial marks.",
-        "STATUS": "open",
+        "STATUS": "Closed",
         "LOG": "https://fujimachineasia-my.sharepoint.com/:w:/g/personal/tan_fuji-smt_com_sg/IQAqknF4edX0RrXr-96MKGqsAVU9HYeSmRQcW1H4QUS5Vkk?e=C2P7p4",
         "CC LINK": "NOT AVAILABLE"
     },
