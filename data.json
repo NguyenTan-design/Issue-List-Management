@@ -822,5 +822,13 @@
         "STATUS": "Open",
         "LOG": "",
         "CC LINK": ""
+    },
+    {
+        "DATE": "12/28/26",
+        "SITE": "MERRY & LUXSHARE (VIET NAM) CO.,LTD]",
+        "ISSUE AND REQUEST": "Difference in the Display of the Same Error Code 8000D701 (Pick-up Error, Pickup Miss) on FUJIweb\n\nPath: FUJIweb → Production Data → PartUsage\n\nThe same error code 8000D701 is displayed differently on NXT III and NXTR machines.\n\nNXT III: When error D701 occurs, the part is recorded in the DISLODGE category on FUJIweb.\n\nNXTR: When error D701 occurs, the part is recorded in the NO PICKUP category on FUJIweb.",
+        "STATUS": "Open",
+        "LOG": "",
+        "CC LINK": ""
     }
 ]

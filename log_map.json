@@ -34,5 +34,6 @@
     "10/26/26||E5||LINE E52S1-02 không hiển thị data sản xuất||Monitoring": "log_33.html",
     "10/27/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||V1-02 模组3，真空泵报错 0001204，0001203\nV1-02 Line, Module 3 – Vacuum pump errors 0001204 and 0001203.||Open": "log_36.html",
     "09/20/26||Luxshare Precision (Yi'an) Co.,Ltd]||Issue Line 7 module số 6 : Lỗi module bị kẹt khi ấn lệnh pull module, cần trợ lực từ operator.||Closed": "log_12.html",
-    "09/21/26||Luxshare Precision (Yi'an) Co.,Ltd]||Sau khi nhà máy thay đổi vị trí Hub kết nối giữa LCU và NXTR, không thể truy cập LCUweb từ Fujiweb||Monitoring": "log_9.html"
+    "09/21/26||Luxshare Precision (Yi'an) Co.,Ltd]||Sau khi nhà máy thay đổi vị trí Hub kết nối giữa LCU và NXTR, không thể truy cập LCUweb từ Fujiweb||Monitoring": "log_9.html",
+    "12/28/26||MERRY & LUXSHARE (VIET NAM) CO.,LTD]||Difference in the Display of the Same Error Code 8000D701 (Pick-up Error, Pickup Miss) on FUJIweb\n\nPath: FUJIweb → Production Data → PartUsage\n\nThe same error code 8000D701 is displayed differently on NXT III and NXTR machines.\n\nNXT III: When error D701 occurs, the part is recorded in the DISLODGE category on FUJIweb.\n\nNXTR: When error D701 occurs, the part is recorded in the NO PICKUP category on FUJIweb.||Open": "log_37.html"
 }
