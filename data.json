@@ -830,5 +830,13 @@
         "STATUS": "Open",
         "LOG": "",
         "CC LINK": ""
+    },
+    {
+        "DATE": "10/28/26",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "Khách hàng phản hồi nhiều module tự động hạ nozzle, mặc dù chức năng check nozzle trong selfcase không bật",
+        "STATUS": "Open",
+        "LOG": "",
+        "CC LINK": ""
     }
 ]
