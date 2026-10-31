@@ -838,5 +838,13 @@
         "STATUS": "Open",
         "LOG": "",
         "CC LINK": ""
+    },
+    {
+        "DATE": "10/30/26",
+        "SITE": "Luxshare Precision (Yi'an) Co.,Ltd]",
+        "ISSUE AND REQUEST": "M1R does not read the Skip Mark when there are no component placement points on M1R.",
+        "STATUS": "Open",
+        "LOG": "",
+        "CC LINK": "https://community.fuji.co.jp/ccrs/500TK00001NhQSwYAN"
     }
 ]
