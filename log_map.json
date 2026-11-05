@@ -25,7 +25,6 @@
     "10/13/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||要求 ： 3台机同时编辑Remote VPD功能要求\nRequest : Can do on machine edit with 3 machine at the same times||Open": "log_28.html",
     "10/13/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||BGA贴装反向。贴装上料前检查没有反向，贴装后转角度。在NXTIII上没有，但是NXTRS有反向\n\nThe BGA component is placed in the reverse orientation. Before loading, the component is checked and confirmed to be correctly oriented, but its orientation changes after placement. This issue does not occur on the NXTIII, but it does occur on the NXTR-S||Open": "log_29.html",
     "09/18/26||E5||检查相机照片偶尔NXTR显示屏显示范围变小\nThe part image become too small in NXTR monitor||Monitoring": "log_13.html",
-    "10/15/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||Trong quá trình sản xuất bình thường, máy xuất hiện lỗi yêu cầu scan liệu.||Monitoring": "log_30.html",
     "10/07/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||Line V1-02, Line V1-03 và Line VS1-03 có trên màn hình NXTR, hiển thị thông báo mất kết nối với Line Console.\nLines V1-02, V1-03, and VS1-03 displayed a “Connection to Line Console lost” message on the NXTR screen.||Monitoring": "log_20.html",
     "08/18/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||Nexim软件删除用户账号时报错\nNEXIM software displays an error when deleting a user account.||Closed": "log_19.html",
     "08/03/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||托盘下面的胶垫会经常脱落\nThe rubber pad underneath the tray frequently comes off.||Monitoring": "log_15.html",
@@ -39,5 +38,6 @@
     "10/27/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||V1-02 模组3，真空泵报错 0001204，0001203\nV1-02 Line, Module 3 – Vacuum pump errors 0001204 and 0001203.||Monitoring": "log_36.html",
     "11/03/26||Luxvisions Innovation Technology (Yian) Co., Ltd.]||Customer request special patch to prevent reject part to drop||Monitoring": "log_40.html",
     "11/03/26||Luxvisions Innovation Technology (Yian) Co., Ltd.]||Request to install a new profiler database PC for all production line||Open": "log_41.html",
-    "10/28/26||MERRY & LUXSHARE (VIET NAM) CO.,LTD]||Difference in the Display of the Same Error Code 8000D701 (Pick-up Error, Pickup Miss) on FUJIweb\n\nPath: FUJIweb → Production Data → PartUsage\n\nThe same error code 8000D701 is displayed differently on NXT III and NXTR machines.\n\nNXT III: When error D701 occurs, the part is recorded in the DISLODGE category on FUJIweb.\n\nNXTR: When error D701 occurs, the part is recorded in the NO PICKUP category on FUJIweb.||Open": "log_37.html"
+    "10/28/26||MERRY & LUXSHARE (VIET NAM) CO.,LTD]||Difference in the Display of the Same Error Code 8000D701 (Pick-up Error, Pickup Miss) on FUJIweb\n\nPath: FUJIweb → Production Data → PartUsage\n\nThe same error code 8000D701 is displayed differently on NXT III and NXTR machines.\n\nNXT III: When error D701 occurs, the part is recorded in the DISLODGE category on FUJIweb.\n\nNXTR: When error D701 occurs, the part is recorded in the NO PICKUP category on FUJIweb.||Open": "log_37.html",
+    "10/15/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||Trong quá trình sản xuất bình thường, máy xuất hiện lỗi yêu cầu scan liệu.||Closed": "log_30.html"
 }
