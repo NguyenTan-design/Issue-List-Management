@@ -27,7 +27,6 @@
     "09/18/26||E5||检查相机照片偶尔NXTR显示屏显示范围变小\nThe part image become too small in NXTR monitor||Monitoring": "log_13.html",
     "08/18/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||Nexim软件删除用户账号时报错\nNEXIM software displays an error when deleting a user account.||Closed": "log_19.html",
     "08/03/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||托盘下面的胶垫会经常脱落\nThe rubber pad underneath the tray frequently comes off.||Monitoring": "log_15.html",
-    "10/22/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||lỗi khi sử dụng Medit truyền xuống module thành công, nhưng panel đang đánh dỡ ở trong module, không tiếp tục gắn liệu.||Monitoring": "log_31.html",
     "10/25/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||Cycle Time in the Job Does Not Match the Actual Cycle Time\nAt Luxsharetech Nghe An, there is a job in which each module places only one type of component.\nFor the 2RV module, the cycle time specified in the job is approximately 31 seconds. However, the actual cycle time displayed on the machine is approximately 60 seconds, and the actual placement time is also around 60 seconds.||Open": "log_32.html",
     "10/26/26||E5||LINE E52S1-02 không hiển thị data sản xuất||Monitoring": "log_33.html",
     "09/20/26||Luxshare Precision (Yi'an) Co.,Ltd]||Issue Line 7 module số 6 : Lỗi module bị kẹt khi ấn lệnh pull module, cần trợ lực từ operator.||Closed": "log_12.html",
@@ -39,5 +38,6 @@
     "10/28/26||MERRY & LUXSHARE (VIET NAM) CO.,LTD]||Difference in the Display of the Same Error Code 8000D701 (Pick-up Error, Pickup Miss) on FUJIweb\n\nPath: FUJIweb → Production Data → PartUsage\n\nThe same error code 8000D701 is displayed differently on NXT III and NXTR machines.\n\nNXT III: When error D701 occurs, the part is recorded in the DISLODGE category on FUJIweb.\n\nNXTR: When error D701 occurs, the part is recorded in the NO PICKUP category on FUJIweb.||Open": "log_37.html",
     "10/15/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||Trong quá trình sản xuất bình thường, máy xuất hiện lỗi yêu cầu scan liệu.||Closed": "log_30.html",
     "10/27/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||V1-02 模组3，真空泵报错 0001204，0001203\nV1-02 Line, Module 3 – Vacuum pump errors 0001204 and 0001203.||Closed": "log_36.html",
-    "10/07/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||Line V1-02, Line V1-03 và Line VS1-03 có trên màn hình NXTR, hiển thị thông báo mất kết nối với Line Console.\nLines V1-02, V1-03, and VS1-03 displayed a “Connection to Line Console lost” message on the NXTR screen.||Closed": "log_20.html"
+    "10/07/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||Line V1-02, Line V1-03 và Line VS1-03 có trên màn hình NXTR, hiển thị thông báo mất kết nối với Line Console.\nLines V1-02, V1-03, and VS1-03 displayed a “Connection to Line Console lost” message on the NXTR screen.||Closed": "log_20.html",
+    "10/22/26||LUXSHARE TECHNOLOGIES (VIETNAM) CO., LTD]||lỗi khi sử dụng Medit truyền xuống module thành công, nhưng panel đang đánh dỡ ở trong module, không tiếp tục gắn liệu.||Closed": "log_31.html"
 }
