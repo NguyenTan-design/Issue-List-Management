@@ -874,7 +874,7 @@
     {
         "DATE": "11/05/26",
         "SITE": "E5",
-        "ISSUE AND REQUEST": "-Line 2 M3-Right,Head 28 S/N: HF10210009192\n\n+The E5 factory had one Head 28 (S/N: HF10210009192) with error D7D0 (Field of View of the IPS). The head was brought back to the office for inspection.\n+After disabling the IPS function, the head attempted to pick up components, but a \"No Device\" error appeared on the machine screen.\n+I adjusted Offset Z0 from 0 to -0.3, but the same error persisted.\n+After checking, the component center and pickup center were found to be misaligned. Therefore, the faulty Head 28 was replaced with a spare head provided by the factory.",
+        "ISSUE AND REQUEST": "-Line 2 M3-Right,Head 28 S/N: HF10210009192\n\n+The E5 factory had one Head 28 (S/N: HF10210009192) with error D7D0 (Field of View of the IPS). The head was brought back to the office for inspection.\n+After disabling the IPS function, the head attempted to pick up components, but a \"No Device\" error appeared on the machine screen.\n+I adjusted Offset Z0 from 0 to -0.3, but the same error persisted.\n+After checking, the component center and pickup center were found to be misaligned. Therefore, the faulty Head 28 was replaced with a spare head provided by the factory.\n\nHead 28 S/N:HF10210009192\n+Xưởng E5 có 1 head 28 S/N:HF10210009192 Err D7D0(Field of view of the IPS), đã đưa về văn phòng.\n+Sau khi tắt xong chức năng IPS thì head ra pickup linh kiện thì trên màn hình báo lỗi No Divice  , em đã hạ OffsetZ 0 xuống -0,3 thì máy vẫn báo lỗi tương tự sau đó kiểm tra tâm linh kiện với tâm pickup bị lệch nhau nên đã thay Head 28 dự phòng của nhà máy.",
         "STATUS": "Open",
         "LOG": "",
         "CC LINK": ""
